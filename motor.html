@@ -4,905 +4,197 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dynamic DC Motor Simulator | MECH-X</title>
+<title>DC Motor Laboratory | MECH-X</title>
 
 <style>
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #07111f;
-    color: #e8f0f7;
+:root{
+    --blue:#1261d6;
+    --blue-dark:#0b2d5c;
+    --blue-light:#eaf3ff;
+    --blue-soft:#f4f8ff;
+    --text:#132238;
+    --muted:#607089;
+    --border:#d8e3f0;
+    --white:#ffffff;
+    --green:#16834b;
+    --shadow:0 12px 35px rgba(19,54,94,.08);
 }
 
-nav {
-    padding: 18px 7%;
-    border-bottom: 1px solid #1c334a;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #07111f;
+html{
+    scroll-behavior:smooth;
 }
 
-.logo {
-    color: #22d3ee;
-    font-weight: bold;
-    letter-spacing: 2px;
-    font-size: 1.4rem;
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:var(--text);
+    line-height:1.6;
 }
-
-nav a {
-    color: #cbd5e1;
-    text-decoration: none;
-    margin-left: 20px;
-}
-
-nav a:hover {
-    color: #22d3ee;
-}
-
-.hero {
-    padding: 60px 7% 30px;
-}
-
-.hero span {
-    color: #22d3ee;
-    font-size: 0.85rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-.hero h1 {
-    font-size: clamp(2.3rem, 5vw, 4rem);
-    margin: 12px 0;
-}
-
-.hero p {
-    color: #94a3b8;
-    max-width: 750px;
-}
-
-.container {
-    padding: 30px 7% 80px;
-}
-
-.simulator {
-    max-width: 1250px;
-    display: grid;
-    grid-template-columns: 330px 1fr;
-    gap: 25px;
-}
-
-.panel {
-    background: #0d1b2a;
-    border: 1px solid #1e3a52;
-    border-radius: 15px;
-    padding: 25px;
-}
-
-.panel h2 {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-top: 13px;
-    margin-bottom: 6px;
-    color: #cbd5e1;
-    font-size: 0.9rem;
-}
-
-input {
-    width: 100%;
-    padding: 11px;
-    background: #07111f;
-    border: 1px solid #29445b;
-    border-radius: 8px;
-    color: white;
-    font-size: 1rem;
-}
-
-input:focus {
-    outline: none;
-    border-color: #22d3ee;
-}
-
-button {
-    width: 100%;
-    padding: 13px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 8px;
-    background: #22d3ee;
-    color: #031018;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.85;
-}
-
-.secondary {
-    background: #17283a;
-    color: #cbd5e1;
-}
-
-.results {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-}
-
-.result-card {
-    background: #081522;
-    border: 1px solid #1e3a52;
-    border-radius: 10px;
-    padding: 15px;
-}
-
-.result-card small {
-    color: #94a3b8;
-}
-
-.result-card h3 {
-    margin-top: 6px;
-    color: #67e8f9;
-    font-size: 1.1rem;
-}
-
-.chart-container {
-    margin-top: 25px;
-    background: #081522;
-    border-radius: 12px;
-    padding: 20px;
-}
-
-canvas {
-    width: 100%;
-    height: 350px;
-    display: block;
-}
-
-.motor-display {
-    margin-top: 25px;
-    background: #081522;
-    border-radius: 12px;
-    padding: 25px;
-    text-align: center;
-}
-
-.motor {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 8px solid #22d3ee;
-    margin: 20px auto;
-    position: relative;
-    animation: spin 0.2s linear infinite;
-    animation-play-state: paused;
-}
-
-.motor::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 50px;
-    background: #e8f0f7;
-    left: 48px;
-    top: 27px;
-    border-radius: 5px;
-}
-
-@keyframes spin {
-
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-.formula {
-    margin-top: 25px;
-    padding: 15px;
-    background: #101f30;
-    border-radius: 8px;
-    color: #67e8f9;
-    font-family: monospace;
-    line-height: 1.8;
-}
-
-@media(max-width: 900px) {
-
-    .simulator {
-        grid-template-columns: 1fr;
-    }
-
-    .results {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media(max-width: 500px) {
-
-    .results {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<nav>
-
-<div class="logo">MECH-X</div>
-
-<div>
-<a href="index.html">Home</a>
-<a href="calculators.html">Calculators</a>
-<a href="motor.html">Motor Lab</a>
-</div>
-
-</nav>
-
-
-<section class="hero">
-
-<span>DYNAMIC ENGINEERING SIMULATION</span>
-
-<h1>DC Motor Laboratory</h1>
-
-<p>
-Simulate the acceleration and steady-state response of a
-simplified DC motor using a numerical time-domain model.
-</p>
-
-</section>
-
-
-<section class="container">
-
-<div class="simulator">
-
-
-<!-- PARAMETERS -->
-
-<div class="panel">
-
-<h2>Motor Parameters</h2>
-
-<label>Supply Voltage (V)</label>
-<input id="voltage" type="number" value="24" step="0.1">
-
-<label>Armature Resistance (Ω)</label>
-<input id="resistance" type="number" value="2" step="0.1">
-
-<label>Motor Constant Ke</label>
-<input id="ke" type="number" value="0.08" step="0.01">
-
-<label>Torque Constant Kt</label>
-<input id="kt" type="number" value="0.08" step="0.01">
-
-<label>Load Torque (N·m)</label>
-<input id="load" type="number" value="0.3" step="0.05">
-
-<label>Inertia J (kg·m²)</label>
-<input id="inertia" type="number" value="0.02" step="0.005">
-
-<label>Friction Coefficient b</label>
-<input id="friction" type="number" value="0.002" step="0.001">
-
-<label>Simulation Time (s)</label>
-<input id="simTime" type="number" value="5" step="1">
-
-<button onclick="runSimulation()">
-RUN SIMULATION
-</button>
-
-<button class="secondary" onclick="clearSimulation()">
-CLEAR
-</button>
-
-</div>
-
-
-<!-- OUTPUT -->
-
-<div class="panel">
-
-<h2>Motor Response</h2>
-
-<div class="results">
-
-<div class="result-card">
-<small>Final Speed</small>
-<h3 id="finalRPM">— RPM</h3>
-</div>
-
-<div class="result-card">
-<small>Final Current</small>
-<h3 id="finalCurrent">— A</h3>
-</div>
-
-<div class="result-card">
-<small>Final Torque</small>
-<h3 id="finalTorque">— N·m</h3>
-</div>
-
-<div class="result-card">
-<small>Final Power</small>
-<h3 id="finalPower">— W</h3>
-</div>
-
-</div>
-
-
-<div class="chart-container">
-
-<h3>Speed Response</h3>
-
-<canvas id="graph"></canvas>
-
-</div>
-
-
-<div class="motor-display">
-
-<h3>Motor Visualization</h3>
-
-<div id="motor" class="motor"></div>
-
-<p id="status">
-Run the simulation.
-</p>
-
-</div>
-
-
-<div class="formula">
-
-V = E + IR
-
-E = Keω
-
-T = KtI
-
-J(dω/dt) = T - T<sub>load</sub> - bω
-
-ω = angular velocity
-
-J = motor inertia
-
-b = viscous friction coefficient
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<script>
-
-let animationTimer = null;
-
 
 /* =========================
-   CANVAS SETUP
+   NAVIGATION
 ========================= */
 
-const canvas =
-    document.getElementById("graph");
-
-const ctx =
-    canvas.getContext("2d");
-
-
-function resizeCanvas() {
-
-    canvas.width =
-        canvas.clientWidth * window.devicePixelRatio;
-
-    canvas.height =
-        canvas.clientHeight * window.devicePixelRatio;
-
-    ctx.scale(
-        window.devicePixelRatio,
-        window.devicePixelRatio
-    );
-
+.navbar{
+    width:100%;
+    background:#ffffff;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-resizeCanvas();
+.nav-inner{
+    max-width:1200px;
+    margin:auto;
+    min-height:78px;
+    padding:0 24px;
 
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
 
+.logo{
+    text-decoration:none;
+    font-weight:900;
+    font-size:25px;
+    letter-spacing:2px;
+    color:var(--blue);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    flex-wrap:wrap;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#41536d;
+    font-size:15px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.nav-links a:hover{
+    color:var(--blue);
+}
 
 /* =========================
-   MOTOR SIMULATION
+   HERO
 ========================= */
 
-function runSimulation() {
-
-    clearSimulation();
-
-
-    const V =
-        parseFloat(document.getElementById("voltage").value);
-
-    const R =
-        parseFloat(document.getElementById("resistance").value);
-
-    const Ke =
-        parseFloat(document.getElementById("ke").value);
-
-    const Kt =
-        parseFloat(document.getElementById("kt").value);
-
-    const load =
-        parseFloat(document.getElementById("load").value);
-
-    const J =
-        parseFloat(document.getElementById("inertia").value);
-
-    const b =
-        parseFloat(document.getElementById("friction").value);
-
-    const totalTime =
-        parseFloat(document.getElementById("simTime").value);
-
-
-    if (
-        V <= 0 ||
-        R <= 0 ||
-        Ke <= 0 ||
-        Kt <= 0 ||
-        J <= 0 ||
-        totalTime <= 0
-    ) {
-
-        alert("Enter valid positive motor parameters.");
-
-        return;
-
-    }
-
-
-    const dt = 0.01;
-
-    let omega = 0;
-
-    const time = [];
-    const speed = [];
-
-
-    /*
-    Euler numerical integration.
-
-    At every small time step:
-
-    1. Calculate back EMF
-    2. Calculate current
-    3. Calculate motor torque
-    4. Calculate acceleration
-    5. Update angular velocity
-    */
-
-
-    for (
-        let t = 0;
-        t <= totalTime;
-        t += dt
-    ) {
-
-        const backEMF =
-            Ke * omega;
-
-
-        let current =
-            (V - backEMF) / R;
-
-
-        /*
-        Prevent physically unrealistic
-        reverse current during this simplified model.
-        */
-
-        if (current < 0) {
-
-            current = 0;
-
-        }
-
-
-        const motorTorque =
-            Kt * current;
-
-
-        const acceleration =
-            (
-                motorTorque -
-                load -
-                b * omega
-            ) / J;
-
-
-        omega =
-            omega + acceleration * dt;
-
-
-        if (omega < 0) {
-
-            omega = 0;
-
-        }
-
-
-        const rpm =
-            omega * 60 / (2 * Math.PI);
-
-
-        time.push(t);
-
-        speed.push(rpm);
-
-    }
-
-
-    drawGraph(time, speed);
-
-
-    const finalSpeed =
-        speed[speed.length - 1];
-
-
-    const finalOmega =
-        finalSpeed * 2 * Math.PI / 60;
-
-
-    const finalBackEMF =
-        Ke * finalOmega;
-
-
-    const finalCurrent =
-        Math.max(
-            0,
-            (V - finalBackEMF) / R
-        );
-
-
-    const finalTorque =
-        Kt * finalCurrent;
-
-
-    const finalPower =
-        finalTorque * finalOmega;
-
-
-    document.getElementById("finalRPM").innerText =
-        finalSpeed.toFixed(1) + " RPM";
-
-
-    document.getElementById("finalCurrent").innerText =
-        finalCurrent.toFixed(2) + " A";
-
-
-    document.getElementById("finalTorque").innerText =
-        finalTorque.toFixed(3) + " N·m";
-
-
-    document.getElementById("finalPower").innerText =
-        finalPower.toFixed(2) + " W";
-
-
-    document.getElementById("status").innerText =
-        "Simulation complete — steady-state speed: " +
-        finalSpeed.toFixed(1) +
-        " RPM";
-
-
-    /*
-    Animate motor based on final speed.
-    */
-
-    const motor =
-        document.getElementById("motor");
-
-    motor.style.animationPlayState =
-        "running";
-
-    motor.style.animationDuration =
-        Math.max(
-            0.05,
-            60 / Math.max(finalSpeed, 1)
-        ) + "s";
-
+.hero{
+    max-width:1100px;
+    margin:auto;
+    padding:90px 24px 55px;
 }
 
+.eyebrow{
+    color:#159ed0;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:3px;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(44px,7vw,72px);
+    line-height:1.03;
+    letter-spacing:-2px;
+    color:#12213a;
+    max-width:850px;
+    margin-bottom:25px;
+}
+
+.hero p{
+    max-width:760px;
+    font-size:20px;
+    color:var(--muted);
+    line-height:1.65;
+}
 
 /* =========================
-   GRAPH
+   MAIN
 ========================= */
 
-function drawGraph(time, speed) {
-
-    const width =
-        canvas.clientWidth;
-
-    const height =
-        canvas.clientHeight;
-
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    if (time.length === 0) {
-        return;
-    }
-
-
-    const padding = 50;
-
-    const graphWidth =
-        width - padding * 2;
-
-    const graphHeight =
-        height - padding * 2;
-
-
-    const maxTime =
-        time[time.length - 1];
-
-
-    const maxSpeed =
-        Math.max(...speed) * 1.1 || 100;
-
-
-    /*
-    Background
-    */
-
-    ctx.strokeStyle =
-        "#29445b";
-
-    ctx.lineWidth = 1;
-
-
-    /*
-    Horizontal grid lines
-    */
-
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
-
-        const y =
-            padding +
-            graphHeight -
-            (i / 5) * graphHeight;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            padding,
-            y
-        );
-
-        ctx.lineTo(
-            width - padding,
-            y
-        );
-
-        ctx.stroke();
-
-
-        ctx.fillStyle =
-            "#94a3b8";
-
-        ctx.font =
-            "11px Arial";
-
-        const value =
-            (i / 5) * maxSpeed;
-
-
-        ctx.fillText(
-            value.toFixed(0),
-            8,
-            y + 4
-        );
-
-    }
-
-
-    /*
-    X axis labels
-    */
-
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
-
-        const x =
-            padding +
-            (i / 5) * graphWidth;
-
-
-        ctx.fillStyle =
-            "#94a3b8";
-
-        ctx.font =
-            "11px Arial";
-
-
-        ctx.fillText(
-            ((i / 5) * maxTime).toFixed(1) + "s",
-            x - 10,
-            height - 20
-        );
-
-    }
-
-
-    /*
-    Speed curve
-    */
-
-    ctx.beginPath();
-
-
-    for (
-        let i = 0;
-        i < time.length;
-        i++
-    ) {
-
-        const x =
-            padding +
-            (time[i] / maxTime) *
-            graphWidth;
-
-
-        const y =
-            padding +
-            graphHeight -
-            (speed[i] / maxSpeed) *
-            graphHeight;
-
-
-        if (i === 0) {
-
-            ctx.moveTo(
-                x,
-                y
-            );
-
-        } else {
-
-            ctx.lineTo(
-                x,
-                y
-            );
-
-        }
-
-    }
-
-
-    ctx.strokeStyle =
-        "#22d3ee";
-
-    ctx.lineWidth = 3;
-
-    ctx.stroke();
-
-
-    /*
-    Axis titles
-    */
-
-    ctx.fillStyle =
-        "#e8f0f7";
-
-    ctx.font =
-        "13px Arial";
-
-
-    ctx.fillText(
-        "Time (s)",
-        width / 2 - 25,
-        height - 3
-    );
-
-
-    ctx.save();
-
-    ctx.translate(
-        15,
-        height / 2
-    );
-
-    ctx.rotate(-Math.PI / 2);
-
-    ctx.fillText(
-        "Speed (RPM)",
-        0,
-        0
-    );
-
-    ctx.restore();
-
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:0 24px 80px;
 }
 
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+}
+
+.card{
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:32px;
+    box-shadow:var(--shadow);
+}
+
+.card h2{
+    font-size:25px;
+    margin-bottom:25px;
+    color:var(--blue-dark);
+}
+
+.card h3{
+    color:var(--blue-dark);
+    margin-bottom:10px;
+}
+
+.card p{
+    color:var(--muted);
+}
 
 /* =========================
-   CLEAR
+   INPUTS
 ========================= */
 
-function clearSimulation() {
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.clientWidth,
-        canvas.clientHeight
-    );
-
-
-    document.getElementById("finalRPM").innerText =
-        "— RPM";
-
-    document.getElementById("finalCurrent").innerText =
-        "— A";
-
-    document.getElementById("finalTorque").innerText =
-        "— N·m";
-
-    document.getElementById("finalPower").innerText =
-        "— W";
-
-
-    const motor =
-        document.getElementById("motor");
-
-    motor.style.animationPlayState =
-        "paused";
-
-
-    document.getElementById("status").innerText =
-        "Run the simulation.";
-
+.input-group{
+    margin-bottom:20px;
 }
 
-</script>
+.input-group label{
+    display:block;
+    font-size:15px;
+    font-weight:700;
+    color:#44546a;
+    margin-bottom:8px;
+}
 
-</body>
-</html>
+.input-group input{
+    width:100%;
+    height:52px;
+    padding:0 16px;
+
+    border:1px solid #cbd8e8;
+    border-radius:12px;
+
+    background:#ffffff;
+    color:#17253a;
+
+    font-size:17px;
+    outline:none;
+
+    transition:.2s;
+}
+
+.input-group input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(
