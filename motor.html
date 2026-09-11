@@ -19,7 +19,9 @@
 
     --white:#ffffff;
     --bg:#f7faff;
+
     --success:#168447;
+    --warning:#c77a00;
     --danger:#d43d3d;
 
     --shadow:0 12px 35px rgba(18,97,214,.08);
@@ -93,7 +95,6 @@ a{
     font-weight:600;
     font-size:15px;
     padding:8px 2px;
-    transition:.2s;
 }
 
 .nav-links a:hover,
@@ -106,7 +107,7 @@ a{
 .hero{
     max-width:1200px;
     margin:auto;
-    padding:72px 24px 45px;
+    padding:70px 24px 45px;
 }
 
 .eyebrow{
@@ -122,13 +123,13 @@ a{
     font-size:clamp(42px,7vw,72px);
     line-height:1.02;
     letter-spacing:-2px;
-    max-width:800px;
+    max-width:850px;
     color:var(--blue-dark);
     margin-bottom:22px;
 }
 
 .hero p{
-    max-width:780px;
+    max-width:800px;
     color:var(--muted);
     font-size:20px;
     line-height:1.55;
@@ -170,7 +171,7 @@ a{
 /* ================= INPUTS ================= */
 
 .input-group{
-    margin-bottom:19px;
+    margin-bottom:17px;
 }
 
 .input-group label{
@@ -183,14 +184,13 @@ a{
 
 .input-group input{
     width:100%;
-    padding:14px 15px;
+    padding:13px 15px;
     border:1px solid #cbd8e8;
     border-radius:11px;
     background:#ffffff;
     color:#15263d;
     font-size:16px;
     outline:none;
-    transition:.2s;
 }
 
 .input-group input:focus{
@@ -223,4 +223,2115 @@ button{
 }
 
 .primary-btn:hover{
-    background:#0e50
+    background:#0e50b2;
+    transform:translateY(-1px);
+}
+
+.secondary-btn{
+    background:var(--blue-light);
+    color:var(--blue);
+    border:1px solid #c8ddfa;
+}
+
+.secondary-btn:hover{
+    background:#dcecff;
+}
+
+.stop-btn{
+    background:#fff0f0;
+    color:var(--danger);
+    border:1px solid #f2cccc;
+}
+
+/* ================= STATUS ================= */
+
+.status-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:13px 15px;
+    border-radius:11px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    margin-bottom:20px;
+}
+
+.status-dot{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:#9aa8b8;
+}
+
+.status-dot.running{
+    background:var(--success);
+    box-shadow:0 0 0 5px rgba(22,132,71,.10);
+}
+
+.status-dot.warning{
+    background:var(--warning);
+}
+
+.status-text{
+    font-size:14px;
+    font-weight:800;
+    color:var(--text);
+}
+
+/* ================= MOTOR ================= */
+
+.motor-display{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:330px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:15px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
+
+.motor{
+    --motor-duration:2s;
+
+    position:relative;
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:#ffffff;
+    border:10px solid #c9d7e8;
+
+    box-shadow:
+        inset 0 0 0 8px #eef4fb,
+        0 15px 35px rgba(18,97,214,.12);
+}
+
+.motor::before{
+    content:"";
+    position:absolute;
+
+    width:108px;
+    height:108px;
+
+    border-radius:50%;
+
+    left:31px;
+    top:31px;
+
+    border:10px solid var(--blue);
+    border-right-color:var(--cyan);
+    border-bottom-color:#8fb7ed;
+
+    animation:spin var(--motor-duration) linear infinite;
+    animation-play-state:paused;
+}
+
+.motor.running::before{
+    animation-play-state:running;
+}
+
+.motor::after{
+    content:"";
+
+    position:absolute;
+
+    width:18px;
+    height:70px;
+
+    background:#52677f;
+
+    left:76px;
+    top:50px;
+
+    border-radius:10px;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.motor-status{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    margin-top:15px;
+}
+
+/* ================= METRICS ================= */
+
+.results{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.result{
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:12px;
+    padding:15px;
+}
+
+.result-label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.result-value{
+    margin-top:4px;
+    font-size:22px;
+    font-weight:900;
+    color:var(--blue-dark);
+}
+
+.result-unit{
+    font-size:12px;
+    color:var(--muted);
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.dashboard-card{
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:18px;
+    box-shadow:var(--shadow);
+}
+
+.dashboard-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.dashboard-value{
+    color:var(--blue-dark);
+    font-size:23px;
+    font-weight:900;
+    margin-top:4px;
+}
+
+/* ================= GRAPHS ================= */
+
+.graph-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:24px;
+}
+
+.graph-card{
+    margin-top:24px;
+}
+
+.graph-grid .graph-card{
+    margin-top:0;
+}
+
+.canvas-wrapper{
+    width:100%;
+    height:320px;
+    position:relative;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+}
+
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+/* ================= EQUATIONS ================= */
+
+.equations{
+    margin-top:24px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:14px;
+    padding:22px;
+}
+
+.equation{
+    font-family:"Courier New",monospace;
+    background:#ffffff;
+    border:1px solid #dce4ef;
+    padding:12px 14px;
+    border-radius:9px;
+    margin-top:9px;
+    color:var(--blue-dark);
+    overflow-x:auto;
+}
+
+/* ================= INFO ================= */
+
+.info{
+    margin-top:24px;
+    padding:20px;
+    background:#ffffff;
+    border-left:4px solid var(--blue);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+}
+
+.info p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid var(--border);
+    background:#ffffff;
+    padding:30px 24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+footer strong{
+    color:var(--blue);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    .grid,
+    .graph-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:800px){
+
+    .nav-container{
+        padding:16px 18px;
+        align-items:flex-start;
+    }
+
+    .logo{
+        font-size:22px;
+        min-width:70px;
+    }
+
+    .nav-links{
+        gap:20px;
+        max-width:calc(100vw - 100px);
+    }
+
+    .hero{
+        padding:55px 20px 35px;
+    }
+
+    .hero h1{
+        font-size:47px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    .main{
+        padding:0 20px 60px;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+    .canvas-wrapper{
+        height:280px;
+    }
+}
+
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .eyebrow{
+        font-size:12px;
+        letter-spacing:2px;
+    }
+
+    .results,
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .button-row button{
+        width:100%;
+    }
+
+    .motor{
+        width:145px;
+        height:145px;
+    }
+
+    .motor::before{
+        width:78px;
+        height:78px;
+        left:24px;
+        top:24px;
+    }
+
+    .motor::after{
+        left:58px;
+        top:40px;
+        height:55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="index.html" class="logo">
+            MECH-<span>X</span>
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="calculators.html">
+                Calculators
+            </a>
+
+            <a href="motor.html" class="active">
+                Motor Lab
+            </a>
+
+            <a href="control.html">
+                Control Lab
+            </a>
+
+            <a href="robotics.html">
+                Robotics
+            </a>
+
+            <a href="automotive.html">
+                Automotive
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="eyebrow">
+        MECH-X Dynamic Engineering Simulation
+    </div>
+
+    <h1>
+        DC Motor<br>
+        Laboratory
+    </h1>
+
+    <p>
+        Explore the dynamic behavior of a DC motor.
+        Change the electrical and mechanical parameters,
+        run the simulation, and observe how speed,
+        current, torque and power respond over time.
+    </p>
+
+</section>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <div class="grid">
+
+        <!-- ================= PARAMETERS ================= -->
+
+        <section class="card">
+
+            <h2>
+                Motor Parameters
+            </h2>
+
+            <div class="input-group">
+
+                <label for="voltage">
+                    Supply Voltage (V)
+                </label>
+
+                <input
+                    id="voltage"
+                    type="number"
+                    value="24"
+                    step="0.1"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="resistance">
+                    Armature Resistance (Ω)
+                </label>
+
+                <input
+                    id="resistance"
+                    type="number"
+                    value="2"
+                    step="0.1"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="ke">
+                    Motor Constant Ke (V·s/rad)
+                </label>
+
+                <input
+                    id="ke"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="kt">
+                    Motor Constant Kt (N·m/A)
+                </label>
+
+                <input
+                    id="kt"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="load">
+                    Load Torque (N·m)
+                </label>
+
+                <input
+                    id="load"
+                    type="number"
+                    value="0.2"
+                    step="0.05"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="inertia">
+                    Rotor Inertia J (kg·m²)
+                </label>
+
+                <input
+                    id="inertia"
+                    type="number"
+                    value="0.01"
+                    step="0.001"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="friction">
+                    Viscous Friction b (N·m·s/rad)
+                </label>
+
+                <input
+                    id="friction"
+                    type="number"
+                    value="0.001"
+                    step="0.0001"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="simTime">
+                    Simulation Time (s)
+                </label>
+
+                <input
+                    id="simTime"
+                    type="number"
+                    value="5"
+                    min="0.5"
+                    step="0.5"
+                >
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="primary-btn"
+                    onclick="runSimulation()"
+                >
+                    ▶ Run Simulation
+                </button>
+
+                <button
+                    class="stop-btn"
+                    onclick="stopSimulation()"
+                >
+                    ■ Stop
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="resetSimulation()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= MOTOR VISUALIZATION ================= -->
+
+        <section class="card">
+
+            <h2>
+                Motor Visualization
+            </h2>
+
+            <div class="status-box">
+
+                <div
+                    id="statusDot"
+                    class="status-dot"
+                ></div>
+
+                <div
+                    id="statusText"
+                    class="status-text"
+                >
+                    Ready
+                </div>
+
+            </div>
+
+
+            <div class="motor-display">
+
+                <div>
+
+                    <div
+                        id="motor"
+                        class="motor"
+                    ></div>
+
+                    <div
+                        id="motorStatus"
+                        class="motor-status"
+                    >
+                        Motor stopped
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="results">
+
+                <div class="result">
+
+                    <div class="result-label">
+                        Speed
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="finalSpeed"
+                    >
+                        0 rpm
+                    </div>
+
+                </div>
+
+
+                <div class="result">
+
+                    <div class="result-label">
+                        Current
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="finalCurrent"
+                    >
+                        0 A
+                    </div>
+
+                </div>
+
+
+                <div class="result">
+
+                    <div class="result-label">
+                        Torque
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="finalTorque"
+                    >
+                        0 N·m
+                    </div>
+
+                </div>
+
+
+                <div class="result">
+
+                    <div class="result-label">
+                        Output Power
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="finalPower"
+                    >
+                        0 W
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ================= ENGINEERING DASHBOARD ================= -->
+
+    <section class="dashboard">
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Angular Velocity
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="omegaValue"
+            >
+                0 rad/s
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Back EMF
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="backEmfValue"
+            >
+                0 V
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Input Power
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="inputPowerValue"
+            >
+                0 W
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Efficiency
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="efficiencyValue"
+            >
+                0 %
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Acceleration
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="accelerationValue"
+            >
+                0 rad/s²
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Load Torque
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="loadValue"
+            >
+                0 N·m
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Simulation Time
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="timeValue"
+            >
+                0 s
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+            <div class="dashboard-label">
+                Electrical Power
+            </div>
+
+            <div
+                class="dashboard-value"
+                id="electricalPowerValue"
+            >
+                0 W
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SPEED GRAPH ================= -->
+
+    <section class="card graph-card">
+
+        <h2>
+            Speed Response
+        </h2>
+
+        <div class="canvas-wrapper">
+
+            <canvas id="speedCanvas"></canvas>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CURRENT / TORQUE ================= -->
+
+    <div class="graph-grid">
+
+        <section class="card graph-card">
+
+            <h2>
+                Armature Current
+            </h2>
+
+            <div class="canvas-wrapper">
+
+                <canvas id="currentCanvas"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <section class="card graph-card">
+
+            <h2>
+                Motor Torque
+            </h2>
+
+            <div class="canvas-wrapper">
+
+                <canvas id="torqueCanvas"></canvas>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ================= ENGINEERING MODEL ================= -->
+
+    <section class="card graph-card">
+
+        <h2>
+            Engineering Model
+        </h2>
+
+        <p style="color:var(--muted);">
+
+            The simulator uses a simplified mathematical
+            model of a separately excited DC motor.
+            The electrical and mechanical behavior is
+            calculated numerically over small time steps.
+
+        </p>
+
+
+        <div class="equations">
+
+            <div class="equation">
+                Back EMF: E = Ke × ω
+            </div>
+
+            <div class="equation">
+                Armature Current: I = (V − E) / R
+            </div>
+
+            <div class="equation">
+                Electromagnetic Torque: T = Kt × I
+            </div>
+
+            <div class="equation">
+                J(dω/dt) = T − Tload − bω
+            </div>
+
+            <div class="equation">
+                Angular Velocity: ω = 2πN / 60
+            </div>
+
+            <div class="equation">
+                Electrical Input Power: Pin = V × I
+            </div>
+
+            <div class="equation">
+                Mechanical Output Power: Pout = T × ω
+            </div>
+
+            <div class="equation">
+                Efficiency: η = (Pout / Pin) × 100
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <p>
+
+                <strong>Engineering note:</strong>
+
+                This is an educational simulation. It assumes
+                constant Ke, Kt, resistance, inertia and viscous
+                friction. Real motors may exhibit magnetic
+                saturation, temperature-dependent resistance,
+                nonlinear friction, brush losses, switching
+                effects and other nonlinear behavior.
+
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <strong>MECH-X</strong>
+    — Interactive Mechatronics Engineering Laboratory
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   DC MOTOR LABORATORY
+   ========================================================= */
+
+let simulationData = {
+    time: [],
+    speed: [],
+    current: [],
+    torque: [],
+    omega: [],
+    backEMF: [],
+    acceleration: [],
+    inputPower: [],
+    outputPower: [],
+    efficiency: []
+};
+
+let simulationRunning = false;
+
+
+/* =========================================================
+   GET INPUT
+   ========================================================= */
+
+function getValue(id){
+
+    return parseFloat(
+        document.getElementById(id).value
+    );
+
+}
+
+
+/* =========================================================
+   READ PARAMETERS
+   ========================================================= */
+
+function getParameters(){
+
+    return {
+
+        V: getValue("voltage"),
+
+        R: getValue("resistance"),
+
+        Ke: getValue("ke"),
+
+        Kt: getValue("kt"),
+
+        Tload: getValue("load"),
+
+        J: getValue("inertia"),
+
+        b: getValue("friction"),
+
+        simTime: getValue("simTime")
+
+    };
+
+}
+
+
+/* =========================================================
+   VALIDATE PARAMETERS
+   ========================================================= */
+
+function validateParameters(p){
+
+    const values = [
+        p.V,
+        p.R,
+        p.Ke,
+        p.Kt,
+        p.Tload,
+        p.J,
+        p.b,
+        p.simTime
+    ];
+
+    if(
+        values.some(
+            value => !Number.isFinite(value)
+        )
+    ){
+
+        alert(
+            "Please enter valid numerical values."
+        );
+
+        return false;
+    }
+
+
+    if(
+        p.R <= 0 ||
+        p.J <= 0 ||
+        p.Ke <= 0 ||
+        p.Kt <= 0
+    ){
+
+        alert(
+            "Resistance, inertia, Ke and Kt must be greater than zero."
+        );
+
+        return false;
+    }
+
+
+    if(p.V < 0){
+
+        alert(
+            "Supply voltage cannot be negative."
+        );
+
+        return false;
+    }
+
+
+    if(p.Tload < 0){
+
+        alert(
+            "Load torque cannot be negative."
+        );
+
+        return false;
+    }
+
+
+    if(p.simTime <= 0){
+
+        alert(
+            "Simulation time must be greater than zero."
+        );
+
+        return false;
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   RUN SIMULATION
+   ========================================================= */
+
+function runSimulation(){
+
+    stopSimulation();
+
+
+    const p = getParameters();
+
+
+    if(!validateParameters(p)){
+        return;
+    }
+
+
+    const dt = 0.005;
+
+    let omega = 0;
+
+
+    simulationData = {
+
+        time: [],
+        speed: [],
+        current: [],
+        torque: [],
+        omega: [],
+        backEMF: [],
+        acceleration: [],
+        inputPower: [],
+        outputPower: [],
+        efficiency: []
+
+    };
+
+
+    for(
+        let t = 0;
+        t <= p.simTime;
+        t += dt
+    ){
+
+        /* Back EMF */
+
+        const backEMF =
+            p.Ke * omega;
+
+
+        /* Armature current */
+
+        let current =
+            (p.V - backEMF) / p.R;
+
+
+        /*
+            A simple DC motor model does not allow
+            the armature current to become negative
+            during this educational simulation.
+        */
+
+        if(current < 0){
+            current = 0;
+        }
+
+
+        /* Electromagnetic torque */
+
+        const motorTorque =
+            p.Kt * current;
+
+
+        /* Mechanical acceleration */
+
+        const acceleration =
+            (
+                motorTorque -
+                p.Tload -
+                p.b * omega
+            ) / p.J;
+
+
+        /* Integrate angular velocity */
+
+        omega +=
+            acceleration * dt;
+
+
+        /*
+            Prevent the rotor from rotating
+            backwards in this simplified model.
+        */
+
+        if(omega < 0){
+            omega = 0;
+        }
+
+
+        /* Speed */
+
+        const rpm =
+            omega * 60 / (2 * Math.PI);
+
+
+        /* Power */
+
+        const inputPower =
+            p.V * current;
+
+
+        const outputPower =
+            motorTorque * omega;
+
+
+        let efficiency = 0;
+
+        if(inputPower > 0){
+
+            efficiency =
+                (outputPower / inputPower) * 100;
+
+        }
+
+
+        if(efficiency > 100){
+            efficiency = 100;
+        }
+
+
+        /* Store data */
+
+        simulationData.time.push(t);
+
+        simulationData.speed.push(rpm);
+
+        simulationData.current.push(current);
+
+        simulationData.torque.push(
+            motorTorque
+        );
+
+        simulationData.omega.push(omega);
+
+        simulationData.backEMF.push(
+            backEMF
+        );
+
+        simulationData.acceleration.push(
+            acceleration
+        );
+
+        simulationData.inputPower.push(
+            inputPower
+        );
+
+        simulationData.outputPower.push(
+            outputPower
+        );
+
+        simulationData.efficiency.push(
+            efficiency
+        );
+
+    }
+
+
+    drawAllGraphs();
+
+    updateFinalResults();
+
+    startMotorAnimation();
+
+    setStatus(
+        "Simulation complete",
+        "running"
+    );
+
+}
+
+
+/* =========================================================
+   UPDATE FINAL RESULTS
+   ========================================================= */
+
+function updateFinalResults(){
+
+    const data = simulationData;
+
+    if(data.time.length === 0){
+        return;
+    }
+
+
+    const i =
+        data.time.length - 1;
+
+
+    const speed =
+        data.speed[i];
+
+    const current =
+        data.current[i];
+
+    const torque =
+        data.torque[i];
+
+    const omega =
+        data.omega[i];
+
+    const backEMF =
+        data.backEMF[i];
+
+    const acceleration =
+        data.acceleration[i];
+
+    const inputPower =
+        data.inputPower[i];
+
+    const outputPower =
+        data.outputPower[i];
+
+    const efficiency =
+        data.efficiency[i];
+
+
+    document.getElementById(
+        "finalSpeed"
+    ).textContent =
+        speed.toFixed(1) + " rpm";
+
+
+    document.getElementById(
+        "finalCurrent"
+    ).textContent =
+        current.toFixed(2) + " A";
+
+
+    document.getElementById(
+        "finalTorque"
+    ).textContent =
+        torque.toFixed(2) + " N·m";
+
+
+    document.getElementById(
+        "finalPower"
+    ).textContent =
+        outputPower.toFixed(1) + " W";
+
+
+    document.getElementById(
+        "omegaValue"
+    ).textContent =
+        omega.toFixed(2) + " rad/s";
+
+
+    document.getElementById(
+        "backEmfValue"
+    ).textContent =
+        backEMF.toFixed(2) + " V";
+
+
+    document.getElementById(
+        "inputPowerValue"
+    ).textContent =
+        inputPower.toFixed(1) + " W";
+
+
+    document.getElementById(
+        "electricalPowerValue"
+    ).textContent =
+        inputPower.toFixed(1) + " W";
+
+
+    document.getElementById(
+        "efficiencyValue"
+    ).textContent =
+        efficiency.toFixed(1) + " %";
+
+
+    document.getElementById(
+        "accelerationValue"
+    ).textContent =
+        acceleration.toFixed(2) + " rad/s²";
+
+
+    document.getElementById(
+        "loadValue"
+    ).textContent =
+        getValue("load").toFixed(2) + " N·m";
+
+
+    document.getElementById(
+        "timeValue"
+    ).textContent =
+        data.time[i].toFixed(2) + " s";
+
+}
+
+
+/* =========================================================
+   MOTOR ANIMATION
+   ========================================================= */
+
+function startMotorAnimation(){
+
+    const motor =
+        document.getElementById("motor");
+
+
+    const speed =
+        simulationData.speed[
+            simulationData.speed.length - 1
+        ] || 0;
+
+
+    motor.classList.add("running");
+
+
+    /*
+        Faster simulated motor speed
+        = faster visual rotation.
+
+        Keep a practical minimum and maximum
+        so the animation remains visible.
+    */
+
+    const duration =
+        Math.max(
+            0.12,
+            Math.min(
+                2.5,
+                120 / Math.max(speed,1)
+            )
+        );
+
+
+    motor.style.setProperty(
+        "--motor-duration",
+        duration + "s"
+    );
+
+
+    document.getElementById(
+        "motorStatus"
+    ).textContent =
+        "Motor running at " +
+        speed.toFixed(1) +
+        " rpm";
+
+}
+
+
+/* =========================================================
+   STOP MOTOR
+   ========================================================= */
+
+function stopSimulation(){
+
+    simulationRunning = false;
+
+
+    const motor =
+        document.getElementById("motor");
+
+
+    motor.classList.remove("running");
+
+
+    document.getElementById(
+        "motorStatus"
+    ).textContent =
+        "Motor stopped";
+
+
+    setStatus(
+        "Ready",
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function setStatus(text,type){
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
+        text;
+
+
+    const dot =
+        document.getElementById(
+            "statusDot"
+        );
+
+
+    dot.className =
+        "status-dot";
+
+
+    if(type){
+        dot.classList.add(type);
+    }
+
+}
+
+
+/* =========================================================
+   DRAW ALL GRAPHS
+   ========================================================= */
+
+function drawAllGraphs(){
+
+    drawGraph(
+        "speedCanvas",
+        simulationData.time,
+        simulationData.speed,
+        "Speed (rpm)"
+    );
+
+
+    drawGraph(
+        "currentCanvas",
+        simulationData.time,
+        simulationData.current,
+        "Current (A)"
+    );
+
+
+    drawGraph(
+        "torqueCanvas",
+        simulationData.time,
+        simulationData.torque,
+        "Torque (N·m)"
+    );
+
+}
+
+
+/* =========================================================
+   GENERIC GRAPH ENGINE
+   ========================================================= */
+
+function drawGraph(
+    canvasId,
+    time,
+    values,
+    yLabel
+){
+
+    const canvas =
+        document.getElementById(canvasId);
+
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+
+    canvas.width =
+        rect.width * dpr;
+
+
+    canvas.height =
+        rect.height * dpr;
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    const width =
+        rect.width;
+
+
+    const height =
+        rect.height;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    if(
+        !time.length ||
+        !values.length
+    ){
+
+        drawEmptyGraph(
+            ctx,
+            width,
+            height
+        );
+
+        return;
+    }
+
+
+    const margin = {
+
+        left:60,
+
+        right:20,
+
+        top:25,
+
+        bottom:48
+
+    };
+
+
+    const graphWidth =
+        width -
+        margin.left -
+        margin.right;
+
+
+    const graphHeight =
+        height -
+        margin.top -
+        margin.bottom;
+
+
+    const maxTime =
+        Math.max(
+            time[time.length-1],
+            1
+        );
+
+
+    let maxValue =
+        Math.max(
+            ...values,
+            1
+        );
+
+
+    /*
+        Add some headroom above the
+        largest value.
+    */
+
+    maxValue *= 1.1;
+
+
+    /* ================= GRID ================= */
+
+    ctx.strokeStyle =
+        "#e4ebf4";
+
+    ctx.lineWidth = 1;
+
+
+    for(
+        let i=0;
+        i<=5;
+        i++
+    ){
+
+        const y =
+            margin.top +
+            graphHeight -
+            (i/5) * graphHeight;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            margin.left,
+            y
+        );
+
+        ctx.lineTo(
+            width - margin.right,
+            y
+        );
+
+        ctx.stroke();
+
+
+        ctx.fillStyle =
+            "#65758c";
+
+        ctx.font =
+            "12px Arial";
+
+        ctx.textAlign =
+            "right";
+
+
+        const value =
+            (
+                maxValue * i / 5
+            ).toFixed(
+                maxValue < 10 ? 1 : 0
+            );
+
+
+        ctx.fillText(
+            value,
+            margin.left - 8,
+            y + 4
+        );
+
+    }
+
+
+    /* ================= X GRID ================= */
+
+    for(
+        let i=0;
+        i<=5;
+        i++
+    ){
+
+        const x =
+            margin.left +
+            (i/5) *
+            graphWidth;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x,
+            margin.top
+        );
+
+        ctx.lineTo(
+            x,
+            height-margin.bottom
+        );
+
+        ctx.stroke();
+
+
+        ctx.fillStyle =
+            "#65758c";
+
+        ctx.font =
+            "12px Arial";
+
+        ctx.textAlign =
+            "center";
+
+
+        const value =
+            (
+                maxTime * i / 5
+            ).toFixed(1);
+
+
+        ctx.fillText(
+            value,
+            x,
+            height-margin.bottom+22
+        );
+
+    }
+
+
+    /* ================= AXES ================= */
+
+    ctx.strokeStyle =
+        "#8da0b7";
+
+    ctx.lineWidth = 1.5;
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        margin.left,
+        margin.top
+    );
+
+    ctx.lineTo(
+        margin.left,
+        height-margin.bottom
+    );
+
+    ctx.lineTo(
+        width-margin.right,
+        height-margin.bottom
+    );
+
+    ctx.stroke();
+
+
+    /* ================= CURVE ================= */
+
+    ctx.strokeStyle =
+        "#1261d6";
+
+    ctx.lineWidth = 3;
+
+    ctx.lineJoin = "round";
+
+    ctx.lineCap = "round";
+
+
+    ctx.beginPath();
+
+
+    for(
+        let i=0;
+        i<time.length;
+        i++
+    ){
+
+        const x =
+            margin.left +
+            (time[i] / maxTime) *
+            graphWidth;
+
+
+        const y =
+            margin.top +
+            graphHeight -
+            (values[i] / maxValue) *
+            graphHeight;
+
+
+        if(i === 0){
+
+            ctx.moveTo(
+                x,
+                y
+            );
+
+        }else{
+
+            ctx.lineTo(
+                x,
+                y
+            );
+
+        }
+
+    }
+
+
+    ctx.stroke();
+
+
+    /* ================= LABELS ================= */
+
+    ctx.fillStyle =
+        "#34465f";
+
+    ctx.font =
+        "bold 13px Arial";
+
+    ctx.textAlign =
+        "center";
+
+
+    ctx.fillText(
+        "Time (s)",
+        margin.left +
+        graphWidth/2,
+        height - 8
+    );
+
+
+    ctx.save();
+
+
+    ctx.translate(
+        15,
+        margin.top +
+        graphHeight/2
+    );
+
+
+    ctx.rotate(
+        -Math.PI/2
+    );
+
+
+    ctx.fillText(
+        yLabel,
+        0,
+        0
+    );
+
+
+    ctx.restore();
+
+}
+
+
+/* =========================================================
+   EMPTY GRAPH
+   ========================================================= */
+
+function drawEmptyGraph(
+    ctx,
+    width,
+    height
+){
+
+    ctx.fillStyle =
+        "#617089";
+
+    ctx.font =
+        "14px Arial";
+
+    ctx.textAlign =
+        "center";
+
+
+    ctx.fillText(
+        "Run the simulation to display data",
+        width/2,
+        height/2
+    );
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetSimulation(){
+
+    document.getElementById(
+        "voltage"
+    ).value = 24;
+
+
+    document.getElementById(
+        "resistance"
+    ).value = 2;
+
+
+    document.getElementById(
+        "ke"
+    ).value = 0.08;
+
+
+    document.getElementById(
+        "kt"
+    ).value = 0.08;
+
+
+    document.getElementById(
+        "load"
+    ).value = 0.2;
+
+
+    document.getElementById(
+        "inertia"
+    ).value = 0.01;
+
+
+    document.getElementById(
+        "friction"
+    ).value = 0.001;
+
+
+    document.getElementById(
+        "simTime"
+    ).value = 5;
+
+
+    stopSimulation();
+
+
+    runSimulation();
+
+}
+
+
+/* =========================================================
+   INITIAL VALUES
+   ========================================================= */
+
+function initialize(){
+
+    runSimulation();
+
+}
+
+
+/* =========================================================
+   RESIZE
+   ========================================================= */
+
+let resizeTimer;
+
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        clearTimeout(
+            resizeTimer
+        );
+
+
+        resizeTimer =
+            setTimeout(
+                function(){
+
+                    drawAllGraphs();
+
+                },
+                150
+            );
+
+    }
+);
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    initialize
+);
+
+</script>
+
+</body>
+</html>
