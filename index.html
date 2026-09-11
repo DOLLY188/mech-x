@@ -7,7 +7,7 @@
     <title>MECH-X | Interactive Mechatronics Engineering Laboratory</title>
 
     <meta name="description"
-        content="MECH-X is an interactive engineering laboratory for mechatronics, mechanical, electrical, robotics, control systems and automotive engineering.">
+          content="MECH-X is an interactive engineering laboratory for mechatronics, mechanical, electrical, robotics, control systems and automotive engineering.">
 
     <style>
         * {
@@ -17,129 +17,180 @@
         }
 
         :root {
-            --bg: #07111f;
-            --surface: #0d1b2d;
-            --surface-light: #13253b;
-            --text: #f4f7fb;
-            --muted: #9caec4;
-            --accent: #00d4ff;
-            --accent-2: #7c5cff;
-            --border: rgba(255,255,255,0.09);
-        }
+            --blue: #1261d6;
+            --blue-dark: #0b2d5c;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f3f8ff;
+            --cyan: #16a9e8;
 
-        html {
-            scroll-behavior: smooth;
+            --white: #ffffff;
+            --background: #f7faff;
+
+            --text: #172033;
+            --muted: #61708a;
+
+            --border: #d9e5f3;
+
+            --shadow:
+                0 10px 30px rgba(18, 97, 214, 0.10);
+
+            --shadow-hover:
+                0 18px 40px rgba(18, 97, 214, 0.16);
         }
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: var(--bg);
+            background: var(--background);
             color: var(--text);
             line-height: 1.6;
         }
 
-        /* NAVIGATION */
+        /* =========================
+           NAVIGATION
+        ========================== */
 
         nav {
             position: sticky;
             top: 0;
             z-index: 1000;
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 18px 7%;
-
-            background: rgba(7,17,31,0.92);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(12px);
 
             border-bottom: 1px solid var(--border);
         }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 18px 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 2px;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            letter-spacing: 1px;
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--blue);
         }
 
-        nav ul {
+        .nav-links {
             display: flex;
             gap: 25px;
             list-style: none;
         }
 
-        nav a {
-            color: var(--muted);
+        .nav-links a {
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.3s;
+            color: var(--muted);
+            font-weight: 600;
+            transition: 0.2s;
         }
 
-        nav a:hover {
-            color: var(--accent);
+        .nav-links a:hover {
+            color: var(--blue);
         }
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================== */
 
         .hero {
-            min-height: 88vh;
+            min-height: 650px;
 
             display: flex;
             align-items: center;
 
-            padding: 80px 7%;
-
             background:
-                radial-gradient(circle at 80% 30%, rgba(0,212,255,0.12), transparent 30%),
-                radial-gradient(circle at 20% 70%, rgba(124,92,255,0.12), transparent 30%);
+                radial-gradient(
+                    circle at 85% 20%,
+                    #d9edff 0%,
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 10% 80%,
+                    #e9f4ff 0%,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #eef6ff
+                );
+
+            border-bottom: 1px solid var(--border);
         }
 
-        .hero-content {
-            max-width: 850px;
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+
+            margin: auto;
+            padding: 80px 25px;
+
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
         }
 
-        .badge {
+        .hero-label {
             display: inline-block;
 
-            padding: 7px 14px;
-            margin-bottom: 25px;
+            padding: 8px 14px;
+            margin-bottom: 20px;
 
-            border: 1px solid rgba(0,212,255,0.3);
-            border-radius: 50px;
+            background: var(--blue-light);
+            color: var(--blue);
 
-            color: var(--accent);
+            border: 1px solid #c8def8;
+            border-radius: 30px;
+
             font-size: 0.85rem;
-            font-weight: bold;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-size: clamp(3rem, 7vw, 5.5rem);
             line-height: 0.95;
+
+            color: var(--blue-dark);
+
             margin-bottom: 25px;
         }
 
         .hero h1 span {
-            color: var(--accent);
+            color: var(--blue);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: #29466d;
+            margin-bottom: 20px;
         }
 
         .hero p {
-            max-width: 700px;
+            max-width: 650px;
 
+            font-size: 1.08rem;
             color: var(--muted);
-            font-size: 1.15rem;
 
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
-        .buttons {
+        .hero-buttons {
             display: flex;
-            flex-wrap: wrap;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -147,470 +198,217 @@
 
             padding: 13px 22px;
 
-            border-radius: 8px;
+            border-radius: 10px;
 
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
 
-            transition: 0.3s;
+            transition: 0.25s;
         }
 
-        .primary {
-            background: var(--accent);
-            color: #001018;
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+
+            box-shadow: 0 8px 20px rgba(18, 97, 214, 0.22);
         }
 
-        .primary:hover {
-            transform: translateY(-3px);
+        .btn-primary:hover {
+            background: #0b4eae;
+            transform: translateY(-2px);
         }
 
-        .secondary {
+        .btn-secondary {
+            background: white;
+            color: var(--blue-dark);
+
             border: 1px solid var(--border);
-            color: var(--text);
-            background: var(--surface);
         }
 
-        .secondary:hover {
-            border-color: var(--accent);
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            transform: translateY(-2px);
         }
 
-        /* GENERAL */
+        /* =========================
+           HERO ENGINEERING PANEL
+        ========================== */
 
-        section {
-            padding: 90px 7%;
+        .engineering-panel {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow: var(--shadow);
+
+            position: relative;
+            overflow: hidden;
         }
 
-        .section-title {
-            max-width: 750px;
-            margin-bottom: 45px;
+        .engineering-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: #e5f2ff;
+
+            top: -80px;
+            right: -60px;
         }
 
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
+        .panel-title {
+            font-weight: 800;
+            color: var(--blue-dark);
+
+            margin-bottom: 25px;
         }
 
-        .section-title p {
+        .system-line {
+            height: 2px;
+            background: var(--border);
+
+            margin: 20px 0;
+
+            position: relative;
+        }
+
+        .system-line::after {
+            content: "";
+
+            position: absolute;
+
+            width: 45%;
+            height: 100%;
+
+            background: var(--blue);
+
+            left: 0;
+            top: 0;
+        }
+
+        .system-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .system-box {
+            padding: 18px 10px;
+
+            background: var(--blue-soft);
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            text-align: center;
+
+            font-weight: 700;
+            color: var(--blue-dark);
+        }
+
+        .system-box small {
+            display: block;
+
+            margin-top: 5px;
+
             color: var(--muted);
+            font-weight: normal;
         }
 
-        /* STATS */
+        /* =========================
+           STATS
+        ========================== */
 
         .stats {
+            max-width: 1100px;
+            margin: -45px auto 70px;
+
+            padding: 0 25px;
+
+            position: relative;
+            z-index: 5;
+        }
+
+        .stats-grid {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            box-shadow: var(--shadow);
+
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
         }
 
         .stat {
             padding: 25px;
+            text-align: center;
 
-            background: var(--surface);
-
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            border-right: 1px solid var(--border);
         }
 
-        .stat h3 {
-            color: var(--accent);
-            font-size: 2rem;
+        .stat:last-child {
+            border-right: none;
         }
 
-        .stat p {
+        .stat strong {
+            display: block;
+
+            font-size: 1.8rem;
+
+            color: var(--blue);
+        }
+
+        .stat span {
             color: var(--muted);
             font-size: 0.9rem;
         }
 
-        /* LAB CARDS */
+        /* =========================
+           GENERAL SECTION
+        ========================== */
+
+        section {
+            padding: 80px 25px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 750px;
+
+            margin: 0 auto 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+
+            color: var(--blue-dark);
+
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+        }
+
+        /* =========================
+           LABORATORIES
+        ========================== */
 
         .labs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .lab {
-            padding: 30px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    var(--surface),
-                    var(--surface-light)
-                );
-
-            border: 1px solid var(--border);
-            border-radius: 15px;
-
-            transition: 0.3s;
-        }
-
-        .lab:hover {
-            transform: translateY(-7px);
-            border-color: rgba(0,212,255,0.4);
-        }
-
-        .lab-icon {
-            font-size: 2.3rem;
-            margin-bottom: 20px;
-        }
-
-        .lab h3 {
-            margin-bottom: 10px;
-        }
-
-        .lab p {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .lab a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* ROADMAP */
-
-        .roadmap {
-            display: grid;
-            gap: 15px;
-        }
-
-        .roadmap-item {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-
-            padding: 20px;
-
-            background: var(--surface);
-
-            border: 1px solid var(--border);
-            border-radius: 10px;
-        }
-
-        .number {
-            min-width: 45px;
-            height: 45px;
-
-            display: grid;
-            place-items: center;
-
-            background: var(--accent);
-            color: #001018;
-
-            border-radius: 50%;
-            font-weight: bold;
-        }
-
-        .roadmap-item p {
-            color: var(--muted);
-        }
-
-        /* FOOTER */
-
-        footer {
-            padding: 40px 7%;
-
-            border-top: 1px solid var(--border);
-
-            color: var(--muted);
-            text-align: center;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 800px) {
-
-            nav ul {
-                display: none;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .labs {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                min-height: 80vh;
-                padding-top: 60px;
-            }
-
-            section {
-                padding: 65px 6%;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                text-align: center;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- NAVIGATION -->
-
-    <nav>
-
-        <div class="logo">
-            MECH<span>-X</span>
-        </div>
-
-        <ul>
-            <li><a href="#labs">Laboratories</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
-
-    </nav>
-
-
-    <!-- HERO -->
-
-    <header class="hero">
-
-        <div class="hero-content">
-
-            <div class="badge">
-                INTERACTIVE ENGINEERING PLATFORM
-            </div>
-
-            <h1>
-                Engineering.<br>
-                <span>Simulated.</span>
-            </h1>
-
-            <p>
-                MECH-X is a browser-based interactive laboratory
-                for exploring mechatronics, mechanical engineering,
-                electrical systems, robotics, control systems and
-                automotive engineering.
-            </p>
-
-            <div class="buttons">
-
-                <a href="#labs" class="btn primary">
-                    Explore Laboratories
-                </a>
-
-                <a href="#roadmap" class="btn secondary">
-                    View Development Roadmap
-                </a>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- STATS -->
-
-    <section>
-
-        <div class="stats">
-
-            <div class="stat">
-                <h3>01</h3>
-                <p>Engineering Platform</p>
-            </div>
-
-            <div class="stat">
-                <h3>06</h3>
-                <p>Engineering Domains</p>
-            </div>
-
-            <div class="stat">
-                <h3>∞</h3>
-                <p>Possible Simulations</p>
-            </div>
-
-            <div class="stat">
-                <h3>FREE</h3>
-                <p>Open Web Platform</p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- LABORATORIES -->
-
-    <section id="labs">
-
-        <div class="section-title">
-
-            <h2>Engineering Laboratories</h2>
-
-            <p>
-                Each laboratory will contain interactive calculators,
-                simulations, visualizations and engineering experiments.
-            </p>
-
-        </div>
-
-
-        <div class="labs">
-
-            <div class="lab">
-
-                <div class="lab-icon">⚙️</div>
-
-                <h3>Mechanical</h3>
-
-                <p>
-                    Torque, power, gears, shafts, stress,
-                    strain, beams and mechanical systems.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-
-            <div class="lab">
-
-                <div class="lab-icon">⚡</div>
-
-                <h3>Electrical & Electronics</h3>
-
-                <p>
-                    Ohm's law, circuits, RC/RL systems,
-                    electronics and electrical analysis.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-
-            <div class="lab">
-
-                <div class="lab-icon">🤖</div>
-
-                <h3>Robotics</h3>
-
-                <p>
-                    Robot arms, forward kinematics,
-                    inverse kinematics and workspace analysis.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-
-            <div class="lab">
-
-                <div class="lab-icon">🎛️</div>
-
-                <h3>Control Systems</h3>
-
-                <p>
-                    PID controllers, system response,
-                    stability and control simulations.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-
-            <div class="lab">
-
-                <div class="lab-icon">🚗</div>
-
-                <h3>Automotive</h3>
-
-                <p>
-                    Vehicle performance, drivetrain analysis,
-                    power, torque and acceleration.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-
-            <div class="lab">
-
-                <div class="lab-icon">📐</div>
-
-                <h3>Engineering Calculators</h3>
-
-                <p>
-                    A growing collection of practical
-                    engineering calculation tools.
-                </p>
-
-                <a href="#">
-                    Coming Soon →
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ROADMAP -->
-
-    <section id="roadmap">
-
-        <div class="section-title">
-
-            <h2>Development Roadmap</h2>
-
-            <p>
-                MECH-X will grow from a collection of engineering
-                tools into a complete interactive engineering laboratory.
-            </p>
-
-        </div>
-
-
-        <div class="roadmap">
-
-            <div class="roadmap-item">
-
-                <div class="number">1</div>
-
-                <div>
-                    <h3>Engineering Calculator Engine</h3>
-                    <p>
-                        Build the reusable calculation system.
-                    </p>
-                </
+            background
