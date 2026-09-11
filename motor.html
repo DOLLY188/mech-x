@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DC Motor Simulator | MECH-X</title>
+<title>Dynamic DC Motor Simulator | MECH-X</title>
 
 <style>
 
@@ -64,7 +64,7 @@ nav a:hover {
 
 .hero p {
     color: #94a3b8;
-    max-width: 700px;
+    max-width: 750px;
 }
 
 .container {
@@ -72,9 +72,9 @@ nav a:hover {
 }
 
 .simulator {
-    max-width: 1200px;
+    max-width: 1250px;
     display: grid;
-    grid-template-columns: 350px 1fr;
+    grid-template-columns: 330px 1fr;
     gap: 25px;
 }
 
@@ -91,14 +91,15 @@ nav a:hover {
 
 label {
     display: block;
-    margin-top: 15px;
+    margin-top: 13px;
     margin-bottom: 6px;
     color: #cbd5e1;
+    font-size: 0.9rem;
 }
 
 input {
     width: 100%;
-    padding: 12px;
+    padding: 11px;
     background: #07111f;
     border: 1px solid #29445b;
     border-radius: 8px;
@@ -127,17 +128,22 @@ button:hover {
     opacity: 0.85;
 }
 
+.secondary {
+    background: #17283a;
+    color: #cbd5e1;
+}
+
 .results {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
 .result-card {
     background: #081522;
     border: 1px solid #1e3a52;
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 10px;
+    padding: 15px;
 }
 
 .result-card small {
@@ -145,8 +151,22 @@ button:hover {
 }
 
 .result-card h3 {
-    margin-top: 8px;
+    margin-top: 6px;
     color: #67e8f9;
+    font-size: 1.1rem;
+}
+
+.chart-container {
+    margin-top: 25px;
+    background: #081522;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+canvas {
+    width: 100%;
+    height: 350px;
+    display: block;
 }
 
 .motor-display {
@@ -158,13 +178,13 @@ button:hover {
 }
 
 .motor {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     border: 8px solid #22d3ee;
     margin: 20px auto;
     position: relative;
-    animation: spin 1s linear infinite;
+    animation: spin 0.2s linear infinite;
     animation-play-state: paused;
 }
 
@@ -172,14 +192,15 @@ button:hover {
     content: "";
     position: absolute;
     width: 8px;
-    height: 55px;
+    height: 50px;
     background: #e8f0f7;
-    left: 53px;
-    top: 30px;
+    left: 48px;
+    top: 27px;
     border-radius: 5px;
 }
 
 @keyframes spin {
+
     from {
         transform: rotate(0deg);
     }
@@ -187,6 +208,7 @@ button:hover {
     to {
         transform: rotate(360deg);
     }
+
 }
 
 .formula {
@@ -196,13 +218,22 @@ button:hover {
     border-radius: 8px;
     color: #67e8f9;
     font-family: monospace;
+    line-height: 1.8;
 }
 
-@media(max-width: 800px) {
+@media(max-width: 900px) {
 
     .simulator {
         grid-template-columns: 1fr;
     }
+
+    .results {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media(max-width: 500px) {
 
     .results {
         grid-template-columns: 1fr;
@@ -217,9 +248,7 @@ button:hover {
 
 <nav>
 
-<div class="logo">
-MECH-X
-</div>
+<div class="logo">MECH-X</div>
 
 <div>
 <a href="index.html">Home</a>
@@ -232,13 +261,13 @@ MECH-X
 
 <section class="hero">
 
-<span>VIRTUAL ENGINEERING LABORATORY</span>
+<span>DYNAMIC ENGINEERING SIMULATION</span>
 
-<h1>DC Motor Simulator</h1>
+<h1>DC Motor Laboratory</h1>
 
 <p>
-Explore the relationship between voltage, current, torque and
-rotational speed using a simplified DC motor model.
+Simulate the acceleration and steady-state response of a
+simplified DC motor using a numerical time-domain model.
 </p>
 
 </section>
@@ -249,126 +278,83 @@ rotational speed using a simplified DC motor model.
 <div class="simulator">
 
 
-<!-- INPUT PANEL -->
+<!-- PARAMETERS -->
 
 <div class="panel">
 
 <h2>Motor Parameters</h2>
 
 <label>Supply Voltage (V)</label>
-
-<input
-id="voltage"
-type="number"
-value="24"
-step="0.1"
->
-
+<input id="voltage" type="number" value="24" step="0.1">
 
 <label>Armature Resistance (Ω)</label>
+<input id="resistance" type="number" value="2" step="0.1">
 
-<input
-id="resistance"
-type="number"
-value="2"
-step="0.1"
->
+<label>Motor Constant Ke</label>
+<input id="ke" type="number" value="0.08" step="0.01">
 
-
-<label>Motor Constant Ke (V·s/rad)</label>
-
-<input
-id="ke"
-type="number"
-value="0.08"
-step="0.01"
->
-
-
-<label>Torque Constant Kt (N·m/A)</label>
-
-<input
-id="kt"
-type="number"
-value="0.08"
-step="0.01"
->
-
+<label>Torque Constant Kt</label>
+<input id="kt" type="number" value="0.08" step="0.01">
 
 <label>Load Torque (N·m)</label>
+<input id="load" type="number" value="0.3" step="0.05">
 
-<input
-id="load"
-type="number"
-value="0.3"
-step="0.1"
->
+<label>Inertia J (kg·m²)</label>
+<input id="inertia" type="number" value="0.02" step="0.005">
 
+<label>Friction Coefficient b</label>
+<input id="friction" type="number" value="0.002" step="0.001">
 
-<label>Friction Torque (N·m)</label>
+<label>Simulation Time (s)</label>
+<input id="simTime" type="number" value="5" step="1">
 
-<input
-id="friction"
-type="number"
-value="0.05"
-step="0.01"
->
-
-
-<button onclick="simulateMotor()">
+<button onclick="runSimulation()">
 RUN SIMULATION
+</button>
+
+<button class="secondary" onclick="clearSimulation()">
+CLEAR
 </button>
 
 </div>
 
 
-<!-- RESULTS -->
+<!-- OUTPUT -->
 
 <div class="panel">
 
-<h2>Simulation Results</h2>
+<h2>Motor Response</h2>
 
 <div class="results">
 
 <div class="result-card">
-<small>Motor Current</small>
-<h3 id="current">— A</h3>
+<small>Final Speed</small>
+<h3 id="finalRPM">— RPM</h3>
 </div>
 
 <div class="result-card">
-<small>Back EMF</small>
-<h3 id="backEMF">— V</h3>
+<small>Final Current</small>
+<h3 id="finalCurrent">— A</h3>
 </div>
 
 <div class="result-card">
-<small>Angular Speed</small>
-<h3 id="omega">— rad/s</h3>
+<small>Final Torque</small>
+<h3 id="finalTorque">— N·m</h3>
 </div>
 
 <div class="result-card">
-<small>Rotational Speed</small>
-<h3 id="rpm">— RPM</h3>
+<small>Final Power</small>
+<h3 id="finalPower">— W</h3>
 </div>
 
-<div class="result-card">
-<small>Mechanical Power</small>
-<h3 id="mechanicalPower">— W</h3>
 </div>
 
-<div class="result-card">
-<small>Electrical Power</small>
-<h3 id="electricalPower">— W</h3>
-</div>
 
-<div class="result-card">
-<small>Efficiency</small>
-<h3 id="efficiency">— %</h3>
-</div>
+<div class="chart-container">
 
-<div class="result-card">
-<small>Motor Torque</small>
-<h3 id="motorTorque">— N·m</h3>
-</div>
+<h3>Speed Response</h3>
+
+<canvas id="graph"></canvas>
 
 </div>
 
@@ -377,13 +363,10 @@ RUN SIMULATION
 
 <h3>Motor Visualization</h3>
 
-<div
-id="motor"
-class="motor">
-</div>
+<div id="motor" class="motor"></div>
 
 <p id="status">
-Run the simulation to start the motor.
+Run the simulation.
 </p>
 
 </div>
@@ -393,11 +376,17 @@ Run the simulation to start the motor.
 
 V = E + IR
 
-E = Ke × ω
+E = Keω
 
-T = Kt × I
+T = KtI
 
-P = T × ω
+J(dω/dt) = T - T<sub>load</sub> - bω
+
+ω = angular velocity
+
+J = motor inertia
+
+b = viscous friction coefficient
 
 </div>
 
@@ -410,7 +399,51 @@ P = T × ω
 
 <script>
 
-function simulateMotor() {
+let animationTimer = null;
+
+
+/* =========================
+   CANVAS SETUP
+========================= */
+
+const canvas =
+    document.getElementById("graph");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        canvas.clientWidth * window.devicePixelRatio;
+
+    canvas.height =
+        canvas.clientHeight * window.devicePixelRatio;
+
+    ctx.scale(
+        window.devicePixelRatio,
+        window.devicePixelRatio
+    );
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* =========================
+   MOTOR SIMULATION
+========================= */
+
+function runSimulation() {
+
+    clearSimulation();
+
 
     const V =
         parseFloat(document.getElementById("voltage").value);
@@ -427,151 +460,445 @@ function simulateMotor() {
     const load =
         parseFloat(document.getElementById("load").value);
 
-    const friction =
+    const J =
+        parseFloat(document.getElementById("inertia").value);
+
+    const b =
         parseFloat(document.getElementById("friction").value);
+
+    const totalTime =
+        parseFloat(document.getElementById("simTime").value);
 
 
     if (
-        isNaN(V) ||
-        isNaN(R) ||
-        isNaN(Ke) ||
-        isNaN(Kt) ||
-        isNaN(load) ||
-        isNaN(friction) ||
+        V <= 0 ||
         R <= 0 ||
         Ke <= 0 ||
-        Kt <= 0
+        Kt <= 0 ||
+        J <= 0 ||
+        totalTime <= 0
     ) {
 
-        alert("Please enter valid motor parameters.");
+        alert("Enter valid positive motor parameters.");
 
+        return;
+
+    }
+
+
+    const dt = 0.01;
+
+    let omega = 0;
+
+    const time = [];
+    const speed = [];
+
+
+    /*
+    Euler numerical integration.
+
+    At every small time step:
+
+    1. Calculate back EMF
+    2. Calculate current
+    3. Calculate motor torque
+    4. Calculate acceleration
+    5. Update angular velocity
+    */
+
+
+    for (
+        let t = 0;
+        t <= totalTime;
+        t += dt
+    ) {
+
+        const backEMF =
+            Ke * omega;
+
+
+        let current =
+            (V - backEMF) / R;
+
+
+        /*
+        Prevent physically unrealistic
+        reverse current during this simplified model.
+        */
+
+        if (current < 0) {
+
+            current = 0;
+
+        }
+
+
+        const motorTorque =
+            Kt * current;
+
+
+        const acceleration =
+            (
+                motorTorque -
+                load -
+                b * omega
+            ) / J;
+
+
+        omega =
+            omega + acceleration * dt;
+
+
+        if (omega < 0) {
+
+            omega = 0;
+
+        }
+
+
+        const rpm =
+            omega * 60 / (2 * Math.PI);
+
+
+        time.push(t);
+
+        speed.push(rpm);
+
+    }
+
+
+    drawGraph(time, speed);
+
+
+    const finalSpeed =
+        speed[speed.length - 1];
+
+
+    const finalOmega =
+        finalSpeed * 2 * Math.PI / 60;
+
+
+    const finalBackEMF =
+        Ke * finalOmega;
+
+
+    const finalCurrent =
+        Math.max(
+            0,
+            (V - finalBackEMF) / R
+        );
+
+
+    const finalTorque =
+        Kt * finalCurrent;
+
+
+    const finalPower =
+        finalTorque * finalOmega;
+
+
+    document.getElementById("finalRPM").innerText =
+        finalSpeed.toFixed(1) + " RPM";
+
+
+    document.getElementById("finalCurrent").innerText =
+        finalCurrent.toFixed(2) + " A";
+
+
+    document.getElementById("finalTorque").innerText =
+        finalTorque.toFixed(3) + " N·m";
+
+
+    document.getElementById("finalPower").innerText =
+        finalPower.toFixed(2) + " W";
+
+
+    document.getElementById("status").innerText =
+        "Simulation complete — steady-state speed: " +
+        finalSpeed.toFixed(1) +
+        " RPM";
+
+
+    /*
+    Animate motor based on final speed.
+    */
+
+    const motor =
+        document.getElementById("motor");
+
+    motor.style.animationPlayState =
+        "running";
+
+    motor.style.animationDuration =
+        Math.max(
+            0.05,
+            60 / Math.max(finalSpeed, 1)
+        ) + "s";
+
+}
+
+
+/* =========================
+   GRAPH
+========================= */
+
+function drawGraph(time, speed) {
+
+    const width =
+        canvas.clientWidth;
+
+    const height =
+        canvas.clientHeight;
+
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    if (time.length === 0) {
         return;
     }
 
 
+    const padding = 50;
+
+    const graphWidth =
+        width - padding * 2;
+
+    const graphHeight =
+        height - padding * 2;
+
+
+    const maxTime =
+        time[time.length - 1];
+
+
+    const maxSpeed =
+        Math.max(...speed) * 1.1 || 100;
+
+
     /*
-    Simplified steady-state model.
-
-    Motor torque must overcome:
-
-    Load torque + friction torque
+    Background
     */
 
-    const requiredTorque =
-        load + friction;
+    ctx.strokeStyle =
+        "#29445b";
+
+    ctx.lineWidth = 1;
 
 
-    const current =
-        requiredTorque / Kt;
+    /*
+    Horizontal grid lines
+    */
+
+    for (
+        let i = 0;
+        i <= 5;
+        i++
+    ) {
+
+        const y =
+            padding +
+            graphHeight -
+            (i / 5) * graphHeight;
 
 
-    const voltageDrop =
-        current * R;
+        ctx.beginPath();
+
+        ctx.moveTo(
+            padding,
+            y
+        );
+
+        ctx.lineTo(
+            width - padding,
+            y
+        );
+
+        ctx.stroke();
 
 
-    const backEMF =
-        V - voltageDrop;
+        ctx.fillStyle =
+            "#94a3b8";
+
+        ctx.font =
+            "11px Arial";
+
+        const value =
+            (i / 5) * maxSpeed;
 
 
-    let omega = 0;
-
-
-    if (backEMF > 0) {
-
-        omega =
-            backEMF / Ke;
+        ctx.fillText(
+            value.toFixed(0),
+            8,
+            y + 4
+        );
 
     }
 
 
-    const rpm =
-        omega * 60 / (2 * Math.PI);
+    /*
+    X axis labels
+    */
+
+    for (
+        let i = 0;
+        i <= 5;
+        i++
+    ) {
+
+        const x =
+            padding +
+            (i / 5) * graphWidth;
 
 
-    const motorTorque =
-        Kt * current;
+        ctx.fillStyle =
+            "#94a3b8";
+
+        ctx.font =
+            "11px Arial";
 
 
-    const mechanicalPower =
-        motorTorque * omega;
-
-
-    const electricalPower =
-        V * current;
-
-
-    let efficiency = 0;
-
-    if (electricalPower > 0) {
-
-        efficiency =
-            (mechanicalPower / electricalPower) * 100;
+        ctx.fillText(
+            ((i / 5) * maxTime).toFixed(1) + "s",
+            x - 10,
+            height - 20
+        );
 
     }
 
 
-    document.getElementById("current").innerText =
-        current.toFixed(3) + " A";
+    /*
+    Speed curve
+    */
+
+    ctx.beginPath();
 
 
-    document.getElementById("backEMF").innerText =
-        backEMF.toFixed(3) + " V";
+    for (
+        let i = 0;
+        i < time.length;
+        i++
+    ) {
+
+        const x =
+            padding +
+            (time[i] / maxTime) *
+            graphWidth;
 
 
-    document.getElementById("omega").innerText =
-        omega.toFixed(3) + " rad/s";
+        const y =
+            padding +
+            graphHeight -
+            (speed[i] / maxSpeed) *
+            graphHeight;
 
 
-    document.getElementById("rpm").innerText =
-        rpm.toFixed(1) + " RPM";
+        if (i === 0) {
+
+            ctx.moveTo(
+                x,
+                y
+            );
+
+        } else {
+
+            ctx.lineTo(
+                x,
+                y
+            );
+
+        }
+
+    }
 
 
-    document.getElementById("mechanicalPower").innerText =
-        mechanicalPower.toFixed(2) + " W";
+    ctx.strokeStyle =
+        "#22d3ee";
+
+    ctx.lineWidth = 3;
+
+    ctx.stroke();
 
 
-    document.getElementById("electricalPower").innerText =
-        electricalPower.toFixed(2) + " W";
+    /*
+    Axis titles
+    */
+
+    ctx.fillStyle =
+        "#e8f0f7";
+
+    ctx.font =
+        "13px Arial";
 
 
-    document.getElementById("efficiency").innerText =
-        efficiency.toFixed(1) + " %";
+    ctx.fillText(
+        "Time (s)",
+        width / 2 - 25,
+        height - 3
+    );
 
 
-    document.getElementById("motorTorque").innerText =
-        motorTorque.toFixed(3) + " N·m";
+    ctx.save();
+
+    ctx.translate(
+        15,
+        height / 2
+    );
+
+    ctx.rotate(-Math.PI / 2);
+
+    ctx.fillText(
+        "Speed (RPM)",
+        0,
+        0
+    );
+
+    ctx.restore();
+
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearSimulation() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.clientWidth,
+        canvas.clientHeight
+    );
+
+
+    document.getElementById("finalRPM").innerText =
+        "— RPM";
+
+    document.getElementById("finalCurrent").innerText =
+        "— A";
+
+    document.getElementById("finalTorque").innerText =
+        "— N·m";
+
+    document.getElementById("finalPower").innerText =
+        "— W";
 
 
     const motor =
         document.getElementById("motor");
 
+    motor.style.animationPlayState =
+        "paused";
 
-    const status =
-        document.getElementById("status");
 
-
-    if (omega > 0) {
-
-        motor.style.animationDuration =
-            Math.max(0.05, 60 / rpm) + "s";
-
-        motor.style.animationPlayState =
-            "running";
-
-        status.innerText =
-            "Motor running at " +
-            rpm.toFixed(1) +
-            " RPM";
-
-    } else {
-
-        motor.style.animationPlayState =
-            "paused";
-
-        status.innerText =
-            "Motor cannot overcome the applied conditions.";
-
-    }
+    document.getElementById("status").innerText =
+        "Run the simulation.";
 
 }
 
