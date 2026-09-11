@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Engineering Calculators | MECH-X</title>
+
+    <meta name="description"
+          content="MECH-X Engineering Calculator Laboratory for mechanical, electrical and mechatronics engineering calculations.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #e8f0f7;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 17, 31, 0.95);
+            border-bottom: 1px solid #1c334a;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #22d3ee;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            color: #22d3ee;
+        }
+
+        .hero {
+            padding: 80px 7% 50px;
+            max-width: 1000px;
+        }
+
+        .hero span {
+            color: #22d3ee;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin: 15px 0;
+        }
+
+        .hero p {
+            max-width: 700px;
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            padding: 20px 7% 80px;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+        }
+
+        .calculator {
+            background: #0d1b2a;
+            border: 1px solid #1e3a52;
+            border-radius: 15px;
+            padding: 25px;
+            transition: 0.25s;
+        }
+
+        .calculator:hover {
+            transform: translateY(-5px);
+            border-color: #22d3ee;
+        }
+
+        .calculator h2 {
+            margin-bottom: 8px;
+            color: #f8fafc;
+        }
+
+        .calculator p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 5px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #29445b;
+            background: #07111f;
+            color: white;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #22d3ee;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #22d3ee;
+            color: #031018;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .result {
+            margin-top: 18px;
+            padding: 15px;
+            background: #081522;
+            border-left: 3px solid #22d3ee;
+            border-radius: 5px;
+            color: #e2e8f0;
+            min-height: 50px;
+        }
+
+        .formula {
+            margin-top: 15px;
+            padding: 12px;
+            background: #101f30;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #67e8f9;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            border-top: 1px solid #1c334a;
+            padding: 30px 7%;
+            text-align: center;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">MECH-X</div>
+
+    <div>
+        <a href="index.html">Home</a>
+        <a href="calculators.html">Calculators</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <span>ENGINEERING CALCULATOR LABORATORY</span>
+
+    <h1>Engineering Calculators</h1>
+
+    <p>
+        Interactive engineering calculations designed for mechanical,
+        electrical, robotics and mechatronics applications.
+    </p>
+</section>
+
+<section class="container">
+
+    <div class="calculator-grid">
+
+        <!-- TORQUE -->
+
+        <div class="calculator">
+
+            <h2>Torque</h2>
+
+            <p>Calculate torque from force and perpendicular distance.</p>
+
+            <label>Force (N)</label>
+            <input id="torqueForce" type="number" placeholder="Enter force">
+
+            <label>Distance (m)</label>
+            <input id="torqueDistance" type="number" placeholder="Enter distance">
+
+            <button onclick="calculateTorque()">Calculate Torque</button>
+
+            <div class="formula">
+                T = F × r
+            </div>
+
+            <div class="result" id="torqueResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+
+        <!-- POWER -->
+
+        <div class="calculator">
+
+            <h2>Mechanical Power</h2>
+
+            <p>Calculate mechanical power from torque and rotational speed.</p>
+
+            <label>Torque (N·m)</label>
+            <input id="powerTorque" type="number" placeholder="Enter torque">
+
+            <label>Speed (RPM)</label>
+            <input id="powerRPM" type="number" placeholder="Enter RPM">
+
+            <button onclick="calculatePower()">Calculate Power</button>
+
+            <div class="formula">
+                P = T × ω
+            </div>
+
+            <div class="result" id="powerResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+
+        <!-- GEAR RATIO -->
+
+        <div class="calculator">
+
+            <h2>Gear Ratio</h2>
+
+            <p>Calculate the ratio between driving and driven gears.</p>
+
+            <label>Input Gear Teeth</label>
+            <input id="gearInput" type="number" placeholder="Enter teeth">
+
+            <label>Output Gear Teeth</label>
+            <input id="gearOutput" type="number" placeholder="Enter teeth">
+
+            <button onclick="calculateGear()">Calculate Gear Ratio</button>
+
+            <div class="formula">
+                Ratio = Output Teeth ÷ Input Teeth
+            </div>
+
+            <div class="result" id="gearResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+
+        <!-- OHM'S LAW -->
+
+        <div class="calculator">
+
+            <h2>Ohm's Law</h2>
+
+            <p>Calculate voltage from current and resistance.</p>
+
+            <label>Current (A)</label>
+            <input id="ohmCurrent" type="number" placeholder="Enter current">
+
+            <label>Resistance (Ω)</label>
+            <input id="ohmResistance" type="number" placeholder="Enter resistance">
+
+            <button onclick="calculateOhm()">Calculate Voltage</button>
+
+            <div class="formula">
+                V = I × R
+            </div>
+
+            <div class="result" id="ohmResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+
+        <!-- PRESSURE -->
+
+        <div class="calculator">
+
+            <h2>Pressure</h2>
+
+            <p>Calculate pressure from force and area.</p>
+
+            <label>Force (N)</label>
+            <input id="pressureForce" type="number" placeholder="Enter force">
+
+            <label>Area (m²)</label>
+            <input id="pressureArea" type="number" placeholder="Enter area">
+
+            <button onclick="calculatePressure()">Calculate Pressure</button>
+
+            <div class="formula">
+                P = F ÷ A
+            </div>
+
+            <div class="result" id="pressureResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+
+        <!-- SPEED -->
+
+        <div class="calculator">
+
+            <h2>Linear Speed</h2>
+
+            <p>Calculate linear speed from distance and time.</p>
+
+            <label>Distance (m)</label>
+            <input id="speedDistance" type="number" placeholder="Enter distance">
+
+            <label>Time (s)</label>
+            <input id="speedTime" type="number" placeholder="Enter time">
+
+            <button onclick="calculateSpeed()">Calculate Speed</button>
+
+            <div class="formula">
+                v = d ÷ t
+            </div>
+
+            <div class="result" id="speedResult">
+                Result will appear here.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    MECH-X — Interactive Mechatronics Engineering Laboratory
+</footer>
+
+
+<script>
+
+function getNumber(id) {
+    return parseFloat(document.getElementById(id).value);
+}
+
+
+function calculateTorque() {
+
+    const F = getNumber("torqueForce");
+    const r = getNumber("torqueDistance");
+
+    if (isNaN(F) || isNaN(r)) {
+        document.getElementById("torqueResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const T = F * r;
+
+    document.getElementById("torqueResult").innerHTML =
+        `<strong>Torque = ${T.toFixed(3)} N·m</strong>`;
+}
+
+
+function calculatePower() {
+
+    const T = getNumber("powerTorque");
+    const rpm = getNumber("powerRPM");
+
+    if (isNaN(T) || isNaN(rpm)) {
+        document.getElementById("powerResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const omega = (2 * Math.PI * rpm) / 60;
+
+    const power = T * omega;
+
+    document.getElementById("powerResult").innerHTML =
+        `<strong>Power = ${power.toFixed(3)} W</strong>`;
+}
+
+
+function calculateGear() {
+
+    const input = getNumber("gearInput");
+    const output = getNumber("gearOutput");
+
+    if (isNaN(input) || isNaN(output) || input === 0) {
+        document.getElementById("gearResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const ratio = output / input;
+
+    document.getElementById("gearResult").innerHTML =
+        `<strong>Gear Ratio = ${ratio.toFixed(3)} : 1</strong>`;
+}
+
+
+function calculateOhm() {
+
+    const I = getNumber("ohmCurrent");
+    const R = getNumber("ohmResistance");
+
+    if (isNaN(I) || isNaN(R)) {
+        document.getElementById("ohmResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const V = I * R;
+
+    document.getElementById("ohmResult").innerHTML =
+        `<strong>Voltage = ${V.toFixed(3)} V</strong>`;
+}
+
+
+function calculatePressure() {
+
+    const F = getNumber("pressureForce");
+    const A = getNumber("pressureArea");
+
+    if (isNaN(F) || isNaN(A) || A === 0) {
+        document.getElementById("pressureResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const P = F / A;
+
+    document.getElementById("pressureResult").innerHTML =
+        `<strong>Pressure = ${P.toFixed(3)} Pa</strong>`;
+}
+
+
+function calculateSpeed() {
+
+    const d = getNumber("speedDistance");
+    const t = getNumber("speedTime");
+
+    if (isNaN(d) || isNaN(t) || t === 0) {
+        document.getElementById("speedResult").innerHTML =
+            "Please enter valid values.";
+        return;
+    }
+
+    const v = d / t;
+
+    document.getElementById("speedResult").innerHTML =
+        `<strong>Speed = ${v.toFixed(3)} m/s</strong>`;
+}
+
+</script>
+
+</body>
+</html>
