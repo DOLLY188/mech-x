@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MECH-X | DC Motor Laboratory</title>
+<title>DC Motor Laboratory | MECH-X</title>
 
 <style>
 :root{
@@ -20,560 +19,1154 @@
 
     --white:#ffffff;
     --bg:#f7faff;
-
     --success:#168447;
-    --warning:#c77a00;
     --danger:#d43d3d;
 
-    --shadow:0 10px 30px rgba(20,55,100,.08);
+    --shadow:0 12px 35px rgba(18,97,214,.08);
 }
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:var(--bg);
     color:var(--text);
-    line-height:1.5;
+    line-height:1.6;
 }
 
-/* NAVIGATION */
+a{
+    color:inherit;
+    text-decoration:none;
+}
 
-nav{
+/* ================= NAVIGATION ================= */
+
+.navbar{
+    background:#ffffff;
+    border-bottom:1px solid var(--border);
     position:sticky;
     top:0;
-    z-index:1000;
-
-    background:rgba(255,255,255,.96);
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid var(--border);
-    box-shadow:0 2px 12px rgba(0,0,0,.04);
+    z-index:100;
 }
 
 .nav-container{
-    max-width:1400px;
+    max-width:1200px;
     margin:auto;
-    padding:15px 25px;
-
+    padding:18px 24px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    gap:20px;
+    justify-content:space-between;
+    gap:25px;
 }
 
 .logo{
-    font-size:24px;
+    font-size:25px;
     font-weight:900;
-    color:var(--blue-dark);
-    letter-spacing:1px;
+    letter-spacing:2px;
+    color:var(--blue);
+    line-height:1;
 }
 
 .logo span{
-    color:var(--blue);
+    color:var(--blue-dark);
 }
 
 .nav-links{
     display:flex;
-    flex-wrap:wrap;
-    gap:8px;
+    gap:26px;
+    align-items:center;
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
+}
+
+.nav-links::-webkit-scrollbar{
+    display:none;
 }
 
 .nav-links a{
-    text-decoration:none;
-    color:var(--text);
-    font-weight:700;
-    font-size:14px;
-
-    padding:9px 13px;
-    border-radius:8px;
-
+    color:#40516a;
+    font-weight:600;
+    font-size:15px;
+    padding:8px 2px;
     transition:.2s;
 }
 
 .nav-links a:hover,
 .nav-links a.active{
-    background:var(--blue-light);
     color:var(--blue);
 }
 
-/* HERO */
+/* ================= HERO ================= */
 
 .hero{
-    max-width:1400px;
-    margin:30px auto 20px;
-    padding:0 25px;
+    max-width:1200px;
+    margin:auto;
+    padding:72px 24px 45px;
 }
 
-.hero-card{
-    background:linear-gradient(135deg,#0b2d5c,#1261d6);
-    color:white;
-
-    border-radius:20px;
-    padding:38px;
-
-    box-shadow:var(--shadow);
-}
-
-.badge{
-    display:inline-block;
-
-    padding:7px 12px;
-    border-radius:20px;
-
-    background:rgba(255,255,255,.15);
-    border:1px solid rgba(255,255,255,.25);
-
-    font-size:12px;
+.eyebrow{
+    color:var(--blue);
+    font-size:14px;
     font-weight:800;
-    letter-spacing:.5px;
-
-    margin-bottom:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:18px;
 }
 
 .hero h1{
-    font-size:clamp(30px,5vw,52px);
-    line-height:1.1;
-    margin-bottom:12px;
+    font-size:clamp(42px,7vw,72px);
+    line-height:1.02;
+    letter-spacing:-2px;
+    max-width:800px;
+    color:var(--blue-dark);
+    margin-bottom:22px;
 }
 
 .hero p{
-    max-width:850px;
-    color:#e6f0ff;
+    max-width:780px;
+    color:var(--muted);
+    font-size:20px;
+    line-height:1.55;
 }
 
-/* MAIN */
+/* ================= MAIN ================= */
 
-.container{
-    max-width:1400px;
+.main{
+    max-width:1200px;
     margin:auto;
-    padding:0 25px 50px;
+    padding:0 24px 80px;
 }
-
-.section{
-    margin-top:22px;
-}
-
-.section-title{
-    font-size:22px;
-    margin-bottom:14px;
-    color:var(--blue-dark);
-}
-
-/* GRID */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(12,1fr);
-    gap:18px;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
 }
 
 .card{
-    background:var(--white);
+    background:#ffffff;
     border:1px solid var(--border);
-    border-radius:16px;
-    padding:20px;
+    border-radius:20px;
+    padding:30px;
     box-shadow:var(--shadow);
 }
 
-.span-3{grid-column:span 3;}
-.span-4{grid-column:span 4;}
-.span-5{grid-column:span 5;}
-.span-6{grid-column:span 6;}
-.span-7{grid-column:span 7;}
-.span-8{grid-column:span 8;}
-.span-12{grid-column:span 12;}
-
-/* INPUTS */
-
-.input-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+.card h2{
+    color:var(--blue-dark);
+    font-size:25px;
+    margin-bottom:24px;
 }
 
+.card h3{
+    color:var(--blue-dark);
+    margin-bottom:12px;
+}
+
+/* ================= INPUTS ================= */
+
 .input-group{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
+    margin-bottom:19px;
 }
 
 .input-group label{
-    font-size:13px;
-    font-weight:800;
-    color:var(--muted);
-}
-
-.input-group input,
-.input-group select{
-    width:100%;
-    padding:11px 12px;
-
-    border:1px solid var(--border);
-    border-radius:9px;
-
-    outline:none;
-    background:#fff;
-    color:var(--text);
-
+    display:block;
     font-size:14px;
-}
-
-.input-group input:focus,
-.input-group select:focus{
-    border-color:var(--blue);
-    box-shadow:0 0 0 3px rgba(18,97,214,.1);
-}
-
-.range-group{
-    margin-top:14px;
-}
-
-.range-group input{
-    width:100%;
-}
-
-.range-value{
-    display:flex;
-    justify-content:space-between;
-    font-size:13px;
-    color:var(--muted);
     font-weight:700;
+    color:#40516a;
+    margin-bottom:7px;
 }
 
-/* BUTTONS */
+.input-group input{
+    width:100%;
+    padding:14px 15px;
+    border:1px solid #cbd8e8;
+    border-radius:11px;
+    background:#ffffff;
+    color:#15263d;
+    font-size:16px;
+    outline:none;
+    transition:.2s;
+}
+
+.input-group input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(18,97,214,.10);
+}
+
+/* ================= BUTTONS ================= */
 
 .button-row{
     display:flex;
+    gap:12px;
     flex-wrap:wrap;
-    gap:10px;
-    margin-top:18px;
+    margin-top:24px;
 }
 
 button{
     border:none;
-    cursor:pointer;
-
-    padding:11px 17px;
-    border-radius:9px;
-
+    border-radius:10px;
+    padding:13px 22px;
+    font-size:15px;
     font-weight:800;
-    font-size:14px;
-
+    cursor:pointer;
     transition:.2s;
 }
 
-button:hover{
-    transform:translateY(-1px);
-}
-
-.btn-primary{
+.primary-btn{
     background:var(--blue);
     color:white;
 }
 
-.btn-secondary{
+.primary-btn:hover{
+    background:#0e50b2;
+    transform:translateY(-1px);
+}
+
+.secondary-btn{
     background:var(--blue-light);
     color:var(--blue);
+    border:1px solid #c8ddfa;
 }
 
-.btn-danger{
-    background:#ffeaea;
-    color:var(--danger);
+.secondary-btn:hover{
+    background:#dcecff;
 }
 
-.btn-success{
-    background:#e9f8ef;
-    color:var(--success);
-}
+/* ================= RESULTS ================= */
 
-/* STATUS */
-
-.status-box{
-    display:flex;
-    align-items:center;
-    gap:10px;
-
-    padding:13px;
-
-    border-radius:10px;
-    background:var(--blue-soft);
-
-    margin-bottom:18px;
-
-    font-weight:800;
-}
-
-.status-dot{
-    width:11px;
-    height:11px;
-    border-radius:50%;
-    background:var(--success);
-
-    box-shadow:0 0 0 5px rgba(22,132,71,.12);
-}
-
-.status-dot.warning{
-    background:var(--warning);
-    box-shadow:0 0 0 5px rgba(199,122,0,.12);
-}
-
-.status-dot.danger{
-    background:var(--danger);
-    box-shadow:0 0 0 5px rgba(212,61,61,.12);
-}
-
-/* MOTOR */
-
-.motor-area{
-    min-height:420px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    background:
-        radial-gradient(circle,#ffffff 0%,#edf5ff 70%);
-
-    border:1px solid var(--border);
-    border-radius:16px;
-
-    overflow:hidden;
-}
-
-.motor{
-    position:relative;
-
-    width:260px;
-    height:260px;
-
-    border-radius:50%;
-
-    background:
-        repeating-conic-gradient(
-            #b8c4d4 0deg 12deg,
-            #dbe4ef 12deg 24deg
-        );
-
-    border:14px solid #65758b;
-
-    box-shadow:
-        inset 0 0 0 12px #26384e,
-        0 20px 40px rgba(0,0,0,.18);
-}
-
-.motor::before{
-    content:"";
-
-    position:absolute;
-    width:130px;
-    height:130px;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:
-        repeating-conic-gradient(
-            #1261d6 0deg 25deg,
-            #f0f6ff 25deg 50deg
-        );
-
-    border:9px solid #233a58;
-
-    animation:spin var(--motor-duration,1s) linear infinite;
-    animation-play-state:paused;
-}
-
-.motor.running::before{
-    animation-play-state:running;
-}
-
-.motor.stalled::before{
-    animation-play-state:paused;
-}
-
-.motor-shaft{
-    position:absolute;
-
-    width:65px;
-    height:65px;
-
-    left:50%;
-    top:50%;
-
-    transform:translate(-50%,-50%);
-
-    border-radius:50%;
-
-    background:#aebccc;
-    border:8px solid #3b4c62;
-
-    z-index:5;
-}
-
-.motor-label{
-    position:absolute;
-
-    left:50%;
-    bottom:-55px;
-
-    transform:translateX(-50%);
-
-    font-size:13px;
-    font-weight:900;
-    color:var(--blue-dark);
-
-    white-space:nowrap;
-}
-
-/* METRICS */
-
-.metric-grid{
+.results{
+    margin-top:26px;
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:12px;
 }
 
-.metric{
-    padding:16px;
-
+.result{
     background:var(--blue-soft);
-    border:1px solid var(--border);
-
+    border:1px solid #dce8f7;
     border-radius:12px;
+    padding:16px;
 }
 
-.metric-label{
+.result-label{
     font-size:12px;
-    color:var(--muted);
-    font-weight:800;
-    text-transform:uppercase;
-}
-
-.metric-value{
-    margin-top:4px;
-
-    font-size:25px;
-    font-weight:900;
-
-    color:var(--blue-dark);
-}
-
-.metric-unit{
-    font-size:12px;
-    color:var(--muted);
-}
-
-/* DIAGNOSTICS */
-
-.diagnostic{
-    border-left:5px solid var(--success);
-    background:#f0fbf4;
-
-    padding:15px;
-    border-radius:9px;
-}
-
-.diagnostic.warning{
-    border-color:var(--warning);
-    background:#fff8e9;
-}
-
-.diagnostic.danger{
-    border-color:var(--danger);
-    background:#fff0f0;
-}
-
-.diagnostic-title{
-    font-weight:900;
-    margin-bottom:5px;
-}
-
-.diagnostic-text{
-    font-size:14px;
-    color:var(--muted);
-}
-
-/* FAULTS */
-
-.fault-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-
-.fault-option{
-    display:flex;
-    align-items:center;
-    gap:9px;
-
-    padding:11px;
-
-    border:1px solid var(--border);
-    border-radius:9px;
-
-    cursor:pointer;
-    font-size:13px;
     font-weight:700;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
 
-.fault-option:hover{
-    background:var(--blue-soft);
-}
-
-/* GRAPHS */
-
-.chart-card{
-    min-height:330px;
-}
-
-.chart-title{
+.result-value{
+    margin-top:4px;
+    font-size:24px;
     font-weight:900;
     color:var(--blue-dark);
-    margin-bottom:10px;
+}
+
+/* ================= GRAPH ================= */
+
+.graph-card{
+    margin-top:24px;
+}
+
+.canvas-wrapper{
+    width:100%;
+    height:360px;
+    position:relative;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
 }
 
 canvas{
     width:100%;
-    height:260px;
-
-    border:1px solid var(--border);
-    border-radius:10px;
-    background:#fff;
+    height:100%;
+    display:block;
 }
 
-/* EQUATIONS */
+/* ================= MOTOR VISUAL ================= */
+
+.motor-display{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:320px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.motor{
+    position:relative;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#ffffff;
+    border:10px solid #c9d7e8;
+    box-shadow:
+        inset 0 0 0 8px #eef4fb,
+        0 15px 35px rgba(18,97,214,.12);
+}
+
+.motor::before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    left:30px;
+    top:30px;
+    border:10px solid var(--blue);
+    border-right-color:var(--cyan);
+    border-bottom-color:#8fb7ed;
+    animation:spin 1.2s linear infinite;
+}
+
+.motor::after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:65px;
+    background:#52677f;
+    left:71px;
+    top:47px;
+    border-radius:10px;
+}
+
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.motor-status{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= EQUATIONS ================= */
+
+.equations{
+    margin-top:24px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:14px;
+    padding:22px;
+}
 
 .equation{
-    padding:13px;
-
-    background:#f8fbff;
-
-    border:1px solid var(--border);
+    font-family:"Courier New",monospace;
+    background:#ffffff;
+    border:1px solid #dce4ef;
+    padding:12px 14px;
     border-radius:9px;
-
     margin-top:9px;
-
-    font-family:monospace;
-    font-weight:700;
-
+    color:var(--blue-dark);
     overflow-x:auto;
 }
 
-/* INFO */
+/* ================= INFO ================= */
 
-.info-list{
-    display:grid;
-    gap:10px;
+.info{
+    margin-top:24px;
+    padding:20px;
+    background:#ffffff;
+    border-left:4px solid var(--blue);
+    border-radius:10px;
+    box-shadow:var(--shadow);
 }
 
-.info-item{
-    padding:
+.info p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid var(--border);
+    background:#ffffff;
+    padding:30px 24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+footer strong{
+    color:var(--blue);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .nav-container{
+        padding:16px 18px;
+        align-items:flex-start;
+    }
+
+    .logo{
+        font-size:22px;
+        min-width:70px;
+    }
+
+    .nav-links{
+        gap:20px;
+        max-width:calc(100vw - 100px);
+    }
+
+    .hero{
+        padding:55px 20px 35px;
+    }
+
+    .hero h1{
+        font-size:47px;
+        letter-spacing:-1.5px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    .main{
+        padding:0 20px 60px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+    .results{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .canvas-wrapper{
+        height:280px;
+    }
+}
+
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .eyebrow{
+        font-size:12px;
+        letter-spacing:2px;
+    }
+
+    .results{
+        grid-template-columns:1fr;
+    }
+
+    .button-row button{
+        width:100%;
+    }
+
+    .motor{
+        width:145px;
+        height:145px;
+    }
+
+    .motor::before{
+        width:78px;
+        height:78px;
+        left:24px;
+        top:24px;
+    }
+
+    .motor::after{
+        left:58px;
+        top:40px;
+        height:55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="nav-container">
+
+        <a href="index.html" class="logo">
+            MECH-<span>X</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="calculators.html">Calculators</a>
+            <a href="motor.html" class="active">Motor Lab</a>
+            <a href="control.html">Control Lab</a>
+            <a href="robotics.html">Robotics</a>
+            <a href="automotive.html">Automotive</a>
+        </div>
+
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+
+    <div class="eyebrow">
+        Dynamic Engineering Simulation
+    </div>
+
+    <h1>
+        DC Motor<br>
+        Laboratory
+    </h1>
+
+    <p>
+        Simulate the acceleration and steady-state response
+        of a simplified DC motor using a numerical
+        time-domain model.
+    </p>
+
+</section>
+
+
+<!-- MAIN -->
+<main class="main">
+
+    <div class="grid">
+
+        <!-- PARAMETERS -->
+        <section class="card">
+
+            <h2>Motor Parameters</h2>
+
+            <div class="input-group">
+                <label for="voltage">
+                    Supply Voltage (V)
+                </label>
+
+                <input
+                    id="voltage"
+                    type="number"
+                    value="24"
+                    step="0.1"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="resistance">
+                    Armature Resistance (Ω)
+                </label>
+
+                <input
+                    id="resistance"
+                    type="number"
+                    value="2"
+                    step="0.1"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="ke">
+                    Motor Constant Ke (V·s/rad)
+                </label>
+
+                <input
+                    id="ke"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="kt">
+                    Motor Constant Kt (N·m/A)
+                </label>
+
+                <input
+                    id="kt"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="load">
+                    Load Torque (N·m)
+                </label>
+
+                <input
+                    id="load"
+                    type="number"
+                    value="0.2"
+                    step="0.05"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="inertia">
+                    Rotor Inertia J (kg·m²)
+                </label>
+
+                <input
+                    id="inertia"
+                    type="number"
+                    value="0.01"
+                    step="0.001"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="friction">
+                    Viscous Friction b (N·m·s/rad)
+                </label>
+
+                <input
+                    id="friction"
+                    type="number"
+                    value="0.001"
+                    step="0.0001"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="simTime">
+                    Simulation Time (s)
+                </label>
+
+                <input
+                    id="simTime"
+                    type="number"
+                    value="5"
+                    min="0.5"
+                    step="0.5"
+                >
+            </div>
+
+            <div class="button-row">
+
+                <button
+                    class="primary-btn"
+                    onclick="runSimulation()"
+                >
+                    Run Simulation
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="resetSimulation()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- MOTOR -->
+        <section class="card">
+
+            <h2>Motor Visualization</h2>
+
+            <div class="motor-display">
+
+                <div>
+                    <div class="motor"></div>
+
+                    <div class="motor-status">
+                        DC Motor Simulation
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="results">
+
+                <div class="result">
+                    <div class="result-label">
+                        Final Speed
+                    </div>
+
+                    <div class="result-value" id="finalSpeed">
+                        0 rpm
+                    </div>
+                </div>
+
+                <div class="result">
+                    <div class="result-label">
+                        Final Current
+                    </div>
+
+                    <div class="result-value" id="finalCurrent">
+                        0 A
+                    </div>
+                </div>
+
+                <div class="result">
+                    <div class="result-label">
+                        Final Torque
+                    </div>
+
+                    <div class="result-value" id="finalTorque">
+                        0 N·m
+                    </div>
+                </div>
+
+                <div class="result">
+                    <div class="result-label">
+                        Mechanical Power
+                    </div>
+
+                    <div class="result-value" id="finalPower">
+                        0 W
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- GRAPH -->
+    <section class="card graph-card">
+
+        <h2>Speed Response</h2>
+
+        <div class="canvas-wrapper">
+            <canvas id="speedCanvas"></canvas>
+        </div>
+
+    </section>
+
+
+    <!-- EQUATIONS -->
+    <section class="card">
+
+        <h2>Engineering Model</h2>
+
+        <p style="color:var(--muted);">
+            The simulator uses a simplified DC motor model.
+            Electrical and mechanical equations are solved
+            numerically over small time steps.
+        </p>
+
+        <div class="equations">
+
+            <div class="equation">
+                Back EMF: E = Ke × ω
+            </div>
+
+            <div class="equation">
+                Armature Current: I = (V − E) / R
+            </div>
+
+            <div class="equation">
+                Motor Torque: T = Kt × I
+            </div>
+
+            <div class="equation">
+                J(dω/dt) = T − Tload − bω
+            </div>
+
+            <div class="equation">
+                Mechanical Power: P = T × ω
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <p>
+                <strong>Engineering note:</strong>
+                This is an educational simulation. The model
+                assumes constant motor parameters and does not
+                include detailed magnetic saturation, temperature
+                effects, nonlinear friction, switching electronics,
+                or detailed motor construction.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <strong>MECH-X</strong> — Interactive Mechatronics Engineering Laboratory
+</footer>
+
+
+<script>
+
+/* ==========================================
+   DC MOTOR SIMULATION
+   ========================================== */
+
+function getValue(id){
+    return parseFloat(document.getElementById(id).value);
+}
+
+
+function runSimulation(){
+
+    const V = getValue("voltage");
+    const R = getValue("resistance");
+    const Ke = getValue("ke");
+    const Kt = getValue("kt");
+    const Tload = getValue("load");
+    const J = getValue("inertia");
+    const b = getValue("friction");
+    const simTime = getValue("simTime");
+
+    if(
+        !Number.isFinite(V) ||
+        !Number.isFinite(R) ||
+        !Number.isFinite(Ke) ||
+        !Number.isFinite(Kt) ||
+        !Number.isFinite(Tload) ||
+        !Number.isFinite(J) ||
+        !Number.isFinite(b) ||
+        !Number.isFinite(simTime)
+    ){
+        alert("Please enter valid numerical values.");
+        return;
+    }
+
+    if(R <= 0 || J <= 0 || Ke <= 0 || Kt <= 0){
+        alert("Resistance, inertia, Ke and Kt must be greater than zero.");
+        return;
+    }
+
+    const dt = 0.01;
+
+    let omega = 0;
+
+    const time = [];
+    const speed = [];
+    const current = [];
+    const torque = [];
+
+    for(
+        let t = 0;
+        t <= simTime;
+        t += dt
+    ){
+
+        const backEMF = Ke * omega;
+
+        let I = (V - backEMF) / R;
+
+        /* Prevent unrealistic negative current */
+        if(I < 0){
+            I = 0;
+        }
+
+        const motorTorque = Kt * I;
+
+        const acceleration =
+            (
+                motorTorque -
+                Tload -
+                b * omega
+            ) / J;
+
+        omega += acceleration * dt;
+
+        if(omega < 0){
+            omega = 0;
+        }
+
+        time.push(t);
+        speed.push(omega * 60 / (2 * Math.PI));
+        current.push(I);
+        torque.push(motorTorque);
+    }
+
+
+    const lastSpeed = speed[speed.length - 1];
+    const lastCurrent = current[current.length - 1];
+    const lastTorque = torque[torque.length - 1];
+
+    const omegaFinal =
+        lastSpeed * 2 * Math.PI / 60;
+
+    const power =
+        lastTorque * omegaFinal;
+
+
+    document.getElementById("finalSpeed").textContent =
+        lastSpeed.toFixed(1) + " rpm";
+
+    document.getElementById("finalCurrent").textContent =
+        lastCurrent.toFixed(2) + " A";
+
+    document.getElementById("finalTorque").textContent =
+        lastTorque.toFixed(2) + " N·m";
+
+    document.getElementById("finalPower").textContent =
+        power.toFixed(1) + " W";
+
+
+    drawGraph(time, speed);
+}
+
+
+/* ==========================================
+   GRAPH
+   ========================================== */
+
+function drawGraph(time, speed){
+
+    const canvas =
+        document.getElementById("speedCanvas");
+
+    const ctx = canvas.getContext("2d");
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    const width = rect.width;
+    const height = rect.height;
+
+    ctx.clearRect(0,0,width,height);
+
+
+    const margin = {
+        left:55,
+        right:20,
+        top:25,
+        bottom:45
+    };
+
+    const graphWidth =
+        width - margin.left - margin.right;
+
+    const graphHeight =
+        height - margin.top - margin.bottom;
+
+
+    const maxSpeed =
+        Math.max(...speed,1);
+
+    const maxTime =
+        Math.max(...time,1);
+
+
+    /* Grid */
+
+    ctx.strokeStyle = "#e4ebf4";
+    ctx.lineWidth = 1;
+
+    for(let i=0;i<=5;i++){
+
+        const y =
+            margin.top +
+            graphHeight -
+            (i/5)*graphHeight;
+
+        ctx.beginPath();
+        ctx.moveTo(margin.left,y);
+        ctx.lineTo(width-margin.right,y);
+        ctx.stroke();
+
+        ctx.fillStyle = "#65758c";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "right";
+
+        const value =
+            (maxSpeed*i/5).toFixed(0);
+
+        ctx.fillText(
+            value,
+            margin.left-8,
+            y+4
+        );
+    }
+
+
+    for(let i=0;i<=5;i++){
+
+        const x =
+            margin.left +
+            (i/5)*graphWidth;
+
+        ctx.beginPath();
+        ctx.moveTo(x,margin.top);
+        ctx.lineTo(
+            x,
+            height-margin.bottom
+        );
+        ctx.stroke();
+
+        ctx.fillStyle = "#65758c";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
+
+        const value =
+            (maxTime*i/5).toFixed(1);
+
+        ctx.fillText(
+            value,
+            x,
+            height-margin.bottom+22
+        );
+    }
+
+
+    /* Axes */
+
+    ctx.strokeStyle = "#8da0b7";
+    ctx.lineWidth = 1.5;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        margin.left,
+        margin.top
+    );
+
+    ctx.lineTo(
+        margin.left,
+        height-margin.bottom
+    );
+
+    ctx.lineTo(
+        width-margin.right,
+        height-margin.bottom
+    );
+
+    ctx.stroke();
+
+
+    /* Curve */
+
+    ctx.strokeStyle = "#1261d6";
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    for(let i=0;i<time.length;i++){
+
+        const x =
+            margin.left +
+            (time[i]/maxTime)*graphWidth;
+
+        const y =
+            margin.top +
+            graphHeight -
+            (speed[i]/maxSpeed)*graphHeight;
+
+        if(i === 0){
+            ctx.moveTo(x,y);
+        }else{
+            ctx.lineTo(x,y);
+        }
+    }
+
+    ctx.stroke();
+
+
+    /* Labels */
+
+    ctx.fillStyle = "#34465f";
+    ctx.font = "bold 13px Arial";
+
+    ctx.textAlign = "center";
+
+    ctx.fillText(
+        "Time (s)",
+        margin.left + graphWidth/2,
+        height-8
+    );
+
+    ctx.save();
+
+    ctx.translate(
+        15,
+        margin.top + graphHeight/2
+    );
+
+    ctx.rotate(-Math.PI/2);
+
+    ctx.fillText(
+        "Speed (rpm)",
+        0,
+        0
+    );
+
+    ctx.restore();
+}
+
+
+/* ==========================================
+   RESET
+   ========================================== */
+
+function resetSimulation(){
+
+    document.getElementById("voltage").value = 24;
+    document.getElementById("resistance").value = 2;
+    document.getElementById("ke").value = 0.08;
+    document.getElementById("kt").value = 0.08;
+    document.getElementById("load").value = 0.2;
+    document.getElementById("inertia").value = 0.01;
+    document.getElementById("friction").value = 0.001;
+    document.getElementById("simTime").value = 5;
+
+    runSimulation();
+}
+
+
+/* ==========================================
+   INITIALIZE
+   ========================================== */
+
+window.addEventListener(
+    "load",
+    runSimulation
+);
+
+window.addEventListener(
+    "resize",
+    runSimulation
+);
+
+</script>
+
+</body>
+</html>
