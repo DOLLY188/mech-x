@@ -1,1710 +1,414 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MECH-X | Control Systems Laboratory</title>
-
-    <meta name="description"
-          content="Interactive PID control systems laboratory for engineering students.">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --blue: #1261d6;
-            --blue-dark: #0b2d5c;
-            --blue-light: #eaf3ff;
-            --blue-soft: #f5f9ff;
-
-            --white: #ffffff;
-            --background: #f7faff;
-
-            --text: #172033;
-            --muted: #61708a;
-
-            --border: #d9e5f3;
-
-            --shadow:
-                0 10px 30px rgba(18, 97, 214, 0.10);
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* NAVIGATION */
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(12px);
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 18px 25px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 1.45rem;
-            font-weight: 800;
-            color: var(--blue-dark);
-            letter-spacing: 1px;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--blue);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Control Systems Laboratory | MECH-X</title>
+
+<style>
+:root{
+    --blue:#1261d6;
+    --blue-dark:#0b2d5c;
+    --blue-light:#eaf3ff;
+    --blue-soft:#f4f8ff;
+    --cyan:#16bde8;
+
+    --text:#16345f;
+    --muted:#607a9e;
+    --border:#dbe8f7;
+    --bg:#f7fbff;
+    --white:#ffffff;
+
+    --green:#168447;
+    --red:#d63c3c;
+
+    --shadow:0 8px 28px rgba(18,97,214,.07);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.topbar{
+    min-height:64px;
+    background:white;
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 24px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.logo{
+    color:var(--blue);
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.brand-text{
+    color:#6681a4;
+    font-size:13px;
+    font-weight:600;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.home-link{
+    color:var(--blue-dark);
+    font-size:14px;
+    font-weight:700;
+}
+
+.back-home{
+    background:var(--blue);
+    color:white;
+    padding:10px 17px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:800;
+}
 
-        .nav-links a {
-            color: var(--muted);
-            text-decoration: none;
-            font-weight: 600;
-        }
+.back-home:hover{
+    background:#0e50b7;
+}
 
-        .nav-links a:hover {
-            color: var(--blue);
-        }
 
-        /* HEADER */
+/* =========================
+   PAGE LAYOUT
+========================= */
 
-        .page-header {
-            background:
-                radial-gradient(
-                    circle at 85% 20%,
-                    #d9edff 0%,
-                    transparent 35%
-                ),
-                linear-gradient(
-                    135deg,
-                    #ffffff,
-                    #eef6ff
-                );
+.layout{
+    display:flex;
+    min-height:calc(100vh - 64px);
+}
 
-            padding: 70px 25px;
 
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .tag {
-            display: inline-block;
-
-            background: var(--blue-light);
-            color: var(--blue);
-
-            border: 1px solid #c8def8;
-
-            padding: 7px 13px;
-            border-radius: 20px;
-
-            font-size: 0.82rem;
-            font-weight: 700;
-
-            margin-bottom: 15px;
-        }
-
-        .page-header h1 {
-            color: var(--blue-dark);
-
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-
-            line-height: 1;
-
-            margin-bottom: 18px;
-        }
-
-        .page-header h1 span {
-            color: var(--blue);
-        }
-
-        .page-header p {
-            max-width: 750px;
-            color: var(--muted);
-            font-size: 1.05rem;
-        }
-
-        /* MAIN */
-
-        main {
-            max-width: 1200px;
-            margin: auto;
-            padding: 55px 25px 80px;
-        }
-
-        /* GRID */
-
-        .simulator-grid {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 25px;
-            align-items: start;
-        }
-
-        /* CONTROL PANEL */
-
-        .panel {
-            background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 18px;
-
-            padding: 25px;
-
-            box-shadow: var(--shadow);
-        }
-
-        .panel h2 {
-            color: var(--blue-dark);
-            margin-bottom: 5px;
-        }
-
-        .panel-description {
-            color: var(--muted);
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-        }
-
-        .input-group {
-            margin-bottom: 22px;
-        }
-
-        .input-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 8px;
-        }
-
-        .input-header label {
-            font-weight: 700;
-            color: var(--blue-dark);
-        }
-
-        .value {
-            color: var(--blue);
-            font-weight: 800;
-        }
-
-        input[type="range"] {
-            width: 100%;
-
-            accent-color: var(--blue);
-
-            cursor: pointer;
-        }
-
-        input[type="number"] {
-            width: 100%;
-
-            padding: 10px 12px;
-
-            border: 1px solid var(--border);
-            border-radius: 8px;
-
-            font-size: 1rem;
-
-            outline: none;
-        }
-
-        input[type="number"]:focus {
-            border-color: var(--blue);
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 25px 0;
-        }
-
-        /* BUTTONS */
-
-        .button-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        button {
-            border: none;
-
-            padding: 12px 15px;
-
-            border-radius: 9px;
-
-            font-size: 0.95rem;
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-        .run-button {
-            background: var(--blue);
-            color: white;
-        }
-
-        .run-button:hover {
-            background: #0b4eae;
-            transform: translateY(-1px);
-        }
-
-        .reset-button {
-            background: var(--blue-light);
-            color: var(--blue-dark);
-        }
-
-        .reset-button:hover {
-            background: #dcecff;
-        }
-
-        /* GRAPH */
-
-        .graph-panel {
-            background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 18px;
-
-            padding: 25px;
-
-            box-shadow: var(--shadow);
-        }
-
-        .graph-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .graph-header h2 {
-            color: var(--blue-dark);
-        }
-
-        .status {
-            padding: 6px 12px;
-
-            background: var(--blue-light);
-            color: var(--blue);
-
-            border-radius: 20px;
-
-            font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        canvas {
-            width: 100%;
-            height: 400px;
-
-            display: block;
-
-            background: #fbfdff;
-
-            border: 1px solid var(--border);
-            border-radius: 10px;
-        }
-
-        /* RESULTS */
-
-        .results {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 15px;
-
-            margin-top: 20px;
-        }
-
-        .result-card {
-            background: var(--blue-soft);
-
-            border: 1px solid var(--border);
-
-            border-radius: 12px;
-
-            padding: 18px;
-
-            text-align: center;
-        }
-
-        .result-card strong {
-            display: block;
-
-            color: var(--blue);
-
-            font-size: 1.4rem;
-
-            margin-bottom: 3px;
-        }
-
-        .result-card span {
-            color: var(--muted);
-            font-size: 0.82rem;
-        }
-
-        /* THEORY */
-
-        .theory {
-            margin-top: 25px;
-
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-
-            gap: 25px;
-        }
-
-        .theory-card {
-            background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 18px;
-
-            padding: 28px;
-
-            box-shadow: var(--shadow);
-        }
-
-        .theory-card h2 {
-            color: var(--blue-dark);
-            margin-bottom: 15px;
-        }
-
-        .formula {
-            background: var(--blue-soft);
-
-            border-left: 4px solid var(--blue);
-
-            padding: 18px;
-
-            margin: 15px 0;
-
-            font-family: Georgia, serif;
-
-            font-size: 1.15rem;
-
-            color: var(--blue-dark);
-        }
-
-        .theory-card p {
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-
-        .term {
-            padding: 10px 0;
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .term:last-child {
-            border-bottom: none;
-        }
-
-        .term strong {
-            color: var(--blue-dark);
-        }
-
-        .term span {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: var(--blue-dark);
-            color: white;
-
-            text-align: center;
-
-            padding: 40px 25px;
-        }
-
-        footer p {
-            color: #b9c9df;
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 900px) {
-
-            .simulator-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .results {
-                grid-template-columns:
-                    repeat(2, 1fr);
-            }
-
-            .theory {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .nav-links {
-                display: none;
-            }
-
-            .page-header {
-                padding: 55px 20px;
-            }
-
-            main {
-                padding: 40px 20px 60px;
-            }
-
-            .panel,
-            .graph-panel,
-            .theory-card {
-                padding: 20px;
-            }
-
-            canvas {
-                height: 300px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<!-- NAVIGATION -->
-
-<nav>
-    <div class="nav-container">
-
-        <a href="index.html" class="logo">
-            MECH<span>-X</span>
-        </a>
-
-        <ul class="nav-links">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-
-            <li>
-                <a href="calculators.html">Calculators</a>
-            </li>
-
-            <li>
-                <a href="motor.html">Motor Lab</a>
-            </li>
-
-            <li>
-                <a href="control.html">Control Lab</a>
-            </li>
-        </ul>
-
-    </div>
-</nav>
-
-
-<!-- HEADER -->
-
-<header class="page-header">
-
-    <div class="header-container">
-
-        <span class="tag">
-            CONTROL SYSTEMS LABORATORY
-        </span>
-
-        <h1>
-            PID Controller<br>
-            <span>Simulator</span>
-        </h1>
-
-        <p>
-            Experiment with proportional, integral and derivative
-            control. Adjust the controller gains and observe how
-            the closed-loop system responds to a step input.
-        </p>
-
-    </div>
-
-</header>
-
-
-<!-- MAIN -->
-
-<main>
-
-    <div class="simulator-grid">
-
-        <!-- CONTROL PANEL -->
-
-        <div class="panel">
-
-            <h2>
-                Controller Parameters
-            </h2>
-
-            <p class="panel-description">
-                Adjust the PID gains and plant parameters.
-            </p>
-
-
-            <!-- KP -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Kp — Proportional
-                    </label>
-
-                    <span
-                        class="value"
-                        id="kpValue">
-                        2.00
-                    </span>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="kp"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    value="2">
-
-            </div>
-
-
-            <!-- KI -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Ki — Integral
-                    </label>
-
-                    <span
-                        class="value"
-                        id="kiValue">
-                        1.00
-                    </span>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="ki"
-                    min="0"
-                    max="5"
-                    step="0.05"
-                    value="1">
-
-            </div>
-
-
-            <!-- KD -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Kd — Derivative
-                    </label>
-
-                    <span
-                        class="value"
-                        id="kdValue">
-                        0.20
-                    </span>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="kd"
-                    min="0"
-                    max="5"
-                    step="0.05"
-                    value="0.2">
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <!-- SETPOINT -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Setpoint
-                    </label>
-
-                </div>
-
-                <input
-                    type="number"
-                    id="setpoint"
-                    value="1"
-                    min="0.1"
-                    max="10"
-                    step="0.1">
-
-            </div>
-
-
-            <!-- PLANT GAIN -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Plant Gain (K)
-                    </label>
-
-                </div>
-
-                <input
-                    type="number"
-                    id="plantGain"
-                    value="1"
-                    min="0.1"
-                    max="10"
-                    step="0.1">
-
-            </div>
-
-
-            <!-- TIME CONSTANT -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Time Constant (τ)
-                    </label>
-
-                </div>
-
-                <input
-                    type="number"
-                    id="timeConstant"
-                    value="1"
-                    min="0.1"
-                    max="10"
-                    step="0.1">
-
-            </div>
-
-
-            <!-- SIMULATION TIME -->
-
-            <div class="input-group">
-
-                <div class="input-header">
-
-                    <label>
-                        Simulation Time (s)
-                    </label>
-
-                </div>
-
-                <input
-                    type="number"
-                    id="simulationTime"
-                    value="10"
-                    min="2"
-                    max="30"
-                    step="1">
-
-            </div>
-
-
-            <div class="button-row">
-
-                <button
-                    class="run-button"
-                    onclick="runSimulation()">
-                    ▶ Run Simulation
-                </button>
-
-                <button
-                    class="reset-button"
-                    onclick="resetSimulation()">
-                    ↺ Reset
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- GRAPH -->
-
-        <div class="graph-panel">
-
-            <div class="graph-header">
-
-                <h2>
-                    Step Response
-                </h2>
-
-                <span
-                    class="status"
-                    id="status">
-                    Ready
-                </span>
-
-            </div>
-
-            <canvas
-                id="graph"
-                width="850"
-                height="400">
-            </canvas>
-
-
-            <!-- RESULTS -->
-
-            <div class="results">
-
-                <div class="result-card">
-
-                    <strong id="overshoot">
-                        0%
-                    </strong>
-
-                    <span>
-                        Overshoot
-                    </span>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <strong id="riseTime">
-                        —
-                    </strong>
-
-                    <span>
-                        Rise Time
-                    </span>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <strong id="settlingTime">
-                        —
-                    </strong>
-
-                    <span>
-                        Settling Time
-                    </span>
-
-                </div>
-
-
-                <div class="result-card">
-
-                    <strong id="steadyError">
-                        —
-                    </strong>
-
-                    <span>
-                        Steady-State Error
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- THEORY -->
-
-    <div class="theory">
-
-        <div class="theory-card">
-
-            <h2>
-                PID Controller
-            </h2>
-
-            <p>
-                A PID controller calculates a control signal
-                using three actions: proportional, integral
-                and derivative control.
-            </p>
-
-            <div class="formula">
-                u(t) = Kp·e(t)
-                + Ki∫e(t)dt
-                + Kd·de(t)/dt
-            </div>
-
-            <p>
-                The controller continuously compares the
-                desired setpoint with the actual system
-                output.
-            </p>
-
-        </div>
-
-
-        <div class="theory-card">
-
-            <h2>
-                What the Parameters Do
-            </h2>
-
-            <div class="term">
-
-                <strong>Kp</strong><br>
-
-                <span>
-                    Determines how strongly the controller
-                    reacts to the current error.
-                </span>
-
-            </div>
-
-            <div class="term">
-
-                <strong>Ki</strong><br>
-
-                <span>
-                    Accumulates past error and helps remove
-                    steady-state error.
-                </span>
-
-            </div>
-
-            <div class="term">
-
-                <strong>Kd</strong><br>
-
-                <span>
-                    Reacts to the rate of change of error
-                    and can reduce overshoot.
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <h3>
-        MECH-X
-    </h3>
-
-    <p>
-        Interactive Mechatronics Engineering Laboratory
-    </p>
-
-    <p>
-        Control Systems Laboratory
-    </p>
-
-</footer>
-
-
-<script>
-
-    /* =========================
-       ELEMENTS
-    ========================== */
-
-    const canvas =
-        document.getElementById("graph");
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    const kpSlider =
-        document.getElementById("kp");
-
-    const kiSlider =
-        document.getElementById("ki");
-
-    const kdSlider =
-        document.getElementById("kd");
-
-
-    const kpValue =
-        document.getElementById("kpValue");
-
-    const kiValue =
-        document.getElementById("kiValue");
-
-    const kdValue =
-        document.getElementById("kdValue");
-
-
-    const status =
-        document.getElementById("status");
-
-
-    /* =========================
-       SLIDER DISPLAY
-    ========================== */
-
-    kpSlider.addEventListener("input", () => {
-
-        kpValue.textContent =
-            Number(kpSlider.value).toFixed(2);
-
-    });
-
-
-    kiSlider.addEventListener("input", () => {
-
-        kiValue.textContent =
-            Number(kiSlider.value).toFixed(2);
-
-    });
-
-
-    kdSlider.addEventListener("input", () => {
-
-        kdValue.textContent =
-            Number(kdSlider.value).toFixed(2);
-
-    });
-
-
-    /* =========================
-       DRAW EMPTY GRAPH
-    ========================== */
-
-    function drawEmptyGraph() {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    width:230px;
+    flex-shrink:0;
+
+    background:white;
+    border-right:1px solid var(--border);
+
+    padding:18px 12px;
+}
+
+.side-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    padding:12px 13px;
+    margin-bottom:5px;
+
+    border-radius:8px;
+
+    color:#173d70;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.side-link:hover{
+    background:var(--blue-light);
+    color:var(--blue);
+}
+
+.side-link.active{
+    background:var(--blue);
+    color:white;
+}
+
+.icon{
+    width:24px;
+    text-align:center;
+    font-size:17px;
+}
+
+.sidebar-box{
+    margin:35px 7px 0;
+    padding:18px 14px;
+
+    border-radius:8px;
+
+    background:linear-gradient(
+        135deg,
+        #edf6ff,
+        #dcecff
+    );
+}
+
+.sidebar-box strong{
+    color:var(--blue);
+    display:block;
+    margin-bottom:7px;
+}
+
+.sidebar-box span{
+    color:#6685ae;
+    font-size:11px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.content{
+    flex:1;
+    min-width:0;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    padding:35px 32px;
+
+    border-bottom:1px solid var(--border);
+
+    background:
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(70,150,255,.15),
+            transparent 28%
+        ),
+        linear-gradient(
+            120deg,
+            #f9fcff,
+            #edf6ff
         );
+}
 
-        ctx.fillStyle = "#fbfdff";
+.hero-badge{
+    display:inline-block;
 
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
+    padding:6px 12px;
 
-        drawGrid();
+    border-radius:7px;
 
-        ctx.fillStyle = "#61708a";
+    background:#e2efff;
 
-        ctx.font = "16px Arial";
+    color:var(--blue);
 
-        ctx.textAlign = "center";
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
 
-        ctx.fillText(
-            "Run the simulation to view the response",
-            canvas.width / 2,
-            canvas.height / 2
-        );
-    }
+    margin-bottom:12px;
+}
 
+.hero h1{
+    color:var(--blue-dark);
 
-    /* =========================
-       GRID
-    ========================== */
+    font-size:clamp(36px,5vw,55px);
 
-    function drawGrid() {
+    line-height:1.05;
 
-        ctx.strokeStyle = "#d9e5f3";
+    letter-spacing:-1.5px;
 
-        ctx.lineWidth = 1;
+    margin-bottom:12px;
+}
 
-        const gridX = 10;
-        const gridY = 8;
+.hero p{
+    max-width:760px;
 
+    color:#5879a7;
 
-        for (let i = 0; i <= gridX; i++) {
+    font-size:16px;
 
-            const x =
-                (i / gridX) *
-                canvas.width;
+    line-height:1.6;
+}
 
-            ctx.beginPath();
 
-            ctx.moveTo(x, 0);
+/* =========================
+   LAB CONTENT
+========================= */
 
-            ctx.lineTo(x, canvas.height);
+.lab-content{
+    padding:25px;
+}
 
-            ctx.stroke();
-        }
 
+/* =========================
+   CARDS
+========================= */
 
-        for (let i = 0; i <= gridY; i++) {
+.tool-grid{
+    display:grid;
 
-            const y =
-                (i / gridY) *
-                canvas.height;
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-            ctx.beginPath();
+    gap:22px;
+}
 
-            ctx.moveTo(0, y);
+.tool-card{
+    background:white;
 
-            ctx.lineTo(canvas.width, y);
+    border:1px solid var(--border);
 
-            ctx.stroke();
-        }
+    border-radius:10px;
 
-    }
+    padding:25px;
 
+    box-shadow:var(--shadow);
+}
 
-    /* =========================
-       SIMULATION
-    ========================== */
+.tool-card h2{
+    color:var(--blue-dark);
 
-    function runSimulation() {
+    font-size:21px;
 
-        status.textContent =
-            "Simulating...";
+    margin-bottom:6px;
+}
 
+.tool-description{
+    color:var(--muted);
 
-        const Kp =
-            parseFloat(kpSlider.value);
+    font-size:13px;
 
-        const Ki =
-            parseFloat(kiSlider.value);
+    margin-bottom:20px;
+}
 
-        const Kd =
-            parseFloat(kdSlider.value);
 
+/* =========================
+   INPUTS
+========================= */
 
-        const setpoint =
-            parseFloat(
-                document.getElementById("setpoint").value
-            );
+.input-grid{
+    display:grid;
 
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-        const K =
-            parseFloat(
-                document.getElementById("plantGain").value
-            );
+    gap:14px;
+}
 
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
 
-        const tau =
-            parseFloat(
-                document.getElementById("timeConstant").value
-            );
+.input-group label{
+    color:#466486;
 
+    font-size:12px;
 
-        const totalTime =
-            parseFloat(
-                document.getElementById("simulationTime").value
-            );
+    font-weight:800;
 
+    margin-bottom:6px;
+}
 
-        /*
-            First-order plant:
+.input-group input,
+.input-group select{
+    width:100%;
 
-            τ dy/dt + y = K u
+    padding:11px 12px;
 
-            Therefore:
+    border:1px solid #cad9ea;
 
-            dy/dt = (K*u - y) / τ
-        */
+    border-radius:7px;
 
+    background:white;
 
-        const dt = 0.01;
+    color:#17385f;
 
-        const steps =
-            Math.floor(totalTime / dt);
+    font-size:14px;
 
+    outline:none;
+}
 
-        let y = 0;
+.input-group input:focus,
+.input-group select:focus{
+    border-color:var(--blue);
 
-        let integral = 0;
+    box-shadow:
+        0 0 0 3px rgba(18,97,214,.09);
+}
 
-        let previousError = setpoint;
 
+/* =========================
+   BUTTONS
+========================= */
 
-        const data = [];
+.button-row{
+    display:flex;
 
-        let maxOutput = 0;
+    flex-wrap:wrap;
 
+    gap:10px;
 
-        for (let i = 0; i <= steps; i++) {
+    margin-top:19px;
+}
 
-            const t = i * dt;
+.primary-btn,
+.secondary-btn{
+    border:none;
 
+    border-radius:7px;
 
-            const error =
-                setpoint - y;
+    padding:11px 18px;
 
+    font-size:13px;
 
-            integral +=
-                error * dt;
+    font-weight:800;
 
+    cursor:pointer;
+}
 
-            const derivative =
-                (error - previousError) / dt;
+.primary-btn{
+    background:var(--blue);
+    color:white;
+}
 
-
-            let control =
-                (Kp * error)
-                +
-                (Ki * integral)
-                +
-                (Kd * derivative);
-
-
-            /*
-                Prevent unrealistic numerical
-                explosion during extreme settings.
-            */
-
-            control =
-                Math.max(
-                    -100,
-                    Math.min(100, control)
-                );
-
-
-            const dydt =
-                (K * control - y) / tau;
-
-
-            y +=
-                dydt * dt;
-
-
-            data.push({
-                t: t,
-                y: y
-            });
-
-
-            if (y > maxOutput) {
-                maxOutput = y;
-            }
-
-
-            previousError =
-                error;
-
-        }
-
-
-        calculatePerformance(
-            data,
-            setpoint,
-            maxOutput,
-            dt
-        );
-
-
-        drawGraph(
-            data,
-            setpoint,
-            totalTime
-        );
-
-
-        status.textContent =
-            "Simulation Complete";
-    }
-
-
-    /* =========================
-       PERFORMANCE
-    ========================== */
-
-    function calculatePerformance(
-        data,
-        setpoint,
-        maxOutput,
-        dt
-    ) {
-
-        /*
-            Overshoot
-        */
-
-        let overshoot = 0;
-
-
-        if (maxOutput > setpoint) {
-
-            overshoot =
-                ((maxOutput - setpoint)
-                / Math.abs(setpoint))
-                * 100;
-
-        }
-
-
-        document.getElementById(
-            "overshoot"
-        ).textContent =
-            overshoot.toFixed(1) + "%";
-
-
-        /*
-            Rise time:
-            time from 10% to 90%
-        */
-
-        const ten =
-            setpoint * 0.10;
-
-        const ninety =
-            setpoint * 0.90;
-
-
-        let t10 = null;
-        let t90 = null;
-
-
-        for (const point of data) {
-
-            if (
-                t10 === null &&
-                point.y >= ten
-            ) {
-                t10 = point.t;
-            }
-
-            if (
-                t90 === null &&
-                point.y >= ninety
-            ) {
-                t90 = point.t;
-            }
-
-        }
-
-
-        if (
-            t10 !== null &&
-            t90 !== null
-        ) {
-
-            document.getElementById(
-                "riseTime"
-            ).textContent =
-                (t90 - t10).toFixed(2)
-                + " s";
-
-        } else {
-
-            document.getElementById(
-                "riseTime"
-            ).textContent =
-                "—";
-        }
-
-
-        /*
-            Settling time:
-            remains within ±2%
-        */
-
-        const tolerance =
-            Math.abs(setpoint) * 0.02;
-
-
-        let settling =
-            null;
-
-
-        for (let i = 0; i < data.length; i++) {
-
-            let stable = true;
-
-
-            for (
-                let j = i;
-                j < data.length;
-                j++
-            ) {
-
-                if (
-                    Math.abs(
-                        data[j].y - setpoint
-                    ) > tolerance
-                ) {
-
-                    stable = false;
-                    break;
-
-                }
-
-            }
-
-
-            if (stable) {
-
-                settling =
-                    data[i].t;
-
-                break;
-            }
-
-        }
-
-
-        if (settling !== null) {
-
-            document.getElementById(
-                "settlingTime"
-            ).textContent =
-                settling.toFixed(2)
-                + " s";
-
-        } else {
-
-            document.getElementById(
-                "settlingTime"
-            ).textContent =
-                "Not settled";
-        }
-
-
-        /*
-            Steady-state error
-        */
-
-        const finalOutput =
-            data[data.length - 1].y;
-
-
-        const error =
-            Math.abs(
-                setpoint - finalOutput
-            );
-
-
-        document.getElementById(
-            "steadyError"
-        ).textContent =
-            error.toFixed(3);
-
-    }
-
-
-    /* =========================
-       DRAW GRAPH
-    ========================== */
-
-    function drawGraph(
-        data,
-        setpoint,
-        totalTime
-    ) {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        ctx.fillStyle =
-            "#fbfdff";
-
-        ctx.fillRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        drawGrid();
-
-
-        /*
-            Find maximum graph value
-        */
-
-        let maxY =
-            Math.max(
-                setpoint,
-                ...data.map(point => point.y)
-            );
-
-
-        maxY =
-            Math.max(
-                maxY * 1.15,
-                1
-            );
-
-
-        /*
-            Setpoint line
-        */
-
-        const setpointY =
-            canvas.height -
-            (setpoint / maxY) *
-            canvas.height;
-
-
-        ctx.strokeStyle =
-            "#9bbce5";
-
-        ctx.setLineDash([8, 6]);
-
-        ctx.lineWidth = 2;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            0,
-            setpointY
-        );
-
-        ctx.lineTo(
-            canvas.width,
-            setpointY
-        );
-
-        ctx.stroke();
-
-        ctx.setLineDash([]);
-
-
-        /*
-            Response curve
-        */
-
-        ctx.strokeStyle =
-            "#1261d6";
-
-        ctx.lineWidth = 3;
-
-        ctx.beginPath();
-
-
-        data.forEach(
-            (point, index) => {
-
-                const x =
-                    (point.t / totalTime)
-                    * canvas.width;
-
-
-                const y =
-                    canvas.height -
-                    (
-                        point.y / maxY
-                    ) *
-                    canvas.height;
-
-
-                if (index === 0) {
-
-                    ctx.moveTo(x, y);
-
-                } else {
-
-                    ctx.lineTo(x, y);
-
-                }
-
-            }
-        );
-
-
-        ctx.stroke();
-
-
-        /*
-            Labels
-        */
-
-        ctx.fillStyle =
-            "#61708a";
-
-        ctx.font =
-            "13px Arial";
-
-
-        ctx.textAlign =
-            "left";
-
-        ctx.fillText(
-            "Output",
-            10,
-            18
-        );
-
-
-        ctx.textAlign =
-            "right";
-
-        ctx.fillText(
-            "Time (s)",
-            canvas.width - 10,
-            canvas.height - 10
-        );
-
-
-        ctx.textAlign =
-            "left";
-
-        ctx.fillText(
-            "Setpoint",
-            12,
-            Math.max(
-                18,
-                setpointY - 8
-            )
-        );
-
-    }
-
-
-    /* =========================
-       RESET
-    ========================== */
-
-    function resetSimulation() {
-
-        kpSlider.value = 2;
-        kiSlider.value = 1;
-        kdSlider.value = 0.2;
-
-
-        kpValue.textContent =
-            "2.00";
-
-        kiValue.textContent =
-            "1.00";
-
-        kdValue.textContent =
-            "0.20";
-
-
-        document.getElementById(
-            "setpoint"
-        ).value = 1;
-
-
-        document.getElementById(
-            "plantGain"
-        ).value = 1;
-
-
-        document.getElementById(
-            "timeConstant"
-        ).value = 1;
-
-
-        document.getElementById(
-            "simulationTime"
-        ).value = 10;
-
-
-        document.getElementById(
-            "overshoot"
-        ).textContent = "0%";
-
-
-        document.getElementById(
-            "riseTime"
-        ).textContent = "—";
-
-
-        document.getElementById(
-            "settlingTime"
-        ).textContent = "—";
-
-
-        document.getElementById(
-            "steadyError"
-        ).textContent = "—";
-
-
-        status.textContent =
-            "Ready";
-
-
-        drawEmptyGraph();
-
-    }
-
-
-    /* =========================
-       INITIAL GRAPH
-    ========================== */
-
-    drawEmptyGraph();
-
-</script>
-
-</body>
-</html>
+.primary-btn:hover
