@@ -1,1582 +1,504 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Robotics Laboratory | MECH-X</title>
-
-    <meta name="description"
-          content="Interactive robotic arm simulator with forward and inverse kinematics.">
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --blue: #1261d6;
-            --blue-dark: #0b2d5c;
-            --blue-light: #eaf3ff;
-            --blue-soft: #f5f9ff;
-            --text: #17324d;
-            --muted: #64748b;
-            --border: #d9e6f5;
-            --white: #ffffff;
-            --green: #16803c;
-            --red: #d93434;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7faff;
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(10px);
-
-            border-bottom: 1px solid var(--border);
-
-            padding: 16px 6%;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--blue-dark);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--blue);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            color: var(--blue);
-        }
-
-        .page-header {
-            padding: 65px 6% 50px;
-
-            background:
-                radial-gradient(circle at top right, #dcecff 0%, transparent 35%),
-                linear-gradient(135deg, #ffffff, #eef6ff);
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-content {
-            max-width: 1150px;
-            margin: auto;
-        }
-
-        .tag {
-            display: inline-block;
-
-            background: var(--blue-light);
-            color: var(--blue);
-
-            padding: 7px 13px;
-            border-radius: 20px;
-
-            font-size: 12px;
-            font-weight: 800;
-
-            margin-bottom: 18px;
-        }
-
-        h1 {
-            font-size: clamp(36px, 6vw, 62px);
-            line-height: 1.05;
-
-            color: var(--blue-dark);
-
-            margin-bottom: 18px;
-        }
-
-        .header-content p {
-            max-width: 750px;
-            color: var(--muted);
-            font-size: 18px;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 45px auto;
-            padding: 0 20px;
-        }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 330px 1fr;
-            gap: 25px;
-            align-items: start;
-        }
-
-        .panel,
-        .simulator,
-        .theory {
-            background: white;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            border: 1px solid var(--border);
-            border-radius: 18px;
+<title>Robotics Laboratory | MECH-X</title>
 
-            box-shadow: 0 10px 30px rgba(20,60,110,0.06);
-        }
-
-        .panel {
-            padding: 25px;
-        }
-
-        .panel h2,
-        .simulator h2,
-        .theory h2 {
-            color: var(--blue-dark);
-        }
-
-        .panel-description {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 7px 0 25px;
-        }
-
-        .section-label {
-            color: var(--blue);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.7px;
-
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .control-group {
-            margin-bottom: 23px;
-        }
-
-        .control-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+<style>
 
-            margin-bottom: 8px;
-        }
+:root{
+    --blue:#1261d6;
+    --blue-dark:#0b2d5c;
+    --blue-light:#eaf3ff;
+    --blue-soft:#f4f8ff;
+    --cyan:#16bde8;
 
-        .control-title label {
-            font-size: 14px;
-            font-weight: 700;
-        }
+    --text:#16345f;
+    --muted:#607a9e;
+    --border:#dbe8f7;
+    --bg:#f7fbff;
+    --white:#ffffff;
 
-        .value {
-            background: var(--blue-light);
-            color: var(--blue);
+    --green:#168447;
+    --red:#d63c3c;
 
-            padding: 4px 8px;
-            border-radius: 7px;
+    --shadow:0 8px 28px rgba(18,97,214,.07);
+}
 
-            font-size: 13px;
-            font-weight: 800;
-        }
 
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--blue);
-            cursor: pointer;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        input[type="number"] {
-            width: 100%;
 
-            padding: 11px;
+body{
+    font-family:Arial,Helvetica,sans-serif;
 
-            border: 1px solid var(--border);
-            border-radius: 9px;
+    background:var(--bg);
 
-            font-size: 15px;
-            outline: none;
-        }
+    color:var(--text);
 
-        input[type="number"]:focus {
-            border-color: var(--blue);
-        }
+    line-height:1.6;
+}
 
-        .target-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
 
-        .button {
-            width: 100%;
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-            border: none;
-            border-radius: 9px;
 
-            padding: 12px 15px;
+button,
+input,
+select{
+    font-family:inherit;
+}
 
-            font-weight: 700;
-            cursor: pointer;
 
-            margin-top: 5px;
-        }
+/* =====================================================
+   HEADER
+===================================================== */
 
-        .primary {
-            background: var(--blue);
-            color: white;
-        }
+.topbar{
 
-        .primary:hover {
-            background: #0d4fae;
-        }
+    min-height:64px;
 
-        .secondary {
-            background: var(--blue-light);
-            color: var(--blue);
-        }
+    background:white;
 
-        .secondary:hover {
-            background: #d9eaff;
-        }
+    border-bottom:1px solid var(--border);
 
-        .simulator {
-            padding: 20px;
-        }
+    display:flex;
 
-        .simulator-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    align-items:center;
 
-            margin-bottom: 15px;
-        }
+    justify-content:space-between;
 
-        .status {
-            background: #eaf8ef;
-            color: var(--green);
+    padding:0 24px;
 
-            padding: 6px 10px;
+    position:sticky;
 
-            border-radius: 20px;
+    top:0;
 
-            font-size: 12px;
-            font-weight: 800;
-        }
+    z-index:100;
+}
 
-        canvas {
-            width: 100%;
-            height: 520px;
 
-            display: block;
+.brand{
 
-            background: #ffffff;
+    display:flex;
 
-            border: 1px solid var(--border);
-            border-radius: 12px;
-        }
+    align-items:center;
 
-        .results {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+    gap:25px;
+}
 
-            margin-top: 18px;
-        }
 
-        .result {
-            background: var(--blue-soft);
+.logo{
 
-            border: 1px solid var(--border);
-            border-radius: 12px;
+    color:var(--blue);
 
-            padding: 15px;
-        }
+    font-size:28px;
 
-        .result span {
-            display: block;
+    font-weight:900;
 
-            color: var(--muted);
+    letter-spacing:1px;
+}
 
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
 
-        .result strong {
-            color: var(--blue-dark);
-            font-size: 19px;
-        }
+.brand-text{
 
-        .message {
-            margin-top: 15px;
+    color:#6681a4;
 
-            padding: 12px 15px;
+    font-size:13px;
 
-            border-radius: 9px;
+    font-weight:600;
+}
 
-            background: var(--blue-light);
 
-            color: var(--blue-dark);
+.top-actions{
 
-            font-size: 13px;
-            font-weight: 600;
-        }
+    display:flex;
 
-        .theory {
-            margin-top: 30px;
-            padding: 30px;
-        }
+    align-items:center;
 
-        .theory p {
-            color: var(--muted);
-            margin: 12px 0;
-        }
+    gap:16px;
+}
 
-        .formula {
-            background: var(--blue-dark);
-            color: white;
 
-            padding: 18px;
+.home-link{
 
-            border-radius: 10px;
+    color:var(--blue-dark);
 
-            margin: 18px 0;
+    font-size:14px;
 
-            font-family: "Courier New", monospace;
+    font-weight:700;
+}
 
-            overflow-x: auto;
-        }
 
-        .note {
-            background: var(--blue-light);
+.back-home{
 
-            border-left: 4px solid var(--blue);
+    background:var(--blue);
 
-            padding: 15px;
+    color:white;
 
-            border-radius: 8px;
+    padding:10px 17px;
 
-            font-size: 14px;
-        }
+    border-radius:8px;
 
-        footer {
-            margin-top: 70px;
+    font-size:13px;
 
-            background: var(--blue-dark);
-            color: white;
+    font-weight:800;
+}
 
-            text-align: center;
 
-            padding: 35px 20px;
-        }
+.back-home:hover{
 
-        footer p {
-            opacity: 0.8;
-            font-size: 14px;
-        }
+    background:#0e50b7;
+}
 
-        @media(max-width:850px) {
 
-            .nav-links {
-                display: none;
-            }
+/* =====================================================
+   PAGE LAYOUT
+===================================================== */
 
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
+.layout{
 
-            canvas {
-                height: 430px;
-            }
+    display:flex;
 
-            .results {
-                grid-template-columns: repeat(2,1fr);
-            }
-        }
+    min-height:calc(100vh - 64px);
+}
 
-        @media(max-width:550px) {
 
-            .page-header {
-                padding: 50px 5%;
-            }
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
-            main {
-                padding: 0 12px;
-            }
+.sidebar{
 
-            .results {
-                grid-template-columns: 1fr 1fr;
-            }
+    width:230px;
 
-            canvas {
-                height: 360px;
-            }
-        }
+    flex-shrink:0;
 
-    </style>
-</head>
+    background:white;
 
-<body>
+    border-right:1px solid var(--border);
 
+    padding:18px 12px;
+}
 
-<nav>
 
-    <a href="index.html" class="logo">
-        MECH<span>-X</span>
-    </a>
+.side-link{
 
-    <ul class="nav-links">
+    display:flex;
 
-        <li>
-            <a href="index.html">Home</a>
-        </li>
+    align-items:center;
 
-        <li>
-            <a href="calculators.html">Calculators</a>
-        </li>
+    gap:13px;
 
-        <li>
-            <a href="motor.html">Motor Lab</a>
-        </li>
+    padding:12px 13px;
 
-        <li>
-            <a href="control.html">Control Lab</a>
-        </li>
+    margin-bottom:5px;
 
-        <li>
-            <a href="robotics.html">Robotics Lab</a>
-        </li>
+    border-radius:8px;
 
-    </ul>
+    color:#173d70;
 
-</nav>
+    font-size:14px;
 
+    font-weight:700;
+}
 
-<header class="page-header">
 
-    <div class="header-content">
+.side-link:hover{
 
-        <span class="tag">
-            ROBOTICS ENGINEERING LABORATORY
-        </span>
+    background:var(--blue-light);
 
-        <h1>
-            Robotic Arm<br>
-            Kinematics Simulator
-        </h1>
+    color:var(--blue);
+}
 
-        <p>
-            Control a two-link robotic manipulator using
-            forward and inverse kinematics. Specify joint
-            angles manually or give the robot a target position.
-        </p>
 
-    </div>
+.side-link.active{
 
-</header>
+    background:var(--blue);
 
+    color:white;
+}
 
-<main>
 
+.icon{
 
-    <div class="main-grid">
+    width:24px;
 
+    text-align:center;
 
-        <!-- CONTROL PANEL -->
+    font-size:17px;
+}
 
-        <section class="panel">
 
-            <h2>Robot Controls</h2>
+.sidebar-box{
 
-            <p class="panel-description">
-                Configure the robotic arm and control its position.
-            </p>
+    margin:35px 7px 0;
 
+    padding:18px 14px;
 
-            <span class="section-label">
-                JOINT CONTROL
-            </span>
+    border-radius:8px;
 
-
-            <div class="control-group">
-
-                <div class="control-title">
-
-                    <label>
-                        Joint 1
-                    </label>
-
-                    <span
-                        class="value"
-                        id="theta1Value"
-                    >
-                        45°
-                    </span>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="theta1"
-                    min="-180"
-                    max="180"
-                    value="45"
-                >
-
-            </div>
-
-
-            <div class="control-group">
-
-                <div class="control-title">
-
-                    <label>
-                        Joint 2
-                    </label>
-
-                    <span
-                        class="value"
-                        id="theta2Value"
-                    >
-                        45°
-                    </span>
-
-                </div>
-
-                <input
-                    type="range"
-                    id="theta2"
-                    min="-180"
-                    max="180"
-                    value="45"
-                >
-
-            </div>
-
-
-            <span class="section-label">
-                LINK DIMENSIONS
-            </span>
-
-
-            <div class="control-group">
-
-                <label>
-                    Link 1 Length
-                </label>
-
-                <input
-                    type="number"
-                    id="link1"
-                    value="150"
-                    min="50"
-                    max="300"
-                >
-
-            </div>
-
-
-            <div class="control-group">
-
-                <label>
-                    Link 2 Length
-                </label>
-
-                <input
-                    type="number"
-                    id="link2"
-                    value="120"
-                    min="50"
-                    max="300"
-                >
-
-            </div>
-
-
-            <span class="section-label">
-                INVERSE KINEMATICS
-            </span>
-
-
-            <p
-                class="panel-description"
-                style="margin-bottom:12px;"
-            >
-                Enter a desired end-effector position.
-            </p>
-
-
-            <div class="target-grid">
-
-                <input
-                    type="number"
-                    id="targetX"
-                    placeholder="X"
-                    value="150"
-                >
-
-                <input
-                    type="number"
-                    id="targetY"
-                    placeholder="Y"
-                    value="150"
-                >
-
-            </div>
-
-
-            <button
-                class="button primary"
-                onclick="solveIK()"
-            >
-                Solve Inverse Kinematics
-            </button>
-
-
-            <button
-                class="button secondary"
-                onclick="resetRobot()"
-            >
-                Reset Robot
-            </button>
-
-
-            <div
-                class="message"
-                id="message"
-            >
-                Robot ready.
-            </div>
-
-        </section>
-
-
-        <!-- SIMULATOR -->
-
-        <section class="simulator">
-
-            <div class="simulator-header">
-
-                <h2>
-                    Robot Workspace
-                </h2>
-
-                <span class="status">
-                    LIVE
-                </span>
-
-            </div>
-
-
-            <canvas id="robotCanvas"></canvas>
-
-
-            <div class="results">
-
-                <div class="result">
-
-                    <span>
-                        End Effector X
-                    </span>
-
-                    <strong id="xResult">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        End Effector Y
-                    </span>
-
-                    <strong id="yResult">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        Joint 1
-                    </span>
-
-                    <strong id="theta1Result">
-                        0°
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        Joint 2
-                    </span>
-
-                    <strong id="theta2Result">
-                        0°
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </div>
-
-
-    <!-- THEORY -->
-
-    <section class="theory">
-
-        <h2>
-            Robotics Kinematics
-        </h2>
-
-        <p>
-            Forward kinematics calculates the end-effector
-            position from known joint angles.
-        </p>
-
-
-        <div class="formula">
-
-            x = L₁ cos(θ₁) + L₂ cos(θ₁ + θ₂)
-
-            <br><br>
-
-            y = L₁ sin(θ₁) + L₂ sin(θ₁ + θ₂)
-
-        </div>
-
-
-        <p>
-            Inverse kinematics performs the opposite task:
-            given a desired X/Y position, it calculates
-            the joint angles required to reach that position.
-        </p>
-
-
-        <div class="formula">
-
-            cos(θ₂) =
-            (x² + y² - L₁² - L₂²)
-            /
-            (2L₁L₂)
-
-            <br><br>
-
-            θ₂ = acos(cos(θ₂))
-
-        </div>
-
-
-        <div class="note">
-
-            <strong>Engineering note:</strong>
-
-            Not every target position is reachable.
-            The target must fall within the robot's
-            reachable workspace. This simulator uses
-            a simplified planar two-degree-of-freedom model.
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <p>
-        MECH-X — Interactive Mechatronics Engineering Laboratory
-    </p>
-
-    <p>
-        Robotics Kinematics Module
-    </p>
-
-</footer>
-
-
-<script>
-
-    const canvas =
-        document.getElementById("robotCanvas");
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    const theta1Slider =
-        document.getElementById("theta1");
-
-    const theta2Slider =
-        document.getElementById("theta2");
-
-
-    const theta1Value =
-        document.getElementById("theta1Value");
-
-    const theta2Value =
-        document.getElementById("theta2Value");
-
-
-    const link1Input =
-        document.getElementById("link1");
-
-    const link2Input =
-        document.getElementById("link2");
-
-
-    const xResult =
-        document.getElementById("xResult");
-
-    const yResult =
-        document.getElementById("yResult");
-
-
-    const theta1Result =
-        document.getElementById("theta1Result");
-
-    const theta2Result =
-        document.getElementById("theta2Result");
-
-
-    const message =
-        document.getElementById("message");
-
-
-    function rad(degrees) {
-
-        return degrees * Math.PI / 180;
-
-    }
-
-
-    function deg(radians) {
-
-        return radians * 180 / Math.PI;
-
-    }
-
-
-    function calculateFK() {
-
-        const t1 =
-            rad(Number(theta1Slider.value));
-
-        const t2 =
-            rad(Number(theta2Slider.value));
-
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const x1 =
-            L1 * Math.cos(t1);
-
-        const y1 =
-            L1 * Math.sin(t1);
-
-
-        const x2 =
-            x1 +
-            L2 * Math.cos(t1 + t2);
-
-        const y2 =
-            y1 +
-            L2 * Math.sin(t1 + t2);
-
-
-        return {
-            x1,
-            y1,
-            x2,
-            y2
-        };
-
-    }
-
-
-    function updateRobot() {
-
-        theta1Value.textContent =
-            theta1Slider.value + "°";
-
-        theta2Value.textContent =
-            theta2Slider.value + "°";
-
-
-        drawRobot();
-
-    }
-
-
-    function drawGrid() {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        const grid = 25;
-
-        ctx.strokeStyle = "#e8eff7";
-        ctx.lineWidth = 1;
-
-
-        for (
-            let x = 0;
-            x <= canvas.width;
-            x += grid
-        ) {
-
-            ctx.beginPath();
-
-            ctx.moveTo(x,0);
-            ctx.lineTo(x,canvas.height);
-
-            ctx.stroke();
-
-        }
-
-
-        for (
-            let y = 0;
-            y <= canvas.height;
-            y += grid
-        ) {
-
-            ctx.beginPath();
-
-            ctx.moveTo(0,y);
-            ctx.lineTo(canvas.width,y);
-
-            ctx.stroke();
-
-        }
-
-    }
-
-
-    function drawAxes(
-        originX,
-        originY
-    ) {
-
-        ctx.strokeStyle = "#9db4cc";
-        ctx.lineWidth = 2;
-
-
-        // X axis
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            0,
-            originY
-        );
-
-        ctx.lineTo(
-            canvas.width,
-            originY
-        );
-
-        ctx.stroke();
-
-
-        // Y axis
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            originX,
-            0
-        );
-
-        ctx.lineTo(
-            originX,
-            canvas.height
-        );
-
-        ctx.stroke();
-
-
-        // origin
-
-        ctx.fillStyle = "#0b2d5c";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            originX,
-            originY,
-            7,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-    }
-
-
-    function drawTarget(
-        originX,
-        originY,
-        scale
-    ) {
-
-        const targetX =
-            Number(
-                document.getElementById("targetX").value
-            );
-
-        const targetY =
-            Number(
-                document.getElementById("targetY").value
-            );
-
-
-        if (
-            Number.isNaN(targetX) ||
-            Number.isNaN(targetY)
-        ) {
-            return;
-        }
-
-
-        const screenX =
-            originX + targetX * scale;
-
-        const screenY =
-            originY - targetY * scale;
-
-
-        ctx.strokeStyle = "#d93434";
-        ctx.lineWidth = 3;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            screenX - 9,
-            screenY - 9
-        );
-
-        ctx.lineTo(
-            screenX + 9,
-            screenY + 9
-        );
-
-        ctx.moveTo(
-            screenX + 9,
-            screenY - 9
-        );
-
-        ctx.lineTo(
-            screenX - 9,
-            screenY + 9
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    function drawRobot() {
-
-        drawGrid();
-
-
-        const robot =
-            calculateFK();
-
-
-        const originX =
-            canvas.width / 2;
-
-        const originY =
-            canvas.height / 2;
-
-
-        /*
-            Use a scale that keeps the complete
-            robot visible on smaller screens.
-        */
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const maxReach =
-            L1 + L2;
-
-
-        const scale =
-            Math.min(
-                1,
-                (Math.min(
-                    canvas.width,
-                    canvas.height
-                ) * 0.42) / maxReach
-            );
-
-
-        drawAxes(
-            originX,
-            originY
-        );
-
-
-        drawTarget(
-            originX,
-            originY,
-            scale
-        );
-
-
-        const jointX =
-            originX +
-            robot.x1 * scale;
-
-        const jointY =
-            originY -
-            robot.y1 * scale;
-
-
-        const endX =
-            originX +
-            robot.x2 * scale;
-
-        const endY =
-            originY -
-            robot.y2 * scale;
-
-
-        // Base
-
-        ctx.fillStyle = "#0b2d5c";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            originX,
-            originY,
-            12,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-
-        // Link 1
-
-        ctx.strokeStyle = "#1261d6";
-        ctx.lineWidth = 18;
-        ctx.lineCap = "round";
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            originX,
-            originY
-        );
-
-        ctx.lineTo(
-            jointX,
-            jointY
-        );
-
-        ctx.stroke();
-
-
-        // Joint 1
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            jointX,
-            jointY,
-            11,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.strokeStyle = "#0b2d5c";
-        ctx.lineWidth = 4;
-
-        ctx.stroke();
-
-
-        // Link 2
-
-        ctx.strokeStyle = "#4c8de8";
-        ctx.lineWidth = 18;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            jointX,
-            jointY
-        );
-
-        ctx.lineTo(
-            endX,
-            endY
-        );
-
-        ctx.stroke();
-
-
-        // End joint
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            endX,
-            endY,
-            11,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.strokeStyle = "#0b2d5c";
-        ctx.lineWidth = 4;
-
-        ctx.stroke();
-
-
-        // End effector
-
-        ctx.strokeStyle = "#d93434";
-        ctx.lineWidth = 5;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            endX - 12,
-            endY - 12
-        );
-
-        ctx.lineTo(
-            endX + 12,
-            endY + 12
-        );
-
-        ctx.moveTo(
-            endX + 12,
-            endY - 12
-        );
-
-        ctx.lineTo(
-            endX - 12,
-            endY + 12
-        );
-
-        ctx.stroke();
-
-
-        // Results
-
-        xResult.textContent =
-            robot.x2.toFixed(2) + " mm";
-
-        yResult.textContent =
-            robot.y2.toFixed(2) + " mm";
-
-        theta1Result.textContent =
-            theta1Slider.value + "°";
-
-        theta2Result.textContent =
-            theta2Slider.value + "°";
-
-    }
-
-
-    function solveIK() {
-
-        const x =
-            Number(
-                document.getElementById("targetX").value
-            );
-
-        const y =
-            Number(
-                document.getElementById("targetY").value
-            );
-
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const distance =
-            Math.sqrt(
-                x * x +
-                y * y
-            );
-
-
-        /*
-            Workspace condition:
-
-            |L1 - L2| <= distance <= L1 + L2
-        */
-
-
-        if (
-            distance > L1 + L2 ||
-            distance < Math.abs(L1 - L2)
-        ) {
-
-            message.textContent =
-                "Target is outside the reachable workspace.";
-
-            message.style.background =
-                "#fff0f0";
-
-            message.style.color =
-                "#b42323";
-
-            return;
-
-        }
-
-
-        let cosTheta2 =
-            (
-                x * x +
-                y * y -
-                L1 * L1 -
-                L2 * L2
-            )
-            /
-            (
-                2 * L1 * L2
-            );
-
-
-        /*
-            Protect against floating-point
-            values slightly outside [-1,1].
-        */
-
-        cosTheta2 =
-            Math.max(
-                -1,
-                Math.min(
-                    1,
-                    cosTheta2
-                )
-            );
-
-
-        const theta2 =
-            Math.acos(cosTheta2);
-
-
-        const theta1 =
-            Math.atan2(y,x)
-            -
-            Math.atan2(
-                L2 * Math.sin(theta2),
-                L1 + L2 * Math.cos(theta2)
-            );
-
-
-        const theta1Degrees =
-            deg(theta1);
-
-        const theta2Degrees =
-            deg(theta2);
-
-
-        theta1Slider.value =
-            Math.max(
-                -180,
-                Math.min(
-                    180,
-                    theta1Degrees
-                )
-            );
-
-
-        theta2Slider.value =
-            Math.max(
-                -180,
-                Math.min(
-                    180,
-                    theta2Degrees
-                )
-            );
-
-
-        message.textContent =
-            "Target reached. Joint angles calculated successfully.";
-
-        message.style.background =
-            "#eaf8ef";
-
-        message.style.color =
-            "#16803c";
-
-
-        updateRobot();
-
-    }
-
-
-    function resetRobot() {
-
-        theta1Slider.value = 45;
-        theta2Slider.value = 45;
-
-        link1Input.value = 150;
-        link2Input.value = 120;
-
-        document.getElementById("targetX").value = 150;
-        document.getElementById("targetY").value = 150;
-
-
-        message.textContent =
-            "Robot reset.";
-
-        message.style.background =
-            "#eaf3ff";
-
-        message.style.color =
-            "#0b2d5c";
-
-
-        updateRobot();
-
-    }
-
-
-    function resizeCanvas() {
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-
-        canvas.width =
-            rect.width;
-
-        canvas.height =
-            rect.height;
-
-
-        drawRobot();
-
-    }
-
-
-    theta1Slider.addEventListener(
-        "input",
-        updateRobot
+    background:linear-gradient(
+        135deg,
+        #edf6ff,
+        #dcecff
     );
+}
 
 
-    theta2Slider.addEventListener(
-        "input",
-        updateRobot
-    );
+.sidebar-box strong{
+
+    color:var(--blue);
+
+    display:block;
+
+    margin-bottom:7px;
+}
 
 
-    link1Input.addEventListener(
-        "input",
-        updateRobot
-    );
+.sidebar-box span{
+
+    color:#6685ae;
+
+    font-size:11px;
+}
 
 
-    link2Input.addEventListener(
-        "input",
-        updateRobot
-    );
+/* =====================================================
+   MAIN
+===================================================== */
+
+.content{
+
+    flex:1;
+
+    min-width:0;
+}
 
 
-    document
-        .getElementById("targetX")
-        .addEventListener(
-            "input",
-            drawRobot
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    padding:35px 32px;
+
+    border-bottom:1px solid var(--border);
+
+    background:
+
+        radial-gradient(
+            circle at 90% 30%,
+            rgba(70,150,255,.15),
+            transparent 28%
+        ),
+
+        linear-gradient(
+            120deg,
+            #f9fcff,
+            #edf6ff
         );
+}
 
 
-    document
-        .getElementById("targetY")
-        .addEventListener(
-            "input",
-            drawRobot
-        );
+.hero-badge{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:7px;
+
+    background:#e2efff;
+
+    color:var(--blue);
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+    margin-bottom:12px;
+}
 
 
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
+.hero h1{
+
+    color:var(--blue-dark);
+
+    font-size:clamp(36px,5vw,55px);
+
+    line-height:1.05;
+
+    letter-spacing:-1.5px;
+
+    margin-bottom:12px;
+}
 
 
-    resizeCanvas();
+.hero p{
 
-</script>
+    max-width:780px;
 
-</body>
-</html>
+    color:#5879a7;
+
+    font-size:16px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.lab-content{
+
+    padding:25px;
+}
+
+
+.tool-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:22px;
+}
+
+
+.tool-card{
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+}
+
+
+.tool-card h2{
+
+    color:var(--blue-dark);
+
+    font-size:21px;
+
+    margin-bottom:6px;
+}
+
+
+.tool-description{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:20px;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.input-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:14px;
+}
+
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+
+.input-group label{
+
+    color:#466486;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    margin-bottom:6px;
+}
+
+
+.input-group input{
+
+    width:100%;
+
+    padding:11px 12px;
+
+    border:1px solid #cad9ea;
+
+    border-radius:7px;
+
+    background:white;
+
+    color:#17385f;
+
+    font-size:14px;
+
+    outline:none;
+}
+
+
+.input-group input:focus{
+
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(18,97,214,.09);
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.button-row{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:19px;
+}
+
+
+.primary-btn,
+.secondary-btn{
+
+    border:none;
+
+    border-radius:7px;
+
+    padding:11px
