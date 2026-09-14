@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports & Export | MECH-X</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .report-layout {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .form-card,
+        .preview-card {
+            background: #fff;
+            border: 1px solid #dce8f7;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(20, 70, 130, 0.07);
+        }
+
+        .form-card {
+            padding: 22px;
+        }
+
+        .preview-card {
+            padding: 32px;
+            min-height: 700px;
+        }
+
+        .form-card h3 {
+            margin-bottom: 18px;
+            color: #0b2d5c;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #36506f;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #cbd9ea;
+            border-radius: 9px;
+            background: #fff;
+            color: #18324f;
+            font: inherit;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #1261d6;
+            box-shadow: 0 0 0 3px rgba(18, 97, 214, 0.10);
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn {
+            border: none;
+            border-radius: 9px;
+            padding: 11px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: #1261d6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0b4fb5;
+        }
+
+        .btn-secondary {
+            background: #eaf3ff;
+            color: #1261d6;
+        }
+
+        .btn-secondary:hover {
+            background: #dcecff;
+        }
+
+        .btn-danger {
+            background: #fff0f0;
+            color: #c62828;
+        }
+
+        .btn-danger:hover {
+            background: #ffe1e1;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .result-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 0.7fr 1.4fr auto;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .result-row input {
+            width: 100%;
+            padding: 9px;
+            border: 1px solid #cbd9ea;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        .remove-result {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: #fff0f0;
+            color: #c62828;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .report-paper {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .report-header {
+            border-bottom: 3px solid #1261d6;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+
+        .report-brand {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .report-brand h1 {
+            color: #0b2d5c;
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .report-brand p {
+            margin: 6px 0 0;
+            color: #61758d;
+        }
+
+        .report-id {
+            text-align: right;
+            font-size: 12px;
+            color: #60748c;
+        }
+
+        .report-title {
+            margin-top: 25px;
+        }
+
+        .report-title h2 {
+            color: #1261d6;
+            margin-bottom: 6px;
+        }
+
+        .report-title p {
+            color: #536b86;
+        }
+
+        .report-section {
+            margin-top: 28px;
+        }
+
+        .report-section h3 {
+            color: #0b2d5c;
+            border-left: 4px solid #1261d6;
+            padding-left: 10px;
+            margin-bottom: 14px;
+        }
+
+        .info-table,
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .info-table td,
+        .result-table th,
+        .result-table td {
+            border: 1px solid #d9e4f1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .info-table td:first-child {
+            width: 32%;
+            font-weight: 700;
+            background: #f4f8fd;
+            color: #35516f;
+        }
+
+        .result-table th {
+            background: #eaf3ff;
+            color: #0b2d5c;
+        }
+
+        .formula-box {
+            background: #f4f8fd;
+            border: 1px solid #dbe7f5;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .formula-box code {
+            display: block;
+            background: #fff;
+            border: 1px solid #dce8f7;
+            padding: 12px;
+            border-radius: 7px;
+            margin: 8px 0;
+            color: #1261d6;
+            font-weight: 700;
+        }
+
+        .report-text {
+            white-space: pre-wrap;
+            line-height: 1.7;
+            color: #425b76;
+        }
+
+        .report-footer {
+            margin-top: 45px;
+            padding-top: 15px;
+            border-top: 1px solid #dce8f7;
+            display: flex;
+            justify-content: space-between;
+            color: #71849a;
+            font-size: 12px;
+        }
+
+        .empty-message {
+            padding: 20px;
+            text-align: center;
+            color: #71849a;
+            background: #f7faff;
+            border-radius: 10px;
+        }
+
+        .notice {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 9px;
+            background: #f0f7ff;
+            color: #42617f;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 1000px) {
+            .report-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .result-row {
+                grid-template-columns: 1fr;
+                padding: 12px;
+                border: 1px solid #dce8f7;
+                border-radius: 10px;
+                margin-bottom: 12px;
+            }
+
+            .report-paper {
+                overflow-x: auto;
+            }
+
+            .preview-card {
+                padding: 18px;
+            }
+
+            .report-brand {
+                flex-direction: column;
+            }
+
+            .report-id {
+                text-align: left;
+            }
+        }
+
+        @media print {
+            body {
+                background: white !important;
+            }
+
+            .topbar,
+            .sidebar,
+            .hero,
+            .form-card,
+            .page-intro,
+            .no-print {
+                display: none !important;
+            }
+
+            .main-content {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .preview-card {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+
+            .report-paper {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="logo">MECH-X</a>
+
+    <nav>
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html">Calculators</a>
+        <a href="motor.html">Motor Lab</a>
+        <a href="control.html">Control Lab</a>
+        <a href="robotics.html">Robotics</a>
+        <a href="automotive.html">Automotive</a>
+    </nav>
+</header>
+
+<div class="page-shell">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            MECH-X
+        </div>
+
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html">Engineering Calculators</a>
+        <a href="motor.html">DC Motor Lab</a>
+        <a href="control.html">Control Systems Lab</a>
+        <a href="robotics.html">Robotics Lab</a>
+        <a href="automotive.html">Automotive Lab</a>
+        <a href="mechanical.html">Mechanical Lab</a>
+        <a href="electrical.html">Electrical & Electronics</a>
+        <a href="knowledge.html">Knowledge Base</a>
+        <a href="reports.html" class="active">Reports & Export</a>
+
+        <div class="sidebar-bottom">
+            <a href="index.html">← Back to Home</a>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <section class="hero page-intro">
+
+            <div>
+                <span class="eyebrow">ENGINEERING DOCUMENTATION</span>
+
+                <h1>
+                    Reports & Export
+                </h1>
+
+                <p>
+                    Create professional engineering reports from your
+                    calculations, simulations, observations and results.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="report-layout">
+
+            <!-- FORM -->
+
+            <div class="form-card">
+
+                <h3>Report Information</h3>
+
+                <div class="form-group">
+                    <label>Student / Engineer Name</label>
+                    <input
+                        id="author"
+                        type="text"
+                        placeholder="Enter your name">
+                </div>
+
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input
+                        id="project"
+                        type="text"
+                        placeholder="e.g. DC Motor Performance Analysis">
+                </div>
+
+                <div class="form-group">
+                    <label>Institution / Company</label>
+                    <input
+                        id="institution"
+                        type="text"
+                        placeholder="Enter institution or company">
+                </div>
+
+                <div class="form-group">
+                    <label>Discipline</label>
+
+                    <select id="discipline">
+                        <option>Mechatronics Engineering</option>
+                        <option>Mechanical Engineering</option>
+                        <option>Electrical Engineering</option>
+                        <option>Electronics Engineering</option>
+                        <option>Control Engineering</option>
+                        <option>Robotics Engineering</option>
+                        <option>Automotive Engineering</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Experiment / Module</label>
+
+                    <input
+                        id="module"
+                        type="text"
+                        placeholder="e.g. Automotive Vehicle Dynamics">
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+
+                    <input
+                        id="date"
+                        type="date">
+                </div>
+
+
+                <h3 style="margin-top:28px;">
+                    Results
+                </h3>
+
+                <div id="resultsContainer">
+
+                </div>
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="addResult()">
+                    + Add Result
+                </button>
+
+
+                <h3 style="margin-top:28px;">
+                    Engineering Calculation
+                </h3>
+
+                <div class="form-group">
+                    <label>Formula</label>
+
+                    <input
+                        id="formula"
+                        type="text"
+                        placeholder="e.g. P = Tω">
+                </div>
+
+                <div class="form-group">
+                    <label>Inputs</label>
+
+                    <input
+                        id="calcInputs"
+                        type="text"
+                        placeholder="e.g. T = 20 Nm, ω = 100 rad/s">
+                </div>
+
+                <div class="form-group">
+                    <label>Calculated Result</label>
+
+                    <input
+                        id="calcResult"
+                        type="text"
+                        placeholder="e.g. P = 2000 W">
+                </div>
+
+                <div class="form-group">
+                    <label>Interpretation</label>
+
+                    <textarea
+                        id="interpretation"
+                        placeholder="Explain what the result means..."></textarea>
+                </div>
+
+
+                <h3 style="margin-top:28px;">
+                    Observations & Conclusion
+                </h3>
+
+                <div class="form-group">
+                    <label>Observations</label>
+
+                    <textarea
+                        id="observations"
+                        placeholder="Enter observations from the experiment or simulation..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Conclusion</label>
+
+                    <textarea
+                        id="conclusion"
+                        placeholder="Enter your engineering conclusion..."></textarea>
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="generateReport()">
+                        Generate Report
+                    </button>
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="loadSample()">
+                        Load Sample
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="clearReport()">
+                        Clear
+                    </button>
+
+                </div>
+
+
+                <div class="notice">
+
+                    MECH-X reports are intended for educational and
+                    engineering-learning purposes. Always verify calculated
+                    values, assumptions and units before using results in
+                    real engineering applications.
+
+                </div>
+
+            </div>
+
+
+            <!-- PREVIEW -->
+
+            <div class="preview-card">
+
+                <div class="button-row no-print">
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="window.print()">
+                        🖨 Print / Save PDF
+                    </button>
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="downloadText()">
+                        ↓ Export TXT
+                    </button>
+
+                </div>
+
+
+                <div id="reportPreview">
+
+                    <div class="empty-message">
+                        Your engineering report will appear here.
+                        Fill in the information and click
+                        <strong>Generate Report</strong>.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+let results = [];
+
+document.getElementById("date").value =
+    new Date().toISOString().split("T")[0];
+
+
+function addResult(
+    parameter = "",
+    value = "",
+    unit = "",
+    note = ""
+) {
+
+    const id = Date.now() + Math.random();
+
+    results.push({
+        id,
+        parameter,
+        value,
+        unit,
+        note
+    });
+
+    renderResults();
+}
+
+
+function renderResults() {
+
+    const container =
+        document.getElementById("resultsContainer");
+
+    container.innerHTML = "";
+
+    results.forEach(result => {
+
+        const row = document.createElement("div");
+
+        row.className = "result-row";
+
+        row.innerHTML = `
+
+            <input
+                placeholder="Parameter"
+                value="${escapeHTML(result.parameter)}"
+                onchange="updateResult('${result.id}','parameter',this.value)">
+
+            <input
+                placeholder="Value"
+                value="${escapeHTML(result.value)}"
+                onchange="updateResult('${result.id}','value',this.value)">
+
+            <input
+                placeholder="Unit"
+                value="${escapeHTML(result.unit)}"
+                onchange="updateResult('${result.id}','unit',this.value)">
+
+            <input
+                placeholder="Note"
+                value="${escapeHTML(result.note)}"
+                onchange="updateResult('${result.id}','note',this.value)">
+
+            <button
+                class="remove-result"
+                onclick="removeResult('${result.id}')">
+                ×
+            </button>
+
+        `;
+
+        container.appendChild(row);
+
+    });
+}
+
+
+function updateResult(id, field, value) {
+
+    const result =
+        results.find(item => String(item.id) === String(id));
+
+    if (result) {
+        result[field] = value;
+    }
+}
+
+
+function removeResult(id) {
+
+    results =
+        results.filter(
+            item => String(item.id) !== String(id)
+        );
+
+    renderResults();
+}
+
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function generateReport() {
+
+    const author =
+        document.getElementById("author").value ||
+        "Not specified";
+
+    const project =
+        document.getElementById("project").value ||
+        "Engineering Report";
+
+    const institution =
+        document.getElementById("institution").value ||
+        "Not specified";
+
+    const discipline =
+        document.getElementById("discipline").value;
+
+    const module =
+        document.getElementById("module").value ||
+        "Not specified";
+
+    const date =
+        document.getElementById("date").value ||
+        new Date().toISOString().split("T")[0];
+
+    const formula =
+        document.getElementById("formula").value ||
+        "Not specified";
+
+    const calcInputs =
+        document.getElementById("calcInputs").value ||
+        "Not specified";
+
+    const calcResult =
+        document.getElementById("calcResult").value ||
+        "Not specified";
+
+    const interpretation =
+        document.getElementById("interpretation").value ||
+        "Not specified";
+
+    const observations =
+        document.getElementById("observations").value ||
+        "Not specified";
+
+    const conclusion =
+        document.getElementById("conclusion").value ||
+        "Not specified";
+
+
+    let resultRows = "";
+
+    if (results.length === 0) {
+
+        resultRows = `
+            <tr>
+                <td colspan="4">
+                    No results added.
+                </td>
+            </tr>
+        `;
+
+    } else {
+
+        results.forEach(result => {
+
+            resultRows += `
+
+                <tr>
+
+                    <td>
+                        ${escapeHTML(result.parameter)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(result.value)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(result.unit)}
+                    </td>
+
+                    <td>
+                        ${escapeHTML(result.note)}
+                    </td>
+
+                </tr>
+
+            `;
+
+        });
+
+    }
+
+
+    const reportID =
+        "MECHX-" +
+        new Date()
+            .getTime()
+            .toString()
+            .slice(-8);
+
+
+    document.getElementById("reportPreview").innerHTML = `
+
+        <div class="report-paper">
+
+            <div class="report-header">
+
+                <div class="report-brand">
+
+                    <div>
+
+                        <h1>MECH-X</h1>
+
+                        <p>
+                            Interactive Mechatronics Engineering Laboratory
+                        </p>
+
+                    </div>
+
+                    <div class="report-id">
+
+                        <strong>REPORT ID</strong><br>
+
+                        ${reportID}<br><br>
+
+                        <strong>DATE</strong><br>
+
+                        ${escapeHTML(date)}
+
+                    </div>
+
+                </div>
+
+
+                <div class="report-title">
+
+                    <h2>
+                        ${escapeHTML(project)}
+                    </h2>
+
+                    <p>
+                        ${escapeHTML(module)}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>1. Report Information</h3>
+
+                <table class="info-table">
+
+                    <tr>
+                        <td>Student / Engineer</td>
+                        <td>${escapeHTML(author)}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Institution / Company</td>
+                        <td>${escapeHTML(institution)}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Discipline</td>
+                        <td>${escapeHTML(discipline)}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Module</td>
+                        <td>${escapeHTML(module)}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>${escapeHTML(date)}</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>2. Results</h3>
+
+                <table class="result-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                            <th>Unit</th>
+                            <th>Note</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        ${resultRows}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>3. Engineering Calculation</h3>
+
+                <div class="formula-box">
+
+                    <strong>Formula</strong>
+
+                    <code>
+                        ${escapeHTML(formula)}
+                    </code>
+
+
+                    <strong>Inputs</strong>
+
+                    <p>
+                        ${escapeHTML(calcInputs)}
+                    </p>
+
+                    <br>
+
+                    <strong>Calculated Result</strong>
+
+                    <p>
+                        ${escapeHTML(calcResult)}
+                    </p>
+
+                    <br>
+
+                    <strong>Interpretation</strong>
+
+                    <p>
+                        ${escapeHTML(interpretation)}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>4. Observations</h3>
+
+                <p class="report-text">
+                    ${escapeHTML(observations)}
+                </p>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>5. Conclusion</h3>
+
+                <p class="report-text">
+                    ${escapeHTML(conclusion)}
+                </p>
+
+            </div>
+
+
+            <div class="report-section">
+
+                <h3>6. Engineering Note</h3>
+
+                <p class="report-text">
+
+                    This report was generated using MECH-X,
+                    a browser-based interactive engineering laboratory.
+                    Results should be checked against appropriate
+                    engineering references, standards and real-world
+                    measurements before practical implementation.
+
+                </p>
+
+            </div>
+
+
+            <div class="report-footer">
+
+                <span>
+                    MECH-X Engineering Laboratory
+                </span>
+
+                <span>
+                    Generated electronically
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function downloadText() {
+
+    const preview =
+        document.getElementById("reportPreview");
+
+    if (
+        !preview ||
+        preview.innerText.includes(
+            "Your engineering report will appear here"
+        )
+    ) {
+
+        alert("Generate the report first.");
+
+        return;
+    }
+
+
+    const text =
+        preview.innerText;
+
+    const blob =
+        new Blob(
+            [text],
+            { type: "text/plain" }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "MECH-X-Engineering-Report.txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+function loadSample() {
+
+    document.getElementById("author").value =
+        "Engineering Student";
+
+    document.getElementById("project").value =
+        "DC Motor Performance Analysis";
+
+    document.getElementById("institution").value =
+        "Engineering Laboratory";
+
+    document.getElementById("discipline").value =
+        "Mechatronics Engineering";
+
+    document.getElementById("module").value =
+        "DC Motor Laboratory";
+
+    document.getElementById("date").value =
+        new Date().toISOString().split("T")[0];
+
+    document.getElementById("formula").value =
+        "P = Tω";
+
+    document.getElementById("calcInputs").value =
+        "T = 20 Nm, ω = 100 rad/s";
+
+    document.getElementById("calcResult").value =
+        "P = 2000 W";
+
+    document.getElementById("interpretation").value =
+        "The motor produces approximately 2000 W of mechanical power under the specified operating condition.";
+
+    document.getElementById("observations").value =
+        "Motor speed increased as the applied voltage increased. The simulated current changed according to the motor back-EMF and load conditions.";
+
+    document.getElementById("conclusion").value =
+        "The simulation demonstrates the relationship between voltage, current, torque and rotational speed in a simplified DC motor model.";
+
+
+    results = [
+
+        {
+            id: 1,
+            parameter: "Supply Voltage",
+            value: "24",
+            unit: "V",
+            note: "Input voltage"
+        },
+
+        {
+            id: 2,
+            parameter: "Motor Speed",
+            value: "1800",
+            unit: "rpm",
+            note: "Final simulated speed"
+        },
+
+        {
+            id: 3,
+            parameter: "Mechanical Power",
+            value: "2000",
+            unit: "W",
+            note: "Calculated"
+        }
+
+    ];
+
+
+    renderResults();
+
+    generateReport();
+
+}
+
+
+function clearReport() {
+
+    document.getElementById("author").value = "";
+
+    document.getElementById("project").value = "";
+
+    document.getElementById("institution").value = "";
+
+    document.getElementById("module").value = "";
+
+    document.getElementById("formula").value = "";
+
+    document.getElementById("calcInputs").value = "";
+
+    document.getElementById("calcResult").value = "";
+
+    document.getElementById("interpretation").value = "";
+
+    document.getElementById("observations").value = "";
+
+    document.getElementById("conclusion").value = "";
+
+    document.getElementById("date").value =
+        new Date().toISOString().split("T")[0];
+
+    results = [];
+
+    renderResults();
+
+    document.getElementById("reportPreview").innerHTML = `
+
+        <div class="empty-message">
+
+            Your engineering report will appear here.
+            Fill in the information and click
+            <strong>Generate Report</strong>.
+
+        </div>
+
+    `;
+
+}
+
+
+addResult();
+
+</script>
+
+</body>
+</html>
