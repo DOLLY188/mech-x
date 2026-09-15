@@ -1,14 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Engineering Calculators | MECH-X</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f6f9fd;
+    color:#172033;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.topbar{
+    height:70px;
+    background:white;
+    border-bottom:1px solid #dce6f2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:800;
+    color:#1261d6;
+}
+
+.logo-box{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    background:#1261d6;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.top-links{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    font-size:14px;
+    color:#52627a;
+}
+
+.top-links a:hover{
+    color:#1261d6;
+}
+
+.home-btn{
+    background:#eaf3ff;
+    color:#1261d6;
+    padding:10px 15px;
+    border-radius:8px;
+    font-weight:700;
+}
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
+}
+
+.sidebar{
+    width:245px;
+    background:white;
+    border-right:1px solid #dce6f2;
+    padding:25px 16px;
+}
+
+.sidebar-title{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:#8a97aa;
+    margin:0 10px 12px;
+}
+
+.nav-item{
+    display:block;
+    padding:12px 13px;
+    margin-bottom:5px;
+    border-radius:9px;
+    color:#52627a;
+    font-size:14px;
+    font-weight:600;
+}
+
+.nav-item:hover{
+    background:#f0f6ff;
+    color:#1261d6;
+}
+
+.nav-item.active{
+    background:#eaf3ff;
+    color:#1261d6;
+}
+
+.main{
+    flex:1;
+    padding:35px;
+    max-width:1400px;
+    margin:auto;
+    width:100%;
+}
+
+.hero{
+    background:linear-gradient(135deg,#eaf3ff,#f7fbff);
+    border:1px solid #d9e8fb;
+    border-radius:18px;
+    padding:32px;
+    margin-bottom:28px;
+}
+
+.hero-tag{
+    display:inline-block;
+    background:#1261d6;
+    color:white;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:.5px;
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:36px;
+    margin-bottom:10px;
+    color:#0b2d5c;
+}
+
+.hero p{
+    max-width:800px;
+    color:#5b6b82;
+    line-height:1.7;
+}
+
+.back{
+    display:inline-block;
+    margin-top:20px;
+    color:#1261d6;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.section-title{
+    margin:30px 0 15px;
+}
+
+.section-title h2{
+    color:#0b2d5c;
+    font-size:22px;
+}
+
+.section-title p{
+    color:#728198;
+    font-size:14px;
+    margin-top:5px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border:1px solid #dce6f2;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(20,50,90,.04);
+}
+
+.card h3{
+    color:#0b2d5c;
+    margin-bottom:7px;
+}
+
+.card p{
+    font-size:13px;
+    color:#748197;
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    color:#56657b;
+    margin-bottom:6px;
+}
+
+input{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd8e8;
+    border-radius:8px;
+    outline:none;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+input:focus{
+    border-color:#1261d6;
+}
+
+button{
+    width:100%;
+    border:0;
+    background:#1261d6;
+    color:white;
+    padding:11px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0d50b4;
+}
+
+.result{
+    margin-top:12px;
+    padding:12px;
+    background:#f0f6ff;
+    border-radius:8px;
+    color:#0b4da8;
+    font-weight:bold;
+    min-height:42px;
+}
+
+.info{
+    margin-top:28px;
+    background:white;
+    border:1px solid #dce6f2;
+    border-radius:15px;
+    padding:24px;
+}
+
+.info h2{
+    color:#0b2d5c;
+    margin-bottom:12px;
+}
+
+.info p{
+    color:#66758b;
+    line-height:1.7;
+    font-size:14px;
+}
+
+.formula{
+    margin-top:12px;
+    padding:13px;
+    background:#f6f9fd;
+    border-left:4px solid #1261d6;
+    font-family:monospace;
+    color:#23344d;
+}
+
+footer{
+    margin-top:40px;
+    padding:25px 0;
+    border-top:1px solid #dce6f2;
+    color:#7a8799;
+    font-size:13px;
+    text-align:center;
+}
+
+@media(max-width:1000px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .sidebar{
+        width:210px;
+    }
+}
+
+@media(max-width:750px){
+    .layout{
+        display:block;
+    }
+
+    .sidebar{
+        width:100%;
+        border-right:0;
+        border-bottom:1px solid #dce6f2;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .top-links{
+        display:none;
+    }
+
+    .main{
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:28px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -16,382 +335,363 @@
 <header class="topbar">
 
     <a href="index.html" class="logo">
-        MECH-<span>X</span>
+        <div class="logo-box">M</div>
+        MECH-X
     </a>
 
-    <div class="top-actions">
-
-        <a class="btn" href="knowledge.html">
-            Knowledge Base
-        </a>
-
-        <a class="btn primary" href="index.html">
-            ⌂ Home
-        </a>
-
+    <div class="top-links">
+        <a href="index.html">⌂ Home</a>
+        <a href="knowledge.html">Knowledge</a>
+        <a href="reports.html">Reports</a>
+        <a href="index.html" class="home-btn">← Back to Home</a>
     </div>
 
 </header>
 
-
 <div class="layout">
-
 
 <aside class="sidebar">
 
-    <div class="side-title">
-        MECH-X LABORATORY
-    </div>
+    <div class="sidebar-title">MECH-X Modules</div>
 
-    <nav class="nav">
+    <a class="nav-item" href="index.html">⌂ Home</a>
 
-        <a href="index.html">
-            ⌂ Home
-        </a>
+    <a class="nav-item active" href="calculators.html">
+        🧮 Engineering Calculators
+    </a>
 
-        <a href="calculators.html" class="active">
-            ▣ Calculators
-        </a>
+    <a class="nav-item" href="motor.html">
+        ⚙️ Motor Laboratory
+    </a>
 
-        <a href="motor.html">
-            ⚙ Motor Lab
-        </a>
+    <a class="nav-item" href="control.html">
+        🎛️ Control Systems Lab
+    </a>
 
-        <a href="control.html">
-            ◉ Control Lab
-        </a>
+    <a class="nav-item" href="robotics.html">
+        🤖 Robotics Laboratory
+    </a>
 
-        <a href="robotics.html">
-            ▦ Robotics Lab
-        </a>
+    <a class="nav-item" href="automotive.html">
+        🚗 Automotive Laboratory
+    </a>
 
-        <a href="automotive.html">
-            ▤ Automotive Lab
-        </a>
+    <a class="nav-item" href="mechanical.html">
+        🔩 Mechanical Engineering
+    </a>
 
-        <a href="mechanical.html">
-            ◆ Mechanical Lab
-        </a>
+    <a class="nav-item" href="electrical.html">
+        ⚡ Electrical & Electronics
+    </a>
 
-        <a href="electrical.html">
-            ⚡ Electrical & Electronics
-        </a>
+    <a class="nav-item" href="knowledge.html">
+        📘 Knowledge Base
+    </a>
 
-        <a href="knowledge.html">
-            ? Knowledge Base
-        </a>
-
-        <a href="reports.html">
-            ▤ Reports & Export
-        </a>
-
-    </nav>
+    <a class="nav-item" href="reports.html">
+        📄 Reports & Export
+    </a>
 
 </aside>
 
-
-<main>
-
+<main class="main">
 
 <section class="hero">
 
-    <div class="eyebrow">
-        MECHATRONICS ENGINEERING TOOLS
-    </div>
+    <span class="hero-tag">ENGINEERING TOOLS</span>
 
-    <h1>
-        Engineering Calculators
-    </h1>
+    <h1>Engineering Calculators</h1>
 
     <p>
-        Quick, practical engineering calculators for mechanical,
-        electrical, control, robotics, automotive and motor
-        engineering applications.
+        A collection of practical engineering calculators for
+        mechanical, electrical, automotive and mechatronics applications.
+        Enter your values and obtain an immediate engineering result.
     </p>
+
+    <a href="index.html" class="back">← Return to MECH-X Home</a>
 
 </section>
 
 
 <div class="section-title">
-
-    <h2>
-        Engineering Calculator Categories
-    </h2>
-
-    <p>
-        Select a category to open its dedicated engineering tools.
-    </p>
-
+    <h2>Core Engineering Calculators</h2>
+    <p>Quick calculation tools for common engineering problems.</p>
 </div>
 
 
 <section class="grid">
 
 
-<!-- MECHANICAL -->
+<!-- TORQUE -->
 
 <div class="card">
 
-    <div class="icon">
-        ⚙
-    </div>
+    <h3>Torque</h3>
 
-    <h3>
-        Mechanical Calculators
-    </h3>
+    <p>Calculate torque from force and perpendicular radius.</p>
 
-    <p>
-        Stress, strain, beam deflection, shaft torsion,
-        springs, gears, torque and mechanical power.
-    </p>
+    <label>Force (N)</label>
+    <input id="torqueForce" type="number" value="100">
 
-    <a
-        class="btn primary"
-        href="mechanical.html">
+    <label>Radius (m)</label>
+    <input id="torqueRadius" type="number" value="0.5">
 
-        Open Calculator →
+    <button onclick="calcTorque()">Calculate Torque</button>
 
-    </a>
+    <div class="result" id="torqueResult">Result: —</div>
 
 </div>
 
 
-<!-- ELECTRICAL -->
+<!-- POWER -->
 
 <div class="card">
 
-    <div class="icon">
-        ⚡
-    </div>
+    <h3>Mechanical Power</h3>
 
-    <h3>
-        Electrical Calculators
-    </h3>
+    <p>Calculate mechanical power from torque and rotational speed.</p>
 
-    <p>
-        Ohm's law, electrical power, voltage dividers,
-        resistor networks, RC circuits and LED calculations.
-    </p>
+    <label>Torque (N·m)</label>
+    <input id="powerTorque" type="number" value="50">
 
-    <a
-        class="btn primary"
-        href="electrical.html">
+    <label>Speed (RPM)</label>
+    <input id="powerRPM" type="number" value="1500">
 
-        Open Calculator →
+    <button onclick="calcPower()">Calculate Power</button>
 
-    </a>
+    <div class="result" id="powerResult">Result: —</div>
 
 </div>
 
 
-<!-- CONTROL -->
+<!-- GEAR -->
 
 <div class="card">
 
-    <div class="icon">
-        PID
-    </div>
+    <h3>Gear Ratio</h3>
 
-    <h3>
-        Control Calculators
-    </h3>
+    <p>Calculate gear ratio from input and output speed.</p>
 
-    <p>
-        PID parameters, first-order systems, response
-        characteristics and control-system calculations.
-    </p>
+    <label>Input Speed (RPM)</label>
+    <input id="inputRPM" type="number" value="1500">
 
-    <a
-        class="btn primary"
-        href="control.html">
+    <label>Output Speed (RPM)</label>
+    <input id="outputRPM" type="number" value="500">
 
-        Open Calculator →
+    <button onclick="calcGear()">Calculate Ratio</button>
 
-    </a>
+    <div class="result" id="gearResult">Result: —</div>
 
 </div>
 
 
-<!-- ROBOTICS -->
+<!-- OHM -->
 
 <div class="card">
 
-    <div class="icon">
-        🤖
-    </div>
+    <h3>Ohm's Law</h3>
 
-    <h3>
-        Robotics Calculators
-    </h3>
+    <p>Calculate voltage using current and resistance.</p>
 
-    <p>
-        Forward kinematics, inverse kinematics, workspace,
-        link geometry and robotic motion.
-    </p>
+    <label>Current (A)</label>
+    <input id="ohmCurrent" type="number" value="2">
 
-    <a
-        class="btn primary"
-        href="robotics.html">
+    <label>Resistance (Ω)</label>
+    <input id="ohmResistance" type="number" value="10">
 
-        Open Calculator →
+    <button onclick="calcOhm()">Calculate Voltage</button>
 
-    </a>
+    <div class="result" id="ohmResult">Result: —</div>
 
 </div>
 
 
-<!-- AUTOMOTIVE -->
+<!-- PRESSURE -->
 
 <div class="card">
 
-    <div class="icon">
-        🚗
-    </div>
+    <h3>Pressure</h3>
 
-    <h3>
-        Automotive Calculators
-    </h3>
+    <p>Calculate pressure from applied force and area.</p>
 
-    <p>
-        Vehicle performance, wheel torque, acceleration,
-        aerodynamic drag and top-speed calculations.
-    </p>
+    <label>Force (N)</label>
+    <input id="pressureForce" type="number" value="1000">
 
-    <a
-        class="btn primary"
-        href="automotive.html">
+    <label>Area (m²)</label>
+    <input id="pressureArea" type="number" value="0.1">
 
-        Open Calculator →
+    <button onclick="calcPressure()">Calculate Pressure</button>
 
-    </a>
+    <div class="result" id="pressureResult">Result: —</div>
 
 </div>
 
 
-<!-- MOTOR -->
+<!-- SPEED -->
 
 <div class="card">
 
-    <div class="icon">
-        M
-    </div>
+    <h3>Linear Speed</h3>
 
-    <h3>
-        Motor Calculators
-    </h3>
+    <p>Calculate linear velocity from wheel radius and RPM.</p>
 
-    <p>
-        DC motor voltage, current, torque, speed,
-        mechanical power and motor behaviour.
-    </p>
+    <label>Wheel Radius (m)</label>
+    <input id="speedRadius" type="number" value="0.3">
 
-    <a
-        class="btn primary"
-        href="motor.html">
+    <label>Speed (RPM)</label>
+    <input id="speedRPM" type="number" value="1000">
 
-        Open Calculator →
+    <button onclick="calcSpeed()">Calculate Speed</button>
 
-    </a>
+    <div class="result" id="speedResult">Result: —</div>
+
+</div>
+
+
+<!-- DENSITY -->
+
+<div class="card">
+
+    <h3>Density</h3>
+
+    <p>Calculate material density from mass and volume.</p>
+
+    <label>Mass (kg)</label>
+    <input id="densityMass" type="number" value="10">
+
+    <label>Volume (m³)</label>
+    <input id="densityVolume" type="number" value="0.002">
+
+    <button onclick="calcDensity()">Calculate Density</button>
+
+    <div class="result" id="densityResult">Result: —</div>
+
+</div>
+
+
+<!-- STRESS -->
+
+<div class="card">
+
+    <h3>Normal Stress</h3>
+
+    <p>Calculate normal stress from force and cross-sectional area.</p>
+
+    <label>Force (N)</label>
+    <input id="stressForce" type="number" value="5000">
+
+    <label>Area (mm²)</label>
+    <input id="stressArea" type="number" value="250">
+
+    <button onclick="calcStress()">Calculate Stress</button>
+
+    <div class="result" id="stressResult">Result: —</div>
+
+</div>
+
+
+<!-- EFFICIENCY -->
+
+<div class="card">
+
+    <h3>Efficiency</h3>
+
+    <p>Calculate efficiency from useful output and input power.</p>
+
+    <label>Output Power (W)</label>
+    <input id="effOutput" type="number" value="800">
+
+    <label>Input Power (W)</label>
+    <input id="effInput" type="number" value="1000">
+
+    <button onclick="calcEfficiency()">Calculate Efficiency</button>
+
+    <div class="result" id="effResult">Result: —</div>
 
 </div>
 
 </section>
 
 
-<div class="section-title">
+<section class="info">
 
-    <h2>
-        Engineering Workflow
-    </h2>
+    <h2>Engineering Reference</h2>
 
-</div>
+    <p>
+        These calculators are simplified engineering tools intended
+        for learning, preliminary calculations and project development.
+        Always verify important engineering calculations using accepted
+        standards, textbooks, manufacturer data and appropriate safety factors.
+    </p>
 
-
-<section class="workflow">
-
-    <div class="step">
-
-        <div class="num">
-            01
-        </div>
-
-        <div>
-
-            <h3>
-                Select
-            </h3>
-
-            <p>
-                Choose the engineering field you want to analyse.
-            </p>
-
-        </div>
-
+    <div class="formula">
+        Torque = Force × Radius
     </div>
 
-
-    <div class="step">
-
-        <div class="num">
-            02
-        </div>
-
-        <div>
-
-            <h3>
-                Calculate
-            </h3>
-
-            <p>
-                Enter your engineering parameters and calculate
-                the required result.
-            </p>
-
-        </div>
-
+    <div class="formula">
+        Power = Torque × Angular Velocity
     </div>
 
+    <div class="formula">
+        Pressure = Force ÷ Area
+    </div>
 
-    <div class="step">
+    <div class="formula">
+        Stress = Force ÷ Area
+    </div>
 
-        <div class="num">
-            03
-        </div>
-
-        <div>
-
-            <h3>
-                Analyse
-            </h3>
-
-            <p>
-                Study the result and use the appropriate laboratory
-                simulation for deeper analysis.
-            </p>
-
-        </div>
-
+    <div class="formula">
+        Efficiency = (Output Power ÷ Input Power) × 100
     </div>
 
 </section>
 
 
-<footer class="footer">
-
-    MECH-X • Mechatronics Engineering Laboratory
-
-    <br><br>
-
-    <a href="index.html">
-        ← Back to Home
-    </a>
-
+<footer>
+    MECH-X — Interactive Mechatronics Engineering Laboratory<br>
+    Engineering simulation and educational tools
 </footer>
 
-
 </main>
-
 </div>
 
-</body>
-</html>
+
+<script>
+
+function value(id){
+    return parseFloat(document.getElementById(id).value);
+}
+
+function show(id,text){
+    document.getElementById(id).textContent = "Result: " + text;
+}
+
+
+function calcTorque(){
+
+    const F = value("torqueForce");
+    const r = value("torqueRadius");
+
+    if(!isFinite(F) || !isFinite(r)){
+        show("torqueResult","Enter valid values");
+        return;
+    }
+
+    show(
+        "torqueResult",
+        (F*r).toFixed(3) + " N·m"
+    );
+}
+
+
+function calcPower(){
+
+    const T = value("powerTorque");
+    const rpm = value("powerRPM");
+
+    if(!isFinite(T) || !isFinite(rpm)){
+        show("powerResult","Enter valid values");
+        return;
+    }
+
+    const omega = 2*Math
