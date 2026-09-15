@@ -1,521 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
+<title>Mechanical Engineering Lab | MECH-X</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
 
-    <title>Mechanical Engineering Lab | MECH-X</title>
+<style>
+.lab-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
 
-    <link rel="stylesheet" href="style.css">
+.tool-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
 
-    <style>
+.tool-card h3{
+    color:var(--blue-dark);
+    margin:0 0 8px;
+}
 
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
+.tool-card p{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.5;
+}
 
-        .calculator-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-        }
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
 
-        .calculator-card h3 {
-            margin-top: 0;
-            color: var(--blue-dark);
-        }
+.field label{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+    color:var(--blue-dark);
+    margin-bottom:6px;
+}
 
-        .calculator-card > p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.5;
-        }
+.field input,
+.field select{
+    width:100%;
+    box-sizing:border-box;
+}
 
-        .calc-inputs {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 15px;
-        }
+.result{
+    margin-top:14px;
+    padding:15px;
+    border-radius:10px;
+    background:var(--blue-soft);
+    border-left:4px solid var(--blue);
+    font-weight:800;
+    color:var(--blue-dark);
+}
 
-        .calc-result {
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--blue-soft);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-        }
-
-        .calc-result strong {
-            display: block;
-            color: var(--blue);
-            font-size: 23px;
-            margin-top: 4px;
-        }
-
-        .formula {
-            background: #f8fbff;
-            border-left: 4px solid var(--blue);
-            padding: 11px;
-            margin-top: 12px;
-            border-radius: 7px;
-            font-family: Georgia, serif;
-            color: var(--blue-dark);
-        }
-
-        .lab-note {
-            margin-top: 20px;
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 22px;
-            box-shadow: var(--shadow);
-        }
-
-        .lab-note h2 {
-            margin-top: 0;
-            color: var(--blue-dark);
-        }
-
-        .lab-note p {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        @media (max-width: 800px) {
-
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .calc-inputs {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-    </style>
-
+@media(max-width:800px){
+    .lab-grid,
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     TOP BAR
-     ===================================================== -->
-
 <header class="topbar">
 
-    <a href="index.html" class="logo">
-        MECH-<span>X</span>
-    </a>
+<a class="logo" href="index.html">
+MECH-<span>X</span>
+</a>
 
-    <div class="top-actions">
+<div class="top-actions">
 
-        <a
-            href="calculators.html"
-            class="btn">
-            Calculators
-        </a>
+<a class="btn" href="index.html">
+← Home
+</a>
 
-        <a
-            href="index.html"
-            class="btn primary">
-            ⌂ Home
-        </a>
+<a class="btn primary" href="calculators.html">
+Calculators
+</a>
 
-    </div>
+</div>
 
 </header>
 
 
-
 <div class="layout">
 
+<aside>
 
-<!-- =====================================================
-     SIDEBAR
-     ===================================================== -->
+<div class="side-title">
+MECH-X LABORATORY
+</div>
 
-<aside class="sidebar">
+<nav class="nav">
 
-    <div class="side-title">
-        MECH-X LABORATORY
-    </div>
+<a href="index.html">⌂ Home</a>
+<a href="calculators.html">▣ Engineering Calculators</a>
+<a href="motor.html">⚙ Motor Lab</a>
+<a href="control.html">◉ Control Lab</a>
+<a href="robotics.html">▦ Robotics Lab</a>
+<a href="automotive.html">▤ Automotive Lab</a>
+<a class="active" href="mechanical.html">◆ Mechanical Lab</a>
+<a href="electrical.html">⚡ Electrical & Electronics</a>
+<a href="knowledge.html">? Knowledge Base</a>
+<a href="reports.html">▤ Reports & Export</a>
 
-    <nav class="nav">
-
-        <a href="index.html">
-            ⌂ Home
-        </a>
-
-        <a href="calculators.html">
-            ▣ Calculators
-        </a>
-
-        <a href="motor.html">
-            ⚙ Motor Lab
-        </a>
-
-        <a href="control.html">
-            ◉ Control Lab
-        </a>
-
-        <a href="robotics.html">
-            🤖 Robotics Lab
-        </a>
-
-        <a href="automotive.html">
-            🚗 Automotive Lab
-        </a>
-
-        <a
-            href="mechanical.html"
-            class="active">
-            ◆ Mechanical Lab
-        </a>
-
-        <a href="electrical.html">
-            ⚡ Electrical & Electronics
-        </a>
-
-        <a href="knowledge.html">
-            ? Knowledge Base
-        </a>
-
-        <a href="reports.html">
-            ▤ Reports & Export
-        </a>
-
-    </nav>
+</nav>
 
 </aside>
 
 
-
-<!-- =====================================================
-     MAIN
-     ===================================================== -->
-
 <main>
-
-
-<!-- HERO -->
 
 <section class="hero">
 
-    <div class="eyebrow">
-        MECHANICAL ENGINEERING
-    </div>
+<div class="eyebrow">
+MECHANICAL ENGINEERING LABORATORY
+</div>
 
-    <h1>
-        Mechanical Engineering Laboratory
-    </h1>
+<h1>
+Mechanical Engineering Lab
+</h1>
 
-    <p>
-        Calculate stress, strain, beam deflection, shaft torsion,
-        springs, gears and mechanical power using practical
-        engineering equations.
-    </p>
+<p>
+Analyse stress, strain, beams, shafts, springs,
+gears and mechanical power using interactive
+engineering calculations.
+</p>
 
 </section>
 
 
+<section class="lab-grid">
 
-<!-- =====================================================
-     CALCULATORS
-     ===================================================== -->
+
+<!-- STRESS -->
+
+<div class="tool-card">
+
+<h3>Stress & Strain</h3>
+
+<p>
+Calculate normal stress and engineering strain.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Force (N)</label>
+<input id="stressForce" type="number" value="1000">
+</div>
+
+<div class="field">
+<label>Area (mm²)</label>
+<input id="stressArea" type="number" value="100">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="stressCalc()">
+Calculate
+</button>
+
+<div id="stressResult" class="result">
+Stress: —
+</div>
+
+</div>
+
+
+<!-- BEAM -->
+
+<div class="tool-card">
+
+<h3>Simply Supported Beam</h3>
+
+<p>
+Estimate maximum bending stress.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Load (N)</label>
+<input id="beamLoad" type="number" value="1000">
+</div>
+
+<div class="field">
+<label>Length (m)</label>
+<input id="beamLength" type="number" value="2">
+</div>
+
+<div class="field">
+<label>Width (mm)</label>
+<input id="beamWidth" type="number" value="50">
+</div>
+
+<div class="field">
+<label>Height (mm)</label>
+<input id="beamHeight" type="number" value="100">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="beamCalc()">
+Calculate
+</button>
+
+<div id="beamResult" class="result">
+Maximum bending stress: —
+</div>
+
+</div>
+
+
+<!-- SHAFT -->
+
+<div class="tool-card">
+
+<h3>Shaft Torsion</h3>
+
+<p>
+Calculate torsional shear stress in a solid circular shaft.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Torque (N·m)</label>
+<input id="torque" type="number" value="100">
+</div>
+
+<div class="field">
+<label>Diameter (mm)</label>
+<input id="diameter" type="number" value="20">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="shaftCalc()">
+Calculate
+</button>
+
+<div id="shaftResult" class="result">
+Shear stress: —
+</div>
+
+</div>
+
+
+<!-- SPRING -->
+
+<div class="tool-card">
+
+<h3>Helical Spring</h3>
+
+<p>
+Calculate approximate spring deflection.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Load (N)</label>
+<input id="springLoad" type="number" value="100">
+</div>
+
+<div class="field">
+<label>Spring Constant (N/m)</label>
+<input id="springK" type="number" value="500">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="springCalc()">
+Calculate
+</button>
+
+<div id="springResult" class="result">
+Deflection: —
+</div>
+
+</div>
+
+
+<!-- GEAR -->
+
+<div class="tool-card">
+
+<h3>Gear Ratio</h3>
+
+<p>
+Calculate gear ratio and output speed.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Driver Teeth</label>
+<input id="driverTeeth" type="number" value="20">
+</div>
+
+<div class="field">
+<label>Driven Teeth</label>
+<input id="drivenTeeth" type="number" value="60">
+</div>
+
+<div class="field">
+<label>Input Speed (rpm)</label>
+<input id="gearSpeed" type="number" value="1800">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="gearCalc()">
+Calculate
+</button>
+
+<div id="gearResult" class="result">
+Gear ratio: —
+</div>
+
+</div>
+
+
+<!-- POWER -->
+
+<div class="tool-card">
+
+<h3>Mechanical Power</h3>
+
+<p>
+Calculate rotational mechanical power.
+</p>
+
+<div class="form-grid">
+
+<div class="field">
+<label>Torque (N·m)</label>
+<input id="powerTorque" type="number" value="50">
+</div>
+
+<div class="field">
+<label>Speed (rpm)</label>
+<input id="powerSpeed" type="number" value="1500">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="powerCalc()">
+Calculate
+</button>
+
+<div id="powerResult" class="result">
+Power: —
+</div>
+
+</div>
+
+</section>
+
 
 <div class="section-title">
 
-    <h2>
-        Mechanical Engineering Calculators
-    </h2>
+<h2>
+Engineering Model
+</h2>
 
-    <p>
-        Enter the required parameters and calculate the result.
-    </p>
-
-</div>
-
-
-
-<section class="calculator-grid">
-
-
-<!-- =====================================================
-     1. STRESS AND STRAIN
-     ===================================================== -->
-
-<div class="calculator-card">
-
-    <h3>
-        1. Stress & Strain
-    </h3>
-
-    <p>
-        Calculate normal stress and strain for a loaded member.
-    </p>
-
-    <div class="calc-inputs">
-
-        <div class="field">
-
-            <label>
-                Force F (N)
-            </label>
-
-            <input
-                id="stressForce"
-                type="number"
-                value="10000">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Area A (mm²)
-            </label>
-
-            <input
-                id="stressArea"
-                type="number"
-                value="500">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Original Length L (mm)
-            </label>
-
-            <input
-                id="strainLength"
-                type="number"
-                value="100">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Extension ΔL (mm)
-            </label>
-
-            <input
-                id="strainExtension"
-                type="number"
-                value="0.2">
-
-        </div>
-
-    </div>
-
-
-    <div class="formula">
-        Stress = F / A
-        <br>
-        Strain = ΔL / L
-    </div>
-
-
-    <div class="button-row">
-
-        <button
-            class="btn primary"
-            onclick="calculateStress()">
-            Calculate
-        </button>
-
-        <button
-            class="btn"
-            onclick="resetStress()">
-            Reset
-        </button>
-
-    </div>
-
-
-    <div
-        id="stressResult"
-        class="calc-result">
-
-        Result will appear here.
-
-    </div>
+<p>
+Core equations used in this laboratory.
+</p>
 
 </div>
 
 
+<div class="tool-card">
 
-<!-- =====================================================
-     2. BEAM DEFLECTION
-     ===================================================== -->
+<p><strong>Normal stress:</strong> σ = F / A</p>
 
-<div class="calculator-card">
+<p><strong>Strain:</strong> ε = ΔL / L</p>
 
-    <h3>
-        2. Beam Deflection
-    </h3>
+<p><strong>Torsional shear stress:</strong> τ = Tr / J</p>
 
-    <p>
-        Calculate maximum deflection of a simply supported beam
-        carrying a central point load.
-    </p>
+<p><strong>Mechanical power:</strong> P = Tω</p>
 
+<p><strong>Gear ratio:</strong> i = N₂ / N₁</p>
 
-    <div class="calc-inputs">
-
-        <div class="field">
-
-            <label>
-                Load P (N)
-            </label>
-
-            <input
-                id="beamLoad"
-                type="number"
-                value="1000">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Beam Length L (m)
-            </label>
-
-            <input
-                id="beamLength"
-                type="number"
-                value="2">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Young's Modulus E (Pa)
-            </label>
-
-            <input
-                id="beamE"
-                type="number"
-                value="200000000000">
-
-        </div>
-
-
-        <div class="field">
-
-            <label>
-                Second Moment I (m⁴)
-            </label>
-
-            <input
-                id="beamI"
-                type="number"
-                value="0.000001">
-
-        </div>
-
-    </div>
-
-
-    <div class="formula">
-        δ = PL³ / 48EI
-    </div>
-
-
-    <div class="button-row">
-
-        <button
-            class="btn primary"
-            onclick="calculateBeam()">
-            Calculate
-        </button>
-
-        <button
-            class="btn"
-            onclick="resetBeam()">
-            Reset
-        </button>
-
-    </div>
-
-
-    <div
-        id="beamResult"
-        class="calc-result">
-
-        Result will appear here.
-
-    </div>
+<p>
+These simplified models are intended for educational
+engineering analysis.
+</p>
 
 </div>
 
 
+<footer class="footer">
 
-<!-- =====================================================
-     3. SHAFT TORSION
-     ===================================================== -->
+MECH-X • Mechanical Engineering Laboratory
 
-<div class="calculator-card">
+<br><br>
 
-    <h3>
-        3. Shaft Torsion
-    </h3>
+<a href="index.html">
+← Back to Home
+</a>
 
-    <p>
-        Calculate torsional shear stress for a solid circular shaft.
-    </p>
+</footer>
 
+</main>
 
-    <div class="calc-inputs">
-
-        <div class="field">
-
-            <label>
-                Torque T (N·m)
-            </label>
-
-            <input
-                id="torsionTorque"
-                type="number"
-                value="500">
-
-        </div>
+</div>
 
 
-        <div class="field">
+<script>
 
-            <label>
-                Shaft Diameter d (m)
-            </label>
+function n(id){
+return Number(document.getElementById(id).value);
+}
 
-            <input
-                id="torsionDiameter"
-                type="number"
-                value="0.04">
+function stressCalc(){
 
-        </div>
+let F=n("stressForce");
+let A=n("stressArea");
 
-    </div>
+if(A<=0){
+document.getElementById("stressResult").textContent="Enter a valid area.";
+return;
+}
+
+let stress=F/A;
+
+document.getElementById("stressResult").textContent=
+"Stress: "+stress.toFixed(2)+" MPa";
+
+}
+
+
+function beamCalc(){
+
+let F=n("beamLoad");
+let L=n("beamLength");
+let b=n("beamWidth")/1000;
+let h=n("beamHeight")/1000;
+
+if(L<=0||b<=0||h<=0){
+document.getElementById("beamResult").textContent=
+"Enter valid dimensions.";
+return;
+}
+
+let M=F*L/4;
+let I=b*Math.pow(h,3)/12;
+let c=h/2;
+let stress=M*c/I;
+
+document.getElementById("beamResult").textContent=
+"Maximum bending stress: "+
+(stress/1e6).toFixed(2)+" MPa";
+
+}
+
+
+function shaftCalc(){
+
+let T=n("torque");
+let d=n("diameter")/1000;
+
+if(d<=0){
+document.getElementById("shaftResult").textContent=
+"Enter a valid diameter.";
+return;
+}
+
+let r=d/2;
+let J=Math.PI*Math.pow(d,4)/32;
+let tau=T*r/J;
+
+document.getElementById("shaftResult").textContent=
+"Shear stress: "+
+(tau/1e6).toFixed(2)+" MPa";
+
+}
+
+
+function springCalc(){
+
+let F=n("springLoad");
+let k=n("springK");
+
+if(k<=0){
+document.getElementById("springResult").textContent=
+"Enter a valid spring constant.";
+return;
+}
+
+let x=F/k;
+
+document.getElementById("springResult").textContent=
+"Deflection: "+x.toFixed(4)+" m";
+
+}
+
+
+function gearCalc(){
+
+let driver=n("driverTeeth");
+let driven=n("drivenTeeth");
+let speed=n("gearSpeed");
+
+if(driver<=0||driven<=0){
+document.getElementById("gearResult").textContent=
+"Enter valid tooth counts.";
+return;
+}
+
+let ratio=driven/driver;
+let output=speed/ratio;
+
+document.getElementById("gearResult").textContent=
+"Gear ratio: "+ratio.toFixed(2)+
+" : 1 | Output speed: "+
+output.toFixed(1)+" rpm";
+
+}
+
+
+function powerCalc(){
+
+let T=n("powerTorque");
+let rpm=n("powerSpeed");
+
+let omega=2*Math.PI*rpm/60;
+let P=T*omega;
+
+document.getElementById("powerResult").textContent=
+"Power: "+P.toFixed(2)+" W ("+
+(P/1000).toFixed(3)+" kW)";
+
+}
+
+</script>
+
+</body>
+</html>
