@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Robotics Laboratory | MECH-X</title>
 
@@ -14,133 +11,613 @@
 
 <style>
 
-/* =====================================================
-   ROBOTICS PAGE
-   ===================================================== */
-
-.robotics-layout {
-    display: grid;
-    grid-template-columns: 340px minmax(0, 1fr);
-    gap: 18px;
+.robot-grid{
+display:grid;
+grid-template-columns:360px 1fr;
+gap:18px;
 }
 
-.robot-panel,
-.robot-visual,
-.robot-results,
-.robot-note {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 15px;
-    padding: 22px;
-    box-shadow: var(--shadow);
+.robot-card{
+background:#fff;
+border:1px solid var(--border);
+border-radius:15px;
+padding:22px;
+box-shadow:var(--shadow);
 }
 
-.robot-panel h2,
-.robot-visual h2,
-.robot-results h2,
-.robot-note h2 {
-    margin-top: 0;
-    color: var(--blue-dark);
+.robot-card h2,
+.robot-card h3{
+color:var(--blue-dark);
 }
 
-.input-group {
-    margin-bottom: 15px;
+.field{
+margin-bottom:13px;
 }
 
-.input-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blue-dark);
+.field label{
+display:block;
+font-size:12px;
+font-weight:800;
+color:var(--blue-dark);
+margin-bottom:6px;
 }
 
-.input-group input[type="number"] {
-    width: 100%;
-    box-sizing: border-box;
+.field input,
+.field select{
+width:100%;
+box-sizing:border-box;
 }
 
-.slider-row {
-    display: grid;
-    grid-template-columns: 1fr 75px;
-    gap: 10px;
-    align-items: center;
+.result{
+margin-top:15px;
+padding:15px;
+border-radius:10px;
+background:var(--blue-soft);
+border-left:4px solid var(--blue);
+font-weight:800;
+color:var(--blue-dark);
 }
 
-.slider-row input[type="range"] {
-    width: 100%;
+canvas{
+width:100%;
+max-width:600px;
+height:auto;
+border:1px solid var(--border);
+border-radius:12px;
+background:#f8fbff;
+display:block;
+margin:auto;
 }
 
-.slider-value {
-    background: var(--blue-soft);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px;
-    text-align: center;
-    font-weight: 700;
-    color: var(--blue);
+@media(max-width:900px){
+.robot-grid{
+grid-template-columns:1fr;
+}
 }
 
-.button-stack {
-    display: grid;
-    gap: 10px;
-    margin-top: 18px;
+</style>
+
+</head>
+
+<body>
+
+<header class="topbar">
+
+<a class="logo" href="index.html">
+MECH-<span>X</span>
+</a>
+
+<div class="top-actions">
+
+<a class="btn" href="index.html">
+← Home
+</a>
+
+<a class="btn primary" href="calculators.html">
+Calculators
+</a>
+
+</div>
+
+</header>
+
+
+<div class="layout">
+
+<aside>
+
+<div class="side-title">
+MECH-X LABORATORY
+</div>
+
+<nav class="nav">
+
+<a href="index.html">⌂ Home</a>
+<a href="calculators.html">▣ Engineering Calculators</a>
+<a href="motor.html">⚙ Motor Lab</a>
+<a href="control.html">◉ Control Lab</a>
+<a class="active" href="robotics.html">▦ Robotics Lab</a>
+<a href="automotive.html">▤ Automotive Lab</a>
+<a href="mechanical.html">◆ Mechanical Lab</a>
+<a href="electrical.html">⚡ Electrical & Electronics</a>
+<a href="knowledge.html">? Knowledge Base</a>
+<a href="reports.html">▤ Reports & Export</a>
+
+</nav>
+
+</aside>
+
+
+<main>
+
+<section class="hero">
+
+<div class="eyebrow">
+ROBOTICS ENGINEERING LABORATORY
+</div>
+
+<h1>
+Robotics Laboratory
+</h1>
+
+<p>
+Study forward and inverse kinematics of a
+two-link planar robotic arm.
+</p>
+
+</section>
+
+
+<div class="robot-grid">
+
+
+<section class="robot-card">
+
+<h2>
+Robot Parameters
+</h2>
+
+
+<div class="field">
+
+<label>
+Link 1 Length (m)
+</label>
+
+<input id="L1" type="number" value="2" step="0.1">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Link 2 Length (m)
+</label>
+
+<input id="L2" type="number" value="1.5" step="0.1">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Joint 1 Angle (degrees)
+</label>
+
+<input id="theta1" type="number" value="30">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Joint 2 Angle (degrees)
+</label>
+
+<input id="theta2" type="number" value="30">
+
+</div>
+
+
+<button class="btn primary" onclick="forwardKinematics()">
+Calculate Forward Kinematics
+</button>
+
+
+<div id="fkResult" class="result">
+End effector: —
+</div>
+
+
+<hr style="border:0;border-top:1px solid var(--border);margin:25px 0;">
+
+
+<h3>
+Inverse Kinematics
+</h3>
+
+
+<div class="field">
+
+<label>
+Target X (m)
+</label>
+
+<input id="targetX" type="number" value="2">
+
+</div>
+
+
+<div class="field">
+
+<label>
+Target Y (m)
+</label>
+
+<input id="targetY" type="number" value="1">
+
+</div>
+
+
+<button class="btn primary" onclick="inverseKinematics()">
+Solve Inverse Kinematics
+</button>
+
+
+<div id="ikResult" class="result">
+Target solution: —
+</div>
+
+</section>
+
+
+
+<section class="robot-card">
+
+<h2>
+Robot Visualization
+</h2>
+
+<canvas id="robotCanvas"
+width="650"
+height="500">
+</canvas>
+
+<div class="section-title">
+
+<h2>
+Engineering Equations
+</h2>
+
+<p>
+Two-link planar robot model.
+</p>
+
+</div>
+
+<p>
+<strong>x = L₁cosθ₁ + L₂cos(θ₁ + θ₂)</strong>
+</p>
+
+<p>
+<strong>y = L₁sinθ₁ + L₂sin(θ₁ + θ₂)</strong>
+</p>
+
+<p>
+The inverse kinematics calculation determines joint
+angles required to reach a desired X-Y position.
+</p>
+
+</section>
+
+</div>
+
+
+<footer class="footer">
+
+MECH-X • Robotics Engineering Laboratory
+
+<br><br>
+
+<a href="index.html">
+← Back to Home
+</a>
+
+</footer>
+
+</main>
+
+</div>
+
+
+<script>
+
+const canvas=
+document.getElementById("robotCanvas");
+
+const ctx=
+canvas.getContext("2d");
+
+
+function rad(deg){
+return deg*Math.PI/180;
 }
 
-.robot-canvas {
-    width: 100%;
-    height: 500px;
-    display: block;
-    background: #fbfdff;
-    border: 1px solid var(--border);
-    border-radius: 12px;
+
+function deg(radValue){
+return radValue*180/Math.PI;
 }
 
-.result-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+
+function drawRobot(t1,t2,targetX=null,targetY=null){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+
+const scale=100;
+
+const originX=170;
+const originY=360;
+
+const L1=Number(
+document.getElementById("L1").value
+);
+
+const L2=Number(
+document.getElementById("L2").value
+);
+
+
+const x1=
+L1*Math.cos(t1);
+
+const y1=
+L1*Math.sin(t1);
+
+
+const x2=
+x1+
+L2*Math.cos(t1+t2);
+
+const y2=
+y1+
+L2*Math.sin(t1+t2);
+
+
+ctx.lineWidth=12;
+ctx.lineCap="round";
+
+
+ctx.strokeStyle="#1261d6";
+
+ctx.beginPath();
+
+ctx.moveTo(
+originX,
+originY
+);
+
+ctx.lineTo(
+originX+x1*scale,
+originY-y1*scale
+);
+
+ctx.stroke();
+
+
+ctx.strokeStyle="#0b2d5c";
+
+ctx.beginPath();
+
+ctx.moveTo(
+originX+x1*scale,
+originY-y1*scale
+);
+
+ctx.lineTo(
+originX+x2*scale,
+originY-y2*scale
+);
+
+ctx.stroke();
+
+
+ctx.fillStyle="#1261d6";
+
+ctx.beginPath();
+
+ctx.arc(
+originX,
+originY,
+13,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+ctx.fillStyle="#0b2d5c";
+
+ctx.beginPath();
+
+ctx.arc(
+originX+x1*scale,
+originY-y1*scale,
+11,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+ctx.fillStyle="#1261d6";
+
+ctx.beginPath();
+
+ctx.arc(
+originX+x2*scale,
+originY-y2*scale,
+10,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+
+if(
+targetX!==null &&
+targetY!==null
+){
+
+ctx.strokeStyle="#e24a4a";
+ctx.lineWidth=2;
+
+ctx.beginPath();
+
+ctx.arc(
+originX+targetX*scale,
+originY-targetY*scale,
+9,
+0,
+Math.PI*2
+);
+
+ctx.stroke();
+
 }
 
-.result-box {
-    background: var(--blue-soft);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 15px;
 }
 
-.result-box span {
-    display: block;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 6px;
+
+function forwardKinematics(){
+
+const L1=
+Number(document.getElementById("L1").value);
+
+const L2=
+Number(document.getElementById("L2").value);
+
+const t1=
+rad(Number(document.getElementById("theta1").value));
+
+const t2=
+rad(Number(document.getElementById("theta2").value));
+
+
+const x=
+L1*Math.cos(t1)+
+L2*Math.cos(t1+t2);
+
+const y=
+L1*Math.sin(t1)+
+L2*Math.sin(t1+t2);
+
+
+document.getElementById(
+"fkResult"
+).textContent=
+"End effector: X = "+
+x.toFixed(3)+
+" m, Y = "+
+y.toFixed(3)+
+" m";
+
+
+drawRobot(t1,t2);
+
 }
 
-.result-box strong {
-    color: var(--blue);
-    font-size: 20px;
+
+function inverseKinematics(){
+
+const L1=
+Number(document.getElementById("L1").value);
+
+const L2=
+Number(document.getElementById("L2").value);
+
+const x=
+Number(document.getElementById("targetX").value);
+
+const y=
+Number(document.getElementById("targetY").value);
+
+
+const distance=
+Math.sqrt(x*x+y*y);
+
+
+if(
+distance >
+L1+L2 ||
+distance <
+Math.abs(L1-L2)
+){
+
+document.getElementById(
+"ikResult"
+).textContent=
+"Target is outside the robot workspace.";
+
+return;
+
 }
 
-.status-box {
-    margin-top: 15px;
-    padding: 13px;
-    border-radius: 10px;
-    background: var(--blue-soft);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.5;
+
+let cos2=
+(
+x*x+
+y*y-
+L1*L1-
+L2*L2
+)/
+(2*L1*L2);
+
+
+cos2=
+Math.max(
+-1,
+Math.min(1,cos2)
+);
+
+
+const t2=
+Math.acos(cos2);
+
+
+const t1=
+Math.atan2(y,x)-
+Math.atan2(
+L2*Math.sin(t2),
+L1+L2*Math.cos(t2)
+);
+
+
+document.getElementById(
+"theta1"
+).value=
+deg(t1).toFixed(2);
+
+document.getElementById(
+"theta2"
+).value=
+deg(t2).toFixed(2);
+
+
+document.getElementById(
+"ikResult"
+).textContent=
+"θ₁ = "+
+deg(t1).toFixed(2)+
+"°, θ₂ = "+
+deg(t2).toFixed(2)+
+"°";
+
+
+drawRobot(
+t1,
+t2,
+x,
+y
+);
+
 }
 
-.equation {
-    background: #f7faff;
-    border-left: 4px solid var(--blue);
-    padding: 13px;
-    border-radius: 7px;
-    margin: 10px 0;
-    color: var(--blue-dark);
-    font-family: Georgia, serif;
-}
 
-.robot-note p {
-    color: var(--
+forwardKinematics();
+
+</script>
+
+</body>
+</html>
