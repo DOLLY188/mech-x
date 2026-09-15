@@ -1,504 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Robotics Laboratory | MECH-X</title>
 
+<link rel="stylesheet" href="style.css">
+
 <style>
 
-:root{
-    --blue:#1261d6;
-    --blue-dark:#0b2d5c;
-    --blue-light:#eaf3ff;
-    --blue-soft:#f4f8ff;
-    --cyan:#16bde8;
-
-    --text:#16345f;
-    --muted:#607a9e;
-    --border:#dbe8f7;
-    --bg:#f7fbff;
-    --white:#ffffff;
-
-    --green:#168447;
-    --red:#d63c3c;
-
-    --shadow:0 8px 28px rgba(18,97,214,.07);
-}
-
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-
-    background:var(--bg);
-
-    color:var(--text);
-
-    line-height:1.6;
-}
-
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-button,
-input,
-select{
-    font-family:inherit;
-}
-
-
 /* =====================================================
-   HEADER
-===================================================== */
+   ROBOTICS PAGE
+   ===================================================== */
 
-.topbar{
-
-    min-height:64px;
-
-    background:white;
-
-    border-bottom:1px solid var(--border);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:0 24px;
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
+.robotics-layout {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 18px;
 }
 
-
-.brand{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:25px;
+.robot-panel,
+.robot-visual,
+.robot-results,
+.robot-note {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: var(--shadow);
 }
 
-
-.logo{
-
-    color:var(--blue);
-
-    font-size:28px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
+.robot-panel h2,
+.robot-visual h2,
+.robot-results h2,
+.robot-note h2 {
+    margin-top: 0;
+    color: var(--blue-dark);
 }
 
-
-.brand-text{
-
-    color:#6681a4;
-
-    font-size:13px;
-
-    font-weight:600;
+.input-group {
+    margin-bottom: 15px;
 }
 
-
-.top-actions{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
+.input-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-dark);
 }
 
-
-.home-link{
-
-    color:var(--blue-dark);
-
-    font-size:14px;
-
-    font-weight:700;
+.input-group input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
 }
 
-
-.back-home{
-
-    background:var(--blue);
-
-    color:white;
-
-    padding:10px 17px;
-
-    border-radius:8px;
-
-    font-size:13px;
-
-    font-weight:800;
+.slider-row {
+    display: grid;
+    grid-template-columns: 1fr 75px;
+    gap: 10px;
+    align-items: center;
 }
 
-
-.back-home:hover{
-
-    background:#0e50b7;
+.slider-row input[type="range"] {
+    width: 100%;
 }
 
-
-/* =====================================================
-   PAGE LAYOUT
-===================================================== */
-
-.layout{
-
-    display:flex;
-
-    min-height:calc(100vh - 64px);
+.slider-value {
+    background: var(--blue-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    font-weight: 700;
+    color: var(--blue);
 }
 
-
-/* =====================================================
-   SIDEBAR
-===================================================== */
-
-.sidebar{
-
-    width:230px;
-
-    flex-shrink:0;
-
-    background:white;
-
-    border-right:1px solid var(--border);
-
-    padding:18px 12px;
+.button-stack {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
 }
 
-
-.side-link{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:13px;
-
-    padding:12px 13px;
-
-    margin-bottom:5px;
-
-    border-radius:8px;
-
-    color:#173d70;
-
-    font-size:14px;
-
-    font-weight:700;
+.robot-canvas {
+    width: 100%;
+    height: 500px;
+    display: block;
+    background: #fbfdff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
 }
 
-
-.side-link:hover{
-
-    background:var(--blue-light);
-
-    color:var(--blue);
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
 }
 
-
-.side-link.active{
-
-    background:var(--blue);
-
-    color:white;
+.result-box {
+    background: var(--blue-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
 }
 
-
-.icon{
-
-    width:24px;
-
-    text-align:center;
-
-    font-size:17px;
+.result-box span {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
 }
 
-
-.sidebar-box{
-
-    margin:35px 7px 0;
-
-    padding:18px 14px;
-
-    border-radius:8px;
-
-    background:linear-gradient(
-        135deg,
-        #edf6ff,
-        #dcecff
-    );
+.result-box strong {
+    color: var(--blue);
+    font-size: 20px;
 }
 
-
-.sidebar-box strong{
-
-    color:var(--blue);
-
-    display:block;
-
-    margin-bottom:7px;
+.status-box {
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 10px;
+    background: var(--blue-soft);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
 }
 
-
-.sidebar-box span{
-
-    color:#6685ae;
-
-    font-size:11px;
+.equation {
+    background: #f7faff;
+    border-left: 4px solid var(--blue);
+    padding: 13px;
+    border-radius: 7px;
+    margin: 10px 0;
+    color: var(--blue-dark);
+    font-family: Georgia, serif;
 }
 
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.content{
-
-    flex:1;
-
-    min-width:0;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-
-    padding:35px 32px;
-
-    border-bottom:1px solid var(--border);
-
-    background:
-
-        radial-gradient(
-            circle at 90% 30%,
-            rgba(70,150,255,.15),
-            transparent 28%
-        ),
-
-        linear-gradient(
-            120deg,
-            #f9fcff,
-            #edf6ff
-        );
-}
-
-
-.hero-badge{
-
-    display:inline-block;
-
-    padding:6px 12px;
-
-    border-radius:7px;
-
-    background:#e2efff;
-
-    color:var(--blue);
-
-    font-size:12px;
-
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    margin-bottom:12px;
-}
-
-
-.hero h1{
-
-    color:var(--blue-dark);
-
-    font-size:clamp(36px,5vw,55px);
-
-    line-height:1.05;
-
-    letter-spacing:-1.5px;
-
-    margin-bottom:12px;
-}
-
-
-.hero p{
-
-    max-width:780px;
-
-    color:#5879a7;
-
-    font-size:16px;
-
-    line-height:1.6;
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.lab-content{
-
-    padding:25px;
-}
-
-
-.tool-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:22px;
-}
-
-
-.tool-card{
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    border-radius:10px;
-
-    padding:25px;
-
-    box-shadow:var(--shadow);
-}
-
-
-.tool-card h2{
-
-    color:var(--blue-dark);
-
-    font-size:21px;
-
-    margin-bottom:6px;
-}
-
-
-.tool-description{
-
-    color:var(--muted);
-
-    font-size:13px;
-
-    margin-bottom:20px;
-}
-
-
-/* =====================================================
-   INPUTS
-===================================================== */
-
-.input-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:14px;
-}
-
-
-.input-group{
-
-    display:flex;
-
-    flex-direction:column;
-}
-
-
-.input-group label{
-
-    color:#466486;
-
-    font-size:12px;
-
-    font-weight:800;
-
-    margin-bottom:6px;
-}
-
-
-.input-group input{
-
-    width:100%;
-
-    padding:11px 12px;
-
-    border:1px solid #cad9ea;
-
-    border-radius:7px;
-
-    background:white;
-
-    color:#17385f;
-
-    font-size:14px;
-
-    outline:none;
-}
-
-
-.input-group input:focus{
-
-    border-color:var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(18,97,214,.09);
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.button-row{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:10px;
-
-    margin-top:19px;
-}
-
-
-.primary-btn,
-.secondary-btn{
-
-    border:none;
-
-    border-radius:7px;
-
-    padding:11px
+.robot-note p {
+    color: var(--
