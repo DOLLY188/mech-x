@@ -1,111 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Robotics Lab | MECH-X</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-nav{background:#1e3a5f;padding:15px 0;position:sticky;top:0;z-index:100}
-.nav-container{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{color:#fff;font-size:1.35rem;font-weight:700;text-decoration:none}
-.logo span{color:#93c5fd}
-.nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
-.nav-links a{color:#e2e8f0;text-decoration:none;font-weight:500;font-size:.92rem}
-.nav-links a:hover,.nav-links a.active{color:#fff}
-.container{max-width:1100px;margin:0 auto;padding:28px 20px}
-.page-title{font-size:1.8rem;color:#1e3a5f;margin-bottom:6px;font-weight:700}
-.page-sub{color:#64748b;margin-bottom:25px}
-.card{background:#fff;padding:26px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid #e2e8f0;margin-bottom:22px}
-.form-group{margin-bottom:14px}
-label{display:block;font-weight:600;margin-bottom:5px;font-size:.93rem}
-input{width:100%;padding:11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:1rem}
-.btn{background:#1e3a5f;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-top:6px}
-.result{margin-top:16px;padding:13px;background:#e0f2fe;border-radius:8px;font-size:1.05rem;font-weight:600;text-align:center;display:none}
-.formula{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin-top:14px;font-size:.9rem;color:#475569}
-.info{background:#f1f5f9;padding:14px;border-radius:8px;margin-top:12px;font-size:.95rem;color:#475569}
-footer{background:#1e3a5f;color:#94a3b8;text-align:center;padding:22px;margin-top:40px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics Lab | MECH-X</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav>
-<div class="nav-container">
-<a href="index.html" class="logo">MECH<span>-X</span></a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="mechanical.html">Mechanical</a></li>
-<li><a href="electrical.html">Electrical</a></li>
-<li><a href="robotics.html" class="active">Robotics</a></li>
-<li><a href="control.html">Control</a></li>
-<li><a href="automotive.html">Automotive</a></li>
-</ul>
-</div>
-</nav>
 
-<div class="container">
-<h1 class="page-title">Robotics Laboratory</h1>
-<p class="page-sub">Basic 2-link robotic arm forward kinematics</p>
+<header class="topbar">
+    <a href="index.html" class="logo">MECH-X</a>
+
+    <div class="top-actions">
+        <a href="calculators.html" class="btn secondary">Calculators</a>
+        <a href="reports.html" class="btn primary">Reports</a>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <div class="sidebar-title">ENGINEERING LAB</div>
+
+    <nav>
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html">▣ Calculators</a>
+        <a href="motor.html">⚙ Motor Lab</a>
+        <a href="control.html">◉ Control Lab</a>
+        <a href="robotics.html" class="active">🦾 Robotics Lab</a>
+        <a href="automotive.html">🚗 Automotive Lab</a>
+        <a href="mechanical.html">⚒ Mechanical Lab</a>
+        <a href="electrical.html">⚡ Electrical & Electronics</a>
+        <a href="knowledge.html">📘 Knowledge Base</a>
+        <a href="reports.html">📄 Reports & Export</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+
+<section class="page-hero">
+    <span class="eyebrow">ROBOTICS LAB</span>
+    <h1>2-Link Robotic Arm</h1>
+    <p>Explore forward kinematics and inverse kinematics using a planar two-link robot.</p>
+</section>
+
+<section class="section">
+
+<div class="form-grid">
 
 <div class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">2-Link Arm – Forward Kinematics</h3>
 
-<div class="form-group"><label>Link 1 Length L1 (m)</label><input type="number" id="l1" value="1" step="0.1"></div>
-<div class="form-group"><label>Link 2 Length L2 (m)</label><input type="number" id="l2" value="1" step="0.1"></div>
-<div class="form-group"><label>Joint 1 Angle θ1 (degrees)</label><input type="number" id="theta1" value="45"></div>
-<div class="form-group"><label>Joint 2 Angle θ2 (degrees)</label><input type="number" id="theta2" value="30"></div>
+<h2>Robot Parameters</h2>
 
-<button class="btn" onclick="calcFK()">Calculate End-Effector Position</button>
-<div class="result" id="fkResult"></div>
+<label>Link 1 Length (m)</label>
+<input id="L1" type="number" value="1" min="0.1" step="0.1">
 
-<div class="info" id="armInfo">Enter values and calculate</div>
+<label>Link 2 Length (m)</label>
+<input id="L2" type="number" value="0.8" min="0.1" step="0.1">
 
-<div class="formula">
-<strong>Formulas:</strong><br>
-x = L1·cos(θ1) + L2·cos(θ1 + θ2)<br>
-y = L1·sin(θ1) + L2·sin(θ1 + θ2)
-</div>
+<label>Joint 1 Angle (°)</label>
+<input id="theta1" type="number" value="45" step="1">
+
+<label>Joint 2 Angle (°)</label>
+<input id="theta2" type="number" value="30" step="1">
+
+<button class="btn primary" onclick="forwardKinematics()">
+    Forward Kinematics
+</button>
+
+<hr>
+
+<h3>Inverse Kinematics</h3>
+
+<label>Target X (m)</label>
+<input id="targetX" type="number" value="1.2" step="0.1">
+
+<label>Target Y (m)</label>
+<input id="targetY" type="number" value="0.8" step="0.1">
+
+<button class="btn primary" onclick="inverseKinematics()">
+    Solve IK
+</button>
+
 </div>
 
 <div class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Degrees → Radians</h3>
-<div class="form-group"><label>Angle in Degrees</label><input type="number" id="deg" placeholder="Enter degrees"></div>
-<button class="btn" onclick="convertAngle()">Convert</button>
-<div class="result" id="angleResult"></div>
-<div class="formula"><strong>Formula:</strong> Radians = Degrees × (π / 180)</div>
-</div>
+
+<h2>Robot Position</h2>
+
+<div class="stats">
+
+<div class="stat-card">
+    <strong id="xPosition">—</strong>
+    <span>X Position</span>
 </div>
 
-<footer><p><strong>MECH-X</strong> — Robotics Laboratory</p></footer>
+<div class="stat-card">
+    <strong id="yPosition">—</strong>
+    <span>Y Position</span>
+</div>
+
+<div class="stat-card">
+    <strong id="reachStatus">—</strong>
+    <span>Reachability</span>
+</div>
+
+</div>
+
+<p id="robotStatus">
+    Adjust the robot parameters and run a calculation.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="card">
+
+<h2>Robot Visualization</h2>
+
+<canvas id="robotCanvas" width="700" height="500"></canvas>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+<footer class="footer">
+    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+</footer>
 
 <script>
-function toRad(d){return d*Math.PI/180;}
-function calcFK(){
-const L1=parseFloat(document.getElementById('l1').value);
-const L2=parseFloat(document.getElementById('l2').value);
-const th1=parseFloat(document.getElementById('theta1').value);
-const th2=parseFloat(document.getElementById('theta2').value);
-const r=document.getElementById('fkResult');
-const info=document.getElementById('armInfo');
-
-if([L1,L2,th1,th2].some(isNaN)){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
-
-const t1=toRad(th1);
-const t2=toRad(th2);
-const x=L1*Math.cos(t1)+L2*Math.cos(t1+t2);
-const y=L1*Math.sin(t1)+L2*Math.sin(t1+t2);
-
-r.style.display='block';
-r.innerHTML=`End-Effector Position:<br><strong>x = ${x.toFixed(3)} m</strong><br><strong>y = ${y.toFixed(3)} m</strong>`;
-info.innerHTML=`L1=\( {L1}m, L2= \){L2}m | θ1=\( {th1}°, θ2= \){th2}°<br>Position: (${x.toFixed(3)}, ${y.toFixed(3)})`;
+function num(id) {
+    return parseFloat(document.getElementById(id).value);
 }
-function convertAngle(){
-const deg=parseFloat(document.getElementById('deg').value);
-const r=document.getElementById('angleResult');
-if(isNaN(deg)){r.style.display='block';r.innerHTML='Enter a valid number';return;}
-r.style.display='block';
-r.innerHTML=`\( {deg}° = <strong> \){(deg*Math.PI/180).toFixed(4)} rad</strong>`;
+
+function degToRad(deg) {
+    return deg * Math.PI / 180;
 }
+
+function radToDeg(rad) {
+    return rad * 180 / Math.PI;
+}
+
+function forwardKinematics() {
+
+    const L1 = num("L1");
+    const L2 = num("L2");
+    const t1 = num("theta1");
+    const t2 = num("theta2");
+
+    if (L1 <= 0 || L2 <= 0) {
+        document.getElementById("robotStatus").textContent =
+            "Link lengths must be greater than zero.";
+        return;
+    }
+
+    const a1 = degToRad(t1);
+    const a2 = degToRad(t2);
+
+    const jointX = L1 * Math.cos(a1);
+    const jointY = L1 * Math.sin(a1);
+
+    const x =
+        jointX +
+        L2 * Math.cos(a1 + a2);
+
+    const y =
+        jointY +
+        L2 * Math.sin(a1 + a2);
+
+    document.getElementById("xPosition").textContent =
+        x.toFixed(3) + " m";
+
+    document.getElementById("yPosition").textContent =
+        y.toFixed(3) + " m";
+
+    document.getElementById("reachStatus").textContent =
+        "Reachable";
+
+    document.getElementById("robotStatus").textContent =
+        "Forward kinematics calculated successfully.";
+
+    drawRobot(L1, L2, t1, t2);
+}
+
+function inverseKinematics() {
+
+    const L1 = num("L1");
+    const L2 = num("L2");
+    const x = num("targetX");
+    const y = num("targetY");
+
+    const distance =
+        Math.sqrt(x * x + y * y);
+
+    if (distance > L1 + L2 ||
+        distance < Math.abs(L1 - L2)) {
+
+        document.getElementById("reachStatus").textContent =
+            "Not reachable";
+
+        document.getElementById("robotStatus").textContent =
+            "The target is outside the robot workspace.";
+
+        return;
+    }
+
+    let cosTheta2 =
+        (x * x + y * y - L1 * L1 - L2 * L2) /
+        (2 * L1 * L2);
+
+    cosTheta2 =
+        Math.max(-1, Math.min(1, cosTheta2));
+
+    const theta2 =
+        Math.acos(cosTheta2);
+
+    const theta1 =
+        Math.atan2(y, x) -
+        Math.atan2(
+            L2 * Math.sin(theta2),
+            L1 + L2 * Math.cos(theta2)
+        );
+
+    const t1 = radToDeg(theta1);
+    const t2 = radToDeg(theta2);
+
+    document.getElementById("theta1").value =
+        t1.toFixed(2);
+
+    document.getElementById("theta2").value =
+        t2.toFixed(2);
+
+    document.getElementById("xPosition").textContent =
+        x.toFixed(3) + " m";
+
+    document.getElementById("yPosition").textContent =
+        y.toFixed(3) + " m";
+
+    document.getElementById("reachStatus").textContent =
+        "Reachable";
+
+    document.getElementById("robotStatus").textContent =
+        "Inverse kinematics solution calculated.";
+
+    drawRobot(L1, L2, t1, t2);
+}
+
+function drawRobot(L1, L2, t1, t2) {
+
+    const canvas = document.getElementById("robotCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const scale =
+        Math.min(
+            width * 0.38 / (L1 + L2),
+            height * 0.38 / (L1 + L2)
+        );
+
+    const originX = width / 2;
+    const originY = height / 2 + 100;
+
+    const a1 = degToRad(t1);
+    const a2 = degToRad(t2);
+
+    const x1 =
+        originX +
+        L1 * scale * Math.cos(a1);
+
+    const y1 =
+        originY -
+        L1 * scale * Math.sin(a1);
+
+    const x2 =
+        x1 +
+        L2 * scale * Math.cos(a1 + a2);
+
+    const y2 =
+        y1 -
+        L2 * scale * Math.sin(a1 + a2);
+
+    ctx.strokeStyle = "#dbe8f7";
+    ctx.lineWidth = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(30, originY);
+    ctx.lineTo(width - 30, originY);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#1261d6";
+    ctx.lineWidth = 14;
+    ctx.lineCap = "round";
+
+    ctx.beginPath();
+    ctx.moveTo(originX, originY);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    ctx.fillStyle = "#0b2d5c";
+
+    ctx.beginPath();
+    ctx.arc(originX, originY, 12, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(x1, y1, 12, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(x2, y2, 10, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#16345f";
+    ctx.font = "14px Arial";
+
+    ctx.fillText("Base", originX + 15, originY + 5);
+    ctx.fillText("Joint 1", x1 + 15, y1);
+    ctx.fillText("End Effector", x2 + 15, y2);
+}
+
+forwardKinematics();
 </script>
+
 </body>
 </html>
