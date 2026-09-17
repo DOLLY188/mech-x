@@ -1,142 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Electrical Lab | MECH-X</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-nav{background:#1e3a5f;padding:15px 0;position:sticky;top:0;z-index:100}
-.nav-container{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{color:#fff;font-size:1.35rem;font-weight:700;text-decoration:none}
-.logo span{color:#93c5fd}
-.nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
-.nav-links a{color:#e2e8f0;text-decoration:none;font-weight:500;font-size:.92rem}
-.nav-links a:hover,.nav-links a.active{color:#fff}
-.container{max-width:1100px;margin:0 auto;padding:28px 20px}
-.page-title{font-size:1.8rem;color:#1e3a5f;margin-bottom:6px;font-weight:700}
-.page-sub{color:#64748b;margin-bottom:25px}
-.tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
-.tab-btn{padding:10px 16px;border:none;background:#e2e8f0;border-radius:8px;cursor:pointer;font-weight:600;font-size:.9rem}
-.tab-btn.active{background:#1e3a5f;color:#fff}
-.card{background:#fff;padding:26px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid #e2e8f0;display:none}
-.card.active{display:block}
-.form-group{margin-bottom:14px}
-label{display:block;font-weight:600;margin-bottom:5px;font-size:.93rem}
-input{width:100%;padding:11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:1rem}
-.btn{background:#1e3a5f;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-top:6px}
-.result{margin-top:16px;padding:13px;background:#e0f2fe;border-radius:8px;font-size:1.05rem;font-weight:600;text-align:center;display:none}
-.formula{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin-top:14px;font-size:.9rem;color:#475569}
-footer{background:#1e3a5f;color:#94a3b8;text-align:center;padding:22px;margin-top:40px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical & Electronics Lab | MECH-X</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav>
-<div class="nav-container">
-<a href="index.html" class="logo">MECH<span>-X</span></a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="mechanical.html">Mechanical</a></li>
-<li><a href="electrical.html" class="active">Electrical</a></li>
-<li><a href="robotics.html">Robotics</a></li>
-<li><a href="control.html">Control</a></li>
-<li><a href="automotive.html">Automotive</a></li>
-</ul>
-</div>
-</nav>
 
-<div class="container">
-<h1 class="page-title">Electrical Laboratory</h1>
-<p class="page-sub">Basic electrical and electronics calculators</p>
+<header class="topbar">
+    <a href="index.html" class="logo">MECH-X</a>
 
-<div class="tabs">
-<button class="tab-btn active" onclick="showTab('ohm',this)">Ohm’s Law</button>
-<button class="tab-btn" onclick="showTab('power',this)">Power</button>
-<button class="tab-btn" onclick="showTab('series',this)">Series</button>
-<button class="tab-btn" onclick="showTab('parallel',this)">Parallel</button>
-</div>
+    <div class="top-actions">
+        <a href="calculators.html" class="btn secondary">Calculators</a>
+        <a href="reports.html" class="btn primary">Reports</a>
+    </div>
+</header>
 
-<!-- Ohm's Law -->
-<div id="ohm" class="card active">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Ohm’s Law</h3>
-<div class="form-group"><label>Voltage (V)</label><input type="number" id="voltage" placeholder="Enter voltage"></div>
-<div class="form-group"><label>Current (A)</label><input type="number" id="current" placeholder="Enter current"></div>
-<button class="btn" onclick="calcOhm()">Calculate Resistance</button>
-<div class="result" id="ohmResult"></div>
-<div class="formula"><strong>Formula:</strong> R = V ÷ I</div>
-</div>
+<div class="layout">
 
-<!-- Power -->
-<div id="power" class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Electrical Power</h3>
-<div class="form-group"><label>Voltage (V)</label><input type="number" id="pVoltage" placeholder="Enter voltage"></div>
-<div class="form-group"><label>Current (A)</label><input type="number" id="pCurrent" placeholder="Enter current"></div>
-<button class="btn" onclick="calcPower()">Calculate Power</button>
-<div class="result" id="powerResult"></div>
-<div class="formula"><strong>Formula:</strong> P = V × I</div>
-</div>
+<aside class="sidebar">
+    <div class="sidebar-title">ENGINEERING LAB</div>
 
-<!-- Series -->
-<div id="series" class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Series Resistance</h3>
-<div class="form-group"><label>R1 (Ω)</label><input type="number" id="r1" placeholder="Resistor 1"></div>
-<div class="form-group"><label>R2 (Ω)</label><input type="number" id="r2" placeholder="Resistor 2"></div>
-<div class="form-group"><label>R3 (Ω) - optional</label><input type="number" id="r3" placeholder="Resistor 3"></div>
-<button class="btn" onclick="calcSeries()">Calculate Total</button>
-<div class="result" id="seriesResult"></div>
-<div class="formula"><strong>Formula:</strong> R<sub>total</sub> = R1 + R2 + R3</div>
-</div>
+    <nav>
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html">▣ Calculators</a>
+        <a href="motor.html">⚙ Motor Lab</a>
+        <a href="control.html">◉ Control Lab</a>
+        <a href="robotics.html">🦾 Robotics Lab</a>
+        <a href="automotive.html">🚗 Automotive Lab</a>
+        <a href="mechanical.html">⚒ Mechanical Lab</a>
+        <a href="electrical.html" class="active">⚡ Electrical & Electronics</a>
+        <a href="knowledge.html">📘 Knowledge Base</a>
+        <a href="reports.html">📄 Reports & Export</a>
+    </nav>
+</aside>
 
-<!-- Parallel -->
-<div id="parallel" class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Parallel Resistance</h3>
-<div class="form-group"><label>R1 (Ω)</label><input type="number" id="pr1" placeholder="Resistor 1"></div>
-<div class="form-group"><label>R2 (Ω)</label><input type="number" id="pr2" placeholder="Resistor 2"></div>
-<button class="btn" onclick="calcParallel()">Calculate Total</button>
-<div class="result" id="parallelResult"></div>
-<div class="formula"><strong>Formula:</strong> 1/R<sub>total</sub> = 1/R1 + 1/R2</div>
-</div>
+<main class="main-content">
+
+<section class="page-hero">
+    <span class="eyebrow">ELECTRICAL & ELECTRONICS</span>
+    <h1>Electrical Engineering Laboratory</h1>
+    <p>Calculate circuit quantities and explore basic electrical and electronic systems.</p>
+</section>
+
+<section class="section">
+
+<div class="card-grid">
+
+<div class="card">
+
+<h3>Ohm's Law</h3>
+<p class="formula">V = IR</p>
+
+<label>Voltage (V)</label>
+<input id="V" type="number" value="12">
+
+<label>Current (A)</label>
+<input id="I" type="number" value="2">
+
+<label>Resistance (Ω)</label>
+<input id="R" type="number" value="6">
+
+<button class="btn primary" onclick="ohmsLaw()">
+Calculate
+</button>
+
+<div class="result" id="ohmResult">Result: —</div>
+
 </div>
 
-<footer><p><strong>MECH-X</strong> — Electrical Laboratory</p></footer>
+<div class="card">
+
+<h3>Series Resistors</h3>
+<p class="formula">Rtotal = R₁ + R₂ + R₃</p>
+
+<label>R₁ (Ω)</label>
+<input id="r1" type="number" value="100">
+
+<label>R₂ (Ω)</label>
+<input id="r2" type="number" value="220">
+
+<label>R₃ (Ω)</label>
+<input id="r3" type="number" value="330">
+
+<button class="btn primary" onclick="seriesResistors()">
+Calculate
+</button>
+
+<div class="result" id="seriesResult">Result: —</div>
+
+</div>
+
+<div class="card">
+
+<h3>Parallel Resistors</h3>
+<p class="formula">1/R = 1/R₁ + 1/R₂</p>
+
+<label>R₁ (Ω)</label>
+<input id="p1" type="number" value="100">
+
+<label>R₂ (Ω)</label>
+<input id="p2" type="number" value="200">
+
+<button class="btn primary" onclick="parallelResistors()">
+Calculate
+</button>
+
+<div class="result" id="parallelResult">Result: —</div>
+
+</div>
+
+<div class="card">
+
+<h3>Electrical Power</h3>
+<p class="formula">P = VI</p>
+
+<label>Voltage (V)</label>
+<input id="powerV" type="number" value="24">
+
+<label>Current (A)</label>
+<input id="powerI" type="number" value="3">
+
+<button class="btn primary" onclick="electricalPower()">
+Calculate
+</button>
+
+<div class="result" id="electricalPowerResult">Result: —</div>
+
+</div>
+
+<div class="card">
+
+<h3>Voltage Divider</h3>
+<p class="formula">Vout = Vin × R₂/(R₁+R₂)</p>
+
+<label>Input Voltage (V)</label>
+<input id="vin" type="number" value="12">
+
+<label>R₁ (Ω)</label>
+<input id="dividerR1" type="number" value="1000">
+
+<label>R₂ (Ω)</label>
+<input id="dividerR2" type="number" value="2000">
+
+<button class="btn primary" onclick="voltageDivider()">
+Calculate
+</button>
+
+<div class="result" id="dividerResult">Result: —</div>
+
+</div>
+
+<div class="card">
+
+<h3>RC Time Constant</h3>
+<p class="formula">τ = RC</p>
+
+<label>Resistance (Ω)</label>
+<input id="rcR" type="number" value="10000">
+
+<label>Capacitance (F)</label>
+<input id="rcC" type="number" value="0.000001">
+
+<button class="btn primary" onclick="rcTime()">
+Calculate
+</button>
+
+<div class="result" id="rcResult">Result: —</div>
+
+</div>
+
+<div class="card">
+
+<h3>LED Resistor</h3>
+<p class="formula">R = (Vs − Vf) / I</p>
+
+<label>Supply Voltage (V)</label>
+<input id="ledVs" type="number" value="12">
+
+<label>LED Forward Voltage (V)</label>
+<input id="ledVf" type="number" value="2">
+
+<label>LED Current (A)</label>
+<input id="ledI" type="number" value="0.02">
+
+<button class="btn primary" onclick="ledResistor()">
+Calculate
+</button>
+
+<div class="result" id="ledResult">Result: —</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="card">
+
+<h2>RC Charging Simulation</h2>
+
+<div class="form-grid">
+
+<div>
+    <label>Supply Voltage (V)</label>
+    <input id="rcVoltage" type="number" value="5">
+</div>
+
+<div>
+    <label>Resistance (Ω)</label>
+    <input id="chargeR" type="number" value="10000">
+</div>
+
+<div>
+    <label>Capacitance (F)</label>
+    <input id="chargeC" type="number" value="0.000001">
+</div>
+
+</div>
+
+<button class="btn primary" onclick="simulateRC()">
+Run RC Simulation
+</button>
+
+<canvas id="rcCanvas" height="320"></canvas>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+<footer class="footer">
+    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+</footer>
 
 <script>
-function showTab(id,btn){
-document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-btn.classList.add('active');
+function val(id) {
+    return parseFloat(document.getElementById(id).value);
 }
-function calcOhm(){
-const v=parseFloat(document.getElementById('voltage').value);
-const i=parseFloat(document.getElementById('current').value);
-const r=document.getElementById('ohmResult');
-if(isNaN(v)||isNaN(i)||i===0){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
-r.style.display='block';r.innerHTML=`Resistance = <strong>${(v/i).toFixed(2)} Ω</strong>`;
+
+function ohmsLaw() {
+
+    const V = val("V");
+    const I = val("I");
+    const R = val("R");
+
+    if (V <= 0 || I <= 0 || R <= 0) {
+        document.getElementById("ohmResult").textContent =
+            "Enter positive values.";
+        return;
+    }
+
+    const calculatedR = V / I;
+    const calculatedI = V / R;
+    const calculatedV = I * R;
+
+    document.getElementById("ohmResult").textContent =
+        "V = " + calculatedV.toFixed(2) +
+        " V | I = " + calculatedI.toFixed(2) +
+        " A | R = " + calculatedR.toFixed(2) + " Ω";
 }
-function calcPower(){
-const v=parseFloat(document.getElementById('pVoltage').value);
-const i=parseFloat(document.getElementById('pCurrent').value);
-const r=document.getElementById('powerResult');
-if(isNaN(v)||isNaN(i)){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
-r.style.display='block';r.innerHTML=`Power = <strong>${(v*i).toFixed(2)} W</strong>`;
+
+function seriesResistors() {
+
+    const R1 = val("r1");
+    const R2 = val("r2");
+    const R3 = val("r3");
+
+    const total = R1 + R2 + R3;
+
+    document.getElementById("seriesResult").textContent =
+        "Total Resistance = " +
+        total.toFixed(2) +
+        " Ω";
 }
-function calcSeries(){
-const r1=parseFloat(document.getElementById('r1').value)||0;
-const r2=parseFloat(document.getElementById('r2').value)||0;
-const r3=parseFloat(document.getElementById('r3').value)||0;
-const r=document.getElementById('seriesResult');
-r.style.display='block';r.innerHTML=`Total Resistance = <strong>${(r1+r2+r3).toFixed(2)} Ω</strong>`;
+
+function parallelResistors() {
+
+    const R1 = val("p1");
+    const R2 = val("p2");
+
+    if (R1 <= 0 || R2 <= 0) {
+        document.getElementById("parallelResult").textContent =
+            "Resistance must be greater than zero.";
+        return;
+    }
+
+    const total =
+        1 / ((1 / R1) + (1 / R2));
+
+    document.getElementById("parallelResult").textContent =
+        "Equivalent Resistance = " +
+        total.toFixed(2) +
+        " Ω";
 }
-function calcParallel(){
-const r1=parseFloat(document.getElementById('pr1').value);
-const r2=parseFloat(document.getElementById('pr2').value);
-const r=document.getElementById('parallelResult');
-if(isNaN(r1)||isNaN(r2)||r1===0||r2===0){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
-const total=1/(1/r1+1/r2);
-r.style.display='block';r.innerHTML=`Total Resistance = <strong>${total.toFixed(2)} Ω</strong>`;
+
+function electricalPower() {
+
+    const V = val("powerV");
+    const I = val("powerI");
+
+    const P = V * I;
+
+    document.getElementById("electricalPowerResult").textContent =
+        "Power = " + P.toFixed(2) + " W";
 }
+
+function voltageDivider() {
+
+    const Vin = val("vin");
+    const R1 = val("dividerR1");
+    const R2 = val("dividerR2");
+
+    if (R1 + R2 <= 0) {
+        document.getElementById("dividerResult").textContent =
+            "Resistance values are invalid.";
+        return;
+    }
+
+    const Vout =
+        Vin * R2 / (R1 + R2);
+
+    document.getElementById("dividerResult").textContent =
+        "Output Voltage = " +
+        Vout.toFixed(3) +
+        " V";
+}
+
+function rcTime() {
+
+    const R = val("rcR");
+    const C = val("rcC");
+
+    if (R <= 0 || C <= 0) {
+        document.getElementById("rcResult").textContent =
+            "R and C must be greater than zero.";
+        return;
+    }
+
+    const tau = R * C;
+
+    document.getElementById("rcResult").textContent =
+        "Time Constant τ = " +
+        tau.toFixed(6) +
+        " s";
+}
+
+function ledResistor() {
+
+    const Vs = val("ledVs");
+    const Vf = val("ledVf");
+    const I = val("ledI");
+
+    if (I <= 0 || Vs <= Vf) {
+        document.getElementById("ledResult").textContent =
+            "Check supply voltage and LED current.";
+        return;
+    }
+
+    const R =
+        (Vs - Vf) / I;
+
+    document.getElementById("ledResult").textContent =
+        "Required Resistor = " +
+        R.toFixed(1) +
+        " Ω";
+}
+
+function simulateRC() {
+
+    const Vs = val("rcVoltage");
+    const R = val("chargeR");
+    const C = val("chargeC");
+
+    if (Vs <= 0 || R <= 0 || C <= 0) {
+        return;
+    }
+
+    const tau = R * C;
+    const totalTime = Math.max(5 * tau, 0.1);
+    const points = 300;
+
+    const times = [];
+    const voltages = [];
+
+    for (let i = 0; i <= points; i++) {
+
+        const t =
+            totalTime * i / points;
+
+        const voltage =
+            Vs *
+            (1 - Math.exp(-t / tau));
+
+        times.push(t);
+        voltages.push(voltage);
+    }
+
+    drawRC(times, voltages, Vs);
+}
+
+function drawRC(times, voltages, Vs) {
+
+    const canvas =
+        document.getElementById("rcCanvas");
+
+    const ctx =
+        canvas.getContext("2d");
+
+    const width =
+        canvas.width = canvas.clientWidth;
+
+    const height =
+        canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const padding = 45;
+
+    const maxTime =
+        times[times.length - 1];
+
+    ctx.strokeStyle = "#dbe8f7";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i <= 5; i++) {
+
+        const y =
+            padding +
+            (height - 2 * padding) * i / 5;
+
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#1261d6";
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    for (let i = 0; i < times.length; i++) {
+
+        const x =
+            padding +
+            (width - 2 * padding) *
+            times[i] / maxTime;
+
+        const y =
+            height - padding -
+            (height - 2 * padding) *
+            voltages[i] / Vs;
+
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+
+    ctx.stroke();
+
+    ctx.fillStyle = "#16345f";
+    ctx.font = "14px Arial";
+
+    ctx.fillText("Capacitor Voltage (V)", 10, 20);
+    ctx.fillText("Time (s)", width - 75, height - 10);
+}
+
+simulateRC();
 </script>
+
 </body>
 </html>
