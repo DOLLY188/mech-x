@@ -1,91 +1,574 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MECH-X | Interactive Mechatronics Laboratory</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-nav{background:#1e3a5f;padding:16px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.nav-container{max-width:1150px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.logo{color:#fff;font-size:1.45rem;font-weight:700;text-decoration:none}
-.logo span{color:#93c5fd}
-.nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
-.nav-links a{color:#e2e8f0;text-decoration:none;font-weight:500;font-size:.93rem}
-.nav-links a:hover{color:#fff}
-.hero{background:linear-gradient(135deg,#1e3a5f,#2c5282);color:#fff;padding:80px 20px;text-align:center}
-.hero h1{font-size:2.6rem;margin-bottom:14px;font-weight:700}
-.hero p{font-size:1.15rem;opacity:.92;max-width:680px;margin:0 auto 30px}
-.btn{display:inline-block;background:#fff;color:#1e3a5f;padding:13px 28px;border-radius:8px;text-decoration:none;font-weight:600}
-.btn:hover{background:#e2e8f0}
-.container{max-width:1150px;margin:0 auto;padding:0 20px}
-section{padding:60px 0}
-.section-title{text-align:center;font-size:1.9rem;color:#1e3a5f;margin-bottom:12px;font-weight:700}
-.section-sub{text-align:center;color:#64748b;margin-bottom:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-.card{background:#fff;border-radius:12px;padding:26px;border:1px solid #e2e8f0;box-shadow:0 4px 12px rgba(0,0,0,.05);text-decoration:none;color:inherit;transition:.2s}
-.card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
-.card h3{color:#1e3a5f;margin-bottom:8px;font-size:1.2rem}
-.card p{color:#64748b;font-size:.93rem}
-footer{background:#1e3a5f;color:#94a3b8;text-align:center;padding:28px 20px;margin-top:30px}
-footer strong{color:#fff}
-@media(max-width:768px){.hero h1{font-size:2rem}.nav-links{gap:14px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MECH-X | Mechatronics Engineering Laboratory</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav>
-<div class="nav-container">
-<a href="index.html" class="logo">MECH<span>-X</span></a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="mechanical.html">Mechanical</a></li>
-<li><a href="electrical.html">Electrical</a></li>
-<li><a href="robotics.html">Robotics</a></li>
-<li><a href="control.html">Control</a></li>
-<li><a href="automotive.html">Automotive</a></li>
-</ul>
-</div>
-</nav>
 
-<section class="hero">
-<h1>MECH-X Laboratory</h1>
-<p>Interactive Mechatronics Engineering Platform for students and engineers. Practical tools across Mechanical, Electrical, Robotics, Control and Automotive.</p>
-<a href="#labs" class="btn">Explore Laboratories</a>
-</section>
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="topbar">
 
-<section id="labs">
-<div class="container">
-<h2 class="section-title">Engineering Laboratories</h2>
-<p class="section-sub">Select a laboratory to start</p>
-<div class="grid">
-<a href="mechanical.html" class="card">
-<h3>⚙️ Mechanical Lab</h3>
-<p>Torque, power, gears, stress, shafts and mechanical calculations.</p>
-</a>
-<a href="electrical.html" class="card">
-<h3>⚡ Electrical Lab</h3>
-<p>Ohm’s Law, series/parallel resistance, power and basic electronics.</p>
-</a>
-<a href="robotics.html" class="card">
-<h3>🤖 Robotics Lab</h3>
-<p>2-link robotic arm forward kinematics and angle tools.</p>
-</a>
-<a href="control.html" class="card">
-<h3>🎛️ Control Systems</h3>
-<p>PID basics and simple control output calculations.</p>
-</a>
-<a href="automotive.html" class="card">
-<h3>🚗 Automotive Lab</h3>
-<p>Power-to-weight, wheel torque and basic performance estimates.</p>
-</a>
-</div>
-</div>
-</section>
+        <a href="index.html" class="logo">
+            MECH<span>-X</span>
+        </a>
 
-<footer>
-<p><strong>MECH-X</strong> — Interactive Mechatronics Engineering Laboratory</p>
-<p style="margin-top:6px;font-size:.9rem">Built for engineering students • Free to use</p>
-</footer>
+        <div class="top-actions">
+            <a href="knowledge.html" class="btn">
+                Knowledge Base
+            </a>
+
+            <a href="calculators.html" class="btn btn-primary">
+                Open Calculators
+            </a>
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN LAYOUT
+    ========================== -->
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+                MECH-X LABORATORY
+            </div>
+
+            <nav class="nav">
+
+                <a href="index.html" class="active">
+                    <span>⌂</span>
+                    Home
+                </a>
+
+                <a href="calculators.html">
+                    <span>▣</span>
+                    Calculators
+                </a>
+
+                <a href="motor.html">
+                    <span>⚙</span>
+                    Motor Lab
+                </a>
+
+                <a href="control.html">
+                    <span>◉</span>
+                    Control Lab
+                </a>
+
+                <a href="robotics.html">
+                    <span>▦</span>
+                    Robotics Lab
+                </a>
+
+                <a href="automotive.html">
+                    <span>▤</span>
+                    Automotive Lab
+                </a>
+
+                <a href="mechanical.html">
+                    <span>◆</span>
+                    Mechanical Lab
+                </a>
+
+                <a href="electrical.html">
+                    <span>⚡</span>
+                    Electrical & Electronics
+                </a>
+
+                <a href="knowledge.html">
+                    <span>?</span>
+                    Knowledge Base
+                </a>
+
+                <a href="reports.html">
+                    <span>▤</span>
+                    Reports & Export
+                </a>
+
+            </nav>
+
+        </aside>
+
+
+        <!-- =========================
+             MAIN CONTENT
+        ========================== -->
+        <main class="main">
+
+            <!-- HERO -->
+            <section class="hero">
+
+                <div class="eyebrow">
+                    MECHATRONICS ENGINEERING LABORATORY
+                </div>
+
+                <h1>
+                    Understand. Calculate.
+                    Simulate. Engineer.
+                </h1>
+
+                <p>
+                    MECH-X is an interactive engineering environment
+                    for learning, calculations, laboratory simulations
+                    and technical analysis across mechanical,
+                    electrical, control, robotics and automotive
+                    engineering.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="calculators.html" class="btn btn-primary">
+                        Start Engineering
+                    </a>
+
+                    <a href="knowledge.html" class="btn">
+                        Explore Knowledge
+                    </a>
+
+                    <a href="reports.html" class="btn">
+                        Create Report
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 STATISTICS
+            ========================== -->
+            <section class="stats">
+
+                <div class="stat-card">
+                    <strong>10+</strong>
+                    <span>Engineering Modules</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>5+</strong>
+                    <span>Simulation Laboratories</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>20+</strong>
+                    <span>Engineering Calculations</span>
+                </div>
+
+                <div class="stat-card">
+                    <strong>100%</strong>
+                    <span>Browser Based</span>
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 MODULES
+            ========================== -->
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <div class="eyebrow">
+                            ENGINEERING MODULES
+                        </div>
+
+                        <h2>
+                            Explore the MECH-X Laboratory
+                        </h2>
+
+                        <p>
+                            Select a laboratory or engineering tool
+                            to begin.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="module-grid">
+
+
+                    <!-- CALCULATORS -->
+                    <a href="calculators.html" class="module-card">
+
+                        <div class="module-icon">
+                            ∑
+                        </div>
+
+                        <h3>
+                            Engineering Calculators
+                        </h3>
+
+                        <p>
+                            Perform common mechanical, electrical
+                            and engineering calculations quickly.
+                        </p>
+
+                        <span class="open-link">
+                            Open Calculator →
+                        </span>
+
+                    </a>
+
+
+                    <!-- MOTOR -->
+                    <a href="motor.html" class="module-card">
+
+                        <div class="module-icon">
+                            ⚙
+                        </div>
+
+                        <h3>
+                            Motor Laboratory
+                        </h3>
+
+                        <p>
+                            Simulate DC motor behaviour including
+                            speed, current, torque and power.
+                        </p>
+
+                        <span class="open-link">
+                            Open Motor Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- CONTROL -->
+                    <a href="control.html" class="module-card">
+
+                        <div class="module-icon">
+                            ◉
+                        </div>
+
+                        <h3>
+                            Control Systems Laboratory
+                        </h3>
+
+                        <p>
+                            Explore PID control, system response,
+                            overshoot and settling behaviour.
+                        </p>
+
+                        <span class="open-link">
+                            Open Control Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- ROBOTICS -->
+                    <a href="robotics.html" class="module-card">
+
+                        <div class="module-icon">
+                            🤖
+                        </div>
+
+                        <h3>
+                            Robotics Laboratory
+                        </h3>
+
+                        <p>
+                            Study robotic arm movement, forward
+                            kinematics and inverse kinematics.
+                        </p>
+
+                        <span class="open-link">
+                            Open Robotics Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- AUTOMOTIVE -->
+                    <a href="automotive.html" class="module-card">
+
+                        <div class="module-icon">
+                            🚗
+                        </div>
+
+                        <h3>
+                            Automotive Laboratory
+                        </h3>
+
+                        <p>
+                            Explore vehicle dynamics, engine power,
+                            gears, resistance and acceleration.
+                        </p>
+
+                        <span class="open-link">
+                            Open Automotive Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- MECHANICAL -->
+                    <a href="mechanical.html" class="module-card">
+
+                        <div class="module-icon">
+                            ⚒
+                        </div>
+
+                        <h3>
+                            Mechanical Engineering Laboratory
+                        </h3>
+
+                        <p>
+                            Analyse stress, strain, beams, shafts,
+                            springs, gears and mechanical systems.
+                        </p>
+
+                        <span class="open-link">
+                            Open Mechanical Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- ELECTRICAL -->
+                    <a href="electrical.html" class="module-card">
+
+                        <div class="module-icon">
+                            ⚡
+                        </div>
+
+                        <h3>
+                            Electrical & Electronics Laboratory
+                        </h3>
+
+                        <p>
+                            Work with Ohm's law, circuits, power,
+                            voltage dividers, RC systems and LEDs.
+                        </p>
+
+                        <span class="open-link">
+                            Open Electrical Lab →
+                        </span>
+
+                    </a>
+
+
+                    <!-- KNOWLEDGE -->
+                    <a href="knowledge.html" class="module-card">
+
+                        <div class="module-icon">
+                            ?
+                        </div>
+
+                        <h3>
+                            Engineering Knowledge Base
+                        </h3>
+
+                        <p>
+                            Learn engineering concepts, equations,
+                            definitions and practical applications.
+                        </p>
+
+                        <span class="open-link">
+                            Open Knowledge Base →
+                        </span>
+
+                    </a>
+
+
+                    <!-- REPORTS -->
+                    <a href="reports.html" class="module-card">
+
+                        <div class="module-icon">
+                            ▤
+                        </div>
+
+                        <h3>
+                            Reports & Export
+                        </h3>
+
+                        <p>
+                            Create structured engineering reports
+                            from calculations and laboratory work.
+                        </p>
+
+                        <span class="open-link">
+                            Open Reports →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 WORKFLOW
+            ========================== -->
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <div class="eyebrow">
+                            MECH-X WORKFLOW
+                        </div>
+
+                        <h2>
+                            Learn → Calculate → Simulate → Report
+                        </h2>
+
+                        <p>
+                            A simple engineering workflow from
+                            understanding a concept to documenting
+                            your result.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="workflow">
+
+                    <div class="workflow-card">
+
+                        <div class="workflow-number">
+                            01
+                        </div>
+
+                        <div>
+                            <h3>
+                                Learn
+                            </h3>
+
+                            <p>
+                                Understand the engineering concept,
+                                equations and practical principles.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-card">
+
+                        <div class="workflow-number">
+                            02
+                        </div>
+
+                        <div>
+                            <h3>
+                                Calculate
+                            </h3>
+
+                            <p>
+                                Enter engineering parameters and
+                                obtain numerical results.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-card">
+
+                        <div class="workflow-number">
+                            03
+                        </div>
+
+                        <div>
+                            <h3>
+                                Simulate
+                            </h3>
+
+                            <p>
+                                Change system parameters and observe
+                                engineering behaviour.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="workflow-card">
+
+                        <div class="workflow-number">
+                            04
+                        </div>
+
+                        <div>
+                            <h3>
+                                Report
+                            </h3>
+
+                            <p>
+                                Document calculations, observations,
+                                results and conclusions.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 FOOTER
+            ========================== -->
+            <footer class="footer">
+
+                <div class="footer-brand">
+                    <strong>MECH-X</strong>
+                </div>
+
+                <p>
+                    Interactive Mechatronics Engineering Laboratory
+                </p>
+
+                <div class="footer-links">
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="calculators.html">
+                        Calculators
+                    </a>
+
+                    <a href="knowledge.html">
+                        Knowledge
+                    </a>
+
+                    <a href="reports.html">
+                        Reports
+                    </a>
+
+                </div>
+
+                <p class="copyright">
+                    © 2026 MECH-X. Built for engineering education
+                    and experimentation.
+                </p>
+
+            </footer>
+
+        </main>
+
+    </div>
+
 </body>
 </html>
