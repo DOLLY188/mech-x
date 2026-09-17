@@ -1,1171 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DC Motor Laboratory | MECH-X</title>
-
-<style>
-:root{
-    --blue:#1261d6;
-    --blue-dark:#0b2d5c;
-    --blue-light:#eaf3ff;
-    --blue-soft:#f4f8ff;
-    --cyan:#10bde8;
-
-    --text:#10233f;
-    --muted:#617089;
-    --border:#d9e3f0;
-
-    --white:#ffffff;
-    --bg:#f7faff;
-    --success:#168447;
-    --danger:#d43d3d;
-
-    --shadow:0 12px 35px rgba(18,97,214,.08);
-}
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    line-height:1.6;
-}
-
-a{
-    color:inherit;
-    text-decoration:none;
-}
-
-/* ================= NAVIGATION ================= */
-
-.navbar{
-    background:#ffffff;
-    border-bottom:1px solid var(--border);
-    position:sticky;
-    top:0;
-    z-index:100;
-}
-
-.nav-container{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 24px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:25px;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:2px;
-    color:var(--blue);
-    line-height:1;
-}
-
-.logo span{
-    color:var(--blue-dark);
-}
-
-.nav-links{
-    display:flex;
-    gap:26px;
-    align-items:center;
-    overflow-x:auto;
-    white-space:nowrap;
-    scrollbar-width:none;
-}
-
-.nav-links::-webkit-scrollbar{
-    display:none;
-}
-
-.nav-links a{
-    color:#40516a;
-    font-weight:600;
-    font-size:15px;
-    padding:8px 2px;
-    transition:.2s;
-}
-
-.nav-links a:hover,
-.nav-links a.active{
-    color:var(--blue);
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    max-width:1200px;
-    margin:auto;
-    padding:72px 24px 45px;
-}
-
-.eyebrow{
-    color:var(--blue);
-    font-size:14px;
-    font-weight:800;
-    letter-spacing:3px;
-    text-transform:uppercase;
-    margin-bottom:18px;
-}
-
-.hero h1{
-    font-size:clamp(42px,7vw,72px);
-    line-height:1.02;
-    letter-spacing:-2px;
-    max-width:800px;
-    color:var(--blue-dark);
-    margin-bottom:22px;
-}
-
-.hero p{
-    max-width:780px;
-    color:var(--muted);
-    font-size:20px;
-    line-height:1.55;
-}
-
-/* ================= MAIN ================= */
-
-.main{
-    max-width:1200px;
-    margin:auto;
-    padding:0 24px 80px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-}
-
-.card{
-    background:#ffffff;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:30px;
-    box-shadow:var(--shadow);
-}
-
-.card h2{
-    color:var(--blue-dark);
-    font-size:25px;
-    margin-bottom:24px;
-}
-
-.card h3{
-    color:var(--blue-dark);
-    margin-bottom:12px;
-}
-
-/* ================= INPUTS ================= */
-
-.input-group{
-    margin-bottom:19px;
-}
-
-.input-group label{
-    display:block;
-    font-size:14px;
-    font-weight:700;
-    color:#40516a;
-    margin-bottom:7px;
-}
-
-.input-group input{
-    width:100%;
-    padding:14px 15px;
-    border:1px solid #cbd8e8;
-    border-radius:11px;
-    background:#ffffff;
-    color:#15263d;
-    font-size:16px;
-    outline:none;
-    transition:.2s;
-}
-
-.input-group input:focus{
-    border-color:var(--blue);
-    box-shadow:0 0 0 3px rgba(18,97,214,.10);
-}
-
-/* ================= BUTTONS ================= */
-
-.button-row{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    margin-top:24px;
-}
-
-button{
-    border:none;
-    border-radius:10px;
-    padding:13px 22px;
-    font-size:15px;
-    font-weight:800;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.primary-btn{
-    background:var(--blue);
-    color:white;
-}
-
-.primary-btn:hover{
-    background:#0e50b2;
-    transform:translateY(-1px);
-}
-
-.secondary-btn{
-    background:var(--blue-light);
-    color:var(--blue);
-    border:1px solid #c8ddfa;
-}
-
-.secondary-btn:hover{
-    background:#dcecff;
-}
-
-/* ================= RESULTS ================= */
-
-.results{
-    margin-top:26px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.result{
-    background:var(--blue-soft);
-    border:1px solid #dce8f7;
-    border-radius:12px;
-    padding:16px;
-}
-
-.result-label{
-    font-size:12px;
-    font-weight:700;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:.5px;
-}
-
-.result-value{
-    margin-top:4px;
-    font-size:24px;
-    font-weight:900;
-    color:var(--blue-dark);
-}
-
-/* ================= GRAPH ================= */
-
-.graph-card{
-    margin-top:24px;
-}
-
-.canvas-wrapper{
-    width:100%;
-    height:360px;
-    position:relative;
-    background:#ffffff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    overflow:hidden;
-}
-
-canvas{
-    width:100%;
-    height:100%;
-    display:block;
-}
-
-/* ================= MOTOR VISUAL ================= */
-
-.motor-display{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:320px;
-    background:var(--blue-soft);
-    border:1px solid #dce8f7;
-    border-radius:15px;
-    margin-bottom:20px;
-}
-
-.motor{
-    position:relative;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:#ffffff;
-    border:10px solid #c9d7e8;
-    box-shadow:
-        inset 0 0 0 8px #eef4fb,
-        0 15px 35px rgba(18,97,214,.12);
-}
-
-.motor::before{
-    content:"";
-    position:absolute;
-    width:100px;
-    height:100px;
-    border-radius:50%;
-    left:30px;
-    top:30px;
-    border:10px solid var(--blue);
-    border-right-color:var(--cyan);
-    border-bottom-color:#8fb7ed;
-    animation:spin 1.2s linear infinite;
-}
-
-.motor::after{
-    content:"";
-    position:absolute;
-    width:18px;
-    height:65px;
-    background:#52677f;
-    left:71px;
-    top:47px;
-    border-radius:10px;
-}
-
-@keyframes spin{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-.motor-status{
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-}
-
-/* ================= EQUATIONS ================= */
-
-.equations{
-    margin-top:24px;
-    background:var(--blue-soft);
-    border:1px solid #dce8f7;
-    border-radius:14px;
-    padding:22px;
-}
-
-.equation{
-    font-family:"Courier New",monospace;
-    background:#ffffff;
-    border:1px solid #dce4ef;
-    padding:12px 14px;
-    border-radius:9px;
-    margin-top:9px;
-    color:var(--blue-dark);
-    overflow-x:auto;
-}
-
-/* ================= INFO ================= */
-
-.info{
-    margin-top:24px;
-    padding:20px;
-    background:#ffffff;
-    border-left:4px solid var(--blue);
-    border-radius:10px;
-    box-shadow:var(--shadow);
-}
-
-.info p{
-    color:var(--muted);
-    font-size:14px;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    border-top:1px solid var(--border);
-    background:#ffffff;
-    padding:30px 24px;
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-}
-
-footer strong{
-    color:var(--blue);
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:800px){
-
-    .nav-container{
-        padding:16px 18px;
-        align-items:flex-start;
-    }
-
-    .logo{
-        font-size:22px;
-        min-width:70px;
-    }
-
-    .nav-links{
-        gap:20px;
-        max-width:calc(100vw - 100px);
-    }
-
-    .hero{
-        padding:55px 20px 35px;
-    }
-
-    .hero h1{
-        font-size:47px;
-        letter-spacing:-1.5px;
-    }
-
-    .hero p{
-        font-size:17px;
-    }
-
-    .main{
-        padding:0 20px 60px;
-    }
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .card{
-        padding:22px;
-    }
-
-    .results{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .canvas-wrapper{
-        height:280px;
-    }
-}
-
-@media(max-width:480px){
-
-    .hero h1{
-        font-size:40px;
-    }
-
-    .eyebrow{
-        font-size:12px;
-        letter-spacing:2px;
-    }
-
-    .results{
-        grid-template-columns:1fr;
-    }
-
-    .button-row button{
-        width:100%;
-    }
-
-    .motor{
-        width:145px;
-        height:145px;
-    }
-
-    .motor::before{
-        width:78px;
-        height:78px;
-        left:24px;
-        top:24px;
-    }
-
-    .motor::after{
-        left:58px;
-        top:40px;
-        height:55px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Calculators | MECH-X</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- NAVIGATION -->
-<nav class="navbar">
-    <div class="nav-container">
+<header class="topbar">
+    <a href="index.html" class="logo">MECH-X</a>
 
-        <a href="index.html" class="logo">
-            MECH-<span>X</span>
-        </a>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="calculators.html">Calculators</a>
-            <a href="motor.html" class="active">Motor Lab</a>
-            <a href="control.html">Control Lab</a>
-            <a href="robotics.html">Robotics</a>
-            <a href="automotive.html">Automotive</a>
-        </div>
-
+    <div class="top-actions">
+        <a href="knowledge.html" class="btn secondary">Knowledge Base</a>
+        <a href="reports.html" class="btn primary">Reports</a>
     </div>
-</nav>
+</header>
 
+<div class="layout">
 
-<!-- HERO -->
-<section class="hero">
+<aside class="sidebar">
+    <div class="sidebar-title">ENGINEERING LAB</div>
 
-    <div class="eyebrow">
-        Dynamic Engineering Simulation
-    </div>
+    <nav>
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html" class="active">▣ Calculators</a>
+        <a href="motor.html">⚙ Motor Lab</a>
+        <a href="control.html">◉ Control Lab</a>
+        <a href="robotics.html">🦾 Robotics Lab</a>
+        <a href="automotive.html">🚗 Automotive Lab</a>
+        <a href="mechanical.html">⚒ Mechanical Lab</a>
+        <a href="electrical.html">⚡ Electrical & Electronics</a>
+        <a href="knowledge.html">📘 Knowledge Base</a>
+        <a href="reports.html">📄 Reports & Export</a>
+    </nav>
+</aside>
 
-    <h1>
-        DC Motor<br>
-        Laboratory
-    </h1>
+<main class="main-content">
 
+<section class="page-hero">
+    <span class="eyebrow">ENGINEERING CALCULATORS</span>
+    <h1>Fast Engineering Calculations</h1>
     <p>
-        Simulate the acceleration and steady-state response
-        of a simplified DC motor using a numerical
-        time-domain model.
+        Calculate common mechanical, electrical and engineering quantities
+        directly in your browser.
     </p>
-
 </section>
 
+<section class="section">
 
-<!-- MAIN -->
-<main class="main">
+<div class="section-heading">
+    <div>
+        <h2>Mechanical Calculators</h2>
+        <p>Common formulas used in mechanical and mechatronics engineering.</p>
+    </div>
+</div>
 
-    <div class="grid">
+<div class="card-grid">
 
-        <!-- PARAMETERS -->
-        <section class="card">
+<div class="card">
+    <h3>Torque</h3>
+    <p class="formula">T = F × r</p>
 
-            <h2>Motor Parameters</h2>
+    <label>Force (N)</label>
+    <input id="torqueForce" type="number" value="100">
 
-            <div class="input-group">
-                <label for="voltage">
-                    Supply Voltage (V)
-                </label>
+    <label>Radius (m)</label>
+    <input id="torqueRadius" type="number" value="0.5">
 
-                <input
-                    id="voltage"
-                    type="number"
-                    value="24"
-                    step="0.1"
-                >
-            </div>
+    <button class="btn primary" onclick="calculateTorque()">Calculate</button>
+    <div class="result" id="torqueResult">Result: —</div>
+</div>
 
-            <div class="input-group">
-                <label for="resistance">
-                    Armature Resistance (Ω)
-                </label>
+<div class="card">
+    <h3>Mechanical Power</h3>
+    <p class="formula">P = Tω</p>
 
-                <input
-                    id="resistance"
-                    type="number"
-                    value="2"
-                    step="0.1"
-                >
-            </div>
+    <label>Torque (N·m)</label>
+    <input id="powerTorque" type="number" value="20">
 
-            <div class="input-group">
-                <label for="ke">
-                    Motor Constant Ke (V·s/rad)
-                </label>
+    <label>Speed (RPM)</label>
+    <input id="powerRPM" type="number" value="1500">
 
-                <input
-                    id="ke"
-                    type="number"
-                    value="0.08"
-                    step="0.01"
-                >
-            </div>
+    <button class="btn primary" onclick="calculatePower()">Calculate</button>
+    <div class="result" id="powerResult">Result: —</div>
+</div>
 
-            <div class="input-group">
-                <label for="kt">
-                    Motor Constant Kt (N·m/A)
-                </label>
+<div class="card">
+    <h3>Gear Ratio</h3>
+    <p class="formula">GR = N₂ / N₁</p>
 
-                <input
-                    id="kt"
-                    type="number"
-                    value="0.08"
-                    step="0.01"
-                >
-            </div>
+    <label>Driven Gear Teeth</label>
+    <input id="drivenTeeth" type="number" value="60">
 
-            <div class="input-group">
-                <label for="load">
-                    Load Torque (N·m)
-                </label>
+    <label>Driver Gear Teeth</label>
+    <input id="driverTeeth" type="number" value="20">
 
-                <input
-                    id="load"
-                    type="number"
-                    value="0.2"
-                    step="0.05"
-                >
-            </div>
+    <button class="btn primary" onclick="calculateGear()">Calculate</button>
+    <div class="result" id="gearResult">Result: —</div>
+</div>
 
-            <div class="input-group">
-                <label for="inertia">
-                    Rotor Inertia J (kg·m²)
-                </label>
+<div class="card">
+    <h3>Pressure</h3>
+    <p class="formula">P = F / A</p>
 
-                <input
-                    id="inertia"
-                    type="number"
-                    value="0.01"
-                    step="0.001"
-                >
-            </div>
+    <label>Force (N)</label>
+    <input id="pressureForce" type="number" value="1000">
 
-            <div class="input-group">
-                <label for="friction">
-                    Viscous Friction b (N·m·s/rad)
-                </label>
+    <label>Area (m²)</label>
+    <input id="pressureArea" type="number" value="0.1">
 
-                <input
-                    id="friction"
-                    type="number"
-                    value="0.001"
-                    step="0.0001"
-                >
-            </div>
+    <button class="btn primary" onclick="calculatePressure()">Calculate</button>
+    <div class="result" id="pressureResult">Result: —</div>
+</div>
 
-            <div class="input-group">
-                <label for="simTime">
-                    Simulation Time (s)
-                </label>
+<div class="card">
+    <h3>Linear Speed</h3>
+    <p class="formula">v = πDN / 60</p>
 
-                <input
-                    id="simTime"
-                    type="number"
-                    value="5"
-                    min="0.5"
-                    step="0.5"
-                >
-            </div>
+    <label>Diameter (m)</label>
+    <input id="speedDiameter" type="number" value="0.2">
 
-            <div class="button-row">
+    <label>Speed (RPM)</label>
+    <input id="speedRPM" type="number" value="1200">
 
-                <button
-                    class="primary-btn"
-                    onclick="runSimulation()"
-                >
-                    Run Simulation
-                </button>
+    <button class="btn primary" onclick="calculateLinearSpeed()">Calculate</button>
+    <div class="result" id="speedResult">Result: —</div>
+</div>
 
-                <button
-                    class="secondary-btn"
-                    onclick="resetSimulation()"
-                >
-                    Reset
-                </button>
+<div class="card">
+    <h3>Density</h3>
+    <p class="formula">ρ = m / V</p>
 
-            </div>
+    <label>Mass (kg)</label>
+    <input id="densityMass" type="number" value="10">
 
-        </section>
+    <label>Volume (m³)</label>
+    <input id="densityVolume" type="number" value="0.005">
 
+    <button class="btn primary" onclick="calculateDensity()">Calculate</button>
+    <div class="result" id="densityResult">Result: —</div>
+</div>
 
-        <!-- MOTOR -->
-        <section class="card">
+<div class="card">
+    <h3>Normal Stress</h3>
+    <p class="formula">σ = F / A</p>
 
-            <h2>Motor Visualization</h2>
+    <label>Force (N)</label>
+    <input id="stressForce" type="number" value="5000">
 
-            <div class="motor-display">
+    <label>Area (mm²)</label>
+    <input id="stressArea" type="number" value="100">
 
-                <div>
-                    <div class="motor"></div>
+    <button class="btn primary" onclick="calculateStress()">Calculate</button>
+    <div class="result" id="stressResult">Result: —</div>
+</div>
 
-                    <div class="motor-status">
-                        DC Motor Simulation
-                    </div>
-                </div>
+<div class="card">
+    <h3>Efficiency</h3>
+    <p class="formula">η = Output / Input × 100</p>
 
-            </div>
+    <label>Output Power (W)</label>
+    <input id="outputPower" type="number" value="800">
 
-            <div class="results">
+    <label>Input Power (W)</label>
+    <input id="inputPower" type="number" value="1000">
 
-                <div class="result">
-                    <div class="result-label">
-                        Final Speed
-                    </div>
+    <button class="btn primary" onclick="calculateEfficiency()">Calculate</button>
+    <div class="result" id="efficiencyResult">Result: —</div>
+</div>
 
-                    <div class="result-value" id="finalSpeed">
-                        0 rpm
-                    </div>
-                </div>
+</div>
+</section>
 
-                <div class="result">
-                    <div class="result-label">
-                        Final Current
-                    </div>
+<section class="section">
+<div class="card">
+    <h2>Ohm's Law</h2>
+    <p class="formula">V = IR</p>
 
-                    <div class="result-value" id="finalCurrent">
-                        0 A
-                    </div>
-                </div>
+    <div class="form-grid">
 
-                <div class="result">
-                    <div class="result-label">
-                        Final Torque
-                    </div>
+        <div>
+            <label>Voltage (V)</label>
+            <input id="ohmVoltage" type="number" value="12">
+        </div>
 
-                    <div class="result-value" id="finalTorque">
-                        0 N·m
-                    </div>
-                </div>
+        <div>
+            <label>Current (A)</label>
+            <input id="ohmCurrent" type="number" value="2">
+        </div>
 
-                <div class="result">
-                    <div class="result-label">
-                        Mechanical Power
-                    </div>
-
-                    <div class="result-value" id="finalPower">
-                        0 W
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
+        <div>
+            <label>Resistance (Ω)</label>
+            <input id="ohmResistance" type="number" value="6">
+        </div>
 
     </div>
 
+    <button class="btn primary" onclick="calculateOhm()">Calculate</button>
 
-    <!-- GRAPH -->
-    <section class="card graph-card">
-
-        <h2>Speed Response</h2>
-
-        <div class="canvas-wrapper">
-            <canvas id="speedCanvas"></canvas>
-        </div>
-
-    </section>
-
-
-    <!-- EQUATIONS -->
-    <section class="card">
-
-        <h2>Engineering Model</h2>
-
-        <p style="color:var(--muted);">
-            The simulator uses a simplified DC motor model.
-            Electrical and mechanical equations are solved
-            numerically over small time steps.
-        </p>
-
-        <div class="equations">
-
-            <div class="equation">
-                Back EMF: E = Ke × ω
-            </div>
-
-            <div class="equation">
-                Armature Current: I = (V − E) / R
-            </div>
-
-            <div class="equation">
-                Motor Torque: T = Kt × I
-            </div>
-
-            <div class="equation">
-                J(dω/dt) = T − Tload − bω
-            </div>
-
-            <div class="equation">
-                Mechanical Power: P = T × ω
-            </div>
-
-        </div>
-
-        <div class="info">
-
-            <p>
-                <strong>Engineering note:</strong>
-                This is an educational simulation. The model
-                assumes constant motor parameters and does not
-                include detailed magnetic saturation, temperature
-                effects, nonlinear friction, switching electronics,
-                or detailed motor construction.
-            </p>
-
-        </div>
-
-    </section>
+    <div class="result" id="ohmResult">
+        Enter two known values to calculate the third.
+    </div>
+</div>
+</section>
 
 </main>
+</div>
 
-
-<footer>
-    <strong>MECH-X</strong> — Interactive Mechatronics Engineering Laboratory
+<footer class="footer">
+    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
 </footer>
 
-
 <script>
-
-/* ==========================================
-   DC MOTOR SIMULATION
-   ========================================== */
-
-function getValue(id){
+function value(id) {
     return parseFloat(document.getElementById(id).value);
 }
 
+function show(id, text) {
+    document.getElementById(id).textContent = text;
+}
 
-function runSimulation(){
+function calculateTorque() {
+    const F = value("torqueForce");
+    const r = value("torqueRadius");
 
-    const V = getValue("voltage");
-    const R = getValue("resistance");
-    const Ke = getValue("ke");
-    const Kt = getValue("kt");
-    const Tload = getValue("load");
-    const J = getValue("inertia");
-    const b = getValue("friction");
-    const simTime = getValue("simTime");
-
-    if(
-        !Number.isFinite(V) ||
-        !Number.isFinite(R) ||
-        !Number.isFinite(Ke) ||
-        !Number.isFinite(Kt) ||
-        !Number.isFinite(Tload) ||
-        !Number.isFinite(J) ||
-        !Number.isFinite(b) ||
-        !Number.isFinite(simTime)
-    ){
-        alert("Please enter valid numerical values.");
+    if (F < 0 || r < 0) {
+        show("torqueResult", "Enter valid positive values.");
         return;
     }
 
-    if(R <= 0 || J <= 0 || Ke <= 0 || Kt <= 0){
-        alert("Resistance, inertia, Ke and Kt must be greater than zero.");
+    show("torqueResult", "Torque = " + (F * r).toFixed(3) + " N·m");
+}
+
+function calculatePower() {
+    const T = value("powerTorque");
+    const rpm = value("powerRPM");
+
+    if (T < 0 || rpm < 0) {
+        show("powerResult", "Enter valid positive values.");
         return;
     }
 
-    const dt = 0.01;
+    const omega = 2 * Math.PI * rpm / 60;
+    const P = T * omega;
 
-    let omega = 0;
-
-    const time = [];
-    const speed = [];
-    const current = [];
-    const torque = [];
-
-    for(
-        let t = 0;
-        t <= simTime;
-        t += dt
-    ){
-
-        const backEMF = Ke * omega;
-
-        let I = (V - backEMF) / R;
-
-        /* Prevent unrealistic negative current */
-        if(I < 0){
-            I = 0;
-        }
-
-        const motorTorque = Kt * I;
-
-        const acceleration =
-            (
-                motorTorque -
-                Tload -
-                b * omega
-            ) / J;
-
-        omega += acceleration * dt;
-
-        if(omega < 0){
-            omega = 0;
-        }
-
-        time.push(t);
-        speed.push(omega * 60 / (2 * Math.PI));
-        current.push(I);
-        torque.push(motorTorque);
-    }
-
-
-    const lastSpeed = speed[speed.length - 1];
-    const lastCurrent = current[current.length - 1];
-    const lastTorque = torque[torque.length - 1];
-
-    const omegaFinal =
-        lastSpeed * 2 * Math.PI / 60;
-
-    const power =
-        lastTorque * omegaFinal;
-
-
-    document.getElementById("finalSpeed").textContent =
-        lastSpeed.toFixed(1) + " rpm";
-
-    document.getElementById("finalCurrent").textContent =
-        lastCurrent.toFixed(2) + " A";
-
-    document.getElementById("finalTorque").textContent =
-        lastTorque.toFixed(2) + " N·m";
-
-    document.getElementById("finalPower").textContent =
-        power.toFixed(1) + " W";
-
-
-    drawGraph(time, speed);
+    show("powerResult", "Power = " + P.toFixed(2) + " W");
 }
 
+function calculateGear() {
+    const driven = value("drivenTeeth");
+    const driver = value("driverTeeth");
 
-/* ==========================================
-   GRAPH
-   ========================================== */
-
-function drawGraph(time, speed){
-
-    const canvas =
-        document.getElementById("speedCanvas");
-
-    const ctx = canvas.getContext("2d");
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    const dpr =
-        window.devicePixelRatio || 1;
-
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-    const width = rect.width;
-    const height = rect.height;
-
-    ctx.clearRect(0,0,width,height);
-
-
-    const margin = {
-        left:55,
-        right:20,
-        top:25,
-        bottom:45
-    };
-
-    const graphWidth =
-        width - margin.left - margin.right;
-
-    const graphHeight =
-        height - margin.top - margin.bottom;
-
-
-    const maxSpeed =
-        Math.max(...speed,1);
-
-    const maxTime =
-        Math.max(...time,1);
-
-
-    /* Grid */
-
-    ctx.strokeStyle = "#e4ebf4";
-    ctx.lineWidth = 1;
-
-    for(let i=0;i<=5;i++){
-
-        const y =
-            margin.top +
-            graphHeight -
-            (i/5)*graphHeight;
-
-        ctx.beginPath();
-        ctx.moveTo(margin.left,y);
-        ctx.lineTo(width-margin.right,y);
-        ctx.stroke();
-
-        ctx.fillStyle = "#65758c";
-        ctx.font = "12px Arial";
-        ctx.textAlign = "right";
-
-        const value =
-            (maxSpeed*i/5).toFixed(0);
-
-        ctx.fillText(
-            value,
-            margin.left-8,
-            y+4
-        );
+    if (driver <= 0 || driven <= 0) {
+        show("gearResult", "Gear teeth must be greater than zero.");
+        return;
     }
 
+    show("gearResult", "Gear Ratio = " + (driven / driver).toFixed(3) + ":1");
+}
 
-    for(let i=0;i<=5;i++){
+function calculatePressure() {
+    const F = value("pressureForce");
+    const A = value("pressureArea");
 
-        const x =
-            margin.left +
-            (i/5)*graphWidth;
-
-        ctx.beginPath();
-        ctx.moveTo(x,margin.top);
-        ctx.lineTo(
-            x,
-            height-margin.bottom
-        );
-        ctx.stroke();
-
-        ctx.fillStyle = "#65758c";
-        ctx.font = "12px Arial";
-        ctx.textAlign = "center";
-
-        const value =
-            (maxTime*i/5).toFixed(1);
-
-        ctx.fillText(
-            value,
-            x,
-            height-margin.bottom+22
-        );
+    if (A <= 0) {
+        show("pressureResult", "Area must be greater than zero.");
+        return;
     }
 
+    show("pressureResult", "Pressure = " + (F / A).toFixed(2) + " Pa");
+}
 
-    /* Axes */
+function calculateLinearSpeed() {
+    const D = value("speedDiameter");
+    const rpm = value("speedRPM");
 
-    ctx.strokeStyle = "#8da0b7";
-    ctx.lineWidth = 1.5;
+    if (D < 0 || rpm < 0) {
+        show("speedResult", "Enter valid values.");
+        return;
+    }
 
-    ctx.beginPath();
+    const v = Math.PI * D * rpm / 60;
 
-    ctx.moveTo(
-        margin.left,
-        margin.top
-    );
+    show("speedResult", "Linear Speed = " + v.toFixed(3) + " m/s");
+}
 
-    ctx.lineTo(
-        margin.left,
-        height-margin.bottom
-    );
+function calculateDensity() {
+    const m = value("densityMass");
+    const V = value("densityVolume");
 
-    ctx.lineTo(
-        width-margin.right,
-        height-margin.bottom
-    );
+    if (V <= 0) {
+        show("densityResult", "Volume must be greater than zero.");
+        return;
+    }
 
-    ctx.stroke();
+    show("densityResult", "Density = " + (m / V).toFixed(2) + " kg/m³");
+}
 
+function calculateStress() {
+    const F = value("stressForce");
+    const A = value("stressArea");
 
-    /* Curve */
+    if (A <= 0) {
+        show("stressResult", "Area must be greater than zero.");
+        return;
+    }
 
-    ctx.strokeStyle = "#1261d6";
-    ctx.lineWidth = 3;
+    const stressMPa = F / A;
 
-    ctx.beginPath();
+    show("stressResult", "Normal Stress = " + stressMPa.toFixed(3) + " MPa");
+}
 
-    for(let i=0;i<time.length;i++){
+function calculateEfficiency() {
+    const output = value("outputPower");
+    const input = value("inputPower");
 
-        const x =
-            margin.left +
-            (time[i]/maxTime)*graphWidth;
+    if (input <= 0) {
+        show("efficiencyResult", "Input power must be greater than zero.");
+        return;
+    }
 
-        const y =
-            margin.top +
-            graphHeight -
-            (speed[i]/maxSpeed)*graphHeight;
+    show("efficiencyResult", "Efficiency = " + ((output / input) * 100).toFixed(2) + " %");
+}
 
-        if(i === 0){
-            ctx.moveTo(x,y);
-        }else{
-            ctx.lineTo(x,y);
+function calculateOhm() {
+    let V = value("ohmVoltage");
+    let I = value("ohmCurrent");
+    let R = value("ohmResistance");
+
+    const known = [
+        !isNaN(V),
+        !isNaN(I),
+        !isNaN(R)
+    ].filter(Boolean).length;
+
+    if (known < 2) {
+        show("ohmResult", "Enter at least two values.");
+        return;
+    }
+
+    if (isNaN(V)) {
+        if (R <= 0) {
+            show("ohmResult", "Resistance must be greater than zero.");
+            return;
         }
+
+        V = I * R;
+        document.getElementById("ohmVoltage").value = V.toFixed(3);
+    } else if (isNaN(I)) {
+        if (R <= 0) {
+            show("ohmResult", "Resistance must be greater than zero.");
+            return;
+        }
+
+        I = V / R;
+        document.getElementById("ohmCurrent").value = I.toFixed(3);
+    } else if (isNaN(R)) {
+        if (I === 0) {
+            show("ohmResult", "Current cannot be zero when calculating resistance.");
+            return;
+        }
+
+        R = V / I;
+        document.getElementById("ohmResistance").value = R.toFixed(3);
     }
 
-    ctx.stroke();
-
-
-    /* Labels */
-
-    ctx.fillStyle = "#34465f";
-    ctx.font = "bold 13px Arial";
-
-    ctx.textAlign = "center";
-
-    ctx.fillText(
-        "Time (s)",
-        margin.left + graphWidth/2,
-        height-8
+    show(
+        "ohmResult",
+        "V = " + V.toFixed(3) +
+        " V | I = " + I.toFixed(3) +
+        " A | R = " + R.toFixed(3) + " Ω"
     );
-
-    ctx.save();
-
-    ctx.translate(
-        15,
-        margin.top + graphHeight/2
-    );
-
-    ctx.rotate(-Math.PI/2);
-
-    ctx.fillText(
-        "Speed (rpm)",
-        0,
-        0
-    );
-
-    ctx.restore();
 }
-
-
-/* ==========================================
-   RESET
-   ========================================== */
-
-function resetSimulation(){
-
-    document.getElementById("voltage").value = 24;
-    document.getElementById("resistance").value = 2;
-    document.getElementById("ke").value = 0.08;
-    document.getElementById("kt").value = 0.08;
-    document.getElementById("load").value = 0.2;
-    document.getElementById("inertia").value = 0.01;
-    document.getElementById("friction").value = 0.001;
-    document.getElementById("simTime").value = 5;
-
-    runSimulation();
-}
-
-
-/* ==========================================
-   INITIALIZE
-   ========================================== */
-
-window.addEventListener(
-    "load",
-    runSimulation
-);
-
-window.addEventListener(
-    "resize",
-    runSimulation
-);
-
 </script>
 
 </body>
