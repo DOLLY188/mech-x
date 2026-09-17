@@ -1,923 +1,169 @@
-/* =========================================================
-   MECH-X GLOBAL DESIGN SYSTEM
-   White + Blue Engineering Dashboard
-   ========================================================= */
-
-:root {
-    --blue: #1261d6;
-    --blue-dark: #0b2d5c;
-    --blue-light: #eaf3ff;
-    --blue-soft: #f4f8ff;
-
-    --text: #16345f;
-    --muted: #607a9e;
-    --border: #dbe8f7;
-    --background: #f7fbff;
-    --white: #ffffff;
-
-    --shadow: 0 8px 28px rgba(18, 97, 214, 0.07);
-    --radius: 15px;
-}
-
-/* RESET */
-
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
-    color: var(--text);
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
-}
-
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-.topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    height: 68px;
-
-    background: var(--white);
-
-    border-bottom: 1px solid var(--border);
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 28px;
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: 1px;
-    color: var(--blue-dark);
-}
-
-.logo span {
-    color: var(--blue);
-}
-
-.top-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
-.btn {
-    border: 1px solid var(--border);
-    background: white;
-    color: var(--blue-dark);
-
-    padding: 10px 16px;
-
-    border-radius: 10px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-    border-color: #b9d3f4;
-}
-
-.btn.primary {
-    background: var(--blue);
-    color: white;
-    border-color: var(--blue);
-}
-
-.btn.primary:hover {
-    background: #0b4fb5;
-}
-
-.btn.secondary {
-    background: var(--blue-light);
-    color: var(--blue);
-}
-
-.btn.danger {
-    background: #fff0f0;
-    color: #c62828;
-    border-color: #ffd5d5;
-}
-
-
-/* =========================================================
-   MAIN LAYOUT
-   ========================================================= */
-
-.layout {
-    display: grid;
-    grid-template-columns: 235px minmax(0, 1fr);
-
-    min-height: calc(100vh - 68px);
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.sidebar,
-aside {
-    background: white;
-
-    border-right: 1px solid var(--border);
-
-    padding: 22px 14px;
-
-    position: sticky;
-    top: 68px;
-
-    height: calc(100vh - 68px);
-
-    overflow-y: auto;
-}
-
-.side-title {
-    font-size: 11px;
-    font-weight: 800;
-
-    color: var(--muted);
-
-    letter-spacing: 1px;
-
-    margin: 10px;
-}
-
-.nav {
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-}
-
-.nav a {
-    padding: 11px 12px;
-
-    border-radius: 9px;
-
-    font-size: 14px;
-    font-weight: 700;
-
-    color: var(--text);
-
-    transition: 0.2s;
-}
-
-.nav a:hover {
-    background: var(--blue-light);
-    color: var(--blue);
-}
-
-.nav a.active {
-    background: var(--blue);
-    color: white;
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-main {
-    width: 100%;
-    max-width: 1450px;
-
-    margin: auto;
-
-    padding: 34px;
-}
-
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-    position: relative;
-
-    overflow: hidden;
-
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #edf5ff
-    );
-
-    border: 1px solid var(--border);
-
-    border-radius: 20px;
-
-    padding: 42px;
-
-    box-shadow: var(--shadow);
-
-    margin-bottom: 25px;
-}
-
-.hero::after {
-    content: "MECH-X";
-
-    position: absolute;
-
-    right: -20px;
-    bottom: -35px;
-
-    font-size: 120px;
-    font-weight: 900;
-
-    color: rgba(18, 97, 214, 0.035);
-
-    pointer-events: none;
-}
-
-.eyebrow {
-    color: var(--blue);
-
-    font-size: 13px;
-
-    font-weight: 900;
-
-    letter-spacing: 1.5px;
-}
-
-.hero h1 {
-    position: relative;
-    z-index: 1;
-
-    font-size: 42px;
-
-    margin: 12px 0;
-
-    color: var(--blue-dark);
-}
-
-.hero p {
-    position: relative;
-    z-index: 1;
-
-    max-width: 750px;
-
-    color: var(--muted);
-
-    font-size: 17px;
-
-    line-height: 1.7;
-
-    margin-bottom: 25px;
-}
-
-.hero-actions {
-    position: relative;
-    z-index: 2;
-
-    display: flex;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
-}
-
-
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.grid {
-    display: grid;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 16px;
-}
-
-.card {
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    padding: 22px;
-
-    box-shadow: var(--shadow);
-
-    transition: 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-3px);
-
-    border-color: #b9d3f4;
-}
-
-.card h2,
-.card h3 {
-    color: var(--blue-dark);
-
-    margin-top: 0;
-}
-
-.card p {
-    color: var(--muted);
-
-    line-height: 1.55;
-
-    font-size: 14px;
-}
-
-.icon {
-    width: 45px;
-    height: 45px;
-
-    border-radius: 12px;
-
-    background: var(--blue-light);
-
-    display: grid;
-    place-items: center;
-
-    color: var(--blue);
-
-    font-weight: 900;
-
-    margin-bottom: 15px;
-}
-
-.open {
-    display: inline-block;
-
-    margin-top: 10px;
-
-    color: var(--blue);
-
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   STATISTICS
-   ========================================================= */
-
-.stats {
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 14px;
-
-    margin: 22px 0;
-}
-
-.stat {
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 13px;
-
-    padding: 18px;
-}
-
-.stat strong {
-    display: block;
-
-    color: var(--blue-dark);
-
-    font-size: 26px;
-}
-
-.stat span {
-    color: var(--muted);
-
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   SECTION TITLES
-   ========================================================= */
-
-.section-title {
-    margin: 38px 0 18px;
-}
-
-.section-title h2 {
-    margin: 0;
-
-    color: var(--blue-dark);
-}
-
-.section-title p {
-    color: var(--muted);
-
-    margin-top: 6px;
-}
-
-
-/* =========================================================
-   WORKFLOW
-   ========================================================= */
-
-.workflow {
-    display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 16px;
-}
-
-.step {
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 15px;
-
-    padding: 24px;
-
-    display: flex;
-
-    gap: 16px;
-}
-
-.num {
-    min-width: 38px;
-    height: 38px;
-
-    border-radius: 50%;
-
-    background: var(--blue);
-
-    color: white;
-
-    display: grid;
-    place-items: center;
-
-    font-weight: 900;
-}
-
-.step h3 {
-    margin: 0 0 6px;
-}
-
-.step p {
-    margin: 0;
-
-    color: var(--muted);
-
-    line-height: 1.5;
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   FORMS
-   ========================================================= */
-
-.form-grid {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 16px;
-}
-
-.field {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-}
-
-.field.full {
-    grid-column: 1 / -1;
-}
-
-.field label {
-    font-size: 13px;
-
-    font-weight: 800;
-
-    color: var(--text);
-}
-
-.field input,
-.field select,
-.field textarea,
-input,
-select,
-textarea {
-    width: 100%;
-
-    padding: 11px 12px;
-
-    border: 1px solid #cbd9ea;
-
-    border-radius: 9px;
-
-    background: white;
-
-    color: var(--text);
-
-    outline: none;
-}
-
-.field textarea,
-textarea {
-    min-height: 110px;
-
-    resize: vertical;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus,
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(18, 97, 214, 0.10);
-}
-
-
-/* =========================================================
-   RESULT BOX
-   ========================================================= */
-
-.result-box {
-    margin-top: 18px;
-
-    padding: 20px;
-
-    border-radius: 12px;
-
-    background: var(--blue-soft);
-
-    border: 1px solid var(--border);
-}
-
-.result-box h3 {
-    color: var(--blue-dark);
-
-    margin-top: 0;
-}
-
-.result-value {
-    font-size: 30px;
-
-    font-weight: 900;
-
-    color: var(--blue);
-}
-
-.result-note {
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.5;
-}
-
-
-/* =========================================================
-   TOOLBAR
-   ========================================================= */
-
-.toolbar {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
-    flex-wrap: wrap;
-
-    margin-bottom: 18px;
-}
-
-.button-row {
-    display: flex;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-
-    margin-top: 18px;
-}
-
-
-/* =========================================================
-   TABLES
-   ========================================================= */
-
-.table-wrap {
-    overflow-x: auto;
-}
-
-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    background: white;
-}
-
-th,
-td {
-    border: 1px solid var(--border);
-
-    padding: 10px;
-
-    text-align: left;
-}
-
-th {
-    background: var(--blue-light);
-
-    color: var(--blue-dark);
-}
-
-
-/* =========================================================
-   CANVAS
-   ========================================================= */
-
-.canvas-box {
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 15px;
-
-    padding: 15px;
-
-    overflow: hidden;
-}
-
-canvas {
-    display: block;
-
-    width: 100%;
-
-    max-width: 100%;
-}
-
-
-/* =========================================================
-   EQUATION
-   ========================================================= */
-
-.equation {
-    background: #f8fbff;
-
-    border-left: 4px solid var(--blue);
-
-    padding: 15px;
-
-    border-radius: 8px;
-
-    font-family: Georgia, serif;
-
-    font-size: 18px;
-
-    color: var(--blue-dark);
-
-    overflow-x: auto;
-}
-
-
-/* =========================================================
-   NOTICE
-   ========================================================= */
-
-.notice {
-    margin-top: 18px;
-
-    padding: 13px 15px;
-
-    background: var(--blue-soft);
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
     line-height: 1.6;
 }
 
+nav {
+    background: #1e3a5f;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-.footer {
-    margin-top: 42px;
+.logo {
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+}
 
-    padding: 25px 0;
+.logo span {
+    color: #93c5fd;
+}
 
-    border-top: 1px solid var(--border);
+.nav-links {
+    display: flex;
+    gap: 18px;
+    list-style: none;
+    flex-wrap: wrap;
+}
 
-    color: var(--muted);
+.nav-links a {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.92rem;
+}
 
-    font-size: 13px;
+.nav-links a:hover,
+.nav-links a.active {
+    color: #fff;
+}
 
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: #1e3a5f;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.page-sub {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #fff;
+    padding: 26px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    margin-bottom: 22px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.93rem;
+}
+
+input {
+    width: 100%;
+    padding: 11px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.btn {
+    background: #1e3a5f;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.result {
+    margin-top: 16px;
+    padding: 13px;
+    background: #e0f2fe;
+    border-radius: 8px;
+    font-size: 1.05rem;
+    font-weight: 600;
     text-align: center;
+    display: none;
 }
 
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .workflow {
-        grid-template-columns: 1fr;
-    }
-
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
+.formula, .info-box {
+    background: #f1f5f9;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-top: 14px;
+    font-size: 0.9rem;
+    color: #475569;
 }
 
-
-@media (max-width: 760px) {
-
-    .topbar {
-        padding: 0 15px;
-    }
-
-    .top-actions .btn:not(.primary) {
-        display: none;
-    }
-
-    .layout {
-        display: block;
-    }
-
-    .sidebar,
-    aside {
-        position: static;
-
-        width: 100%;
-
-        height: auto;
-
-        border-right: none;
-
-        border-bottom: 1px solid var(--border);
-
-        padding: 10px;
-
-        overflow-x: auto;
-    }
-
-    .side-title {
-        display: none;
-    }
-
-    .nav {
-        flex-direction: row;
-
-        width: max-content;
-    }
-
-    .nav a {
-        white-space: nowrap;
-    }
-
-    main {
-        padding: 18px;
-    }
-
-    .hero {
-        padding: 27px;
-    }
-
-    .hero h1 {
-        font-size: 31px;
-    }
-
-    .hero p {
-        font-size: 15px;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .field.full {
-        grid-column: auto;
-    }
-
+footer {
+    background: #1e3a5f;
+    color: #94a3b8;
+    text-align: center;
+    padding: 22px;
+    margin-top: 40px;
 }
 
-
-@media (max-width: 480px) {
-
-    .hero {
-        padding: 22px;
-    }
-
-    .hero h1 {
-        font-size: 27px;
-    }
-
-    .stats {
-        grid-template-columns: 1fr;
-    }
-
-    .btn {
-        width: 100%;
-
-        text-align: center;
-    }
-
-    .button-row {
-        flex-direction: column;
-    }
-
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
 }
 
+.tab-btn {
+    padding: 10px 16px;
+    border: none;
+    background: #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
 
-/* =========================================================
-   PRINT
-   ========================================================= */
-
-@media print {
-
-    .topbar,
-    .sidebar,
-    aside,
-    .hero,
-    .no-print {
-        display: none !important;
-    }
-
-    main {
-        padding: 0;
-    }
-
-    body {
-        background: white;
-    }
-
+.tab-btn.active {
+    background: #1e3a5f;
+    color: #fff;
 }
