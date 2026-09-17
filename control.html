@@ -1,108 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Control Systems Lab | MECH-X</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
-nav{background:#1e3a5f;padding:15px 0;position:sticky;top:0;z-index:100}
-.nav-container{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{color:#fff;font-size:1.35rem;font-weight:700;text-decoration:none}
-.logo span{color:#93c5fd}
-.nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
-.nav-links a{color:#e2e8f0;text-decoration:none;font-weight:500;font-size:.92rem}
-.nav-links a:hover,.nav-links a.active{color:#fff}
-.container{max-width:1100px;margin:0 auto;padding:28px 20px}
-.page-title{font-size:1.8rem;color:#1e3a5f;margin-bottom:6px;font-weight:700}
-.page-sub{color:#64748b;margin-bottom:25px}
-.card{background:#fff;padding:26px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid #e2e8f0;margin-bottom:22px}
-.form-group{margin-bottom:14px}
-label{display:block;font-weight:600;margin-bottom:5px;font-size:.93rem}
-input{width:100%;padding:11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:1rem}
-.btn{background:#1e3a5f;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-top:6px}
-.result{margin-top:16px;padding:13px;background:#e0f2fe;border-radius:8px;font-size:1.05rem;font-weight:600;text-align:center;display:none}
-.info-box{background:#f1f5f9;padding:14px;border-radius:8px;margin-top:12px;font-size:.93rem;color:#475569;line-height:1.7}
-footer{background:#1e3a5f;color:#94a3b8;text-align:center;padding:22px;margin-top:40px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Systems Lab | MECH-X</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<nav>
-<div class="nav-container">
-<a href="index.html" class="logo">MECH<span>-X</span></a>
-<ul class="nav-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="mechanical.html">Mechanical</a></li>
-<li><a href="electrical.html">Electrical</a></li>
-<li><a href="robotics.html">Robotics</a></li>
-<li><a href="control.html" class="active">Control</a></li>
-<li><a href="automotive.html">Automotive</a></li>
-</ul>
-</div>
-</nav>
 
-<div class="container">
-<h1 class="page-title">Control Systems Laboratory</h1>
-<p class="page-sub">Basic PID concepts and simple calculations</p>
+<header class="topbar">
+    <a href="index.html" class="logo">MECH-X</a>
+
+    <div class="top-actions">
+        <a href="calculators.html" class="btn secondary">Calculators</a>
+        <a href="reports.html" class="btn primary">Reports</a>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <div class="sidebar-title">ENGINEERING LAB</div>
+
+    <nav>
+        <a href="index.html">⌂ Home</a>
+        <a href="calculators.html">▣ Calculators</a>
+        <a href="motor.html">⚙ Motor Lab</a>
+        <a href="control.html" class="active">◉ Control Lab</a>
+        <a href="robotics.html">🦾 Robotics Lab</a>
+        <a href="automotive.html">🚗 Automotive Lab</a>
+        <a href="mechanical.html">⚒ Mechanical Lab</a>
+        <a href="electrical.html">⚡ Electrical & Electronics</a>
+        <a href="knowledge.html">📘 Knowledge Base</a>
+        <a href="reports.html">📄 Reports & Export</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+
+<section class="page-hero">
+    <span class="eyebrow">CONTROL SYSTEMS</span>
+    <h1>PID Controller Simulator</h1>
+    <p>Study proportional, integral and derivative control using a first-order plant.</p>
+</section>
+
+<section class="section">
+
+<div class="form-grid">
 
 <div class="card">
-<h3 style="margin-bottom:12px;color:#1e3a5f">What is PID?</h3>
-<div class="info-box">
-<strong>P (Proportional):</strong> Reacts to current error. Higher Kp → stronger correction.<br><br>
-<strong>I (Integral):</strong> Corrects accumulated past error. Helps remove steady-state error.<br><br>
-<strong>D (Derivative):</strong> Reacts to how fast the error is changing. Helps reduce overshoot.
-</div>
+
+<h2>Controller Parameters</h2>
+
+<label>Kp — Proportional Gain</label>
+<input id="kp" type="number" value="2" step="0.1">
+
+<label>Ki — Integral Gain</label>
+<input id="ki" type="number" value="1" step="0.1">
+
+<label>Kd — Derivative Gain</label>
+<input id="kd" type="number" value="0.1" step="0.01">
+
+<label>Setpoint</label>
+<input id="setpoint" type="number" value="1">
+
+<label>Plant Gain</label>
+<input id="plantGain" type="number" value="1" min="0.01">
+
+<label>Time Constant τ (s)</label>
+<input id="tau" type="number" value="1" min="0.01">
+
+<label>Simulation Time (s)</label>
+<input id="controlTime" type="number" value="10" min="1">
+
+<button class="btn primary" onclick="runControl()">Run Simulation</button>
+
 </div>
 
 <div class="card">
-<h3 style="margin-bottom:16px;color:#1e3a5f">Simple PID Output Calculator</h3>
-<p style="color:#64748b;font-size:.9rem;margin-bottom:14px">Educational single-step calculation only.</p>
 
-<div class="form-group"><label>Setpoint</label><input type="number" id="setpoint" value="100"></div>
-<div class="form-group"><label>Current Process Value</label><input type="number" id="process" value="70"></div>
-<div class="form-group"><label>Kp (Proportional)</label><input type="number" id="kp" value="1.5" step="0.1"></div>
-<div class="form-group"><label>Ki (Integral)</label><input type="number" id="ki" value="0.5" step="0.1"></div>
-<div class="form-group"><label>Kd (Derivative)</label><input type="number" id="kd" value="0.2" step="0.1"></div>
-<div class="form-group"><label>Previous Error</label><input type="number" id="prevError" value="0"></div>
-<div class="form-group"><label>Integral Sum so far</label><input type="number" id="integral" value="0"></div>
+<h2>Performance</h2>
 
-<button class="btn" onclick="calcPID()">Calculate PID Output</button>
-<div class="result" id="pidResult"></div>
+<div class="stats">
 
-<div class="info-box">
-<strong>Simplified Formula:</strong><br>
-Error = Setpoint – Process Value<br>
-Output = (Kp × Error) + (Ki × Integral) + (Kd × Derivative)
-</div>
-</div>
+<div class="stat-card">
+    <strong id="overshoot">—</strong>
+    <span>Overshoot</span>
 </div>
 
-<footer><p><strong>MECH-X</strong> — Control Systems Laboratory</p></footer>
+<div class="stat-card">
+    <strong id="riseTime">—</strong>
+    <span>Rise Time</span>
+</div>
+
+<div class="stat-card">
+    <strong id="settlingTime">—</strong>
+    <span>Settling Time</span>
+</div>
+
+<div class="stat-card">
+    <strong id="steadyError">—</strong>
+    <span>Steady-State Error</span>
+</div>
+
+</div>
+
+<p id="controlStatus">Run the simulation to analyse the controller.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="card">
+    <h2>System Response</h2>
+    <canvas id="controlCanvas" height="320"></canvas>
+</div>
+
+</section>
+
+</main>
+</div>
+
+<footer class="footer">
+    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+</footer>
 
 <script>
-function calcPID(){
-const sp=parseFloat(document.getElementById('setpoint').value);
-const pv=parseFloat(document.getElementById('process').value);
-const kp=parseFloat(document.getElementById('kp').value);
-const ki=parseFloat(document.getElementById('ki').value);
-const kd=parseFloat(document.getElementById('kd').value);
-const prev=parseFloat(document.getElementById('prevError').value);
-let integral=parseFloat(document.getElementById('integral').value);
-const r=document.getElementById('pidResult');
-
-if([sp,pv,kp,ki,kd,prev,integral].some(isNaN)){
-r.style.display='block';r.innerHTML='Enter valid numbers';return;
+function n(id) {
+    return parseFloat(document.getElementById(id).value);
 }
 
-const error=sp-pv;
-integral=integral+error;
-const derivative=error-prev;
-const output=(kp*error)+(ki*integral)+(kd*derivative);
+function runControl() {
 
-r.style.display='block';
-r.innerHTML=`Error = <strong>\( {error.toFixed(2)}</strong><br>PID Output = <strong> \){output.toFixed(2)}</strong>`;
+    const Kp = n("kp");
+    const Ki = n("ki");
+    const Kd = n("kd");
+    const setpoint = n("setpoint");
+    const plantGain = n("plantGain");
+    const tau = n("tau");
+    const totalTime = n("controlTime");
+
+    if (
+        Kp < 0 ||
+        Ki < 0 ||
+        Kd < 0 ||
+        tau <= 0 ||
+        plantGain <= 0 ||
+        totalTime <= 0
+    ) {
+        document.getElementById("controlStatus").textContent =
+            "Enter valid controller and plant values.";
+        return;
+    }
+
+    const dt = 0.002;
+    const steps = Math.max(1, Math.floor(totalTime / dt));
+
+    let y = 0;
+    let integral = 0;
+    let previousError = setpoint;
+
+    const time = [];
+    const response = [];
+
+    for (let i = 0; i <= steps; i++) {
+
+        const t = i * dt;
+
+        const error = setpoint - y;
+
+        integral += error * dt;
+
+        const derivative = (error - previousError) / dt;
+
+        const control =
+            Kp * error +
+            Ki * integral +
+            Kd * derivative;
+
+        const dydt =
+            (-y + plantGain * control) / tau;
+
+        y += dydt * dt;
+
+        time.push(t);
+        response.push(y);
+
+        previousError = error;
+    }
+
+    calculatePerformance(time, response, setpoint);
+    drawControlGraph(time, response, setpoint);
+
+    document.getElementById("controlStatus").textContent =
+        "Simulation completed successfully.";
+}
+
+function calculatePerformance(time, response, setpoint) {
+
+    let maxValue = Math.max.apply(null, response);
+
+    let overshoot = 0;
+
+    if (setpoint !== 0) {
+        overshoot =
+            Math.max(
+                0,
+                ((maxValue - Math.abs(setpoint)) /
+                Math.abs(setpoint)) * 100
+            );
+    }
+
+    let rise = time[time.length - 1];
+
+    const low = setpoint * 0.1;
+    const high = setpoint * 0.9;
+
+    for (let i = 0; i < response.length; i++) {
+
+        if (setpoint >= 0) {
+
+            if (response[i] >= low) {
+                const start = time[i];
+
+                for (let j = i; j < response.length; j++) {
+
+                    if (response[j] >= high) {
+                        rise = time[j] - start;
+                        break;
+                    }
+                }
+
+                break;
+            }
+
+        } else {
+
+            if (response[i] <= low) {
+                const start = time[i];
+
+                for (let j = i; j < response.length; j++) {
+
+                    if (response[j] <= high) {
+                        rise = time[j] - start;
+                        break;
+                    }
+                }
+
+                break;
+            }
+        }
+    }
+
+    const tolerance = Math.abs(setpoint) * 0.02;
+
+    let settling = time[time.length - 1];
+
+    for (let i = response.length - 1; i >= 0; i--) {
+
+        if (Math.abs(response[i] - setpoint) > tolerance) {
+            if (i < response.length - 1) {
+                settling = time[i + 1];
+            }
+            break;
+        }
+    }
+
+    const lastValue = response[response.length - 1];
+
+    const error =
+        Math.abs(setpoint - lastValue);
+
+    document.getElementById("overshoot").textContent =
+        overshoot.toFixed(2) + " %";
+
+    document.getElementById("riseTime").textContent =
+        rise.toFixed(2) + " s";
+
+    document.getElementById("settlingTime").textContent =
+        settling.toFixed(2) + " s";
+
+    document.getElementById("steadyError").textContent =
+        error.toFixed(4);
+}
+
+function drawControlGraph(time, response, setpoint) {
+
+    const canvas = document.getElementById("controlCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const width = canvas.width = canvas.clientWidth;
+    const height = canvas.height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    const padding = 45;
+
+    let maxY = Math.max(
+        Math.abs(setpoint),
+        Math.abs(Math.max.apply(null, response))
+    );
+
+    if (maxY <= 0) {
+        maxY = 1;
+    }
+
+    maxY *= 1.2;
+
+    const maxTime = time[time.length - 1];
+
+    ctx.strokeStyle = "#dbe8f7";
+    ctx.lineWidth = 1;
+
+    for (let i = 0; i <= 5; i++) {
+
+        const y =
+            padding +
+            (height - 2 * padding) * i / 5;
+
+        ctx.beginPath();
+        ctx.moveTo(padding, y);
+        ctx.lineTo(width - padding, y);
+        ctx.stroke();
+    }
+
+    ctx.strokeStyle = "#1261d6";
+    ctx.lineWidth = 3;
+
+    ctx.beginPath();
+
+    for (let i = 0; i < time.length; i++) {
+
+        const x =
+            padding +
+            (width - 2 * padding) *
+            time[i] / maxTime;
+
+        const y =
+            height / 2 -
+            (height - 2 * padding) *
+            response[i] /
+            (2 * maxY);
+
+        if (i === 0) {
+            ctx.moveTo(x, y);
+        } else {
+            ctx.lineTo(x, y);
+        }
+    }
+
+    ctx.stroke();
+
+    ctx.strokeStyle = "#607a9e";
+    ctx.lineWidth = 2;
+
+    const setpointY =
+        height / 2 -
+        (height - 2 * padding) *
+        setpoint /
+        (2 * maxY);
+
+    ctx.beginPath();
+    ctx.moveTo(padding, setpointY);
+    ctx.lineTo(width - padding, setpointY);
+    ctx.stroke();
+
+    ctx.fillStyle = "#16345f";
+    ctx.font = "14px Arial";
+
+    ctx.fillText("Output", 10, 20);
+    ctx.fillText("Time (s)", width - 75, height - 10);
 }
 </script>
+
 </body>
 </html>
