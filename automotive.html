@@ -1,785 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Automotive Engineering Lab | MECH-X</title>
-
-<link rel="stylesheet" href="style.css">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automotive Lab | MECH-X</title>
 <style>
-
-.auto-grid{
-display:grid;
-grid-template-columns:360px 1fr;
-gap:18px;
-}
-
-.auto-card{
-background:#fff;
-border:1px solid var(--border);
-border-radius:15px;
-padding:22px;
-box-shadow:var(--shadow);
-}
-
-.auto-card h2,
-.auto-card h3{
-color:var(--blue-dark);
-}
-
-.field{
-margin-bottom:12px;
-}
-
-.field label{
-display:block;
-font-size:12px;
-font-weight:800;
-color:var(--blue-dark);
-margin-bottom:6px;
-}
-
-.field input{
-width:100%;
-box-sizing:border-box;
-}
-
-.result-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.result-box{
-background:var(--blue-soft);
-border:1px solid #d5e5fa;
-border-radius:12px;
-padding:16px;
-}
-
-.result-box span{
-display:block;
-font-size:12px;
-color:var(--muted);
-}
-
-.result-box strong{
-display:block;
-margin-top:5px;
-font-size:22px;
-color:var(--blue-dark);
-}
-
-canvas{
-width:100%;
-height:auto;
-border:1px solid var(--border);
-border-radius:12px;
-background:#f8fbff;
-}
-
-@media(max-width:900px){
-
-.auto-grid{
-grid-template-columns:1fr;
-}
-
-}
-
-@media(max-width:600px){
-
-.result-grid{
-grid-template-columns:1fr;
-}
-
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.6}
+nav{background:#1e3a5f;padding:15px 0;position:sticky;top:0;z-index:100}
+.nav-container{max-width:1100px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{color:#fff;font-size:1.35rem;font-weight:700;text-decoration:none}
+.logo span{color:#93c5fd}
+.nav-links{display:flex;gap:18px;list-style:none;flex-wrap:wrap}
+.nav-links a{color:#e2e8f0;text-decoration:none;font-weight:500;font-size:.92rem}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.container{max-width:1100px;margin:0 auto;padding:28px 20px}
+.page-title{font-size:1.8rem;color:#1e3a5f;margin-bottom:6px;font-weight:700}
+.page-sub{color:#64748b;margin-bottom:25px}
+.card{background:#fff;padding:26px;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.05);border:1px solid #e2e8f0;margin-bottom:22px}
+.form-group{margin-bottom:14px}
+label{display:block;font-weight:600;margin-bottom:5px;font-size:.93rem}
+input{width:100%;padding:11px;border:1.5px solid #cbd5e1;border-radius:8px;font-size:1rem}
+.btn{background:#1e3a5f;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;margin-top:6px}
+.result{margin-top:16px;padding:13px;background:#e0f2fe;border-radius:8px;font-size:1.05rem;font-weight:600;text-align:center;display:none}
+.formula{background:#f1f5f9;padding:12px 14px;border-radius:8px;margin-top:14px;font-size:.9rem;color:#475569}
+footer{background:#1e3a5f;color:#94a3b8;text-align:center;padding:22px;margin-top:40px}
 </style>
-
 </head>
-
-
 <body>
-
-
-<header class="topbar">
-
-<a class="logo" href="index.html">
-MECH-<span>X</span>
-</a>
-
-<div class="top-actions">
-
-<a class="btn" href="index.html">
-← Home
-</a>
-
-<a class="btn primary" href="calculators.html">
-Calculators
-</a>
-
+<nav>
+<div class="nav-container">
+<a href="index.html" class="logo">MECH<span>-X</span></a>
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="mechanical.html">Mechanical</a></li>
+<li><a href="electrical.html">Electrical</a></li>
+<li><a href="robotics.html">Robotics</a></li>
+<li><a href="control.html">Control</a></li>
+<li><a href="automotive.html" class="active">Automotive</a></li>
+</ul>
 </div>
-
-</header>
-
-
-<div class="layout">
-
-
-<aside>
-
-<div class="side-title">
-MECH-X LABORATORY
-</div>
-
-<nav class="nav">
-
-<a href="index.html">⌂ Home</a>
-<a href="calculators.html">▣ Engineering Calculators</a>
-<a href="motor.html">⚙ Motor Lab</a>
-<a href="control.html">◉ Control Lab</a>
-<a href="robotics.html">▦ Robotics Lab</a>
-<a class="active" href="automotive.html">▤ Automotive Lab</a>
-<a href="mechanical.html">◆ Mechanical Lab</a>
-<a href="electrical.html">⚡ Electrical & Electronics</a>
-<a href="knowledge.html">? Knowledge Base</a>
-<a href="reports.html">▤ Reports & Export</a>
-
 </nav>
 
-</aside>
+<div class="container">
+<h1 class="page-title">Automotive Laboratory</h1>
+<p class="page-sub">Basic vehicle performance calculations</p>
 
-
-<main>
-
-
-<section class="hero">
-
-<div class="eyebrow">
-AUTOMOTIVE ENGINEERING LABORATORY
+<!-- Power to Weight -->
+<div class="card">
+<h3 style="margin-bottom:16px;color:#1e3a5f">Power-to-Weight Ratio</h3>
+<div class="form-group"><label>Engine Power (kW)</label><input type="number" id="power" placeholder="Enter power"></div>
+<div class="form-group"><label>Vehicle Mass (kg)</label><input type="number" id="mass" placeholder="Enter mass"></div>
+<button class="btn" onclick="calcPW()">Calculate</button>
+<div class="result" id="pwResult"></div>
+<div class="formula"><strong>Formula:</strong> Power-to-Weight = Power ÷ Mass</div>
 </div>
 
-<h1>
-Automotive Engineering Lab
-</h1>
-
-<p>
-Explore basic vehicle acceleration, traction,
-aerodynamic drag and power-to-weight relationships.
-</p>
-
-</section>
-
-
-<div class="auto-grid">
-
-
-<section class="auto-card">
-
-<h2>
-Vehicle Inputs
-</h2>
-
-
-<div class="field">
-
-<label>
-Engine Power (kW)
-</label>
-
-<input
-id="power"
-type="number"
-value="100">
-
+<!-- Wheel Torque -->
+<div class="card">
+<h3 style="margin-bottom:16px;color:#1e3a5f">Approximate Wheel Torque</h3>
+<div class="form-group"><label>Engine Torque (N·m)</label><input type="number" id="engTorque" placeholder="Engine torque"></div>
+<div class="form-group"><label>Gear Ratio</label><input type="number" id="gearRatio" placeholder="e.g. 3.5" step="0.1"></div>
+<div class="form-group"><label>Final Drive Ratio</label><input type="number" id="finalDrive" placeholder="e.g. 4.1" step="0.1"></div>
+<button class="btn" onclick="calcWT()">Calculate Wheel Torque</button>
+<div class="result" id="wtResult"></div>
+<div class="formula"><strong>Formula:</strong> Wheel Torque ≈ Engine Torque × Gear Ratio × Final Drive</div>
 </div>
 
-
-<div class="field">
-
-<label>
-Vehicle Mass (kg)
-</label>
-
-<input
-id="mass"
-type="number"
-value="1400">
-
+<!-- Rough Acceleration -->
+<div class="card">
+<h3 style="margin-bottom:16px;color:#1e3a5f">Rough 0–100 km/h Estimate</h3>
+<p style="color:#64748b;font-size:.9rem;margin-bottom:12px">Educational estimate only (not accurate for real vehicles).</p>
+<div class="form-group"><label>Power (kW)</label><input type="number" id="accPower" placeholder="Enter power"></div>
+<div class="form-group"><label>Mass (kg)</label><input type="number" id="accMass" placeholder="Enter mass"></div>
+<button class="btn" onclick="calcAcc()">Estimate</button>
+<div class="result" id="accResult"></div>
+<div class="formula">Based on power-to-weight ratio for learning purposes</div>
+</div>
 </div>
 
-
-<div class="field">
-
-<label>
-Wheel Radius (m)
-</label>
-
-<input
-id="wheel"
-type="number"
-value="0.30"
-step="0.01">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Drivetrain Efficiency (%)
-</label>
-
-<input
-id="efficiency"
-type="number"
-value="85">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Drag Coefficient Cd
-</label>
-
-<input
-id="cd"
-type="number"
-value="0.30"
-step="0.01">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Frontal Area (m²)
-</label>
-
-<input
-id="area"
-type="number"
-value="2.2"
-step="0.1">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Rolling Resistance
-</label>
-
-<input
-id="crr"
-type="number"
-value="0.012"
-step="0.001">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Road Slope (%)
-</label>
-
-<input
-id="slope"
-type="number"
-value="0">
-
-</div>
-
-
-<div class="field">
-
-<label>
-Air Density (kg/m³)
-</label>
-
-<input
-id="rho"
-type="number"
-value="1.225"
-step="0.01">
-
-</div>
-
-
-<button
-class="btn primary"
-onclick="runSimulation()">
-
-Run Vehicle Simulation
-
-</button>
-
-</section>
-
-
-<section class="auto-card">
-
-<h2>
-Simulation Results
-</h2>
-
-
-<div class="result-grid">
-
-<div class="result-box">
-
-<span>
-Power-to-weight
-</span>
-
-<strong id="pw">
-—
-</strong>
-
-</div>
-
-
-<div class="result-box">
-
-<span>
-Wheel Power
-</span>
-
-<strong id="wheelPower">
-—
-</strong>
-
-</div>
-
-
-<div class="result-box">
-
-<span>
-Estimated 0–100 km/h
-</span>
-
-<strong id="zero100">
-—
-</strong>
-
-</div>
-
-
-<div class="result-box">
-
-<span>
-Estimated Top Speed
-</span>
-
-<strong id="topSpeed">
-—
-</strong>
-
-</div>
-
-</div>
-
-
-<h3>
-Vehicle Acceleration
-</h3>
-
-<canvas
-id="chart"
-width="700"
-height="380">
-</canvas>
-
-
-<div class="section-title">
-
-<h2>
-Engineering Model
-</h2>
-
-<p>
-Simplified longitudinal vehicle model.
-</p>
-
-</div>
-
-
-<p>
-<strong>Wheel power:</strong>
-Pwheel = Pengine × η
-</p>
-
-<p>
-<strong>Aerodynamic drag:</strong>
-Fd = ½ρCdAv²
-</p>
-
-<p>
-<strong>Rolling resistance:</strong>
-Frr = Crrmg
-</p>
-
-<p>
-<strong>Grade resistance:</strong>
-Fg = mg sin(θ)
-</p>
-
-</section>
-
-</div>
-
-
-<footer class="footer">
-
-MECH-X • Automotive Engineering Laboratory
-
-<br><br>
-
-<a href="index.html">
-← Back to Home
-</a>
-
-</footer>
-
-
-</main>
-
-</div>
-
+<footer><p><strong>MECH-X</strong> — Automotive Laboratory</p></footer>
 
 <script>
-
-function num(id){
-return Number(
-document.getElementById(id).value
-);
+function calcPW(){
+const p=parseFloat(document.getElementById('power').value);
+const m=parseFloat(document.getElementById('mass').value);
+const r=document.getElementById('pwResult');
+if(isNaN(p)||isNaN(m)||m===0){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
+r.style.display='block';r.innerHTML=`Power-to-Weight = <strong>${(p/m).toFixed(3)} kW/kg</strong>`;
 }
-
-
-function runSimulation(){
-
-const P=num("power")*1000;
-const m=num("mass");
-const eta=num("efficiency")/100;
-const Cd=num("cd");
-const A=num("area");
-const rho=num("rho");
-const Crr=num("crr");
-const slope=num("slope");
-
-
-if(
-P<=0 ||
-m<=0 ||
-eta<=0 ||
-A<=0
-){
-
-alert("Please enter valid vehicle parameters.");
-
-return;
-
+function calcWT(){
+const t=parseFloat(document.getElementById('engTorque').value);
+const gr=parseFloat(document.getElementById('gearRatio').value);
+const fd=parseFloat(document.getElementById('finalDrive').value);
+const r=document.getElementById('wtResult');
+if(isNaN(t)||isNaN(gr)||isNaN(fd)){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
+r.style.display='block';r.innerHTML=`Approx. Wheel Torque = <strong>${(t*gr*fd).toFixed(1)} N·m</strong>`;
 }
-
-
-const wheelPower=P*eta;
-
-const pw=P/m;
-
-
-document.getElementById(
-"pw"
-).textContent=
-pw.toFixed(1)+" W/kg";
-
-
-document.getElementById(
-"wheelPower"
-).textContent=
-(wheelPower/1000).toFixed(1)+" kW";
-
-
-let v=0;
-
-let time=0;
-
-let zero100=null;
-
-let points=[];
-
-
-const dt=0.05;
-
-const maxTime=60;
-
-
-while(
-time<=maxTime
-){
-
-const drag=
-0.5*rho*Cd*A*v*v;
-
-const rolling=
-Crr*m*9.81;
-
-const grade=
-m*9.81*
-Math.sin(
-Math.atan(
-slope/100
-)
-);
-
-
-let traction=
-v>0
-?
-wheelPower/v
-:
-wheelPower/1;
-
-
-const netForce=
-traction-
-drag-
-rolling-
-grade;
-
-
-const acceleration=
-netForce/m;
-
-
-v+=Math.max(
-0,
-acceleration
-)*dt;
-
-
-time+=dt;
-
-
-points.push({
-t:time,
-v:v
-});
-
-
-if(
-zero100===null &&
-v>=27.7778
-){
-
-zero100=time;
-
+function calcAcc(){
+const p=parseFloat(document.getElementById('accPower').value);
+const m=parseFloat(document.getElementById('accMass').value);
+const r=document.getElementById('accResult');
+if(isNaN(p)||isNaN(m)||m===0){r.style.display='block';r.innerHTML='Enter valid numbers';return;}
+const ratio=p/m;
+let est="N/A";
+if(ratio>0.15)est="Under 5 s (very rough)";
+else if(ratio>0.08)est="Around 6–9 s (very rough)";
+else if(ratio>0.04)est="Around 10–15 s (very rough)";
+else est="Over 15 s (very rough)";
+r.style.display='block';
+r.innerHTML=`Rough estimate: <strong>${est}</strong><br><small>Power-to-weight: ${ratio.toFixed(3)} kW/kg</small>`;
 }
-
-
-if(
-points.length>1000
-){
-
-break;
-
-}
-
-}
-
-
-let topSpeed=
-0;
-
-
-for(
-let i=0;
-i<points.length;
-i++
-){
-
-if(
-points[i].v>topSpeed
-){
-
-topSpeed=points[i].v;
-
-}
-
-}
-
-
-document.getElementById(
-"zero100"
-).textContent=
-zero100
-?
-zero100.toFixed(2)+" s"
-:
-"> "+maxTime+" s";
-
-
-document.getElementById(
-"topSpeed"
-).textContent=
-(topSpeed*3.6).toFixed(1)+" km/h";
-
-
-drawChart(points);
-
-}
-
-
-function drawChart(points){
-
-const canvas=
-document.getElementById("chart");
-
-const ctx=
-canvas.getContext("2d");
-
-
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-
-const pad=50;
-
-const width=
-canvas.width-pad*2;
-
-const height=
-canvas.height-pad*2;
-
-
-let maxV=0;
-
-let maxT=
-points.length
-?
-points[points.length-1].t
-:
-1;
-
-
-points.forEach(p=>{
-if(p.v>maxV)
-maxV=p.v;
-});
-
-
-maxV=Math.max(
-maxV,
-27.78
-);
-
-
-ctx.strokeStyle="#9db4d0";
-
-ctx.lineWidth=1;
-
-
-ctx.beginPath();
-
-ctx.moveTo(
-pad,
-pad
-);
-
-ctx.lineTo(
-pad,
-canvas.height-pad
-);
-
-ctx.lineTo(
-canvas.width-pad,
-canvas.height-pad
-);
-
-ctx.stroke();
-
-
-ctx.strokeStyle="#1261d6";
-
-ctx.lineWidth=3;
-
-ctx.beginPath();
-
-
-points.forEach(
-(p,i)=>{
-
-const x=
-pad+
-(p.t/maxT)*width;
-
-const y=
-canvas.height-pad-
-(p.v/maxV)*height;
-
-
-if(i===0)
-ctx.moveTo(x,y);
-else
-ctx.lineTo(x,y);
-
-}
-);
-
-
-ctx.stroke();
-
-
-ctx.fillStyle="#0b2d5c";
-
-ctx.font="12px Arial";
-
-ctx.fillText(
-"Time (s)",
-canvas.width/2-20,
-canvas.height-12
-);
-
-
-ctx.save();
-
-ctx.translate(
-15,
-canvas.height/2
-);
-
-ctx.rotate(-Math.PI/2);
-
-ctx.fillText(
-"Speed (m/s)",
-0,
-0
-);
-
-ctx.restore();
-
-}
-
-
-runSimulation();
-
 </script>
-
-
 </body>
 </html>
