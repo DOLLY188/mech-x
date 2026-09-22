@@ -3,379 +3,1707 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Systems Lab | MECH-X</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>MECH-X | Control Systems Laboratory</title>
+
+    <meta name="description"
+          content="Interactive PID control systems laboratory for engineering students.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #1261d6;
+            --blue-dark: #0b2d5c;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f5f9ff;
+
+            --white: #ffffff;
+            --background: #f7faff;
+
+            --text: #172033;
+            --muted: #61708a;
+
+            --border: #d9e5f3;
+
+            --shadow:
+                0 10px 30px rgba(18, 97, 214, 0.10);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 18px 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        /* HEADER */
+
+        .page-header {
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    #d9edff 0%,
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #eef6ff
+                );
+
+            padding: 70px 25px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .tag {
+            display: inline-block;
+
+            background: var(--blue-light);
+            color: var(--blue);
+
+            border: 1px solid #c8def8;
+
+            padding: 7px 13px;
+            border-radius: 20px;
+
+            font-size: 0.82rem;
+            font-weight: 700;
+
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            color: var(--blue-dark);
+
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+
+            line-height: 1;
+
+            margin-bottom: 18px;
+        }
+
+        .page-header h1 span {
+            color: var(--blue);
+        }
+
+        .page-header p {
+            max-width: 750px;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        /* MAIN */
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 55px 25px 80px;
+        }
+
+        /* GRID */
+
+        .simulator-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* CONTROL PANEL */
+
+        .panel {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .panel h2 {
+            color: var(--blue-dark);
+            margin-bottom: 5px;
+        }
+
+        .panel-description {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 22px;
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 8px;
+        }
+
+        .input-header label {
+            font-weight: 700;
+            color: var(--blue-dark);
+        }
+
+        .value {
+            color: var(--blue);
+            font-weight: 800;
+        }
+
+        input[type="range"] {
+            width: 100%;
+
+            accent-color: var(--blue);
+
+            cursor: pointer;
+        }
+
+        input[type="number"] {
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            font-size: 1rem;
+
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--blue);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 25px 0;
+        }
+
+        /* BUTTONS */
+
+        .button-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+
+            padding: 12px 15px;
+
+            border-radius: 9px;
+
+            font-size: 0.95rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .run-button {
+            background: var(--blue);
+            color: white;
+        }
+
+        .run-button:hover {
+            background: #0b4eae;
+            transform: translateY(-1px);
+        }
+
+        .reset-button {
+            background: var(--blue-light);
+            color: var(--blue-dark);
+        }
+
+        .reset-button:hover {
+            background: #dcecff;
+        }
+
+        /* GRAPH */
+
+        .graph-panel {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 25px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .graph-header h2 {
+            color: var(--blue-dark);
+        }
+
+        .status {
+            padding: 6px 12px;
+
+            background: var(--blue-light);
+            color: var(--blue);
+
+            border-radius: 20px;
+
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        canvas {
+            width: 100%;
+            height: 400px;
+
+            display: block;
+
+            background: #fbfdff;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        /* RESULTS */
+
+        .results {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-top: 20px;
+        }
+
+        .result-card {
+            background: var(--blue-soft);
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            padding: 18px;
+
+            text-align: center;
+        }
+
+        .result-card strong {
+            display: block;
+
+            color: var(--blue);
+
+            font-size: 1.4rem;
+
+            margin-bottom: 3px;
+        }
+
+        .result-card span {
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        /* THEORY */
+
+        .theory {
+            margin-top: 25px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 25px;
+        }
+
+        .theory-card {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 28px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .theory-card h2 {
+            color: var(--blue-dark);
+            margin-bottom: 15px;
+        }
+
+        .formula {
+            background: var(--blue-soft);
+
+            border-left: 4px solid var(--blue);
+
+            padding: 18px;
+
+            margin: 15px 0;
+
+            font-family: Georgia, serif;
+
+            font-size: 1.15rem;
+
+            color: var(--blue-dark);
+        }
+
+        .theory-card p {
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .term {
+            padding: 10px 0;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .term:last-child {
+            border-bottom: none;
+        }
+
+        .term strong {
+            color: var(--blue-dark);
+        }
+
+        .term span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: var(--blue-dark);
+            color: white;
+
+            text-align: center;
+
+            padding: 40px 25px;
+        }
+
+        footer p {
+            color: #b9c9df;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .simulator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .results {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .theory {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header {
+                padding: 55px 20px;
+            }
+
+            main {
+                padding: 40px 20px 60px;
+            }
+
+            .panel,
+            .graph-panel,
+            .theory-card {
+                padding: 20px;
+            }
+
+            canvas {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<header class="topbar">
-    <a href="index.html" class="logo">MECH-X</a>
+<!-- NAVIGATION -->
 
-    <div class="top-actions">
-        <a href="calculators.html" class="btn secondary">Calculators</a>
-        <a href="reports.html" class="btn primary">Reports</a>
+<nav>
+    <div class="nav-container">
+
+        <a href="index.html" class="logo">
+            MECH<span>-X</span>
+        </a>
+
+        <ul class="nav-links">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="calculators.html">Calculators</a>
+            </li>
+
+            <li>
+                <a href="motor.html">Motor Lab</a>
+            </li>
+
+            <li>
+                <a href="control.html">Control Lab</a>
+            </li>
+        </ul>
+
     </div>
+</nav>
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <div class="header-container">
+
+        <span class="tag">
+            CONTROL SYSTEMS LABORATORY
+        </span>
+
+        <h1>
+            PID Controller<br>
+            <span>Simulator</span>
+        </h1>
+
+        <p>
+            Experiment with proportional, integral and derivative
+            control. Adjust the controller gains and observe how
+            the closed-loop system responds to a step input.
+        </p>
+
+    </div>
+
 </header>
 
-<div class="layout">
 
-<aside class="sidebar">
-    <div class="sidebar-title">ENGINEERING LAB</div>
+<!-- MAIN -->
 
-    <nav>
-        <a href="index.html">⌂ Home</a>
-        <a href="calculators.html">▣ Calculators</a>
-        <a href="motor.html">⚙ Motor Lab</a>
-        <a href="control.html" class="active">◉ Control Lab</a>
-        <a href="robotics.html">🦾 Robotics Lab</a>
-        <a href="automotive.html">🚗 Automotive Lab</a>
-        <a href="mechanical.html">⚒ Mechanical Lab</a>
-        <a href="electrical.html">⚡ Electrical & Electronics</a>
-        <a href="knowledge.html">📘 Knowledge Base</a>
-        <a href="reports.html">📄 Reports & Export</a>
-    </nav>
-</aside>
+<main>
 
-<main class="main-content">
+    <div class="simulator-grid">
 
-<section class="page-hero">
-    <span class="eyebrow">CONTROL SYSTEMS</span>
-    <h1>PID Controller Simulator</h1>
-    <p>Study proportional, integral and derivative control using a first-order plant.</p>
-</section>
+        <!-- CONTROL PANEL -->
 
-<section class="section">
+        <div class="panel">
 
-<div class="form-grid">
+            <h2>
+                Controller Parameters
+            </h2>
 
-<div class="card">
+            <p class="panel-description">
+                Adjust the PID gains and plant parameters.
+            </p>
 
-<h2>Controller Parameters</h2>
 
-<label>Kp — Proportional Gain</label>
-<input id="kp" type="number" value="2" step="0.1">
+            <!-- KP -->
 
-<label>Ki — Integral Gain</label>
-<input id="ki" type="number" value="1" step="0.1">
+            <div class="input-group">
 
-<label>Kd — Derivative Gain</label>
-<input id="kd" type="number" value="0.1" step="0.01">
+                <div class="input-header">
 
-<label>Setpoint</label>
-<input id="setpoint" type="number" value="1">
+                    <label>
+                        Kp — Proportional
+                    </label>
 
-<label>Plant Gain</label>
-<input id="plantGain" type="number" value="1" min="0.01">
+                    <span
+                        class="value"
+                        id="kpValue">
+                        2.00
+                    </span>
 
-<label>Time Constant τ (s)</label>
-<input id="tau" type="number" value="1" min="0.01">
+                </div>
 
-<label>Simulation Time (s)</label>
-<input id="controlTime" type="number" value="10" min="1">
+                <input
+                    type="range"
+                    id="kp"
+                    min="0"
+                    max="10"
+                    step="0.1"
+                    value="2">
 
-<button class="btn primary" onclick="runControl()">Run Simulation</button>
+            </div>
 
-</div>
 
-<div class="card">
+            <!-- KI -->
 
-<h2>Performance</h2>
+            <div class="input-group">
 
-<div class="stats">
+                <div class="input-header">
 
-<div class="stat-card">
-    <strong id="overshoot">—</strong>
-    <span>Overshoot</span>
-</div>
+                    <label>
+                        Ki — Integral
+                    </label>
 
-<div class="stat-card">
-    <strong id="riseTime">—</strong>
-    <span>Rise Time</span>
-</div>
+                    <span
+                        class="value"
+                        id="kiValue">
+                        1.00
+                    </span>
 
-<div class="stat-card">
-    <strong id="settlingTime">—</strong>
-    <span>Settling Time</span>
-</div>
+                </div>
 
-<div class="stat-card">
-    <strong id="steadyError">—</strong>
-    <span>Steady-State Error</span>
-</div>
+                <input
+                    type="range"
+                    id="ki"
+                    min="0"
+                    max="5"
+                    step="0.05"
+                    value="1">
 
-</div>
+            </div>
 
-<p id="controlStatus">Run the simulation to analyse the controller.</p>
 
-</div>
+            <!-- KD -->
 
-</div>
+            <div class="input-group">
 
-</section>
+                <div class="input-header">
 
-<section class="section">
+                    <label>
+                        Kd — Derivative
+                    </label>
 
-<div class="card">
-    <h2>System Response</h2>
-    <canvas id="controlCanvas" height="320"></canvas>
-</div>
+                    <span
+                        class="value"
+                        id="kdValue">
+                        0.20
+                    </span>
 
-</section>
+                </div>
+
+                <input
+                    type="range"
+                    id="kd"
+                    min="0"
+                    max="5"
+                    step="0.05"
+                    value="0.2">
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <!-- SETPOINT -->
+
+            <div class="input-group">
+
+                <div class="input-header">
+
+                    <label>
+                        Setpoint
+                    </label>
+
+                </div>
+
+                <input
+                    type="number"
+                    id="setpoint"
+                    value="1"
+                    min="0.1"
+                    max="10"
+                    step="0.1">
+
+            </div>
+
+
+            <!-- PLANT GAIN -->
+
+            <div class="input-group">
+
+                <div class="input-header">
+
+                    <label>
+                        Plant Gain (K)
+                    </label>
+
+                </div>
+
+                <input
+                    type="number"
+                    id="plantGain"
+                    value="1"
+                    min="0.1"
+                    max="10"
+                    step="0.1">
+
+            </div>
+
+
+            <!-- TIME CONSTANT -->
+
+            <div class="input-group">
+
+                <div class="input-header">
+
+                    <label>
+                        Time Constant (τ)
+                    </label>
+
+                </div>
+
+                <input
+                    type="number"
+                    id="timeConstant"
+                    value="1"
+                    min="0.1"
+                    max="10"
+                    step="0.1">
+
+            </div>
+
+
+            <!-- SIMULATION TIME -->
+
+            <div class="input-group">
+
+                <div class="input-header">
+
+                    <label>
+                        Simulation Time (s)
+                    </label>
+
+                </div>
+
+                <input
+                    type="number"
+                    id="simulationTime"
+                    value="10"
+                    min="2"
+                    max="30"
+                    step="1">
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="run-button"
+                    onclick="runSimulation()">
+                    ▶ Run Simulation
+                </button>
+
+                <button
+                    class="reset-button"
+                    onclick="resetSimulation()">
+                    ↺ Reset
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- GRAPH -->
+
+        <div class="graph-panel">
+
+            <div class="graph-header">
+
+                <h2>
+                    Step Response
+                </h2>
+
+                <span
+                    class="status"
+                    id="status">
+                    Ready
+                </span>
+
+            </div>
+
+            <canvas
+                id="graph"
+                width="850"
+                height="400">
+            </canvas>
+
+
+            <!-- RESULTS -->
+
+            <div class="results">
+
+                <div class="result-card">
+
+                    <strong id="overshoot">
+                        0%
+                    </strong>
+
+                    <span>
+                        Overshoot
+                    </span>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <strong id="riseTime">
+                        —
+                    </strong>
+
+                    <span>
+                        Rise Time
+                    </span>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <strong id="settlingTime">
+                        —
+                    </strong>
+
+                    <span>
+                        Settling Time
+                    </span>
+
+                </div>
+
+
+                <div class="result-card">
+
+                    <strong id="steadyError">
+                        —
+                    </strong>
+
+                    <span>
+                        Steady-State Error
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- THEORY -->
+
+    <div class="theory">
+
+        <div class="theory-card">
+
+            <h2>
+                PID Controller
+            </h2>
+
+            <p>
+                A PID controller calculates a control signal
+                using three actions: proportional, integral
+                and derivative control.
+            </p>
+
+            <div class="formula">
+                u(t) = Kp·e(t)
+                + Ki∫e(t)dt
+                + Kd·de(t)/dt
+            </div>
+
+            <p>
+                The controller continuously compares the
+                desired setpoint with the actual system
+                output.
+            </p>
+
+        </div>
+
+
+        <div class="theory-card">
+
+            <h2>
+                What the Parameters Do
+            </h2>
+
+            <div class="term">
+
+                <strong>Kp</strong><br>
+
+                <span>
+                    Determines how strongly the controller
+                    reacts to the current error.
+                </span>
+
+            </div>
+
+            <div class="term">
+
+                <strong>Ki</strong><br>
+
+                <span>
+                    Accumulates past error and helps remove
+                    steady-state error.
+                </span>
+
+            </div>
+
+            <div class="term">
+
+                <strong>Kd</strong><br>
+
+                <span>
+                    Reacts to the rate of change of error
+                    and can reduce overshoot.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </main>
-</div>
 
-<footer class="footer">
-    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        MECH-X
+    </h3>
+
+    <p>
+        Interactive Mechatronics Engineering Laboratory
+    </p>
+
+    <p>
+        Control Systems Laboratory
+    </p>
+
 </footer>
 
+
 <script>
-function n(id) {
-    return parseFloat(document.getElementById(id).value);
-}
 
-function runControl() {
+    /* =========================
+       ELEMENTS
+    ========================== */
 
-    const Kp = n("kp");
-    const Ki = n("ki");
-    const Kd = n("kd");
-    const setpoint = n("setpoint");
-    const plantGain = n("plantGain");
-    const tau = n("tau");
-    const totalTime = n("controlTime");
+    const canvas =
+        document.getElementById("graph");
 
-    if (
-        Kp < 0 ||
-        Ki < 0 ||
-        Kd < 0 ||
-        tau <= 0 ||
-        plantGain <= 0 ||
-        totalTime <= 0
-    ) {
-        document.getElementById("controlStatus").textContent =
-            "Enter valid controller and plant values.";
-        return;
+    const ctx =
+        canvas.getContext("2d");
+
+
+    const kpSlider =
+        document.getElementById("kp");
+
+    const kiSlider =
+        document.getElementById("ki");
+
+    const kdSlider =
+        document.getElementById("kd");
+
+
+    const kpValue =
+        document.getElementById("kpValue");
+
+    const kiValue =
+        document.getElementById("kiValue");
+
+    const kdValue =
+        document.getElementById("kdValue");
+
+
+    const status =
+        document.getElementById("status");
+
+
+    /* =========================
+       SLIDER DISPLAY
+    ========================== */
+
+    kpSlider.addEventListener("input", () => {
+
+        kpValue.textContent =
+            Number(kpSlider.value).toFixed(2);
+
+    });
+
+
+    kiSlider.addEventListener("input", () => {
+
+        kiValue.textContent =
+            Number(kiSlider.value).toFixed(2);
+
+    });
+
+
+    kdSlider.addEventListener("input", () => {
+
+        kdValue.textContent =
+            Number(kdSlider.value).toFixed(2);
+
+    });
+
+
+    /* =========================
+       DRAW EMPTY GRAPH
+    ========================== */
+
+    function drawEmptyGraph() {
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        ctx.fillStyle = "#fbfdff";
+
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        drawGrid();
+
+        ctx.fillStyle = "#61708a";
+
+        ctx.font = "16px Arial";
+
+        ctx.textAlign = "center";
+
+        ctx.fillText(
+            "Run the simulation to view the response",
+            canvas.width / 2,
+            canvas.height / 2
+        );
     }
 
-    const dt = 0.002;
-    const steps = Math.max(1, Math.floor(totalTime / dt));
 
-    let y = 0;
-    let integral = 0;
-    let previousError = setpoint;
+    /* =========================
+       GRID
+    ========================== */
 
-    const time = [];
-    const response = [];
+    function drawGrid() {
 
-    for (let i = 0; i <= steps; i++) {
+        ctx.strokeStyle = "#d9e5f3";
 
-        const t = i * dt;
+        ctx.lineWidth = 1;
 
-        const error = setpoint - y;
+        const gridX = 10;
+        const gridY = 8;
 
-        integral += error * dt;
 
-        const derivative = (error - previousError) / dt;
+        for (let i = 0; i <= gridX; i++) {
 
-        const control =
-            Kp * error +
-            Ki * integral +
-            Kd * derivative;
+            const x =
+                (i / gridX) *
+                canvas.width;
 
-        const dydt =
-            (-y + plantGain * control) / tau;
+            ctx.beginPath();
 
-        y += dydt * dt;
+            ctx.moveTo(x, 0);
 
-        time.push(t);
-        response.push(y);
+            ctx.lineTo(x, canvas.height);
 
-        previousError = error;
+            ctx.stroke();
+        }
+
+
+        for (let i = 0; i <= gridY; i++) {
+
+            const y =
+                (i / gridY) *
+                canvas.height;
+
+            ctx.beginPath();
+
+            ctx.moveTo(0, y);
+
+            ctx.lineTo(canvas.width, y);
+
+            ctx.stroke();
+        }
+
     }
 
-    calculatePerformance(time, response, setpoint);
-    drawControlGraph(time, response, setpoint);
 
-    document.getElementById("controlStatus").textContent =
-        "Simulation completed successfully.";
-}
+    /* =========================
+       SIMULATION
+    ========================== */
 
-function calculatePerformance(time, response, setpoint) {
+    function runSimulation() {
 
-    let maxValue = Math.max.apply(null, response);
+        status.textContent =
+            "Simulating...";
 
-    let overshoot = 0;
 
-    if (setpoint !== 0) {
-        overshoot =
-            Math.max(
-                0,
-                ((maxValue - Math.abs(setpoint)) /
-                Math.abs(setpoint)) * 100
+        const Kp =
+            parseFloat(kpSlider.value);
+
+        const Ki =
+            parseFloat(kiSlider.value);
+
+        const Kd =
+            parseFloat(kdSlider.value);
+
+
+        const setpoint =
+            parseFloat(
+                document.getElementById("setpoint").value
             );
+
+
+        const K =
+            parseFloat(
+                document.getElementById("plantGain").value
+            );
+
+
+        const tau =
+            parseFloat(
+                document.getElementById("timeConstant").value
+            );
+
+
+        const totalTime =
+            parseFloat(
+                document.getElementById("simulationTime").value
+            );
+
+
+        /*
+            First-order plant:
+
+            τ dy/dt + y = K u
+
+            Therefore:
+
+            dy/dt = (K*u - y) / τ
+        */
+
+
+        const dt = 0.01;
+
+        const steps =
+            Math.floor(totalTime / dt);
+
+
+        let y = 0;
+
+        let integral = 0;
+
+        let previousError = setpoint;
+
+
+        const data = [];
+
+        let maxOutput = 0;
+
+
+        for (let i = 0; i <= steps; i++) {
+
+            const t = i * dt;
+
+
+            const error =
+                setpoint - y;
+
+
+            integral +=
+                error * dt;
+
+
+            const derivative =
+                (error - previousError) / dt;
+
+
+            let control =
+                (Kp * error)
+                +
+                (Ki * integral)
+                +
+                (Kd * derivative);
+
+
+            /*
+                Prevent unrealistic numerical
+                explosion during extreme settings.
+            */
+
+            control =
+                Math.max(
+                    -100,
+                    Math.min(100, control)
+                );
+
+
+            const dydt =
+                (K * control - y) / tau;
+
+
+            y +=
+                dydt * dt;
+
+
+            data.push({
+                t: t,
+                y: y
+            });
+
+
+            if (y > maxOutput) {
+                maxOutput = y;
+            }
+
+
+            previousError =
+                error;
+
+        }
+
+
+        calculatePerformance(
+            data,
+            setpoint,
+            maxOutput,
+            dt
+        );
+
+
+        drawGraph(
+            data,
+            setpoint,
+            totalTime
+        );
+
+
+        status.textContent =
+            "Simulation Complete";
     }
 
-    let rise = time[time.length - 1];
 
-    const low = setpoint * 0.1;
-    const high = setpoint * 0.9;
+    /* =========================
+       PERFORMANCE
+    ========================== */
 
-    for (let i = 0; i < response.length; i++) {
+    function calculatePerformance(
+        data,
+        setpoint,
+        maxOutput,
+        dt
+    ) {
 
-        if (setpoint >= 0) {
+        /*
+            Overshoot
+        */
 
-            if (response[i] >= low) {
-                const start = time[i];
+        let overshoot = 0;
 
-                for (let j = i; j < response.length; j++) {
 
-                    if (response[j] >= high) {
-                        rise = time[j] - start;
-                        break;
-                    }
-                }
+        if (maxOutput > setpoint) {
 
-                break;
+            overshoot =
+                ((maxOutput - setpoint)
+                / Math.abs(setpoint))
+                * 100;
+
+        }
+
+
+        document.getElementById(
+            "overshoot"
+        ).textContent =
+            overshoot.toFixed(1) + "%";
+
+
+        /*
+            Rise time:
+            time from 10% to 90%
+        */
+
+        const ten =
+            setpoint * 0.10;
+
+        const ninety =
+            setpoint * 0.90;
+
+
+        let t10 = null;
+        let t90 = null;
+
+
+        for (const point of data) {
+
+            if (
+                t10 === null &&
+                point.y >= ten
+            ) {
+                t10 = point.t;
             }
+
+            if (
+                t90 === null &&
+                point.y >= ninety
+            ) {
+                t90 = point.t;
+            }
+
+        }
+
+
+        if (
+            t10 !== null &&
+            t90 !== null
+        ) {
+
+            document.getElementById(
+                "riseTime"
+            ).textContent =
+                (t90 - t10).toFixed(2)
+                + " s";
 
         } else {
 
-            if (response[i] <= low) {
-                const start = time[i];
+            document.getElementById(
+                "riseTime"
+            ).textContent =
+                "—";
+        }
 
-                for (let j = i; j < response.length; j++) {
 
-                    if (response[j] <= high) {
-                        rise = time[j] - start;
-                        break;
-                    }
+        /*
+            Settling time:
+            remains within ±2%
+        */
+
+        const tolerance =
+            Math.abs(setpoint) * 0.02;
+
+
+        let settling =
+            null;
+
+
+        for (let i = 0; i < data.length; i++) {
+
+            let stable = true;
+
+
+            for (
+                let j = i;
+                j < data.length;
+                j++
+            ) {
+
+                if (
+                    Math.abs(
+                        data[j].y - setpoint
+                    ) > tolerance
+                ) {
+
+                    stable = false;
+                    break;
+
                 }
+
+            }
+
+
+            if (stable) {
+
+                settling =
+                    data[i].t;
 
                 break;
             }
+
         }
-    }
 
-    const tolerance = Math.abs(setpoint) * 0.02;
 
-    let settling = time[time.length - 1];
+        if (settling !== null) {
 
-    for (let i = response.length - 1; i >= 0; i--) {
+            document.getElementById(
+                "settlingTime"
+            ).textContent =
+                settling.toFixed(2)
+                + " s";
 
-        if (Math.abs(response[i] - setpoint) > tolerance) {
-            if (i < response.length - 1) {
-                settling = time[i + 1];
-            }
-            break;
+        } else {
+
+            document.getElementById(
+                "settlingTime"
+            ).textContent =
+                "Not settled";
         }
+
+
+        /*
+            Steady-state error
+        */
+
+        const finalOutput =
+            data[data.length - 1].y;
+
+
+        const error =
+            Math.abs(
+                setpoint - finalOutput
+            );
+
+
+        document.getElementById(
+            "steadyError"
+        ).textContent =
+            error.toFixed(3);
+
     }
 
-    const lastValue = response[response.length - 1];
 
-    const error =
-        Math.abs(setpoint - lastValue);
+    /* =========================
+       DRAW GRAPH
+    ========================== */
 
-    document.getElementById("overshoot").textContent =
-        overshoot.toFixed(2) + " %";
+    function drawGraph(
+        data,
+        setpoint,
+        totalTime
+    ) {
 
-    document.getElementById("riseTime").textContent =
-        rise.toFixed(2) + " s";
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
-    document.getElementById("settlingTime").textContent =
-        settling.toFixed(2) + " s";
 
-    document.getElementById("steadyError").textContent =
-        error.toFixed(4);
-}
+        ctx.fillStyle =
+            "#fbfdff";
 
-function drawControlGraph(time, response, setpoint) {
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
-    const canvas = document.getElementById("controlCanvas");
-    const ctx = canvas.getContext("2d");
 
-    const width = canvas.width = canvas.clientWidth;
-    const height = canvas.height;
+        drawGrid();
 
-    ctx.clearRect(0, 0, width, height);
 
-    const padding = 45;
+        /*
+            Find maximum graph value
+        */
 
-    let maxY = Math.max(
-        Math.abs(setpoint),
-        Math.abs(Math.max.apply(null, response))
-    );
+        let maxY =
+            Math.max(
+                setpoint,
+                ...data.map(point => point.y)
+            );
 
-    if (maxY <= 0) {
-        maxY = 1;
-    }
 
-    maxY *= 1.2;
+        maxY =
+            Math.max(
+                maxY * 1.15,
+                1
+            );
 
-    const maxTime = time[time.length - 1];
 
-    ctx.strokeStyle = "#dbe8f7";
-    ctx.lineWidth = 1;
+        /*
+            Setpoint line
+        */
 
-    for (let i = 0; i <= 5; i++) {
+        const setpointY =
+            canvas.height -
+            (setpoint / maxY) *
+            canvas.height;
 
-        const y =
-            padding +
-            (height - 2 * padding) * i / 5;
+
+        ctx.strokeStyle =
+            "#9bbce5";
+
+        ctx.setLineDash([8, 6]);
+
+        ctx.lineWidth = 2;
 
         ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
+
+        ctx.moveTo(
+            0,
+            setpointY
+        );
+
+        ctx.lineTo(
+            canvas.width,
+            setpointY
+        );
+
         ctx.stroke();
+
+        ctx.setLineDash([]);
+
+
+        /*
+            Response curve
+        */
+
+        ctx.strokeStyle =
+            "#1261d6";
+
+        ctx.lineWidth = 3;
+
+        ctx.beginPath();
+
+
+        data.forEach(
+            (point, index) => {
+
+                const x =
+                    (point.t / totalTime)
+                    * canvas.width;
+
+
+                const y =
+                    canvas.height -
+                    (
+                        point.y / maxY
+                    ) *
+                    canvas.height;
+
+
+                if (index === 0) {
+
+                    ctx.moveTo(x, y);
+
+                } else {
+
+                    ctx.lineTo(x, y);
+
+                }
+
+            }
+        );
+
+
+        ctx.stroke();
+
+
+        /*
+            Labels
+        */
+
+        ctx.fillStyle =
+            "#61708a";
+
+        ctx.font =
+            "13px Arial";
+
+
+        ctx.textAlign =
+            "left";
+
+        ctx.fillText(
+            "Output",
+            10,
+            18
+        );
+
+
+        ctx.textAlign =
+            "right";
+
+        ctx.fillText(
+            "Time (s)",
+            canvas.width - 10,
+            canvas.height - 10
+        );
+
+
+        ctx.textAlign =
+            "left";
+
+        ctx.fillText(
+            "Setpoint",
+            12,
+            Math.max(
+                18,
+                setpointY - 8
+            )
+        );
+
     }
 
-    ctx.strokeStyle = "#1261d6";
-    ctx.lineWidth = 3;
 
-    ctx.beginPath();
+    /* =========================
+       RESET
+    ========================== */
 
-    for (let i = 0; i < time.length; i++) {
+    function resetSimulation() {
 
-        const x =
-            padding +
-            (width - 2 * padding) *
-            time[i] / maxTime;
+        kpSlider.value = 2;
+        kiSlider.value = 1;
+        kdSlider.value = 0.2;
 
-        const y =
-            height / 2 -
-            (height - 2 * padding) *
-            response[i] /
-            (2 * maxY);
 
-        if (i === 0) {
-            ctx.moveTo(x, y);
-        } else {
-            ctx.lineTo(x, y);
-        }
+        kpValue.textContent =
+            "2.00";
+
+        kiValue.textContent =
+            "1.00";
+
+        kdValue.textContent =
+            "0.20";
+
+
+        document.getElementById(
+            "setpoint"
+        ).value = 1;
+
+
+        document.getElementById(
+            "plantGain"
+        ).value = 1;
+
+
+        document.getElementById(
+            "timeConstant"
+        ).value = 1;
+
+
+        document.getElementById(
+            "simulationTime"
+        ).value = 10;
+
+
+        document.getElementById(
+            "overshoot"
+        ).textContent = "0%";
+
+
+        document.getElementById(
+            "riseTime"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "settlingTime"
+        ).textContent = "—";
+
+
+        document.getElementById(
+            "steadyError"
+        ).textContent = "—";
+
+
+        status.textContent =
+            "Ready";
+
+
+        drawEmptyGraph();
+
     }
 
-    ctx.stroke();
 
-    ctx.strokeStyle = "#607a9e";
-    ctx.lineWidth = 2;
+    /* =========================
+       INITIAL GRAPH
+    ========================== */
 
-    const setpointY =
-        height / 2 -
-        (height - 2 * padding) *
-        setpoint /
-        (2 * maxY);
+    drawEmptyGraph();
 
-    ctx.beginPath();
-    ctx.moveTo(padding, setpointY);
-    ctx.lineTo(width - padding, setpointY);
-    ctx.stroke();
-
-    ctx.fillStyle = "#16345f";
-    ctx.font = "14px Arial";
-
-    ctx.fillText("Output", 10, 20);
-    ctx.fillText("Time (s)", width - 75, height - 10);
-}
 </script>
 
 </body>
