@@ -3,98 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports & Export | MECH-X</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Robotics Laboratory | MECH-X</title>
+
+    <meta name="description"
+          content="Interactive 2D robotic arm simulator with forward kinematics, joint control and workspace visualization.">
 
     <style>
-        .report-preview {
-            background: #ffffff;
-            border: 1px solid #dbe8f7;
-            border-radius: 16px;
-            padding: 32px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --blue: #1261d6;
+            --blue-dark: #0b2d5c;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f5f9ff;
+            --text: #17324d;
+            --muted: #64748b;
+            --border: #d9e6f5;
+            --white: #ffffff;
+            --green: #16803c;
+            --red: #d93434;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7faff;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--blue-dark);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        /* HEADER */
+
+        .page-header {
+            background:
+                radial-gradient(circle at top right, #dcecff 0%, transparent 35%),
+                linear-gradient(135deg, #ffffff, #eef6ff);
+
+            padding: 70px 6% 55px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--blue);
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            letter-spacing: 0.7px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 6vw, 62px);
+            line-height: 1.05;
+            color: var(--blue-dark);
+            margin-bottom: 18px;
+        }
+
+        .header-content p {
+            max-width: 720px;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        /* MAIN */
+
+        main {
+            max-width: 1200px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .lab-grid {
+            display: grid;
+            grid-template-columns: 330px 1fr;
+            gap: 25px;
+            align-items: start;
+        }
+
+        /* CONTROL PANEL */
+
+        .panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(20, 60, 110, 0.06);
+        }
+
+        .panel h2 {
+            color: var(--blue-dark);
+            margin-bottom: 6px;
+            font-size: 22px;
+        }
+
+        .panel-description {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .control-title label {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .value {
+            background: var(--blue-light);
+            color: var(--blue);
+            padding: 4px 8px;
+            border-radius: 7px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--blue);
+            cursor: pointer;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--blue);
+        }
+
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            border: none;
+            border-radius: 9px;
+            padding: 12px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .primary-btn {
+            background: var(--blue);
+            color: white;
+            flex: 1;
+        }
+
+        .primary-btn:hover {
+            background: #0d4fae;
+        }
+
+        .secondary-btn {
+            background: var(--blue-light);
+            color: var(--blue);
+            flex: 1;
+        }
+
+        .secondary-btn:hover {
+            background: #d9eaff;
+        }
+
+        /* SIMULATOR */
+
+        .simulator {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(20, 60, 110, 0.06);
+        }
+
+        .simulator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .simulator-header h2 {
+            color: var(--blue-dark);
+            font-size: 22px;
+        }
+
+        .status {
+            background: #eaf8ef;
+            color: var(--green);
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        canvas {
+            width: 100%;
+            height: 520px;
+            display: block;
+            background:
+                linear-gradient(#f1f6fc 1px, transparent 1px),
+                linear-gradient(90deg, #f1f6fc 1px, transparent 1px);
+            background-size: 25px 25px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        /* RESULTS */
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-top: 20px;
         }
 
-        .report-header {
-            border-bottom: 2px solid #1261d6;
-            padding-bottom: 18px;
-            margin-bottom: 24px;
+        .result-card {
+            background: var(--blue-soft);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
         }
 
-        .report-header h2 {
-            margin-bottom: 6px;
+        .result-card span {
+            display: block;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 5px;
         }
 
-        .report-meta {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
+        .result-card strong {
+            color: var(--blue-dark);
+            font-size: 22px;
         }
 
-        .report-meta div {
-            background: #f4f8ff;
-            padding: 12px;
+        /* THEORY */
+
+        .theory {
+            margin-top: 35px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(20, 60, 110, 0.05);
+        }
+
+        .theory h2 {
+            color: var(--blue-dark);
+            margin-bottom: 15px;
+        }
+
+        .theory p {
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        .formula {
+            background: var(--blue-dark);
+            color: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: "Courier New", monospace;
+            overflow-x: auto;
+        }
+
+        .note {
+            background: var(--blue-light);
+            border-left: 4px solid var(--blue);
+            padding: 15px;
             border-radius: 8px;
+            color: var(--text);
+            font-size: 14px;
         }
 
-        .report-section {
-            margin-bottom: 24px;
+        /* FOOTER */
+
+        footer {
+            margin-top: 70px;
+            background: var(--blue-dark);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
         }
 
-        .report-section h3 {
-            margin-bottom: 8px;
-            color: #0b2d5c;
+        footer p {
+            opacity: 0.8;
+            font-size: 14px;
         }
 
-        .report-result {
-            background: #eaf3ff;
-            border-left: 4px solid #1261d6;
-            padding: 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #0b2d5c;
-        }
+        /* MOBILE */
 
-        @media (max-width: 700px) {
-            .report-meta {
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .lab-grid {
                 grid-template-columns: 1fr;
             }
 
-            .report-preview {
-                padding: 20px;
+            canvas {
+                height: 430px;
             }
         }
 
-        @media print {
+        @media (max-width: 550px) {
 
-            .topbar,
-            .sidebar,
-            .footer,
-            .page-hero,
-            .report-form,
-            .no-print {
-                display: none !important;
+            .page-header {
+                padding: 50px 5%;
             }
 
-            body {
-                background: white;
+            main {
+                padding: 0 12px;
             }
 
-            .layout {
-                display: block;
+            .results {
+                grid-template-columns: 1fr;
             }
 
-            .main-content {
-                margin: 0;
-                padding: 0;
-            }
-
-            .report-preview {
-                border: none;
-                box-shadow: none;
-                margin: 0;
-                padding: 0;
+            canvas {
+                height: 360px;
             }
         }
     </style>
@@ -102,391 +406,748 @@
 
 <body>
 
-<header class="topbar">
-    <a href="index.html" class="logo">MECH-X</a>
+<!-- NAVIGATION -->
 
-    <div class="top-actions">
-        <a href="calculators.html" class="btn secondary">Calculators</a>
-        <button class="btn primary" onclick="printReport()">Print / PDF</button>
+<nav>
+
+    <a href="index.html" class="logo">
+        MECH<span>-X</span>
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calculators.html">Calculators</a></li>
+        <li><a href="motor.html">Motor Lab</a></li>
+        <li><a href="control.html">Control Lab</a></li>
+        <li><a href="robotics.html">Robotics Lab</a></li>
+    </ul>
+
+</nav>
+
+
+<!-- HEADER -->
+
+<header class="page-header">
+
+    <div class="header-content">
+
+        <span class="tag">
+            ROBOTICS ENGINEERING LABORATORY
+        </span>
+
+        <h1>
+            Robotic Arm<br>
+            Simulator
+        </h1>
+
+        <p>
+            Explore forward kinematics using an interactive
+            two-link robotic manipulator. Change joint angles
+            and instantly observe the position of the end effector.
+        </p>
+
     </div>
+
 </header>
 
-<div class="layout">
-
-<aside class="sidebar">
-    <div class="sidebar-title">ENGINEERING LAB</div>
-
-    <nav>
-        <a href="index.html">⌂ Home</a>
-        <a href="calculators.html">▣ Calculators</a>
-        <a href="motor.html">⚙ Motor Lab</a>
-        <a href="control.html">◉ Control Lab</a>
-        <a href="robotics.html">🦾 Robotics Lab</a>
-        <a href="automotive.html">🚗 Automotive Lab</a>
-        <a href="mechanical.html">⚒ Mechanical Lab</a>
-        <a href="electrical.html">⚡ Electrical & Electronics</a>
-        <a href="knowledge.html">📘 Knowledge Base</a>
-        <a href="reports.html" class="active">📄 Reports & Export</a>
-    </nav>
-</aside>
-
-<main class="main-content">
-
-<section class="page-hero">
-    <span class="eyebrow">ENGINEERING REPORTING</span>
-    <h1>Reports & Export</h1>
-    <p>
-        Create a simple engineering report from your calculations,
-        observations and simulation results.
-    </p>
-</section>
-
-<section class="section report-form">
-
-<div class="card">
-
-<h2>Report Information</h2>
-
-<div class="form-grid">
-
-<div>
-    <label>Student / Engineer Name</label>
-    <input
-        id="studentName"
-        type="text"
-        placeholder="Enter your name"
-    >
-</div>
-
-<div>
-    <label>Course / Department</label>
-    <input
-        id="course"
-        type="text"
-        placeholder="Mechatronics Engineering"
-    >
-</div>
-
-<div>
-    <label>Experiment Title</label>
-    <input
-        id="experimentTitle"
-        type="text"
-        placeholder="Example: DC Motor Simulation"
-    >
-</div>
-
-<div>
-    <label>Experiment Date</label>
-    <input
-        id="experimentDate"
-        type="date"
-    >
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Engineering Results</h2>
-
-<label>Objective</label>
-<textarea
-    id="objective"
-    rows="4"
-    placeholder="State the purpose of the experiment..."
-></textarea>
-
-<label>Method / Procedure</label>
-<textarea
-    id="procedure"
-    rows="5"
-    placeholder="Describe the procedure used..."
-></textarea>
-
-<label>Results</label>
-<textarea
-    id="results"
-    rows="5"
-    placeholder="Enter calculated or simulated results..."
-></textarea>
 
-<label>Observations</label>
-<textarea
-    id="observations"
-    rows="5"
-    placeholder="Describe what you observed..."
-></textarea>
+<!-- MAIN -->
 
-<label>Conclusion</label>
-<textarea
-    id="conclusion"
-    rows="5"
-    placeholder="State the engineering conclusion..."
-></textarea>
+<main>
 
-<div class="top-actions">
-    <button class="btn primary" onclick="generateReport()">
-        Generate Report
-    </button>
+    <section class="lab-grid">
 
-    <button class="btn secondary" onclick="clearReport()">
-        Clear
-    </button>
-</div>
 
-</div>
+        <!-- CONTROL PANEL -->
 
-</section>
+        <div class="panel">
 
-<section class="section">
+            <h2>Robot Parameters</h2>
 
-<div class="card no-print">
+            <p class="panel-description">
+                Adjust the robot's joint angles and link lengths.
+            </p>
 
-<h2>Report Preview</h2>
 
-<p>
-Generate your report above. The formatted report will appear below.
-</p>
+            <!-- JOINT 1 -->
 
-</div>
+            <div class="control-group">
 
-<div id="reportPreview" class="report-preview">
+                <div class="control-title">
 
-<div class="report-header">
+                    <label for="theta1">
+                        Joint 1 Angle
+                    </label>
 
-<h2 id="previewTitle">
-MECH-X Engineering Report
-</h2>
+                    <span class="value" id="theta1Value">
+                        45°
+                    </span>
 
-<p>
-Interactive Mechatronics Engineering Laboratory
-</p>
+                </div>
 
-</div>
+                <input
+                    type="range"
+                    id="theta1"
+                    min="-180"
+                    max="180"
+                    value="45"
+                >
 
-<div class="report-meta">
+            </div>
 
-<div>
-<strong>Student / Engineer</strong>
-<br>
-<span id="previewName">—</span>
-</div>
 
-<div>
-<strong>Course / Department</strong>
-<br>
-<span id="previewCourse">—</span>
-</div>
+            <!-- JOINT 2 -->
 
-<div>
-<strong>Date</strong>
-<br>
-<span id="previewDate">—</span>
-</div>
+            <div class="control-group">
 
-<div>
-<strong>Platform</strong>
-<br>
-MECH-X
-</div>
+                <div class="control-title">
 
-</div>
+                    <label for="theta2">
+                        Joint 2 Angle
+                    </label>
 
-<div class="report-section">
+                    <span class="value" id="theta2Value">
+                        45°
+                    </span>
 
-<h3>Objective</h3>
+                </div>
 
-<p id="previewObjective">
-No objective entered.
-</p>
+                <input
+                    type="range"
+                    id="theta2"
+                    min="-180"
+                    max="180"
+                    value="45"
+                >
 
-</div>
+            </div>
 
-<div class="report-section">
 
-<h3>Method / Procedure</h3>
+            <!-- LINK 1 -->
 
-<p id="previewProcedure">
-No procedure entered.
-</p>
+            <div class="control-group">
 
-</div>
+                <div class="control-title">
 
-<div class="report-section">
+                    <label for="link1">
+                        Link 1 Length
+                    </label>
 
-<h3>Results</h3>
+                </div>
 
-<div class="report-result" id="previewResults">
-No results entered.
-</div>
+                <input
+                    type="number"
+                    id="link1"
+                    value="150"
+                    min="50"
+                    max="300"
+                >
 
-</div>
+            </div>
 
-<div class="report-section">
 
-<h3>Observations</h3>
+            <!-- LINK 2 -->
 
-<p id="previewObservations">
-No observations entered.
-</p>
+            <div class="control-group">
 
-</div>
+                <div class="control-title">
 
-<div class="report-section">
+                    <label for="link2">
+                        Link 2 Length
+                    </label>
 
-<h3>Conclusion</h3>
+                </div>
 
-<p id="previewConclusion">
-No conclusion entered.
-</p>
+                <input
+                    type="number"
+                    id="link2"
+                    value="120"
+                    min="50"
+                    max="300"
+                >
 
-</div>
+            </div>
 
-<div class="report-section">
 
-<h3>Engineering Workflow</h3>
+            <div class="button-row">
 
-<p>
-Learn → Calculate → Simulate → Analyse → Report
-</p>
+                <button
+                    class="primary-btn"
+                    onclick="resetRobot()"
+                >
+                    Reset
+                </button>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-</section>
+
+        <!-- SIMULATOR -->
+
+        <div class="simulator">
+
+            <div class="simulator-header">
+
+                <h2>2D Robot Workspace</h2>
+
+                <span class="status">
+                    LIVE
+                </span>
+
+            </div>
+
+            <canvas id="robotCanvas"></canvas>
+
+
+            <!-- RESULTS -->
+
+            <div class="results">
+
+                <div class="result-card">
+
+                    <span>End Effector X</span>
+
+                    <strong id="xResult">
+                        0.00
+                    </strong>
+
+                </div>
+
+                <div class="result-card">
+
+                    <span>End Effector Y</span>
+
+                    <strong id="yResult">
+                        0.00
+                    </strong>
+
+                </div>
+
+                <div class="result-card">
+
+                    <span>Reach</span>
+
+                    <strong id="reachResult">
+                        0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- THEORY -->
+
+    <section class="theory">
+
+        <h2>
+            Forward Kinematics
+        </h2>
+
+        <p>
+            Forward kinematics determines the position of a
+            robot's end effector from the known joint angles
+            and link lengths.
+        </p>
+
+        <div class="formula">
+
+            x = L₁ cos(θ₁) + L₂ cos(θ₁ + θ₂)
+
+            <br><br>
+
+            y = L₁ sin(θ₁) + L₂ sin(θ₁ + θ₂)
+
+        </div>
+
+        <p>
+            Where:
+        </p>
+
+        <p>
+            <strong>L₁</strong> = length of the first link
+            <br>
+            <strong>L₂</strong> = length of the second link
+            <br>
+            <strong>θ₁</strong> = first joint angle
+            <br>
+            <strong>θ₂</strong> = second joint angle
+        </p>
+
+        <div class="note">
+
+            <strong>Engineering note:</strong>
+
+            This simulator uses a simplified planar
+            two-degree-of-freedom robotic arm model.
+            It is intended for learning and visualization
+            of forward kinematics.
+
+        </div>
+
+    </section>
 
 </main>
-</div>
 
-<footer class="footer">
-    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        MECH-X — Interactive Mechatronics Engineering Laboratory
+    </p>
+
+    <p>
+        Robotics Simulation Module
+    </p>
+
 </footer>
 
+
 <script>
-function getText(id) {
-    return document.getElementById(id).value.trim();
-}
 
-function safeText(text) {
+    const canvas = document.getElementById("robotCanvas");
+    const ctx = canvas.getContext("2d");
 
-    if (text === "") {
-        return "—";
+    const theta1Slider = document.getElementById("theta1");
+    const theta2Slider = document.getElementById("theta2");
+
+    const theta1Value = document.getElementById("theta1Value");
+    const theta2Value = document.getElementById("theta2Value");
+
+    const link1Input = document.getElementById("link1");
+    const link2Input = document.getElementById("link2");
+
+    const xResult = document.getElementById("xResult");
+    const yResult = document.getElementById("yResult");
+    const reachResult = document.getElementById("reachResult");
+
+
+    function resizeCanvas() {
+
+        const rect = canvas.getBoundingClientRect();
+
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        drawRobot();
     }
 
-    return text;
-}
 
-function generateReport() {
+    function degreesToRadians(degrees) {
 
-    const name =
-        getText("studentName");
+        return degrees * Math.PI / 180;
 
-    const course =
-        getText("course");
+    }
 
-    const title =
-        getText("experimentTitle");
 
-    const date =
-        getText("experimentDate");
+    function calculateRobot() {
 
-    const objective =
-        getText("objective");
+        const theta1 =
+            degreesToRadians(
+                Number(theta1Slider.value)
+            );
 
-    const procedure =
-        getText("procedure");
+        const theta2 =
+            degreesToRadians(
+                Number(theta2Slider.value)
+            );
 
-    const results =
-        getText("results");
+        const L1 =
+            Number(link1Input.value);
 
-    const observations =
-        getText("observations");
+        const L2 =
+            Number(link2Input.value);
 
-    const conclusion =
-        getText("conclusion");
 
-    document.getElementById("previewTitle").textContent =
-        title || "MECH-X Engineering Report";
+        const x1 =
+            L1 * Math.cos(theta1);
 
-    document.getElementById("previewName").textContent =
-        safeText(name);
+        const y1 =
+            L1 * Math.sin(theta1);
 
-    document.getElementById("previewCourse").textContent =
-        safeText(course);
 
-    document.getElementById("previewDate").textContent =
-        safeText(date);
+        const x2 =
+            x1 +
+            L2 * Math.cos(theta1 + theta2);
 
-    document.getElementById("previewObjective").textContent =
-        safeText(objective);
+        const y2 =
+            y1 +
+            L2 * Math.sin(theta1 + theta2);
 
-    document.getElementById("previewProcedure").textContent =
-        safeText(procedure);
 
-    document.getElementById("previewResults").textContent =
-        safeText(results);
+        const reach =
+            Math.sqrt(
+                x2 * x2 +
+                y2 * y2
+            );
 
-    document.getElementById("previewObservations").textContent =
-        safeText(observations);
 
-    document.getElementById("previewConclusion").textContent =
-        safeText(conclusion);
+        return {
+            x1,
+            y1,
+            x2,
+            y2,
+            reach
+        };
 
-    document.getElementById("reportPreview")
-        .scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-}
+    }
 
-function clearReport() {
 
-    const fields = [
-        "studentName",
-        "course",
-        "experimentTitle",
-        "experimentDate",
-        "objective",
-        "procedure",
-        "results",
-        "observations",
-        "conclusion"
-    ];
+    function drawGrid() {
 
-    fields.forEach(function(id) {
-        document.getElementById(id).value = "";
-    });
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
-    document.getElementById("previewTitle").textContent =
-        "MECH-X Engineering Report";
 
-    document.getElementById("previewName").textContent = "—";
-    document.getElementById("previewCourse").textContent = "—";
-    document.getElementById("previewDate").textContent = "—";
+        const gridSize = 25;
 
-    document.getElementById("previewObjective").textContent =
-        "No objective entered.";
+        ctx.strokeStyle = "#e3edf8";
+        ctx.lineWidth = 1;
 
-    document.getElementById("previewProcedure").textContent =
-        "No procedure entered.";
 
-    document.getElementById("previewResults").textContent =
-        "No results entered.";
+        for (
+            let x = 0;
+            x <= canvas.width;
+            x += gridSize
+        ) {
 
-    document.getElementById("previewObservations").textContent =
-        "No observations entered.";
+            ctx.beginPath();
 
-    document.getElementById("previewConclusion").textContent =
-        "No conclusion entered.";
-}
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
 
-function printReport() {
-    window.print();
-}
+            ctx.stroke();
+
+        }
+
+
+        for (
+            let y = 0;
+            y <= canvas.height;
+            y += gridSize
+        ) {
+
+            ctx.beginPath();
+
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+
+            ctx.stroke();
+
+        }
+
+    }
+
+
+    function drawAxes(originX, originY) {
+
+        ctx.strokeStyle = "#9bb4ce";
+        ctx.lineWidth = 2;
+
+
+        // X axis
+
+        ctx.beginPath();
+
+        ctx.moveTo(0, originY);
+        ctx.lineTo(canvas.width, originY);
+
+        ctx.stroke();
+
+
+        // Y axis
+
+        ctx.beginPath();
+
+        ctx.moveTo(originX, 0);
+        ctx.lineTo(originX, canvas.height);
+
+        ctx.stroke();
+
+
+        // Origin
+
+        ctx.fillStyle = "#0b2d5c";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            originX,
+            originY,
+            7,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    function drawRobot() {
+
+        drawGrid();
+
+
+        const robot =
+            calculateRobot();
+
+
+        const scale = 1;
+
+
+        const originX =
+            canvas.width / 2;
+
+        const originY =
+            canvas.height / 2;
+
+
+        drawAxes(
+            originX,
+            originY
+        );
+
+
+        /*
+            Canvas Y coordinates increase downward,
+            therefore the mathematical Y coordinate
+            is inverted when drawing.
+        */
+
+        const joint1X =
+            originX +
+            robot.x1 * scale;
+
+        const joint1Y =
+            originY -
+            robot.y1 * scale;
+
+
+        const endX =
+            originX +
+            robot.x2 * scale;
+
+        const endY =
+            originY -
+            robot.y2 * scale;
+
+
+        // Base
+
+        ctx.fillStyle = "#0b2d5c";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            originX,
+            originY,
+            12,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+
+        // Link 1
+
+        ctx.strokeStyle = "#1261d6";
+        ctx.lineWidth = 18;
+        ctx.lineCap = "round";
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            originX,
+            originY
+        );
+
+        ctx.lineTo(
+            joint1X,
+            joint1Y
+        );
+
+        ctx.stroke();
+
+
+        // Joint 1
+
+        ctx.fillStyle = "#ffffff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            joint1X,
+            joint1Y,
+            11,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.strokeStyle = "#0b2d5c";
+        ctx.lineWidth = 4;
+
+        ctx.stroke();
+
+
+        // Link 2
+
+        ctx.strokeStyle = "#4c8de8";
+        ctx.lineWidth = 18;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            joint1X,
+            joint1Y
+        );
+
+        ctx.lineTo(
+            endX,
+            endY
+        );
+
+        ctx.stroke();
+
+
+        // End joint
+
+        ctx.fillStyle = "#ffffff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            endX,
+            endY,
+            11,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+        ctx.strokeStyle = "#0b2d5c";
+        ctx.lineWidth = 4;
+
+        ctx.stroke();
+
+
+        // End effector
+
+        ctx.strokeStyle = "#d93434";
+        ctx.lineWidth = 5;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            endX - 12,
+            endY - 12
+        );
+
+        ctx.lineTo(
+            endX + 12,
+            endY + 12
+        );
+
+        ctx.moveTo(
+            endX + 12,
+            endY - 12
+        );
+
+        ctx.lineTo(
+            endX - 12,
+            endY + 12
+        );
+
+        ctx.stroke();
+
+
+        // Update results
+
+        xResult.textContent =
+            robot.x2.toFixed(2) + " mm";
+
+        yResult.textContent =
+            robot.y2.toFixed(2) + " mm";
+
+        reachResult.textContent =
+            robot.reach.toFixed(2) + " mm";
+
+    }
+
+
+    function updateRobot() {
+
+        theta1Value.textContent =
+            theta1Slider.value + "°";
+
+        theta2Value.textContent =
+            theta2Slider.value + "°";
+
+        drawRobot();
+
+    }
+
+
+    function resetRobot() {
+
+        theta1Slider.value = 45;
+        theta2Slider.value = 45;
+
+        link1Input.value = 150;
+        link2Input.value = 120;
+
+        updateRobot();
+
+    }
+
+
+    theta1Slider.addEventListener(
+        "input",
+        updateRobot
+    );
+
+
+    theta2Slider.addEventListener(
+        "input",
+        updateRobot
+    );
+
+
+    link1Input.addEventListener(
+        "input",
+        updateRobot
+    );
+
+
+    link2Input.addEventListener(
+        "input",
+        updateRobot
+    );
+
+
+    window.addEventListener(
+        "resize",
+        resizeCanvas
+    );
+
+
+    resizeCanvas();
+
 </script>
 
 </body>
