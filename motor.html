@@ -3,362 +3,543 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Motor Laboratory | MECH-X</title>
+    <aside class="sidebar">
 
-<title>Automotive Engineering Lab | MECH-X</title>
-    <header class="topbar">
-    <div class="container nav">
-
-        <a href="index.html" class="logo">
-            <span class="logo-mark">M</span>
-            MECH-X
-        </a>
-
-        <nav class="nav-links">
-
-            <a href="index.html">Home</a>
-            <a href="calculators.html">Calculators</a>
-            <a href="motor.html">Motor Lab</a>
-            <a href="control.html">Control Lab</a>
-            <a href="robotics.html">Robotics</a>
-            <a href="automotive.html">Automotive</a>
-
-        </nav>
-
+    <div class="sidebar-title">
+        MECH-X LABS
     </div>
-</header>
+
+    <a href="index.html">⌂ Home</a>
+
+    <a href="calculators.html">
+        Engineering Calculators
+    </a>
+
+    <a href="motor.html">
+        DC Motor Lab
+    </a>
+
+    <a href="control.html">
+        Control Systems Lab
+    </a>
+
+    <a href="robotics.html">
+        Robotics Lab
+    </a>
+
+    <a href="automotive.html">
+        Automotive Lab
+    </a>
+
+    <a href="mechanical.html">
+        Mechanical Lab
+    </a>
+
+    <a href="electrical.html">
+        Electrical & Electronics
+    </a>
+
+    <a href="knowledge.html">
+        Knowledge Base
+    </a>
+
+    <a href="reports.html">
+        Reports & Export
+    </a>
+
+</aside>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root{
+    --blue:#1261d6;
+    --blue-dark:#0b2d5c;
+    --blue-light:#eaf3ff;
+    --blue-soft:#f4f8ff;
+    --cyan:#10bde8;
+
+    --text:#10233f;
+    --muted:#617089;
+    --border:#d9e3f0;
+
+    --white:#ffffff;
+    --bg:#f7faff;
+    --success:#168447;
+    --danger:#d43d3d;
+
+    --shadow:0 12px 35px rgba(18,97,214,.08);
 }
 
-:root {
-    --blue: #1261d6;
-    --blue-dark: #0b2d5c;
-    --blue-light: #eaf3ff;
-    --blue-soft: #f5f9ff;
-    --text: #17324d;
-    --muted: #60758a;
-    --border: #d9e5f2;
-    --white: #ffffff;
-    --green: #138a52;
-    --red: #d63b3b;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f7faff;
-    color: var(--text);
-    line-height: 1.6;
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
 }
 
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,.97);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--blue-dark);
-    text-decoration: none;
+/* ================= NAVIGATION ================= */
+
+.navbar{
+    background:#ffffff;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-.logo span {
-    color: var(--blue);
+.nav-container{
+    max-width:1200px;
+    margin:auto;
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:2px;
+    color:var(--blue);
+    line-height:1;
 }
 
-.nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
+.logo span{
+    color:var(--blue-dark);
 }
 
-.nav-links a:hover {
-    color: var(--blue);
+.nav-links{
+    display:flex;
+    gap:26px;
+    align-items:center;
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
 }
 
-header {
-    padding: 70px 6% 55px;
-    background:
-        radial-gradient(circle at 90% 10%, #d9eaff, transparent 35%),
-        linear-gradient(135deg, #fff, #edf5ff);
-    border-bottom: 1px solid var(--border);
+.nav-links::-webkit-scrollbar{
+    display:none;
 }
 
-.header-content {
-    max-width: 1150px;
-    margin: auto;
+.nav-links a{
+    color:#40516a;
+    font-weight:600;
+    font-size:15px;
+    padding:8px 2px;
+    transition:.2s;
 }
 
-.badge {
-    display: inline-block;
-    background: var(--blue-light);
-    color: var(--blue);
-    padding: 8px 14px;
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 18px;
+.nav-links a:hover,
+.nav-links a.active{
+    color:var(--blue);
 }
 
-header h1 {
-    color: var(--blue-dark);
-    font-size: clamp(38px, 6vw, 68px);
-    line-height: 1.05;
-    margin-bottom: 18px;
+/* ================= HERO ================= */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:72px 24px 45px;
 }
 
-header h1 span {
-    color: var(--blue);
+.eyebrow{
+    color:var(--blue);
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:18px;
 }
 
-header p {
-    max-width: 800px;
-    color: var(--muted);
-    font-size: 18px;
+.hero h1{
+    font-size:clamp(42px,7vw,72px);
+    line-height:1.02;
+    letter-spacing:-2px;
+    max-width:800px;
+    color:var(--blue-dark);
+    margin-bottom:22px;
 }
 
-.container {
-    width: min(1200px, 92%);
-    margin: 45px auto;
+.hero p{
+    max-width:780px;
+    color:var(--muted);
+    font-size:20px;
+    line-height:1.55;
 }
 
-.section-title {
-    margin-bottom: 22px;
+/* ================= MAIN ================= */
+
+.main{
+    max-width:1200px;
+    margin:auto;
+    padding:0 24px 80px;
 }
 
-.section-title h2 {
-    color: var(--blue-dark);
-    font-size: 30px;
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
 }
 
-.section-title p {
-    color: var(--muted);
+.card{
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:var(--shadow);
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+.card h2{
+    color:var(--blue-dark);
+    font-size:25px;
+    margin-bottom:24px;
 }
 
-.card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 8px 25px rgba(18,97,214,.07);
+.card h3{
+    color:var(--blue-dark);
+    margin-bottom:12px;
 }
 
-.card h3 {
-    color: var(--blue-dark);
-    margin-bottom: 17px;
+/* ================= INPUTS ================= */
+
+.input-group{
+    margin-bottom:19px;
 }
 
-.card p {
-    color: var(--muted);
-    font-size: 14px;
+.input-group label{
+    display:block;
+    font-size:14px;
+    font-weight:700;
+    color:#40516a;
+    margin-bottom:7px;
 }
 
-.input-group {
-    margin-bottom: 15px;
+.input-group input{
+    width:100%;
+    padding:14px 15px;
+    border:1px solid #cbd8e8;
+    border-radius:11px;
+    background:#ffffff;
+    color:#15263d;
+    font-size:16px;
+    outline:none;
+    transition:.2s;
 }
 
-.input-group label {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 6px;
+.input-group input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(18,97,214,.10);
 }
 
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    background: #fbfdff;
-    color: var(--text);
-    font-size: 15px;
+/* ================= BUTTONS ================= */
+
+.button-row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:24px;
 }
 
-.input-group input:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(18,97,214,.1);
+button{
+    border:none;
+    border-radius:10px;
+    padding:13px 22px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.gear-grid {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 12px;
+.primary-btn{
+    background:var(--blue);
+    color:white;
 }
 
-button {
-    width: 100%;
-    border: 0;
-    border-radius: 10px;
-    padding: 14px;
-    background: var(--blue);
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
+.primary-btn:hover{
+    background:#0e50b2;
+    transform:translateY(-1px);
 }
 
-button:hover {
-    background: #0e50b5;
+.secondary-btn{
+    background:var(--blue-light);
+    color:var(--blue);
+    border:1px solid #c8ddfa;
 }
 
-.secondary-button {
-    background: white;
-    color: var(--blue);
-    border: 1px solid var(--blue);
-    margin-top: 10px;
+.secondary-btn:hover{
+    background:#dcecff;
 }
 
-.secondary-button:hover {
-    background: var(--blue-light);
+/* ================= RESULTS ================= */
+
+.results{
+    margin-top:26px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
-.results {
-    display: grid;
-    grid-template-columns: repeat(6,1fr);
-    gap: 14px;
+.result{
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:12px;
+    padding:16px;
 }
 
-.result-box {
-    background: var(--blue-soft);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 17px 10px;
-    text-align: center;
+.result-label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.5px;
 }
 
-.result-box .label {
-    color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 5px;
+.result-value{
+    margin-top:4px;
+    font-size:24px;
+    font-weight:900;
+    color:var(--blue-dark);
 }
 
-.result-box .value {
-    color: var(--blue-dark);
-    font-size: 20px;
-    font-weight: 800;
+/* ================= GRAPH ================= */
+
+.graph-card{
+    margin-top:24px;
 }
 
-.status {
-    margin-top: 18px;
-    padding: 14px;
-    background: var(--blue-light);
-    color: var(--blue-dark);
-    border-radius: 10px;
-    font-weight: 600;
+.canvas-wrapper{
+    width:100%;
+    height:360px;
+    position:relative;
+    background:#ffffff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
 }
 
-.graph-card {
-    margin-top: 25px;
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
 }
 
-canvas {
-    width: 100%;
-    height: 360px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: white;
-    margin-top: 15px;
+/* ================= MOTOR VISUAL ================= */
+
+.motor-display{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:320px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:15px;
+    margin-bottom:20px;
 }
 
-.formula {
-    background: #f4f8fd;
-    border-left: 4px solid var(--blue);
-    padding: 12px 15px;
-    margin: 12px 0;
-    font-family: "Courier New", monospace;
-    color: var(--blue-dark);
-    overflow-x: auto;
+.motor{
+    position:relative;
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:#ffffff;
+    border:10px solid #c9d7e8;
+    box-shadow:
+        inset 0 0 0 8px #eef4fb,
+        0 15px 35px rgba(18,97,214,.12);
 }
 
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    margin-top: 20px;
+.motor::before{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    left:30px;
+    top:30px;
+    border:10px solid var(--blue);
+    border-right-color:var(--cyan);
+    border-bottom-color:#8fb7ed;
+    animation:spin 1.2s linear infinite;
 }
 
-.info-box {
-    padding: 18px;
-    background: var(--blue-soft);
-    border: 1px solid var(--border);
-    border-radius: 12px;
+.motor::after{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:65px;
+    background:#52677f;
+    left:71px;
+    top:47px;
+    border-radius:10px;
 }
 
-.info-box strong {
-    display: block;
-    color: var(--blue-dark);
-    margin-bottom: 5px;
-}
-
-footer {
-    margin-top: 70px;
-    background: var(--blue-dark);
-    color: white;
-    text-align: center;
-    padding: 30px 20px;
-}
-
-footer p {
-    opacity: .8;
-    font-size: 14px;
-}
-
-@media(max-width:1000px) {
-    .results {
-        grid-template-columns: repeat(3,1fr);
+@keyframes spin{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
     }
 }
 
-@media(max-width:850px) {
-    .grid {
-        grid-template-columns: 1fr;
+.motor-status{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= EQUATIONS ================= */
+
+.equations{
+    margin-top:24px;
+    background:var(--blue-soft);
+    border:1px solid #dce8f7;
+    border-radius:14px;
+    padding:22px;
+}
+
+.equation{
+    font-family:"Courier New",monospace;
+    background:#ffffff;
+    border:1px solid #dce4ef;
+    padding:12px 14px;
+    border-radius:9px;
+    margin-top:9px;
+    color:var(--blue-dark);
+    overflow-x:auto;
+}
+
+/* ================= INFO ================= */
+
+.info{
+    margin-top:24px;
+    padding:20px;
+    background:#ffffff;
+    border-left:4px solid var(--blue);
+    border-radius:10px;
+    box-shadow:var(--shadow);
+}
+
+.info p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    border-top:1px solid var(--border);
+    background:#ffffff;
+    padding:30px 24px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+}
+
+footer strong{
+    color:var(--blue);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:800px){
+
+    .nav-container{
+        padding:16px 18px;
+        align-items:flex-start;
     }
 
-    .info-grid {
-        grid-template-columns: 1fr;
+    .logo{
+        font-size:22px;
+        min-width:70px;
     }
 
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
+    .nav-links{
+        gap:20px;
+        max-width:calc(100vw - 100px);
+    }
+
+    .hero{
+        padding:55px 20px 35px;
+    }
+
+    .hero h1{
+        font-size:47px;
+        letter-spacing:-1.5px;
+    }
+
+    .hero p{
+        font-size:17px;
+    }
+
+    .main{
+        padding:0 20px 60px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:22px;
+    }
+
+    .results{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .canvas-wrapper{
+        height:280px;
     }
 }
 
-@media(max-width:550px) {
-    .gear-grid,
-    .results {
-        grid-template-columns: 1fr 1fr;
+@media(max-width:480px){
+
+    .hero h1{
+        font-size:40px;
     }
 
-    header {
-        padding-top: 45px;
+    .eyebrow{
+        font-size:12px;
+        letter-spacing:2px;
+    }
+
+    .results{
+        grid-template-columns:1fr;
+    }
+
+    .button-row button{
+        width:100%;
+    }
+
+    .motor{
+        width:145px;
+        height:145px;
+    }
+
+    .motor::before{
+        width:78px;
+        height:78px;
+        left:24px;
+        top:24px;
+    }
+
+    .motor::after{
+        left:58px;
+        top:40px;
+        height:55px;
     }
 }
 </style>
@@ -366,1536 +547,669 @@ footer p {
 
 <body>
 
-<nav>
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="nav-container">
 
-<a href="index.html" class="logo">
-MECH<span>-X</span>
-</a>
+        <a href="index.html" class="logo">
+            MECH-<span>X</span>
+        </a>
 
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="calculators.html">Calculators</a>
-<a href="motor.html">Motor Lab</a>
-<a href="control.html">Control Lab</a>
-<a href="robotics.html">Robotics Lab</a>
-</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="calculators.html">Calculators</a>
+            <a href="motor.html" class="active">Motor Lab</a>
+            <a href="control.html">Control Lab</a>
+            <a href="robotics.html">Robotics</a>
+            <a href="automotive.html">Automotive</a>
+        </div>
 
+    </div>
 </nav>
 
 
-<header>
+<!-- HERO -->
+<section class="hero">
 
-<div class="header-content">
+    <div class="eyebrow">
+        Dynamic Engineering Simulation
+    </div>
 
-<div class="badge">
-AUTOMOTIVE ENGINEERING LABORATORY
-</div>
+    <h1>
+        DC Motor<br>
+        Laboratory
+    </h1>
 
-<h1>
-Vehicle Dynamics<br>
-<span>Simulator</span>
-</h1>
-
-<p>
-Simulate vehicle acceleration using engine torque, RPM,
-gear ratios, drivetrain efficiency, tyre traction,
-aerodynamic drag, rolling resistance and road slope.
-</p>
-
-</div>
-
-</header>
-
-
-<main class="container">
-
-
-<section>
-
-<div class="section-title">
-
-<h2>Vehicle Configuration</h2>
-
-<p>
-Configure the engine, transmission and physical properties
-of the vehicle.
-</p>
-
-</div>
-
-
-<div class="grid">
-
-
-<div class="card">
-
-<h3>Engine & Vehicle</h3>
-
-<div class="input-group">
-<label>Maximum Engine Power (kW)</label>
-<input id="power" type="number" value="110" min="1">
-</div>
-
-<div class="input-group">
-<label>Peak Engine Torque (N·m)</label>
-<input id="torque" type="number" value="200" min="1">
-</div>
-
-<div class="input-group">
-<label>Maximum Engine RPM</label>
-<input id="maxRPM" type="number" value="6500" min="1000">
-</div>
-
-<div class="input-group">
-<label>Vehicle Mass (kg)</label>
-<input id="mass" type="number" value="1400" min="100">
-</div>
-
-<div class="input-group">
-<label>Wheel Radius (m)</label>
-<input id="wheelRadius" type="number" value="0.31" step=".01" min=".1">
-</div>
-
-<div class="input-group">
-<label>Drivetrain Efficiency (%)</label>
-<input id="efficiency" type="number" value="85" min="1" max="100">
-</div>
-
-</div>
-
-
-<div class="card">
-
-<h3>Transmission</h3>
-
-<div class="gear-grid">
-
-<div class="input-group">
-<label>1st Gear</label>
-<input id="gear1" type="number" value="3.50" step=".01">
-</div>
-
-<div class="input-group">
-<label>2nd Gear</label>
-<input id="gear2" type="number" value="2.10" step=".01">
-</div>
-
-<div class="input-group">
-<label>3rd Gear</label>
-<input id="gear3" type="number" value="1.40" step=".01">
-</div>
-
-<div class="input-group">
-<label>4th Gear</label>
-<input id="gear4" type="number" value="1.00" step=".01">
-</div>
-
-<div class="input-group">
-<label>5th Gear</label>
-<input id="gear5" type="number" value=".80" step=".01">
-</div>
-
-<div class="input-group">
-<label>Final Drive</label>
-<input id="finalDrive" type="number" value="3.90" step=".01">
-</div>
-
-</div>
-
-</div>
-
-</div>
+    <p>
+        Simulate the acceleration and steady-state response
+        of a simplified DC motor using a numerical
+        time-domain model.
+    </p>
 
 </section>
 
 
-<section style="margin-top:45px;">
+<!-- MAIN -->
+<main class="main">
+
+    <div class="grid">
+
+        <!-- PARAMETERS -->
+        <section class="card">
+
+            <h2>Motor Parameters</h2>
+
+            <div class="input-group">
+                <label for="voltage">
+                    Supply Voltage (V)
+                </label>
+
+                <input
+                    id="voltage"
+                    type="number"
+                    value="24"
+                    step="0.1"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="resistance">
+                    Armature Resistance (Ω)
+                </label>
+
+                <input
+                    id="resistance"
+                    type="number"
+                    value="2"
+                    step="0.1"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="ke">
+                    Motor Constant Ke (V·s/rad)
+                </label>
+
+                <input
+                    id="ke"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="kt">
+                    Motor Constant Kt (N·m/A)
+                </label>
+
+                <input
+                    id="kt"
+                    type="number"
+                    value="0.08"
+                    step="0.01"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="load">
+                    Load Torque (N·m)
+                </label>
+
+                <input
+                    id="load"
+                    type="number"
+                    value="0.2"
+                    step="0.05"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="inertia">
+                    Rotor Inertia J (kg·m²)
+                </label>
+
+                <input
+                    id="inertia"
+                    type="number"
+                    value="0.01"
+                    step="0.001"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="friction">
+                    Viscous Friction b (N·m·s/rad)
+                </label>
+
+                <input
+                    id="friction"
+                    type="number"
+                    value="0.001"
+                    step="0.0001"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="simTime">
+                    Simulation Time (s)
+                </label>
 
-<div class="section-title">
+                <input
+                    id="simTime"
+                    type="number"
+                    value="5"
+                    min="0.5"
+                    step="0.5"
+                >
+            </div>
 
-<h2>Road & Aerodynamics</h2>
+            <div class="button-row">
 
-<p>
-Configure the forces acting against the vehicle.
-</p>
+                <button
+                    class="primary-btn"
+                    onclick="runSimulation()"
+                >
+                    Run Simulation
+                </button>
 
-</div>
+                <button
+                    class="secondary-btn"
+                    onclick="resetSimulation()"
+                >
+                    Reset
+                </button>
 
+            </div>
 
-<div class="grid">
+        </section>
 
 
-<div class="card">
+        <!-- MOTOR -->
+        <section class="card">
 
-<h3>Aerodynamics</h3>
+            <h2>Motor Visualization</h2>
 
-<div class="input-group">
-<label>Drag Coefficient Cd</label>
-<input id="cd" type="number" value=".30" step=".01">
-</div>
+            <div class="motor-display">
 
-<div class="input-group">
-<label>Frontal Area (m²)</label>
-<input id="area" type="number" value="2.2" step=".1">
-</div>
+                <div>
+                    <div class="motor"></div>
 
-<div class="input-group">
-<label>Air Density ρ (kg/m³)</label>
-<input id="rho" type="number" value="1.225" step=".001">
-</div>
+                    <div class="motor-status">
+                        DC Motor Simulation
+                    </div>
+                </div>
 
-</div>
+            </div>
 
+            <div class="results">
 
-<div class="card">
+                <div class="result">
+                    <div class="result-label">
+                        Final Speed
+                    </div>
 
-<h3>Road Conditions</h3>
+                    <div class="result-value" id="finalSpeed">
+                        0 rpm
+                    </div>
+                </div>
 
-<div class="input-group">
-<label>Rolling Resistance Crr</label>
-<input id="crr" type="number" value=".012" step=".001">
-</div>
+                <div class="result">
+                    <div class="result-label">
+                        Final Current
+                    </div>
 
-<div class="input-group">
-<label>Road Slope (%)</label>
-<input id="slope" type="number" value="0" step=".1">
-</div>
+                    <div class="result-value" id="finalCurrent">
+                        0 A
+                    </div>
+                </div>
 
-<div class="input-group">
-<label>Tyre-Road Friction Coefficient μ</label>
-<input id="mu" type="number" value=".90" step=".01">
-</div>
+                <div class="result">
+                    <div class="result-label">
+                        Final Torque
+                    </div>
 
-<button onclick="runSimulation()">
-RUN VEHICLE SIMULATION
-</button>
+                    <div class="result-value" id="finalTorque">
+                        0 N·m
+                    </div>
+                </div>
 
-<button class="secondary-button" onclick="resetSimulation()">
-RESET
-</button>
+                <div class="result">
+                    <div class="result-label">
+                        Mechanical Power
+                    </div>
 
-</div>
+                    <div class="result-value" id="finalPower">
+                        0 W
+                    </div>
+                </div>
 
-</div>
+            </div>
 
-</section>
+        </section>
 
+    </div>
 
-<section style="margin-top:45px;">
 
-<div class="section-title">
+    <!-- GRAPH -->
+    <section class="card graph-card">
 
-<h2>Simulation Results</h2>
+        <h2>Speed Response</h2>
 
-<p>
-Live calculated vehicle-performance parameters.
-</p>
+        <div class="canvas-wrapper">
+            <canvas id="speedCanvas"></canvas>
+        </div>
 
-</div>
+    </section>
 
 
-<div class="results">
+    <!-- EQUATIONS -->
+    <section class="card">
 
-<div class="result-box">
-<div class="label">0–100 km/h</div>
-<div class="value" id="zero100">—</div>
-</div>
+        <h2>Engineering Model</h2>
 
-<div class="result-box">
-<div class="label">Top Speed</div>
-<div class="value" id="topSpeed">—</div>
-</div>
+        <p style="color:var(--muted);">
+            The simulator uses a simplified DC motor model.
+            Electrical and mechanical equations are solved
+            numerically over small time steps.
+        </p>
 
-<div class="result-box">
-<div class="label">Power / Weight</div>
-<div class="value" id="powerWeight">—</div>
-</div>
+        <div class="equations">
 
-<div class="result-box">
-<div class="label">Wheel Torque</div>
-<div class="value" id="wheelTorque">—</div>
-</div>
+            <div class="equation">
+                Back EMF: E = Ke × ω
+            </div>
 
-<div class="result-box">
-<div class="label">Peak Acceleration</div>
-<div class="value" id="peakAccel">—</div>
-</div>
+            <div class="equation">
+                Armature Current: I = (V − E) / R
+            </div>
 
-<div class="result-box">
-<div class="label">Final Gear</div>
-<div class="value" id="finalGear">—</div>
-</div>
+            <div class="equation">
+                Motor Torque: T = Kt × I
+            </div>
 
-</div>
+            <div class="equation">
+                J(dω/dt) = T − Tload − bω
+            </div>
 
+            <div class="equation">
+                Mechanical Power: P = T × ω
+            </div>
 
-<div class="status" id="status">
-Run the simulation to calculate vehicle performance.
-</div>
+        </div>
 
-</section>
+        <div class="info">
 
+            <p>
+                <strong>Engineering note:</strong>
+                This is an educational simulation. The model
+                assumes constant motor parameters and does not
+                include detailed magnetic saturation, temperature
+                effects, nonlinear friction, switching electronics,
+                or detailed motor construction.
+            </p>
 
-<section class="card graph-card">
+        </div>
 
-<h3>Vehicle Speed vs Time</h3>
-
-<p>
-The simulated acceleration curve shows how vehicle speed changes
-during the run.
-</p>
-
-<canvas id="speedGraph" width="1100" height="360"></canvas>
-
-</section>
-
-
-<section class="card graph-card">
-
-<h3>Engine RPM vs Vehicle Speed</h3>
-
-<p>
-This graph shows the relationship between vehicle speed and engine RPM
-as the transmission shifts through the gears.
-</p>
-
-<canvas id="rpmGraph" width="1100" height="360"></canvas>
-
-</section>
-
-
-<section style="margin-top:45px;">
-
-<div class="section-title">
-
-<h2>Engineering Model</h2>
-
-<p>
-The simulator combines several fundamental vehicle-dynamics equations.
-</p>
-
-</div>
-
-
-<div class="grid">
-
-
-<div class="card">
-
-<h3>Wheel Torque</h3>
-
-<div class="formula">
-T<sub>wheel</sub> =
-T<sub>engine</sub> × G × FD × η
-</div>
-
-<p>
-Engine torque is multiplied by the selected gear ratio and
-final-drive ratio before reaching the wheels.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Tractive Force</h3>
-
-<div class="formula">
-F<sub>tractive</sub> =
-T<sub>wheel</sub> / r
-</div>
-
-<p>
-Wheel torque is converted into longitudinal force at the tyre.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Aerodynamic Drag</h3>
-
-<div class="formula">
-F<sub>drag</sub> =
-½ρC<sub>d</sub>Av²
-</div>
-
-<p>
-Aerodynamic resistance increases approximately with the square
-of vehicle velocity.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Rolling Resistance</h3>
-
-<div class="formula">
-F<sub>rr</sub> =
-C<sub>rr</sub>mg
-</div>
-
-<p>
-Rolling resistance represents losses caused by tyre deformation
-and road interaction.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Grade Resistance</h3>
-
-<div class="formula">
-F<sub>grade</sub> =
-mg sin(θ)
-</div>
-
-<p>
-A positive road slope increases the force required to move the vehicle.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Vehicle Acceleration</h3>
-
-<div class="formula">
-a =
-(F<sub>tractive</sub>
-− F<sub>drag</sub>
-− F<sub>rr</sub>
-− F<sub>grade</sub>) / m
-</div>
-
-<p>
-The net longitudinal force determines the vehicle acceleration.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section style="margin-top:45px;">
-
-<div class="section-title">
-
-<h2>What the Simulator Considers</h2>
-
-</div>
-
-<div class="info-grid">
-
-<div class="info-box">
-<strong>Engine</strong>
-Torque and power limits are considered when calculating wheel force.
-</div>
-
-<div class="info-box">
-<strong>Transmission</strong>
-Different gear ratios determine the mechanical advantage at the wheels.
-</div>
-
-<div class="info-box">
-<strong>Tyres</strong>
-The tyre-road friction coefficient limits the maximum usable traction force.
-</div>
-
-<div class="info-box">
-<strong>Aerodynamics</strong>
-Drag increases strongly as vehicle speed increases.
-</div>
-
-<div class="info-box">
-<strong>Road</strong>
-Rolling resistance and road slope affect the required driving force.
-</div>
-
-<div class="info-box">
-<strong>Numerical Simulation</strong>
-Vehicle speed is calculated step-by-step using a time-domain numerical model.
-</div>
-
-</div>
-
-</section>
-
+    </section>
 
 </main>
 
 
 <footer>
-
-<h3>MECH-X</h3>
-
-<p>
-Interactive Mechatronics Engineering Laboratory
-</p>
-
-<p style="margin-top:8px;">
-Automotive Vehicle Dynamics Simulation
-</p>
-
+    <strong>MECH-X</strong> — Interactive Mechatronics Engineering Laboratory
 </footer>
 
 
 <script>
 
-function value(id) {
+/* ==========================================
+   DC MOTOR SIMULATION
+   ========================================== */
+
+function getValue(id){
     return parseFloat(document.getElementById(id).value);
 }
 
 
-function engineTorqueAtRPM(rpm, peakTorque, maxRPM, maxPowerKW) {
-
-    if (rpm <= 1000) {
-        return peakTorque * 0.75;
-    }
-
-    if (rpm <= 2500) {
-
-        const ratio =
-            (rpm - 1000) / 1500;
-
-        return peakTorque *
-            (0.75 + 0.25 * ratio);
-    }
-
-    if (rpm <= 4000) {
-
-        return peakTorque;
-    }
-
-    const powerLimitedTorque =
-        (maxPowerKW * 1000 * 60) /
-        (2 * Math.PI * rpm);
-
-    return Math.min(
-        peakTorque,
-        powerLimitedTorque
-    );
-}
-
-
-function runSimulation() {
-
-    const maxPowerKW = value("power");
-    const peakTorque = value("torque");
-    const maxRPM = value("maxRPM");
-
-    const mass = value("mass");
-    const wheelRadius = value("wheelRadius");
-
-    const efficiency =
-        value("efficiency") / 100;
-
-    const gears = [
-        value("gear1"),
-        value("gear2"),
-        value("gear3"),
-        value("gear4"),
-        value("gear5")
-    ];
-
-    const finalDrive =
-        value("finalDrive");
-
-    const cd = value("cd");
-    const area = value("area");
-    const rho = value("rho");
-
-    const crr = value("crr");
-    const slopePercent = value("slope");
-    const mu = value("mu");
-
-    const g = 9.81;
-
-    const dt = 0.02;
-    const maxTime = 40;
-
-    let time = 0;
-    let speed = 0;
-
-    let zero100 = null;
-
-    let peakAcceleration = 0;
-
-    let topSpeed = 0;
-
-    let currentGear = 1;
-
-    const times = [];
-    const speeds = [];
-    const rpms = [];
-
-    let lastGear = 1;
-
-    while (time <= maxTime) {
-
-        const speedMS =
-            speed / 3.6;
-
-
-        /*
-        -----------------------------------
-        GEAR SELECTION
-        -----------------------------------
-        */
-
-        let wheelRPM =
-            (speedMS /
-            (2 * Math.PI * wheelRadius)) * 60;
-
-
-        let calculatedGear =
-            currentGear;
-
-
-        if (currentGear < 5) {
-
-            const rpm =
-                wheelRPM *
-                gears[currentGear - 1] *
-                finalDrive;
-
-            if (rpm > maxRPM * 0.92) {
-
-                calculatedGear =
-                    currentGear + 1;
-            }
-        }
-
-
-        if (currentGear > 1) {
-
-            const rpm =
-                wheelRPM *
-                gears[currentGear - 1] *
-                finalDrive;
-
-            if (rpm < maxRPM * 0.48) {
-
-                calculatedGear =
-                    currentGear - 1;
-            }
-        }
-
-
-        currentGear =
-            Math.max(
-                1,
-                Math.min(
-                    5,
-                    calculatedGear
-                )
-            );
-
-
-        /*
-        -----------------------------------
-        ENGINE RPM
-        -----------------------------------
-        */
-
-        const gearRatio =
-            gears[currentGear - 1];
-
-
-        let engineRPM =
-            wheelRPM *
-            gearRatio *
-            finalDrive;
-
-
-        if (speed < 1) {
-            engineRPM = 1000;
-        }
-
-
-        /*
-        -----------------------------------
-        ENGINE TORQUE
-        -----------------------------------
-        */
-
-        const engineTorque =
-            engineTorqueAtRPM(
-                engineRPM,
-                peakTorque,
-                maxRPM,
-                maxPowerKW
-            );
-
-
-        /*
-        -----------------------------------
-        WHEEL TORQUE
-        -----------------------------------
-        */
-
-        const wheelTorque =
-            engineTorque *
-            gearRatio *
-            finalDrive *
-            efficiency;
-
-
-        /*
-        -----------------------------------
-        TRACTIVE FORCE
-        -----------------------------------
-        */
-
-        let tractiveForce =
-            wheelTorque /
-            wheelRadius;
-
-
-        /*
-        -----------------------------------
-        TYRE TRACTION LIMIT
-        -----------------------------------
-        */
-
-        const tractionLimit =
-            mu *
-            mass *
-            g;
-
-
-        tractiveForce =
-            Math.min(
-                tractiveForce,
-                tractionLimit
-            );
-
-
-        /*
-        -----------------------------------
-        AERODYNAMIC DRAG
-        -----------------------------------
-        */
-
-        const dragForce =
-            0.5 *
-            rho *
-            cd *
-            area *
-            speedMS *
-            speedMS;
-
-
-        /*
-        -----------------------------------
-        ROLLING RESISTANCE
-        -----------------------------------
-        */
-
-        const rollingForce =
-            crr *
-            mass *
-            g;
-
-
-        /*
-        -----------------------------------
-        ROAD SLOPE
-        -----------------------------------
-        */
-
-        const slopeAngle =
-            Math.atan(
-                slopePercent / 100
-            );
-
-
-        const gradeForce =
-            mass *
-            g *
-            Math.sin(
-                slopeAngle
-            );
-
-
-        /*
-        -----------------------------------
-        NET FORCE
-        -----------------------------------
-        */
-
-        let netForce =
-            tractiveForce -
-            dragForce -
-            rollingForce -
-            gradeForce;
-
-
-        /*
-        -----------------------------------
-        ACCELERATION
-        -----------------------------------
-        */
-
-        let acceleration =
-            netForce /
-            mass;
-
-
-        if (
-            speed <= 0 &&
-            acceleration < 0
-        ) {
-            acceleration = 0;
-        }
-
-
-        /*
-        -----------------------------------
-        UPDATE VEHICLE SPEED
-        -----------------------------------
-        */
-
-        speed +=
-            acceleration *
-            dt *
-            3.6;
-
-
-        if (speed < 0) {
-            speed = 0;
-        }
-
-
-        /*
-        -----------------------------------
-        STORE DATA
-        -----------------------------------
-        */
-
-        times.push(time);
-        speeds.push(speed);
-        rpms.push(engineRPM);
-
-
-        /*
-        -----------------------------------
-        PERFORMANCE METRICS
-        -----------------------------------
-        */
-
-        if (
-            zero100 === null &&
-            speed >= 100
-        ) {
-
-            zero100 = time;
-        }
-
-
-        if (speed > topSpeed) {
-            topSpeed = speed;
-        }
-
-
-        if (
-            acceleration >
-            peakAcceleration
-        ) {
-
-            peakAcceleration =
-                acceleration;
-        }
-
-
-        lastGear =
-            currentGear;
-
-
-        /*
-        -----------------------------------
-        STOP CONDITION
-        -----------------------------------
-        */
-
-        if (
-            time > 8 &&
-            Math.abs(acceleration) < 0.003 &&
-            speed > 20
-        ) {
-
-            break;
-        }
-
-
-        time += dt;
-    }
-
-
-    /*
-    -----------------------------------
-    OUTPUTS
-    -----------------------------------
-    */
-
-    const powerWeight =
-        maxPowerKW /
-        (mass / 1000);
-
-
-    const firstWheelTorque =
-        peakTorque *
-        gears[0] *
-        finalDrive *
-        efficiency;
-
-
-    document.getElementById(
-        "zero100"
-    ).textContent =
-        zero100 !== null
-        ? zero100.toFixed(2) + " s"
-        : "> 40 s";
-
-
-    document.getElementById(
-        "topSpeed"
-    ).textContent =
-        topSpeed.toFixed(0) +
-        " km/h";
-
-
-    document.getElementById(
-        "powerWeight"
-    ).textContent =
-        powerWeight.toFixed(1) +
-        " kW/t";
-
-
-    document.getElementById(
-        "wheelTorque"
-    ).textContent =
-        firstWheelTorque.toFixed(0) +
-        " N·m";
-
-
-    document.getElementById(
-        "peakAccel"
-    ).textContent =
-        peakAcceleration.toFixed(2) +
-        " m/s²";
-
-
-    document.getElementById(
-        "finalGear"
-    ).textContent =
-        lastGear;
-
-
-    document.getElementById(
-        "status"
-    ).textContent =
-        "Simulation complete. Estimated top speed: " +
-        topSpeed.toFixed(0) +
-        " km/h. Peak acceleration: " +
-        peakAcceleration.toFixed(2) +
-        " m/s².";
-
-
-    drawSpeedGraph(
-        times,
-        speeds
-    );
-
-
-    drawRPMGraph(
-        speeds,
-        rpms
-    );
-}
-
-
-/*
-========================================
-SPEED GRAPH
-========================================
-*/
-
-function drawSpeedGraph(
-    times,
-    speeds
-) {
-
-    const canvas =
-        document.getElementById(
-            "speedGraph"
-        );
-
-    const ctx =
-        canvas.getContext("2d");
-
-    const width =
-        canvas.width;
-
-    const height =
-        canvas.height;
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    if (times.length === 0) {
+function runSimulation(){
+
+    const V = getValue("voltage");
+    const R = getValue("resistance");
+    const Ke = getValue("ke");
+    const Kt = getValue("kt");
+    const Tload = getValue("load");
+    const J = getValue("inertia");
+    const b = getValue("friction");
+    const simTime = getValue("simTime");
+
+    if(
+        !Number.isFinite(V) ||
+        !Number.isFinite(R) ||
+        !Number.isFinite(Ke) ||
+        !Number.isFinite(Kt) ||
+        !Number.isFinite(Tload) ||
+        !Number.isFinite(J) ||
+        !Number.isFinite(b) ||
+        !Number.isFinite(simTime)
+    ){
+        alert("Please enter valid numerical values.");
         return;
     }
 
+    if(R <= 0 || J <= 0 || Ke <= 0 || Kt <= 0){
+        alert("Resistance, inertia, Ke and Kt must be greater than zero.");
+        return;
+    }
 
-    const pad = 55;
+    const dt = 0.01;
+
+    let omega = 0;
+
+    const time = [];
+    const speed = [];
+    const current = [];
+    const torque = [];
+
+    for(
+        let t = 0;
+        t <= simTime;
+        t += dt
+    ){
+
+        const backEMF = Ke * omega;
+
+        let I = (V - backEMF) / R;
+
+        /* Prevent unrealistic negative current */
+        if(I < 0){
+            I = 0;
+        }
+
+        const motorTorque = Kt * I;
+
+        const acceleration =
+            (
+                motorTorque -
+                Tload -
+                b * omega
+            ) / J;
+
+        omega += acceleration * dt;
+
+        if(omega < 0){
+            omega = 0;
+        }
+
+        time.push(t);
+        speed.push(omega * 60 / (2 * Math.PI));
+        current.push(I);
+        torque.push(motorTorque);
+    }
+
+
+    const lastSpeed = speed[speed.length - 1];
+    const lastCurrent = current[current.length - 1];
+    const lastTorque = torque[torque.length - 1];
+
+    const omegaFinal =
+        lastSpeed * 2 * Math.PI / 60;
+
+    const power =
+        lastTorque * omegaFinal;
+
+
+    document.getElementById("finalSpeed").textContent =
+        lastSpeed.toFixed(1) + " rpm";
+
+    document.getElementById("finalCurrent").textContent =
+        lastCurrent.toFixed(2) + " A";
+
+    document.getElementById("finalTorque").textContent =
+        lastTorque.toFixed(2) + " N·m";
+
+    document.getElementById("finalPower").textContent =
+        power.toFixed(1) + " W";
+
+
+    drawGraph(time, speed);
+}
+
+
+/* ==========================================
+   GRAPH
+   ========================================== */
+
+function drawGraph(time, speed){
+
+    const canvas =
+        document.getElementById("speedCanvas");
+
+    const ctx = canvas.getContext("2d");
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    const dpr =
+        window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    const width = rect.width;
+    const height = rect.height;
+
+    ctx.clearRect(0,0,width,height);
+
+
+    const margin = {
+        left:55,
+        right:20,
+        top:25,
+        bottom:45
+    };
 
     const graphWidth =
-        width - pad * 2;
+        width - margin.left - margin.right;
 
     const graphHeight =
-        height - pad * 2;
+        height - margin.top - margin.bottom;
 
+
+    const maxSpeed =
+        Math.max(...speed,1);
 
     const maxTime =
-        Math.max(...times);
+        Math.max(...time,1);
 
 
-    const maxSpeed =
-        Math.max(
-            ...speeds,
-            100
-        );
+    /* Grid */
 
-
-    /*
-    GRID
-    */
-
-    ctx.strokeStyle =
-        "#dbe7f4";
-
+    ctx.strokeStyle = "#e4ebf4";
     ctx.lineWidth = 1;
 
-
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
+    for(let i=0;i<=5;i++){
 
         const y =
-            height -
-            pad -
-            (i / 5) *
-            graphHeight;
-
+            margin.top +
+            graphHeight -
+            (i/5)*graphHeight;
 
         ctx.beginPath();
-
-        ctx.moveTo(
-            pad,
-            y
-        );
-
-        ctx.lineTo(
-            width - pad,
-            y
-        );
-
+        ctx.moveTo(margin.left,y);
+        ctx.lineTo(width-margin.right,y);
         ctx.stroke();
 
+        ctx.fillStyle = "#65758c";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "right";
 
-        ctx.fillStyle =
-            "#60758a";
-
-        ctx.font =
-            "12px Arial";
+        const value =
+            (maxSpeed*i/5).toFixed(0);
 
         ctx.fillText(
-            (
-                i / 5 *
-                maxSpeed
-            ).toFixed(0),
-            10,
-            y + 4
+            value,
+            margin.left-8,
+            y+4
         );
     }
 
 
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
+    for(let i=0;i<=5;i++){
 
         const x =
-            pad +
-            (i / 5) *
-            graphWidth;
-
+            margin.left +
+            (i/5)*graphWidth;
 
         ctx.beginPath();
-
-        ctx.moveTo(
-            x,
-            pad
-        );
-
+        ctx.moveTo(x,margin.top);
         ctx.lineTo(
             x,
-            height - pad
+            height-margin.bottom
         );
-
         ctx.stroke();
 
+        ctx.fillStyle = "#65758c";
+        ctx.font = "12px Arial";
+        ctx.textAlign = "center";
 
-        ctx.fillStyle =
-            "#60758a";
+        const value =
+            (maxTime*i/5).toFixed(1);
 
         ctx.fillText(
-            (
-                i / 5 *
-                maxTime
-            ).toFixed(0) + "s",
-            x - 10,
-            height - 25
+            value,
+            x,
+            height-margin.bottom+22
         );
     }
 
 
-    /*
-    AXES
-    */
+    /* Axes */
 
-    ctx.strokeStyle =
-        "#17324d";
-
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "#8da0b7";
+    ctx.lineWidth = 1.5;
 
     ctx.beginPath();
 
     ctx.moveTo(
-        pad,
-        pad
+        margin.left,
+        margin.top
     );
 
     ctx.lineTo(
-        pad,
-        height - pad
+        margin.left,
+        height-margin.bottom
     );
 
     ctx.lineTo(
-        width - pad,
-        height - pad
+        width-margin.right,
+        height-margin.bottom
     );
 
     ctx.stroke();
 
 
-    /*
-    CURVE
-    */
+    /* Curve */
 
-    ctx.strokeStyle =
-        "#1261d6";
-
+    ctx.strokeStyle = "#1261d6";
     ctx.lineWidth = 3;
 
     ctx.beginPath();
 
-
-    for (
-        let i = 0;
-        i < times.length;
-        i++
-    ) {
+    for(let i=0;i<time.length;i++){
 
         const x =
-            pad +
-            (
-                times[i] /
-                maxTime
-            ) *
-            graphWidth;
-
+            margin.left +
+            (time[i]/maxTime)*graphWidth;
 
         const y =
-            height -
-            pad -
-            (
-                speeds[i] /
-                maxSpeed
-            ) *
-            graphHeight;
+            margin.top +
+            graphHeight -
+            (speed[i]/maxSpeed)*graphHeight;
 
-
-        if (i === 0) {
+        if(i === 0){
             ctx.moveTo(x,y);
-        }
-        else {
+        }else{
             ctx.lineTo(x,y);
         }
     }
 
-
     ctx.stroke();
 
 
-    ctx.fillStyle =
-        "#17324d";
+    /* Labels */
 
-    ctx.font =
-        "bold 13px Arial";
+    ctx.fillStyle = "#34465f";
+    ctx.font = "bold 13px Arial";
 
-    ctx.fillText(
-        "Vehicle Speed (km/h)",
-        pad,
-        25
-    );
+    ctx.textAlign = "center";
 
     ctx.fillText(
-        "Time (seconds)",
-        width - 145,
-        height - 10
+        "Time (s)",
+        margin.left + graphWidth/2,
+        height-8
     );
+
+    ctx.save();
+
+    ctx.translate(
+        15,
+        margin.top + graphHeight/2
+    );
+
+    ctx.rotate(-Math.PI/2);
+
+    ctx.fillText(
+        "Speed (rpm)",
+        0,
+        0
+    );
+
+    ctx.restore();
 }
 
 
-/*
-========================================
-RPM GRAPH
-========================================
-*/
-
-function drawRPMGraph(
-    speeds,
-    rpms
-) {
-
-    const canvas =
-        document.getElementById(
-            "rpmGraph"
-        );
-
-    const ctx =
-        canvas.getContext("2d");
-
-    const width =
-        canvas.width;
-
-    const height =
-        canvas.height;
-
-    ctx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    if (speeds.length === 0) {
-        return;
-    }
-
-
-    const pad = 55;
-
-    const graphWidth =
-        width - pad * 2;
-
-    const graphHeight =
-        height - pad * 2;
-
-
-    const maxSpeed =
-        Math.max(
-            ...speeds,
-            100
-        );
-
-
-    const maxRPM =
-        Math.max(
-            ...rpms,
-            6500
-        );
-
-
-    /*
-    GRID
-    */
-
-    ctx.strokeStyle =
-        "#dbe7f4";
-
-    ctx.lineWidth = 1;
-
-
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
-
-        const y =
-            height -
-            pad -
-            (i / 5) *
-            graphHeight;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            pad,
-            y
-        );
-
-        ctx.lineTo(
-            width - pad,
-            y
-        );
-
-        ctx.stroke();
-
-
-        ctx.fillStyle =
-            "#60758a";
-
-        ctx.font =
-            "12px Arial";
-
-        ctx.fillText(
-            (
-                i / 5 *
-                maxRPM
-            ).toFixed(0),
-            8,
-            y + 4
-        );
-    }
-
-
-    for (
-        let i = 0;
-        i <= 5;
-        i++
-    ) {
-
-        const x =
-            pad +
-            (i / 5) *
-            graphWidth;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            x,
-            pad
-        );
-
-        ctx.lineTo(
-            x,
-            height - pad
-        );
-
-        ctx.stroke();
-
-
-        ctx.fillStyle =
-            "#60758a";
-
-        ctx.fillText(
-            (
-                i / 5 *
-                maxSpeed
-            ).toFixed(0),
-            x - 12,
-            height - 25
-        );
-    }
-
-
-    /*
-    AXES
-    */
-
-    ctx.strokeStyle =
-        "#17324d";
-
-    ctx.lineWidth = 2;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        pad,
-        pad
-    );
-
-    ctx.lineTo(
-        pad,
-        height - pad
-    );
-
-    ctx.lineTo(
-        width - pad,
-        height - pad
-    );
-
-    ctx.stroke();
-
-
-    /*
-    RPM CURVE
-    */
-
-    ctx.strokeStyle =
-        "#1261d6";
-
-    ctx.lineWidth = 3;
-
-    ctx.beginPath();
-
-
-    for (
-        let i = 0;
-        i < speeds.length;
-        i++
-    ) {
-
-        const x =
-            pad +
-            (
-                speeds[i] /
-                maxSpeed
-            ) *
-            graphWidth;
-
-
-        const y =
-            height -
-            pad -
-            (
-                rpms[i] /
-                maxRPM
-            ) *
-            graphHeight;
-
-
-        if (i === 0) {
-            ctx.moveTo(x,y);
-        }
-        else {
-            ctx.lineTo(x,y);
-        }
-    }
-
-
-    ctx.stroke();
-
-
-    ctx.fillStyle =
-        "#17324d";
-
-    ctx.font =
-        "bold 13px Arial";
-
-    ctx.fillText(
-        "Engine RPM",
-        pad,
-        25
-    );
-
-    ctx.fillText(
-        "Vehicle Speed (km/h)",
-        width - 175,
-        height - 10
-    );
+/* ==========================================
+   RESET
+   ========================================== */
+
+function resetSimulation(){
+
+    document.getElementById("voltage").value = 24;
+    document.getElementById("resistance").value = 2;
+    document.getElementById("ke").value = 0.08;
+    document.getElementById("kt").value = 0.08;
+    document.getElementById("load").value = 0.2;
+    document.getElementById("inertia").value = 0.01;
+    document.getElementById("friction").value = 0.001;
+    document.getElementById("simTime").value = 5;
+
+    runSimulation();
 }
 
 
-/*
-========================================
-RESET
-========================================
-*/
+/* ==========================================
+   INITIALIZE
+   ========================================== */
 
-function resetSimulation() {
+window.addEventListener(
+    "load",
+    runSimulation
+);
 
-    document.getElementById("power").value = 110;
-    document.getElementById("torque").value = 200;
-    document.getElementById("maxRPM").value = 6500;
-
-    document.getElementById("mass").value = 1400;
-    document.getElementById("wheelRadius").value = .31;
-    document.getElementById("efficiency").value = 85;
-
-    document.getElementById("gear1").value = 3.50;
-    document.getElementById("gear2").value = 2.10;
-    document.getElementById("gear3").value = 1.40;
-    document.getElementById("gear4").value = 1.00;
-    document.getElementById("gear5").value = .80;
-
-    document.getElementById("finalDrive").value = 3.90;
-
-    document.getElementById("cd").value = .30;
-    document.getElementById("area").value = 2.2;
-    document.getElementById("rho").value = 1.225;
-
-    document.getElementById("crr").value = .012;
-    document.getElementById("slope").value = 0;
-    document.getElementById("mu").value = .90;
-
-    document.getElementById("zero100").textContent = "—";
-    document.getElementById("topSpeed").textContent = "—";
-    document.getElementById("powerWeight").textContent = "—";
-    document.getElementById("wheelTorque").textContent = "—";
-    document.getElementById("peakAccel").textContent = "—";
-    document.getElementById("finalGear").textContent = "—";
-
-    document.getElementById("status").textContent =
-        "Run the simulation to calculate vehicle performance.";
-
-    clearCanvas("speedGraph");
-    clearCanvas("rpmGraph");
-}
-
-
-function clearCanvas(id) {
-
-    const canvas =
-        document.getElementById(id);
-
-    const ctx =
-        canvas.getContext("2d");
-
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-}
-
-
-runSimulation();
+window.addEventListener(
+    "resize",
+    runSimulation
+);
 
 </script>
 
