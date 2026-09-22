@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+<a href="index.html" class="btn btn-secondary">
+    ← Back to Home
+</a>
 
 :root {
     --blue: #1261d6;
