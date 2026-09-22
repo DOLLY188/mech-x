@@ -1,379 +1,953 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Calculators | MECH-X</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Calculators | MECH-X</title>
+
+<style>
+:root{
+    --blue:#1261d6;
+    --blue-dark:#0b2d5c;
+    --blue-light:#eaf3ff;
+    --blue-soft:#f4f8ff;
+    --cyan:#16bde8;
+
+    --text:#16345f;
+    --muted:#607a9e;
+    --border:#dbe8f7;
+    --bg:#f7fbff;
+    --white:#ffffff;
+
+    --shadow:0 8px 28px rgba(18,97,214,.07);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    height:62px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:900;
+    color:var(--blue-dark);
+    letter-spacing:-1px;
+}
+
+.brand-text{
+    font-size:13px;
+    color:var(--blue-dark);
+    font-weight:600;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.home-link{
+    color:var(--blue-dark);
+    font-weight:600;
+    font-size:14px;
+}
+
+.back-home{
+    background:var(--blue);
+    color:white;
+    padding:10px 18px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:700;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 62px);
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    width:226px;
+    flex-shrink:0;
+    background:white;
+    border-right:1px solid var(--border);
+    padding:18px 12px;
+}
+
+.side-link{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:13px 14px;
+    margin-bottom:5px;
+    border-radius:7px;
+    color:#173d70;
+    font-size:14px;
+    font-weight:600;
+}
+
+.side-link:hover{
+    background:var(--blue-light);
+    color:var(--blue);
+}
+
+.side-link.active{
+    background:var(--blue);
+    color:white;
+}
+
+.icon{
+    width:24px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* sidebar promo */
+
+.sidebar-box{
+    margin:34px 7px 0;
+    padding:18px 14px;
+    min-height:128px;
+    border-radius:7px;
+    background:linear-gradient(
+        135deg,
+        #edf6ff,
+        #dcecff
+    );
+}
+
+.sidebar-box strong{
+    color:var(--blue);
+    display:block;
+    margin-bottom:7px;
+}
+
+.sidebar-box span{
+    font-size:11px;
+    color:#6685ae;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    flex:1;
+    min-width:0;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:180px;
+    padding:28px 32px;
+    border-bottom:1px solid var(--border);
+    background:
+        radial-gradient(
+            circle at 90% 40%,
+            rgba(73,153,255,.13),
+            transparent 30%
+        ),
+        linear-gradient(
+            120deg,
+            #f8fcff,
+            #edf6ff
+        );
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:6px 12px;
+    background:#e2efff;
+    color:var(--blue);
+    border-radius:7px;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.5px;
+    margin-bottom:10px;
+}
+
+.hero h1{
+    font-size:42px;
+    line-height:1.1;
+    color:var(--blue-dark);
+    margin-bottom:8px;
+}
+
+.hero p{
+    max-width:700px;
+    color:#5879a7;
+    font-size:16px;
+    line-height:1.6;
+}
+
+/* calculator illustration */
+
+.calculator-illustration{
+    position:absolute;
+    right:70px;
+    top:20px;
+    width:125px;
+    height:145px;
+    border:7px solid #8bbcf4;
+    border-radius:15px;
+    opacity:.65;
+}
+
+.calculator-screen{
+    width:75px;
+    height:20px;
+    background:#9cc8f7;
+    margin:17px auto 10px;
+    border-radius:4px;
+}
+
+.calculator-buttons{
+    display:grid;
+    grid-template-columns:repeat(2,25px);
+    gap:6px;
+    justify-content:center;
+}
+
+.calculator-buttons span{
+    height:19px;
+    background:#b7d6f8;
+    border-radius:4px;
+}
+
+/* ================= CALCULATOR GRID ================= */
+
+.calculator-grid{
+    padding:24px 26px 35px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.calc-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:24px;
+    min-height:195px;
+    box-shadow:var(--shadow);
+    transition:.2s;
+}
+
+.calc-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 32px rgba(18,97,214,.11);
+}
+
+.calc-top{
+    display:flex;
+    gap:17px;
+    align-items:flex-start;
+}
+
+.calc-icon{
+    width:62px;
+    height:62px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:#e9f4ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+}
+
+.calc-card h2{
+    color:#0c3978;
+    font-size:18px;
+    margin:9px 0 10px;
+}
+
+.calc-card p{
+    color:#5475a3;
+    font-size:14px;
+    line-height:1.55;
+    min-height:45px;
+}
+
+.open-btn{
+    display:inline-block;
+    margin-top:18px;
+    background:var(--blue);
+    color:white;
+    border-radius:7px;
+    padding:10px 17px;
+    font-size:13px;
+    font-weight:700;
+}
+
+.open-btn:hover{
+    background:#0d50b8;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    border-top:1px solid var(--border);
+    background:white;
+    padding:18px 27px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    color:#7190b7;
+    font-size:11px;
+}
+
+.footer strong{
+    color:#17437d;
+}
+
+.footer-links{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.footer-links a:hover{
+    color:var(--blue);
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:1000px){
+
+    .calculator-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .sidebar{
+        width:200px;
+    }
+
+    .calculator-illustration{
+        right:25px;
+    }
+}
+
+@media(max-width:720px){
+
+    .topbar{
+        padding:0 16px;
+    }
+
+    .brand-text,
+    .home-link{
+        display:none;
+    }
+
+    .logo{
+        font-size:25px;
+    }
+
+    .back-home{
+        padding:9px 12px;
+    }
+
+    .sidebar{
+        width:100%;
+        border-right:none;
+        border-bottom:1px solid var(--border);
+        padding:8px;
+        display:flex;
+        overflow-x:auto;
+        gap:4px;
+    }
+
+    .layout{
+        display:block;
+    }
+
+    .side-link{
+        white-space:nowrap;
+        margin:0;
+        padding:10px 13px;
+    }
+
+    .sidebar-box{
+        display:none;
+    }
+
+    .hero{
+        padding:30px 20px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .calculator-illustration{
+        display:none;
+    }
+
+    .calculator-grid{
+        padding:18px;
+        grid-template-columns:1fr;
+    }
+
+    .footer{
+        flex-direction:column;
+    }
+}
+
+@media(max-width:420px){
+
+    .side-link{
+        font-size:12px;
+        padding:9px 11px;
+    }
+
+    .icon{
+        font-size:15px;
+    }
+
+    .calc-card{
+        padding:20px;
+    }
+}
+</style>
 </head>
 
 <body>
 
+<!-- ================= TOP HEADER ================= -->
+
 <header class="topbar">
-    <a href="index.html" class="logo">MECH-X</a>
+
+    <div class="brand">
+
+        <a href="index.html" class="logo">
+            MECH-X
+        </a>
+
+        <span class="brand-text">
+            Interactive Mechatronics Engineering Laboratory
+        </span>
+
+    </div>
 
     <div class="top-actions">
-        <a href="knowledge.html" class="btn secondary">Knowledge Base</a>
-        <a href="reports.html" class="btn primary">Reports</a>
+
+        <a href="index.html" class="home-link">
+            ⌂ &nbsp; Home
+        </a>
+
+        <a href="index.html" class="back-home">
+            ← &nbsp; Back to Home
+        </a>
+
     </div>
+
 </header>
+
 
 <div class="layout">
 
-<aside class="sidebar">
-    <div class="sidebar-title">ENGINEERING LAB</div>
+<!-- ================= SIDEBAR ================= -->
 
-    <nav>
-        <a href="index.html">⌂ Home</a>
-        <a href="calculators.html" class="active">▣ Calculators</a>
-        <a href="motor.html">⚙ Motor Lab</a>
-        <a href="control.html">◉ Control Lab</a>
-        <a href="robotics.html">🦾 Robotics Lab</a>
-        <a href="automotive.html">🚗 Automotive Lab</a>
-        <a href="mechanical.html">⚒ Mechanical Lab</a>
-        <a href="electrical.html">⚡ Electrical & Electronics</a>
-        <a href="knowledge.html">📘 Knowledge Base</a>
-        <a href="reports.html">📄 Reports & Export</a>
-    </nav>
+<aside class="sidebar">
+
+    <a href="index.html" class="side-link">
+        <span class="icon">⌂</span>
+        Home
+    </a>
+
+    <a href="calculators.html" class="side-link active">
+        <span class="icon">▣</span>
+        Calculators
+    </a>
+
+    <a href="motor.html" class="side-link">
+        <span class="icon">▤</span>
+        Motor Lab
+    </a>
+
+    <a href="control.html" class="side-link">
+        <span class="icon">⌁</span>
+        Control Lab
+    </a>
+
+    <a href="robotics.html" class="side-link">
+        <span class="icon">♙</span>
+        Robotics Lab
+    </a>
+
+    <a href="automotive.html" class="side-link">
+        <span class="icon">▱</span>
+        Automotive Lab
+    </a>
+
+    <a href="mechanical.html" class="side-link">
+        <span class="icon">⚙</span>
+        Mechanical Lab
+    </a>
+
+    <a href="electrical.html" class="side-link">
+        <span class="icon">▦</span>
+        Electrical & Electronics Lab
+    </a>
+
+    <a href="knowledge.html" class="side-link">
+        <span class="icon">▤</span>
+        Knowledge Base
+    </a>
+
+    <a href="reports.html" class="side-link">
+        <span class="icon">▧</span>
+        Reports & Export
+    </a>
+
+
+    <div class="sidebar-box">
+
+        <strong>MECH-X</strong>
+
+        <span>
+            Learn &nbsp;•&nbsp; Simulate &nbsp;•&nbsp; Engineer
+        </span>
+
+    </div>
+
 </aside>
 
-<main class="main-content">
 
-<section class="page-hero">
-    <span class="eyebrow">ENGINEERING CALCULATORS</span>
-    <h1>Fast Engineering Calculations</h1>
-    <p>
-        Calculate common mechanical, electrical and engineering quantities
-        directly in your browser.
-    </p>
-</section>
+<!-- ================= MAIN CONTENT ================= -->
 
-<section class="section">
+<main class="content">
 
-<div class="section-heading">
-    <div>
-        <h2>Mechanical Calculators</h2>
-        <p>Common formulas used in mechanical and mechatronics engineering.</p>
-    </div>
-</div>
+    <!-- HERO -->
 
-<div class="card-grid">
+    <section class="hero">
 
-<div class="card">
-    <h3>Torque</h3>
-    <p class="formula">T = F × r</p>
-
-    <label>Force (N)</label>
-    <input id="torqueForce" type="number" value="100">
-
-    <label>Radius (m)</label>
-    <input id="torqueRadius" type="number" value="0.5">
-
-    <button class="btn primary" onclick="calculateTorque()">Calculate</button>
-    <div class="result" id="torqueResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Mechanical Power</h3>
-    <p class="formula">P = Tω</p>
-
-    <label>Torque (N·m)</label>
-    <input id="powerTorque" type="number" value="20">
-
-    <label>Speed (RPM)</label>
-    <input id="powerRPM" type="number" value="1500">
-
-    <button class="btn primary" onclick="calculatePower()">Calculate</button>
-    <div class="result" id="powerResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Gear Ratio</h3>
-    <p class="formula">GR = N₂ / N₁</p>
-
-    <label>Driven Gear Teeth</label>
-    <input id="drivenTeeth" type="number" value="60">
-
-    <label>Driver Gear Teeth</label>
-    <input id="driverTeeth" type="number" value="20">
-
-    <button class="btn primary" onclick="calculateGear()">Calculate</button>
-    <div class="result" id="gearResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Pressure</h3>
-    <p class="formula">P = F / A</p>
-
-    <label>Force (N)</label>
-    <input id="pressureForce" type="number" value="1000">
-
-    <label>Area (m²)</label>
-    <input id="pressureArea" type="number" value="0.1">
-
-    <button class="btn primary" onclick="calculatePressure()">Calculate</button>
-    <div class="result" id="pressureResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Linear Speed</h3>
-    <p class="formula">v = πDN / 60</p>
-
-    <label>Diameter (m)</label>
-    <input id="speedDiameter" type="number" value="0.2">
-
-    <label>Speed (RPM)</label>
-    <input id="speedRPM" type="number" value="1200">
-
-    <button class="btn primary" onclick="calculateLinearSpeed()">Calculate</button>
-    <div class="result" id="speedResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Density</h3>
-    <p class="formula">ρ = m / V</p>
-
-    <label>Mass (kg)</label>
-    <input id="densityMass" type="number" value="10">
-
-    <label>Volume (m³)</label>
-    <input id="densityVolume" type="number" value="0.005">
-
-    <button class="btn primary" onclick="calculateDensity()">Calculate</button>
-    <div class="result" id="densityResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Normal Stress</h3>
-    <p class="formula">σ = F / A</p>
-
-    <label>Force (N)</label>
-    <input id="stressForce" type="number" value="5000">
-
-    <label>Area (mm²)</label>
-    <input id="stressArea" type="number" value="100">
-
-    <button class="btn primary" onclick="calculateStress()">Calculate</button>
-    <div class="result" id="stressResult">Result: —</div>
-</div>
-
-<div class="card">
-    <h3>Efficiency</h3>
-    <p class="formula">η = Output / Input × 100</p>
-
-    <label>Output Power (W)</label>
-    <input id="outputPower" type="number" value="800">
-
-    <label>Input Power (W)</label>
-    <input id="inputPower" type="number" value="1000">
-
-    <button class="btn primary" onclick="calculateEfficiency()">Calculate</button>
-    <div class="result" id="efficiencyResult">Result: —</div>
-</div>
-
-</div>
-</section>
-
-<section class="section">
-<div class="card">
-    <h2>Ohm's Law</h2>
-    <p class="formula">V = IR</p>
-
-    <div class="form-grid">
-
-        <div>
-            <label>Voltage (V)</label>
-            <input id="ohmVoltage" type="number" value="12">
+        <div class="hero-badge">
+            CALCULATORS
         </div>
 
-        <div>
-            <label>Current (A)</label>
-            <input id="ohmCurrent" type="number" value="2">
+        <h1>
+            Engineering Calculators
+        </h1>
+
+        <p>
+            Quick, accurate and easy-to-use engineering
+            calculators for mechanical, electrical, robotics
+            and mechatronics applications.
+        </p>
+
+
+        <div class="calculator-illustration">
+
+            <div class="calculator-screen"></div>
+
+            <div class="calculator-buttons">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
         </div>
 
+    </section>
+
+
+    <!-- CALCULATOR CARDS -->
+
+    <section class="calculator-grid">
+
+
+        <!-- MECHANICAL -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ⚙
+                </div>
+
+                <div>
+
+                    <h2>
+                        Mechanical Calculators
+                    </h2>
+
+                    <p>
+                        Stress, strain, beam deflection,
+                        shaft torsion, springs, gears and more.
+                    </p>
+
+                    <a href="mechanical.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- ELECTRICAL -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h2>
+                        Electrical Calculators
+                    </h2>
+
+                    <p>
+                        Circuit analysis, Ohm's law,
+                        power, motors, filters and components.
+                    </p>
+
+                    <a href="electrical.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- CONTROL -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ☷
+                </div>
+
+                <div>
+
+                    <h2>
+                        Control Systems Calculators
+                    </h2>
+
+                    <p>
+                        Transfer functions, PID tuning,
+                        stability and system response analysis.
+                    </p>
+
+                    <a href="control.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- ROBOTICS -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <h2>
+                        Robotics Calculators
+                    </h2>
+
+                    <p>
+                        Forward/inverse kinematics,
+                        workspace, payload and robot dynamics.
+                    </p>
+
+                    <a href="robotics.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- AUTOMOTIVE -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    🚗
+                </div>
+
+                <div>
+
+                    <h2>
+                        Automotive Calculators
+                    </h2>
+
+                    <p>
+                        Vehicle performance, fuel consumption,
+                        gear ratios and automotive calculations.
+                    </p>
+
+                    <a href="automotive.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- MOTOR -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ⚙
+                </div>
+
+                <div>
+
+                    <h2>
+                        Motor Calculators
+                    </h2>
+
+                    <p>
+                        DC, AC and stepper motor calculations,
+                        torque, speed and power.
+                    </p>
+
+                    <a href="motor.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- POWER -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    🔌
+                </div>
+
+                <div>
+
+                    <h2>
+                        Power & Energy
+                    </h2>
+
+                    <p>
+                        Power, energy, efficiency, batteries
+                        and renewable-energy calculations.
+                    </p>
+
+                    <a href="#" class="open-btn"
+                       onclick="comingSoon(event)">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- MATERIALS -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ◇
+                </div>
+
+                <div>
+
+                    <h2>
+                        Material Properties
+                    </h2>
+
+                    <p>
+                        Density, modulus, thermal properties
+                        and engineering material selection.
+                    </p>
+
+                    <a href="mechanical.html" class="open-btn">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <!-- UNIT CONVERTER -->
+
+        <article class="calc-card">
+
+            <div class="calc-top">
+
+                <div class="calc-icon">
+                    ⇄
+                </div>
+
+                <div>
+
+                    <h2>
+                        Unit Converters
+                    </h2>
+
+                    <p>
+                        Length, mass, force, pressure,
+                        temperature and engineering units.
+                    </p>
+
+                    <a href="#" class="open-btn"
+                       onclick="comingSoon(event)">
+                        Open Calculator &nbsp; →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
         <div>
-            <label>Resistance (Ω)</label>
-            <input id="ohmResistance" type="number" value="6">
+            <strong>MECH-X</strong>
+            &nbsp; | &nbsp;
+            Interactive Mechatronics Engineering Laboratory
         </div>
 
-    </div>
+        <div class="footer-links">
 
-    <button class="btn primary" onclick="calculateOhm()">Calculate</button>
+            <a href="index.html">Home</a>
+            <span>•</span>
 
-    <div class="result" id="ohmResult">
-        Enter two known values to calculate the third.
-    </div>
-</div>
-</section>
+            <a href="calculators.html">Calculators</a>
+            <span>•</span>
+
+            <a href="motor.html">Motor Lab</a>
+            <span>•</span>
+
+            <a href="control.html">Control Lab</a>
+            <span>•</span>
+
+            <a href="robotics.html">Robotics Lab</a>
+            <span>•</span>
+
+            <a href="automotive.html">Automotive Lab</a>
+            <span>•</span>
+
+            <a href="mechanical.html">Mechanical Lab</a>
+
+        </div>
+
+    </footer>
 
 </main>
+
 </div>
 
-<footer class="footer">
-    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
-</footer>
 
 <script>
-function value(id) {
-    return parseFloat(document.getElementById(id).value);
-}
 
-function show(id, text) {
-    document.getElementById(id).textContent = text;
-}
+function comingSoon(event){
 
-function calculateTorque() {
-    const F = value("torqueForce");
-    const r = value("torqueRadius");
+    event.preventDefault();
 
-    if (F < 0 || r < 0) {
-        show("torqueResult", "Enter valid positive values.");
-        return;
-    }
-
-    show("torqueResult", "Torque = " + (F * r).toFixed(3) + " N·m");
-}
-
-function calculatePower() {
-    const T = value("powerTorque");
-    const rpm = value("powerRPM");
-
-    if (T < 0 || rpm < 0) {
-        show("powerResult", "Enter valid positive values.");
-        return;
-    }
-
-    const omega = 2 * Math.PI * rpm / 60;
-    const P = T * omega;
-
-    show("powerResult", "Power = " + P.toFixed(2) + " W");
-}
-
-function calculateGear() {
-    const driven = value("drivenTeeth");
-    const driver = value("driverTeeth");
-
-    if (driver <= 0 || driven <= 0) {
-        show("gearResult", "Gear teeth must be greater than zero.");
-        return;
-    }
-
-    show("gearResult", "Gear Ratio = " + (driven / driver).toFixed(3) + ":1");
-}
-
-function calculatePressure() {
-    const F = value("pressureForce");
-    const A = value("pressureArea");
-
-    if (A <= 0) {
-        show("pressureResult", "Area must be greater than zero.");
-        return;
-    }
-
-    show("pressureResult", "Pressure = " + (F / A).toFixed(2) + " Pa");
-}
-
-function calculateLinearSpeed() {
-    const D = value("speedDiameter");
-    const rpm = value("speedRPM");
-
-    if (D < 0 || rpm < 0) {
-        show("speedResult", "Enter valid values.");
-        return;
-    }
-
-    const v = Math.PI * D * rpm / 60;
-
-    show("speedResult", "Linear Speed = " + v.toFixed(3) + " m/s");
-}
-
-function calculateDensity() {
-    const m = value("densityMass");
-    const V = value("densityVolume");
-
-    if (V <= 0) {
-        show("densityResult", "Volume must be greater than zero.");
-        return;
-    }
-
-    show("densityResult", "Density = " + (m / V).toFixed(2) + " kg/m³");
-}
-
-function calculateStress() {
-    const F = value("stressForce");
-    const A = value("stressArea");
-
-    if (A <= 0) {
-        show("stressResult", "Area must be greater than zero.");
-        return;
-    }
-
-    const stressMPa = F / A;
-
-    show("stressResult", "Normal Stress = " + stressMPa.toFixed(3) + " MPa");
-}
-
-function calculateEfficiency() {
-    const output = value("outputPower");
-    const input = value("inputPower");
-
-    if (input <= 0) {
-        show("efficiencyResult", "Input power must be greater than zero.");
-        return;
-    }
-
-    show("efficiencyResult", "Efficiency = " + ((output / input) * 100).toFixed(2) + " %");
-}
-
-function calculateOhm() {
-    let V = value("ohmVoltage");
-    let I = value("ohmCurrent");
-    let R = value("ohmResistance");
-
-    const known = [
-        !isNaN(V),
-        !isNaN(I),
-        !isNaN(R)
-    ].filter(Boolean).length;
-
-    if (known < 2) {
-        show("ohmResult", "Enter at least two values.");
-        return;
-    }
-
-    if (isNaN(V)) {
-        if (R <= 0) {
-            show("ohmResult", "Resistance must be greater than zero.");
-            return;
-        }
-
-        V = I * R;
-        document.getElementById("ohmVoltage").value = V.toFixed(3);
-    } else if (isNaN(I)) {
-        if (R <= 0) {
-            show("ohmResult", "Resistance must be greater than zero.");
-            return;
-        }
-
-        I = V / R;
-        document.getElementById("ohmCurrent").value = I.toFixed(3);
-    } else if (isNaN(R)) {
-        if (I === 0) {
-            show("ohmResult", "Current cannot be zero when calculating resistance.");
-            return;
-        }
-
-        R = V / I;
-        document.getElementById("ohmResistance").value = R.toFixed(3);
-    }
-
-    show(
-        "ohmResult",
-        "V = " + V.toFixed(3) +
-        " V | I = " + I.toFixed(3) +
-        " A | R = " + R.toFixed(3) + " Ω"
+    alert(
+        "This calculator module is coming soon to MECH-X."
     );
 }
+
 </script>
 
 </body>
