@@ -7,6 +7,7 @@
 <title>Mechanical Engineering Laboratory | MECH-X</title>
 
 <style>
+
 :root{
     --blue:#1261d6;
     --blue-dark:#0b2d5c;
@@ -50,22 +51,14 @@ select{
     font-family:inherit;
 }
 
-
-/* =====================================================
-   TOP HEADER
-===================================================== */
-
 .topbar{
     min-height:64px;
     background:white;
     border-bottom:1px solid var(--border);
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     padding:0 24px;
-
     position:sticky;
     top:0;
     z-index:100;
@@ -115,28 +108,16 @@ select{
     background:#0e50b7;
 }
 
-
-/* =====================================================
-   LAYOUT
-===================================================== */
-
 .layout{
     display:flex;
     min-height:calc(100vh - 64px);
 }
 
-
-/* =====================================================
-   SIDEBAR
-===================================================== */
-
 .sidebar{
     width:230px;
     flex-shrink:0;
-
     background:white;
     border-right:1px solid var(--border);
-
     padding:18px 12px;
 }
 
@@ -144,14 +125,10 @@ select{
     display:flex;
     align-items:center;
     gap:13px;
-
     padding:12px 13px;
     margin-bottom:5px;
-
     border-radius:8px;
-
     color:#173d70;
-
     font-size:14px;
     font-weight:700;
 }
@@ -175,14 +152,8 @@ select{
 .sidebar-box{
     margin:35px 7px 0;
     padding:18px 14px;
-
     border-radius:8px;
-
-    background:linear-gradient(
-        135deg,
-        #edf6ff,
-        #dcecff
-    );
+    background:linear-gradient(135deg,#edf6ff,#dcecff);
 }
 
 .sidebar-box strong{
@@ -196,24 +167,13 @@ select{
     font-size:11px;
 }
 
-
-/* =====================================================
-   MAIN CONTENT
-===================================================== */
-
 .content{
     flex:1;
     min-width:0;
 }
 
-
-/* =====================================================
-   HERO
-===================================================== */
-
 .hero{
     padding:35px 32px;
-
     border-bottom:1px solid var(--border);
 
     background:
@@ -231,106 +191,64 @@ select{
 
 .hero-badge{
     display:inline-block;
-
     padding:6px 12px;
-
     border-radius:7px;
-
     background:#e2efff;
-
     color:var(--blue);
-
     font-size:12px;
     font-weight:900;
     letter-spacing:1px;
-
     margin-bottom:12px;
 }
 
 .hero h1{
     color:var(--blue-dark);
-
     font-size:clamp(36px,5vw,55px);
-
     line-height:1.05;
-
     letter-spacing:-1.5px;
-
     margin-bottom:12px;
 }
 
 .hero p{
-    max-width:760px;
-
+    max-width:820px;
     color:#5879a7;
-
     font-size:16px;
-
     line-height:1.6;
 }
-
-
-/* =====================================================
-   LAB CONTENT
-===================================================== */
 
 .lab-content{
     padding:25px;
 }
 
-
-/* =====================================================
-   TOOL GRID
-===================================================== */
-
 .tool-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:22px;
 }
 
 .tool-card{
     background:white;
-
     border:1px solid var(--border);
-
     border-radius:10px;
-
     padding:25px;
-
     box-shadow:var(--shadow);
 }
 
 .tool-card h2{
     color:var(--blue-dark);
-
     font-size:21px;
-
     margin-bottom:6px;
 }
 
 .tool-description{
     color:var(--muted);
-
     font-size:13px;
-
     margin-bottom:20px;
 }
 
-
-/* =====================================================
-   INPUTS
-===================================================== */
-
 .input-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:14px;
 }
 
@@ -341,74 +259,48 @@ select{
 
 .input-group label{
     color:#466486;
-
     font-size:12px;
-
     font-weight:800;
-
     margin-bottom:6px;
 }
 
 .input-group input,
 .input-group select{
     width:100%;
-
     padding:11px 12px;
-
     border:1px solid #cad9ea;
-
     border-radius:7px;
-
     background:white;
-
     color:#17385f;
-
     font-size:14px;
-
     outline:none;
 }
 
 .input-group input:focus,
 .input-group select:focus{
     border-color:var(--blue);
-
-    box-shadow:
-        0 0 0 3px rgba(18,97,214,.09);
+    box-shadow:0 0 0 3px rgba(18,97,214,.09);
 }
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
 
 .button-row{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:10px;
-
     margin-top:19px;
 }
 
 .primary-btn,
 .secondary-btn{
     border:none;
-
     border-radius:7px;
-
     padding:11px 18px;
-
     font-size:13px;
-
     font-weight:800;
-
     cursor:pointer;
 }
 
 .primary-btn{
     background:var(--blue);
-
     color:white;
 }
 
@@ -418,9 +310,7 @@ select{
 
 .secondary-btn{
     background:var(--blue-light);
-
     color:var(--blue);
-
     border:1px solid #c9ddf7;
 }
 
@@ -428,207 +318,123 @@ select{
     background:#dcecff;
 }
 
-
-/* =====================================================
-   RESULT BOX
-===================================================== */
-
 .result-box{
     margin-top:20px;
-
     display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
+    grid-template-columns:repeat(2,minmax(0,1fr));
     gap:10px;
 }
 
 .result-item{
     background:var(--blue-soft);
-
     border:1px solid #dce8f7;
-
     border-radius:8px;
-
     padding:13px;
 }
 
 .result-label{
     color:#6983a4;
-
     font-size:10px;
-
     font-weight:800;
-
     text-transform:uppercase;
-
     letter-spacing:.5px;
 }
 
 .result-value{
     color:var(--blue-dark);
-
-    font-size:20px;
-
+    font-size:19px;
     font-weight:900;
-
     margin-top:3px;
 }
 
-
-/* =====================================================
-   STATUS
-===================================================== */
-
 .status{
     margin-top:15px;
-
     padding:10px 12px;
-
     border-radius:7px;
-
     background:#f1f7ff;
-
     color:#54749c;
-
     font-size:12px;
-
     border-left:3px solid var(--blue);
 }
 
-
-/* =====================================================
-   VISUALIZATION
-===================================================== */
-
 .visual-card{
     margin-top:22px;
-
     background:white;
-
     border:1px solid var(--border);
-
     border-radius:10px;
-
     padding:25px;
-
     box-shadow:var(--shadow);
 }
 
 .visual-card h2{
     color:var(--blue-dark);
-
     margin-bottom:5px;
 }
 
 .visual-card p{
     color:var(--muted);
-
     font-size:13px;
-
     margin-bottom:18px;
 }
 
 .canvas-wrap{
-    height:330px;
-
-    border:1px solid var(--border);
-
-    border-radius:9px;
-
-    overflow:hidden;
-
-    background:#fff;
-}
-
-canvas{
-    display:block;
-
     width:100%;
-
-    height:100%;
+    height:380px;
+    border:1px solid var(--border);
+    border-radius:9px;
+    overflow:hidden;
+    background:white;
 }
 
-
-/* =====================================================
-   EQUATIONS
-===================================================== */
+#beamCanvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
 
 .equation-section{
     margin-top:22px;
-
     background:white;
-
     border:1px solid var(--border);
-
     border-radius:10px;
-
     padding:25px;
-
     box-shadow:var(--shadow);
 }
 
 .equation-section h2{
     color:var(--blue-dark);
-
     margin-bottom:15px;
 }
 
 .equation{
     padding:13px;
-
     margin-top:9px;
-
     background:var(--blue-soft);
-
     border:1px solid #dce8f7;
-
     border-radius:7px;
-
     font-family:"Courier New",monospace;
-
     color:#123d73;
-
     overflow-x:auto;
 }
 
 .note{
     margin-top:18px;
-
     padding:14px;
-
     border-left:4px solid var(--blue);
-
     background:#f5f9ff;
-
     border-radius:6px;
-
     color:#607a9e;
-
     font-size:12px;
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
 .footer{
     border-top:1px solid var(--border);
-
     background:white;
-
     padding:18px 25px;
-
     display:flex;
-
     justify-content:space-between;
-
     gap:20px;
-
     color:#7190b7;
-
     font-size:11px;
 }
 
@@ -638,20 +444,13 @@ canvas{
 
 .footer-links{
     display:flex;
-
     flex-wrap:wrap;
-
     gap:12px;
 }
 
 .footer-links a:hover{
     color:var(--blue);
 }
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
 
 @media(max-width:950px){
 
@@ -663,7 +462,6 @@ canvas{
         width:205px;
     }
 }
-
 
 @media(max-width:720px){
 
@@ -690,25 +488,17 @@ canvas{
 
     .sidebar{
         width:100%;
-
         border-right:none;
-
         border-bottom:1px solid var(--border);
-
         display:flex;
-
         overflow-x:auto;
-
         padding:8px;
-
         gap:4px;
     }
 
     .side-link{
         white-space:nowrap;
-
         margin:0;
-
         padding:9px 12px;
     }
 
@@ -733,14 +523,13 @@ canvas{
     }
 
     .canvas-wrap{
-        height:280px;
+        height:320px;
     }
 
     .footer{
         flex-direction:column;
     }
 }
-
 
 @media(max-width:430px){
 
@@ -753,17 +542,18 @@ canvas{
     .equation-section{
         padding:19px;
     }
+
+    .canvas-wrap{
+        height:290px;
+    }
 }
+
 </style>
 </head>
 
 
 <body>
 
-
-<!-- =====================================================
-     TOP HEADER
-===================================================== -->
 
 <header class="topbar">
 
@@ -794,12 +584,9 @@ canvas{
 </header>
 
 
+
 <div class="layout">
 
-
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
 
 <aside class="sidebar">
 
@@ -853,30 +640,19 @@ canvas{
         Reports & Export
     </a>
 
-
     <div class="sidebar-box">
-
         <strong>MECH-X</strong>
-
         <span>
             Learn • Simulate • Engineer
         </span>
-
     </div>
 
 </aside>
 
 
-<!-- =====================================================
-     CONTENT
-===================================================== -->
 
 <main class="content">
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
 
 <section class="hero">
 
@@ -885,45 +661,43 @@ canvas{
     </div>
 
     <h1>
-        Mechanical Engineering
+        Mechanical<br>
+        Engineering Analysis
     </h1>
 
     <p>
-        Interactive engineering calculations and simulations
-        for mechanics, materials, beams, shafts, springs and
-        mechanical power transmission.
+        Perform interactive engineering calculations for
+        stress and strain, beam deflection, shaft torsion,
+        springs and gear systems using fundamental
+        mechanical engineering equations.
     </p>
 
 </section>
+
 
 
 <div class="lab-content">
 
 
 <!-- =====================================================
-     TOOL GRID
+     STRESS AND STRAIN
 ===================================================== -->
 
-<div class="tool-grid">
+<section class="tool-grid">
 
+<div class="tool-card">
 
-<!-- =====================================================
-     STRESS & STRAIN
-===================================================== -->
-
-<section class="tool-card">
-
-    <h2>Stress & Strain Analysis</h2>
+    <h2>Stress & Strain</h2>
 
     <p class="tool-description">
         Calculate normal stress, strain, Young's modulus
-        and factor of safety for a loaded material.
+        and factor of safety for a simple tensile member.
     </p>
 
     <div class="input-grid">
 
         <div class="input-group">
-            <label>Applied Force (N)</label>
+            <label>Force F (N)</label>
 
             <input
                 id="stressForce"
@@ -934,34 +708,34 @@ canvas{
         </div>
 
         <div class="input-group">
-            <label>Cross-sectional Area (mm²)</label>
+            <label>Area A (mm²)</label>
 
             <input
                 id="stressArea"
                 type="number"
-                value="100"
-                step="1"
+                value="200"
+                step="10"
             >
         </div>
 
         <div class="input-group">
-            <label>Original Length (mm)</label>
+            <label>Original Length L (mm)</label>
 
             <input
                 id="originalLength"
                 type="number"
-                value="100"
-                step="1"
+                value="500"
+                step="10"
             >
         </div>
 
         <div class="input-group">
-            <label>Extension (mm)</label>
+            <label>Extension ΔL (mm)</label>
 
             <input
                 id="extension"
                 type="number"
-                value="0.05"
+                value="0.25"
                 step="0.01"
             >
         </div>
@@ -985,12 +759,12 @@ canvas{
             class="primary-btn"
             onclick="calculateStress()"
         >
-            Calculate
+            Calculate Stress
         </button>
 
         <button
             class="secondary-btn"
-            onclick="resetStress()"
+            onclick="resetMechanical()"
         >
             Reset
         </button>
@@ -1000,47 +774,82 @@ canvas{
     <div class="result-box">
 
         <div class="result-item">
-            <div class="result-label">Stress</div>
-            <div class="result-value" id="stressResult">0 MPa</div>
+            <div class="result-label">
+                Normal Stress
+            </div>
+
+            <div
+                class="result-value"
+                id="stressResult"
+            >
+                —
+            </div>
         </div>
 
         <div class="result-item">
-            <div class="result-label">Strain</div>
-            <div class="result-value" id="strainResult">0</div>
+            <div class="result-label">
+                Strain
+            </div>
+
+            <div
+                class="result-value"
+                id="strainResult"
+            >
+                —
+            </div>
         </div>
 
         <div class="result-item">
-            <div class="result-label">Young's Modulus</div>
-            <div class="result-value" id="youngResult">0 GPa</div>
+            <div class="result-label">
+                Young's Modulus
+            </div>
+
+            <div
+                class="result-value"
+                id="youngResult"
+            >
+                —
+            </div>
         </div>
 
         <div class="result-item">
-            <div class="result-label">Factor of Safety</div>
-            <div class="result-value" id="fosResult">0</div>
+            <div class="result-label">
+                Factor of Safety
+            </div>
+
+            <div
+                class="result-value"
+                id="fosResult"
+            >
+                —
+            </div>
         </div>
 
     </div>
 
-</section>
+</div>
+
 
 
 <!-- =====================================================
      BEAM DEFLECTION
 ===================================================== -->
 
-<section class="tool-card">
+<div class="tool-card">
 
     <h2>Beam Deflection</h2>
 
     <p class="tool-description">
         Estimate maximum deflection of a simply supported
-        beam using Euler-Bernoulli beam theory.
+        beam using a center point load or uniformly
+        distributed load.
     </p>
 
     <div class="input-grid">
 
         <div class="input-group">
-            <label>Beam Length (m)</label>
+
+            <label>Beam Length L (m)</label>
 
             <input
                 id="beamLength"
@@ -1048,6 +857,7 @@ canvas{
                 value="2"
                 step="0.1"
             >
+
         </div>
 
         <div class="input-group">
@@ -1071,14 +881,14 @@ canvas{
         <div class="input-group">
 
             <label>
-                Load (N)
+                Load P / w
             </label>
 
             <input
                 id="beamLoad"
                 type="number"
                 value="1000"
-                step="50"
+                step="100"
             >
 
         </div>
@@ -1086,44 +896,44 @@ canvas{
         <div class="input-group">
 
             <label>
-                Beam Width (mm)
-            </label>
-
-            <input
-                id="beamWidth"
-                type="number"
-                value="50"
-                step="1"
-            >
-
-        </div>
-
-        <div class="input-group">
-
-            <label>
-                Beam Height (mm)
-            </label>
-
-            <input
-                id="beamHeight"
-                type="number"
-                value="100"
-                step="1"
-            >
-
-        </div>
-
-        <div class="input-group">
-
-            <label>
-                Young's Modulus (GPa)
+                Young's Modulus E (GPa)
             </label>
 
             <input
                 id="beamE"
                 type="number"
                 value="200"
-                step="1"
+                step="10"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>
+                Width b (mm)
+            </label>
+
+            <input
+                id="beamWidth"
+                type="number"
+                value="50"
+                step="5"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>
+                Height h (mm)
+            </label>
+
+            <input
+                id="beamHeight"
+                type="number"
+                value="100"
+                step="5"
             >
 
         </div>
@@ -1136,14 +946,7 @@ canvas{
             class="primary-btn"
             onclick="calculateBeam()"
         >
-            Calculate
-        </button>
-
-        <button
-            class="secondary-btn"
-            onclick="resetBeam()"
-        >
-            Reset
+            Analyze Beam
         </button>
 
     </div>
@@ -1153,14 +956,14 @@ canvas{
         <div class="result-item">
 
             <div class="result-label">
-                Second Moment of Area
+                Second Moment I
             </div>
 
             <div
                 class="result-value"
-                id="beamIResult"
+                id="beamI"
             >
-                0 mm⁴
+                —
             </div>
 
         </div>
@@ -1173,23 +976,59 @@ canvas{
 
             <div
                 class="result-value"
-                id="beamDeflectionResult"
+                id="beamDeflection"
             >
-                0 mm
+                —
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                Load Type
+            </div>
+
+            <div
+                class="result-value"
+                id="beamTypeResult"
+            >
+                —
+            </div>
+
+        </div>
+
+        <div class="result-item">
+
+            <div class="result-label">
+                Beam Stiffness EI
+            </div>
+
+            <div
+                class="result-value"
+                id="beamStiffness"
+            >
+                —
             </div>
 
         </div>
 
     </div>
 
+</div>
+
 </section>
 
 
+
 <!-- =====================================================
-     SHAFT TORSION
+     SHAFT + SPRING
 ===================================================== -->
 
-<section class="tool-card">
+<section class="tool-grid">
+
+
+<div class="tool-card">
 
     <h2>Shaft Torsion</h2>
 
@@ -1203,14 +1042,14 @@ canvas{
         <div class="input-group">
 
             <label>
-                Applied Torque (N·m)
+                Torque T (N·m)
             </label>
 
             <input
                 id="shaftTorque"
                 type="number"
                 value="500"
-                step="10"
+                step="50"
             >
 
         </div>
@@ -1218,13 +1057,13 @@ canvas{
         <div class="input-group">
 
             <label>
-                Shaft Diameter (mm)
+                Diameter d (mm)
             </label>
 
             <input
                 id="shaftDiameter"
                 type="number"
-                value="40"
+                value="30"
                 step="1"
             >
 
@@ -1233,7 +1072,7 @@ canvas{
         <div class="input-group">
 
             <label>
-                Shaft Length (m)
+                Length L (m)
             </label>
 
             <input
@@ -1255,7 +1094,7 @@ canvas{
                 id="shaftG"
                 type="number"
                 value="80"
-                step="1"
+                step="5"
             >
 
         </div>
@@ -1268,14 +1107,7 @@ canvas{
             class="primary-btn"
             onclick="calculateShaft()"
         >
-            Calculate
-        </button>
-
-        <button
-            class="secondary-btn"
-            onclick="resetShaft()"
-        >
-            Reset
+            Analyze Shaft
         </button>
 
     </div>
@@ -1290,9 +1122,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="shaftJResult"
+                id="shaftJ"
             >
-                0 mm⁴
+                —
             </div>
 
         </div>
@@ -1305,9 +1137,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="shaftStressResult"
+                id="shaftStress"
             >
-                0 MPa
+                —
             </div>
 
         </div>
@@ -1320,28 +1152,25 @@ canvas{
 
             <div
                 class="result-value"
-                id="shaftAngleResult"
+                id="shaftAngle"
             >
-                0°
+                —
             </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
 
-<!-- =====================================================
-     SPRING
-===================================================== -->
 
-<section class="tool-card">
+<div class="tool-card">
 
-    <h2>Helical Spring Analysis</h2>
+    <h2>Helical Spring</h2>
 
     <p class="tool-description">
-        Calculate spring stiffness and deflection for a
+        Estimate spring stiffness and deflection for a
         close-coiled helical compression spring.
     </p>
 
@@ -1357,7 +1186,7 @@ canvas{
                 id="springWire"
                 type="number"
                 value="5"
-                step="0.1"
+                step="0.5"
             >
 
         </div>
@@ -1371,7 +1200,7 @@ canvas{
             <input
                 id="springDiameter"
                 type="number"
-                value="40"
+                value="50"
                 step="1"
             >
 
@@ -1410,14 +1239,14 @@ canvas{
         <div class="input-group">
 
             <label>
-                Applied Force (N)
+                Applied Force F (N)
             </label>
 
             <input
                 id="springForce"
                 type="number"
                 value="500"
-                step="10"
+                step="50"
             >
 
         </div>
@@ -1430,14 +1259,7 @@ canvas{
             class="primary-btn"
             onclick="calculateSpring()"
         >
-            Calculate
-        </button>
-
-        <button
-            class="secondary-btn"
-            onclick="resetSpring()"
-        >
-            Reset
+            Analyze Spring
         </button>
 
     </div>
@@ -1447,14 +1269,14 @@ canvas{
         <div class="result-item">
 
             <div class="result-label">
-                Spring Rate
+                Spring Rate k
             </div>
 
             <div
                 class="result-value"
-                id="springRateResult"
+                id="springRate"
             >
-                0 N/mm
+                —
             </div>
 
         </div>
@@ -1467,9 +1289,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="springDeflectionResult"
+                id="springDeflection"
             >
-                0 mm
+                —
             </div>
 
         </div>
@@ -1482,29 +1304,35 @@ canvas{
 
             <div
                 class="result-value"
-                id="springIndexResult"
+                id="springIndex"
             >
-                0
+                —
             </div>
 
         </div>
 
     </div>
 
+</div>
+
 </section>
 
 
+
 <!-- =====================================================
-     GEAR ANALYSIS
+     GEAR SYSTEM
 ===================================================== -->
 
-<section class="tool-card">
+<section class="tool-grid">
 
-    <h2>Gear Analysis</h2>
+
+<div class="tool-card">
+
+    <h2>Gear Ratio</h2>
 
     <p class="tool-description">
-        Determine gear ratio, output speed and output torque
-        for a simple gear pair.
+        Calculate gear ratio, output speed and ideal output
+        torque for a simple gear pair.
     </p>
 
     <div class="input-grid">
@@ -1512,7 +1340,7 @@ canvas{
         <div class="input-group">
 
             <label>
-                Driver Teeth
+                Driver Teeth T₁
             </label>
 
             <input
@@ -1527,7 +1355,7 @@ canvas{
         <div class="input-group">
 
             <label>
-                Driven Teeth
+                Driven Teeth T₂
             </label>
 
             <input
@@ -1546,10 +1374,10 @@ canvas{
             </label>
 
             <input
-                id="gearInputSpeed"
+                id="gearSpeed"
                 type="number"
-                value="1800"
-                step="50"
+                value="1500"
+                step="100"
             >
 
         </div>
@@ -1561,9 +1389,9 @@ canvas{
             </label>
 
             <input
-                id="gearInputTorque"
+                id="gearTorque"
                 type="number"
-                value="10"
+                value="20"
                 step="1"
             >
 
@@ -1580,6 +1408,8 @@ canvas{
                 type="number"
                 value="95"
                 step="1"
+                min="0"
+                max="100"
             >
 
         </div>
@@ -1592,14 +1422,7 @@ canvas{
             class="primary-btn"
             onclick="calculateGear()"
         >
-            Calculate
-        </button>
-
-        <button
-            class="secondary-btn"
-            onclick="resetGear()"
-        >
-            Reset
+            Calculate Gear System
         </button>
 
     </div>
@@ -1614,9 +1437,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="gearRatioResult"
+                id="gearRatio"
             >
-                0 : 1
+                —
             </div>
 
         </div>
@@ -1629,9 +1452,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="gearSpeedResult"
+                id="gearOutputSpeed"
             >
-                0 RPM
+                —
             </div>
 
         </div>
@@ -1644,29 +1467,25 @@ canvas{
 
             <div
                 class="result-value"
-                id="gearTorqueResult"
+                id="gearOutputTorque"
             >
-                0 N·m
+                —
             </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
 
-<!-- =====================================================
-     MECHANICAL POWER
-===================================================== -->
-
-<section class="tool-card">
+<div class="tool-card">
 
     <h2>Mechanical Power</h2>
 
     <p class="tool-description">
-        Calculate rotational mechanical power from torque
-        and rotational speed.
+        Calculate mechanical power from rotational speed
+        and torque.
     </p>
 
     <div class="input-grid">
@@ -1674,14 +1493,14 @@ canvas{
         <div class="input-group">
 
             <label>
-                Torque (N·m)
+                Torque T (N·m)
             </label>
 
             <input
                 id="powerTorque"
                 type="number"
-                value="100"
-                step="1"
+                value="50"
+                step="5"
             >
 
         </div>
@@ -1689,14 +1508,14 @@ canvas{
         <div class="input-group">
 
             <label>
-                Rotational Speed (RPM)
+                Speed N (RPM)
             </label>
 
             <input
                 id="powerRPM"
                 type="number"
                 value="1500"
-                step="50"
+                step="100"
             >
 
         </div>
@@ -1709,7 +1528,7 @@ canvas{
             class="primary-btn"
             onclick="calculatePower()"
         >
-            Calculate
+            Calculate Power
         </button>
 
     </div>
@@ -1724,9 +1543,9 @@ canvas{
 
             <div
                 class="result-value"
-                id="angularSpeedResult"
+                id="angularSpeed"
             >
-                0 rad/s
+                —
             </div>
 
         </div>
@@ -1739,18 +1558,19 @@ canvas{
 
             <div
                 class="result-value"
-                id="mechanicalPowerResult"
+                id="mechanicalPower"
             >
-                0 kW
+                —
             </div>
 
         </div>
 
     </div>
 
+</div>
+
 </section>
 
-</div>
 
 
 <!-- =====================================================
@@ -1759,11 +1579,14 @@ canvas{
 
 <section class="visual-card">
 
-    <h2>Beam Deflection Visualization</h2>
+    <h2>
+        Beam Deflection Visualization
+    </h2>
 
     <p>
-        The diagram shows the simplified deformation of the
-        beam calculated above.
+        The graph below provides a simplified visual
+        representation of the beam bending shape based on
+        the selected load case.
     </p>
 
     <div class="canvas-wrap">
@@ -1775,70 +1598,72 @@ canvas{
 </section>
 
 
+
 <!-- =====================================================
      ENGINEERING EQUATIONS
 ===================================================== -->
 
 <section class="equation-section">
 
-    <h2>Engineering Model</h2>
+    <h2>
+        Engineering Models
+    </h2>
 
     <div class="equation">
-        Normal Stress: σ = F / A
+        σ = F / A
     </div>
 
     <div class="equation">
-        Normal Strain: ε = ΔL / L
+        ε = ΔL / L
     </div>
 
     <div class="equation">
-        Young's Modulus: E = σ / ε
+        E = σ / ε
     </div>
 
     <div class="equation">
-        Factor of Safety: FOS = Yield Strength / Working Stress
+        I = bh³ / 12
     </div>
 
     <div class="equation">
-        Rectangular Beam: I = bh³ / 12
+        δ(point load) = PL³ / 48EI
     </div>
 
     <div class="equation">
-        Point Load Deflection: δ = PL³ / 48EI
+        δ(UDL) = 5wL⁴ / 384EI
     </div>
 
     <div class="equation">
-        UDL Deflection: δ = 5wL⁴ / 384EI
+        J = πd⁴ / 32
     </div>
 
     <div class="equation">
-        Solid Shaft: J = πd⁴ / 32
+        τ = Tc / J
     </div>
 
     <div class="equation">
-        Torsional Stress: τ = Tc / J
+        θ = TL / JG
     </div>
 
     <div class="equation">
-        Angle of Twist: θ = TL / JG
+        k = Gd⁴ / 8D³n
     </div>
 
     <div class="equation">
-        Spring Rate: k = Gd⁴ / 8D³n
-    </div>
-
-    <div class="equation">
-        Mechanical Power: P = Tω
+        Power = Tω
     </div>
 
     <div class="note">
+
         <strong>Engineering note:</strong>
-        These tools use simplified engineering models intended
-        for learning, preliminary calculations and simulation.
-        Real engineering designs should account for material
-        properties, geometry, boundary conditions, fatigue,
-        safety factors, manufacturing tolerances and applicable
-        engineering standards.
+
+        These calculations use idealized engineering
+        models. Real component design must consider material
+        properties, loading conditions, dimensions,
+        manufacturing tolerances, fatigue, stress
+        concentrations, temperature, safety factors and
+        applicable engineering standards.
+
     </div>
 
 </section>
@@ -1847,16 +1672,17 @@ canvas{
 </div>
 
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
 <footer class="footer">
 
     <div>
+
         <strong>MECH-X</strong>
+
         &nbsp; | &nbsp;
+
         Interactive Mechatronics Engineering Laboratory
+
     </div>
 
     <div class="footer-links">
@@ -1885,16 +1711,8 @@ canvas{
 </div>
 
 
+
 <script>
-
-/* =====================================================
-   HELPER
-===================================================== */
-
-function value(id){
-    return parseFloat(document.getElementById(id).value);
-}
-
 
 /* =====================================================
    STRESS & STRAIN
@@ -1902,70 +1720,118 @@ function value(id){
 
 function calculateStress(){
 
-    const F = value("stressForce");
-    const A = value("stressArea");
-    const L = value("originalLength");
-    const extension = value("extension");
-    const yieldStrength = value("yieldStrength");
+    const F =
+        parseFloat(
+            document.getElementById(
+                "stressForce"
+            ).value
+        );
+
+    const A =
+        parseFloat(
+            document.getElementById(
+                "stressArea"
+            ).value
+        );
+
+    const L =
+        parseFloat(
+            document.getElementById(
+                "originalLength"
+            ).value
+        );
+
+    const extension =
+        parseFloat(
+            document.getElementById(
+                "extension"
+            ).value
+        );
+
+    const yieldStrength =
+        parseFloat(
+            document.getElementById(
+                "yieldStrength"
+            ).value
+        );
+
 
     if(
         !isFinite(F) ||
         !isFinite(A) ||
         !isFinite(L) ||
         !isFinite(extension) ||
-        !isFinite(yieldStrength) ||
         A <= 0 ||
         L <= 0
     ){
-        alert("Please enter valid stress and strain values.");
+
+        alert(
+            "Please enter valid stress and strain values."
+        );
+
         return;
     }
 
+
     /*
-        Since N/mm² = MPa
+       F / A
+
+       Since area is in mm² and
+       N/mm² = MPa.
     */
 
-    const stress = F / A;
-
-    const strain = extension / L;
-
-    const youngModulusMPa =
-        strain !== 0
-        ? stress / strain
-        : 0;
-
-    const youngGPa =
-        youngModulusMPa / 1000;
-
-    const fos =
-        stress > 0
-        ? yieldStrength / stress
-        : 0;
+    const stress =
+        F / A;
 
 
-    document.getElementById("stressResult").textContent =
+    const strain =
+        extension / L;
+
+
+    const young =
+        stress / strain;
+
+
+    let fos = "—";
+
+
+    if(
+        isFinite(yieldStrength) &&
+        yieldStrength > 0
+    ){
+
+        fos =
+            (
+                yieldStrength /
+                stress
+            ).toFixed(2);
+
+    }
+
+
+    document.getElementById(
+        "stressResult"
+    ).textContent =
         stress.toFixed(2) + " MPa";
 
-    document.getElementById("strainResult").textContent =
+
+    document.getElementById(
+        "strainResult"
+    ).textContent =
         strain.toFixed(6);
 
-    document.getElementById("youngResult").textContent =
-        youngGPa.toFixed(2) + " GPa";
 
-    document.getElementById("fosResult").textContent =
-        fos.toFixed(2);
-}
+    document.getElementById(
+        "youngResult"
+    ).textContent =
+        young.toFixed(2) + " MPa";
 
 
-function resetStress(){
+    document.getElementById(
+        "fosResult"
+    ).textContent =
+        fos;
 
-    document.getElementById("stressForce").value = 10000;
-    document.getElementById("stressArea").value = 100;
-    document.getElementById("originalLength").value = 100;
-    document.getElementById("extension").value = 0.05;
-    document.getElementById("yieldStrength").value = 250;
-
-    calculateStress();
 }
 
 
@@ -1975,102 +1841,177 @@ function resetStress(){
 
 function calculateBeam(){
 
-    const L = value("beamLength");
+    const L =
+        parseFloat(
+            document.getElementById(
+                "beamLength"
+            ).value
+        );
 
-    const loadType =
-        document.getElementById("beamLoadType").value;
+    const load =
+        parseFloat(
+            document.getElementById(
+                "beamLoad"
+            ).value
+        );
 
-    const P = value("beamLoad");
+    const E_GPa =
+        parseFloat(
+            document.getElementById(
+                "beamE"
+            ).value
+        );
 
-    const b = value("beamWidth") / 1000;
+    const b_mm =
+        parseFloat(
+            document.getElementById(
+                "beamWidth"
+            ).value
+        );
 
-    const h = value("beamHeight") / 1000;
+    const h_mm =
+        parseFloat(
+            document.getElementById(
+                "beamHeight"
+            ).value
+        );
 
-    const E = value("beamE") * 1e9;
+    const type =
+        document.getElementById(
+            "beamLoadType"
+        ).value;
 
 
     if(
         !isFinite(L) ||
-        !isFinite(P) ||
-        !isFinite(b) ||
-        !isFinite(h) ||
-        !isFinite(E) ||
+        !isFinite(load) ||
+        !isFinite(E_GPa) ||
+        !isFinite(b_mm) ||
+        !isFinite(h_mm) ||
         L <= 0 ||
-        b <= 0 ||
-        h <= 0 ||
-        E <= 0
+        E_GPa <= 0 ||
+        b_mm <= 0 ||
+        h_mm <= 0
     ){
-        alert("Please enter valid beam values.");
+
+        alert(
+            "Please enter valid beam parameters."
+        );
+
         return;
     }
 
 
     /*
-        I = bh³ / 12
+        Convert:
+        mm → m
+
+        GPa → Pa
     */
 
-    const I = b * Math.pow(h,3) / 12;
+    const b =
+        b_mm / 1000;
+
+    const h =
+        h_mm / 1000;
+
+    const E =
+        E_GPa * 1e9;
+
+
+    /*
+        Rectangular second moment
+    */
+
+    const I =
+        b *
+        Math.pow(h,3)
+        / 12;
+
+
+    /*
+        Beam stiffness
+    */
+
+    const EI =
+        E * I;
 
 
     let deflection;
 
 
-    if(loadType === "point"){
+    if(type === "point"){
 
         /*
             δ = PL³ / 48EI
         */
 
         deflection =
-            P * Math.pow(L,3) /
-            (48 * E * I);
+            load *
+            Math.pow(L,3)
+            /
+            (
+                48 * EI
+            );
 
     }else{
 
         /*
-            P represents total load.
-            Convert total load to UDL:
-            w = P / L
+            For UDL:
+            load = w in N/m
 
             δ = 5wL⁴ / 384EI
         */
 
-        const w = P / L;
-
         deflection =
-            5 * w * Math.pow(L,4) /
-            (384 * E * I);
+            5 *
+            load *
+            Math.pow(L,4)
+            /
+            (
+                384 * EI
+            );
+
     }
 
 
-    const Imm4 =
-        I * 1e12;
-
-    const deflectionMm =
-        deflection * 1000;
-
-
-    document.getElementById("beamIResult").textContent =
-        Imm4.toExponential(3) + " mm⁴";
-
-    document.getElementById("beamDeflectionResult").textContent =
-        deflectionMm.toFixed(3) + " mm";
+    document.getElementById(
+        "beamI"
+    ).textContent =
+        I.toExponential(3) +
+        " m⁴";
 
 
-    drawBeam(deflectionMm);
-}
+    document.getElementById(
+        "beamDeflection"
+    ).textContent =
+        (
+            deflection * 1000
+        ).toFixed(3) +
+        " mm";
 
 
-function resetBeam(){
+    document.getElementById(
+        "beamTypeResult"
+    ).textContent =
+        type === "point"
+        ?
+        "Point Load"
+        :
+        "UDL";
 
-    document.getElementById("beamLength").value = 2;
-    document.getElementById("beamLoadType").value = "point";
-    document.getElementById("beamLoad").value = 1000;
-    document.getElementById("beamWidth").value = 50;
-    document.getElementById("beamHeight").value = 100;
-    document.getElementById("beamE").value = 200;
 
-    calculateBeam();
+    document.getElementById(
+        "beamStiffness"
+    ).textContent =
+        (
+            EI / 1000
+        ).toExponential(3) +
+        " kN·m²";
+
+
+    drawBeam();
+
 }
 
 
@@ -2080,47 +2021,79 @@ function resetBeam(){
 
 function calculateShaft(){
 
-    const T = value("shaftTorque");
+    const T =
+        parseFloat(
+            document.getElementById(
+                "shaftTorque"
+            ).value
+        );
 
-    const d =
-        value("shaftDiameter") / 1000;
+    const d_mm =
+        parseFloat(
+            document.getElementById(
+                "shaftDiameter"
+            ).value
+        );
 
     const L =
-        value("shaftLength");
+        parseFloat(
+            document.getElementById(
+                "shaftLength"
+            ).value
+        );
 
-    const G =
-        value("shaftG") * 1e9;
+    const G_GPa =
+        parseFloat(
+            document.getElementById(
+                "shaftG"
+            ).value
+        );
 
 
     if(
         !isFinite(T) ||
-        !isFinite(d) ||
+        !isFinite(d_mm) ||
         !isFinite(L) ||
-        !isFinite(G) ||
-        d <= 0 ||
+        !isFinite(G_GPa) ||
+        d_mm <= 0 ||
         L <= 0 ||
-        G <= 0
+        G_GPa <= 0
     ){
-        alert("Please enter valid shaft values.");
+
+        alert(
+            "Please enter valid shaft parameters."
+        );
+
         return;
     }
 
 
+    const d =
+        d_mm / 1000;
+
+    const c =
+        d / 2;
+
+    const G =
+        G_GPa * 1e9;
+
+
     /*
-        J = πd⁴ / 32
+        Polar moment
+        solid circular shaft
     */
 
     const J =
-        Math.PI * Math.pow(d,4) / 32;
+        Math.PI *
+        Math.pow(d,4)
+        / 32;
 
 
     /*
         τ = Tc/J
     */
 
-    const c = d / 2;
-
-    const shearStress =
+    const tau =
         T * c / J;
 
 
@@ -2129,31 +2102,34 @@ function calculateShaft(){
     */
 
     const theta =
-        T * L / (J * G);
-
-    const thetaDegrees =
-        theta * 180 / Math.PI;
+        T * L /
+        (J * G);
 
 
-    document.getElementById("shaftJResult").textContent =
-        (J * 1e12).toExponential(3) + " mm⁴";
-
-    document.getElementById("shaftStressResult").textContent =
-        (shearStress / 1e6).toFixed(2) + " MPa";
-
-    document.getElementById("shaftAngleResult").textContent =
-        thetaDegrees.toFixed(3) + "°";
-}
+    document.getElementById(
+        "shaftJ"
+    ).textContent =
+        J.toExponential(3) +
+        " m⁴";
 
 
-function resetShaft(){
+    document.getElementById(
+        "shaftStress"
+    ).textContent =
+        (
+            tau / 1e6
+        ).toFixed(2) +
+        " MPa";
 
-    document.getElementById("shaftTorque").value = 500;
-    document.getElementById("shaftDiameter").value = 40;
-    document.getElementById("shaftLength").value = 1;
-    document.getElementById("shaftG").value = 80;
 
-    calculateShaft();
+    document.getElementById(
+        "shaftAngle"
+    ).textContent =
+        (
+            theta * 180 / Math.PI
+        ).toFixed(3) +
+        "°";
+
 }
 
 
@@ -2163,36 +2139,70 @@ function resetShaft(){
 
 function calculateSpring(){
 
-    const d =
-        value("springWire") / 1000;
+    const d_mm =
+        parseFloat(
+            document.getElementById(
+                "springWire"
+            ).value
+        );
 
-    const D =
-        value("springDiameter") / 1000;
+    const D_mm =
+        parseFloat(
+            document.getElementById(
+                "springDiameter"
+            ).value
+        );
 
     const n =
-        value("springCoils");
+        parseFloat(
+            document.getElementById(
+                "springCoils"
+            ).value
+        );
 
-    const G =
-        value("springG") * 1e9;
+    const G_GPa =
+        parseFloat(
+            document.getElementById(
+                "springG"
+            ).value
+        );
 
     const F =
-        value("springForce");
+        parseFloat(
+            document.getElementById(
+                "springForce"
+            ).value
+        );
 
 
     if(
-        !isFinite(d) ||
-        !isFinite(D) ||
+        !isFinite(d_mm) ||
+        !isFinite(D_mm) ||
         !isFinite(n) ||
-        !isFinite(G) ||
+        !isFinite(G_GPa) ||
         !isFinite(F) ||
-        d <= 0 ||
-        D <= 0 ||
+        d_mm <= 0 ||
+        D_mm <= 0 ||
         n <= 0 ||
-        G <= 0
+        G_GPa <= 0
     ){
-        alert("Please enter valid spring values.");
+
+        alert(
+            "Please enter valid spring parameters."
+        );
+
         return;
     }
+
+
+    const d =
+        d_mm / 1000;
+
+    const D =
+        D_mm / 1000;
+
+    const G =
+        G_GPa * 1e9;
 
 
     /*
@@ -2200,61 +2210,88 @@ function calculateSpring(){
     */
 
     const k =
-        G * Math.pow(d,4) /
-        (8 * Math.pow(D,3) * n);
+        G *
+        Math.pow(d,4)
+        /
+        (
+            8 *
+            Math.pow(D,3) *
+            n
+        );
 
 
     const deflection =
         F / k;
 
 
-    const springIndex =
-        D / d;
+    const index =
+        D_mm / d_mm;
 
 
-    document.getElementById("springRateResult").textContent =
-        k.toFixed(2) + " N/mm";
-
-    document.getElementById("springDeflectionResult").textContent =
-        (deflection * 1000).toFixed(2) + " mm";
-
-    document.getElementById("springIndexResult").textContent =
-        springIndex.toFixed(2);
-}
+    document.getElementById(
+        "springRate"
+    ).textContent =
+        k.toFixed(2) +
+        " N/m";
 
 
-function resetSpring(){
+    document.getElementById(
+        "springDeflection"
+    ).textContent =
+        (
+            deflection * 1000
+        ).toFixed(2) +
+        " mm";
 
-    document.getElementById("springWire").value = 5;
-    document.getElementById("springDiameter").value = 40;
-    document.getElementById("springCoils").value = 8;
-    document.getElementById("springG").value = 79;
-    document.getElementById("springForce").value = 500;
 
-    calculateSpring();
+    document.getElementById(
+        "springIndex"
+    ).textContent =
+        index.toFixed(2);
+
 }
 
 
 /* =====================================================
-   GEAR ANALYSIS
+   GEAR SYSTEM
 ===================================================== */
 
 function calculateGear(){
 
     const driver =
-        value("driverTeeth");
+        parseFloat(
+            document.getElementById(
+                "driverTeeth"
+            ).value
+        );
 
     const driven =
-        value("drivenTeeth");
+        parseFloat(
+            document.getElementById(
+                "drivenTeeth"
+            ).value
+        );
 
     const inputSpeed =
-        value("gearInputSpeed");
+        parseFloat(
+            document.getElementById(
+                "gearSpeed"
+            ).value
+        );
 
     const inputTorque =
-        value("gearInputTorque");
+        parseFloat(
+            document.getElementById(
+                "gearTorque"
+            ).value
+        );
 
     const efficiency =
-        value("gearEfficiency") / 100;
+        parseFloat(
+            document.getElementById(
+                "gearEfficiency"
+            ).value
+        );
 
 
     if(
@@ -2266,43 +2303,63 @@ function calculateGear(){
         driver <= 0 ||
         driven <= 0
     ){
-        alert("Please enter valid gear values.");
+
+        alert(
+            "Please enter valid gear parameters."
+        );
+
         return;
     }
 
+
+    /*
+        Gear ratio
+    */
 
     const ratio =
         driven / driver;
 
 
+    /*
+        Output speed
+    */
+
     const outputSpeed =
         inputSpeed / ratio;
 
 
+    /*
+        Output torque
+        including efficiency
+    */
+
     const outputTorque =
-        inputTorque * ratio * efficiency;
+        inputTorque *
+        ratio *
+        (
+            efficiency / 100
+        );
 
 
-    document.getElementById("gearRatioResult").textContent =
-        ratio.toFixed(2) + " : 1";
-
-    document.getElementById("gearSpeedResult").textContent =
-        outputSpeed.toFixed(1) + " RPM";
-
-    document.getElementById("gearTorqueResult").textContent =
-        outputTorque.toFixed(2) + " N·m";
-}
+    document.getElementById(
+        "gearRatio"
+    ).textContent =
+        ratio.toFixed(2);
 
 
-function resetGear(){
+    document.getElementById(
+        "gearOutputSpeed"
+    ).textContent =
+        outputSpeed.toFixed(1) +
+        " RPM";
 
-    document.getElementById("driverTeeth").value = 20;
-    document.getElementById("drivenTeeth").value = 60;
-    document.getElementById("gearInputSpeed").value = 1800;
-    document.getElementById("gearInputTorque").value = 10;
-    document.getElementById("gearEfficiency").value = 95;
 
-    calculateGear();
+    document.getElementById(
+        "gearOutputTorque"
+    ).textContent =
+        outputTorque.toFixed(2) +
+        " N·m";
+
 }
 
 
@@ -2313,34 +2370,59 @@ function resetGear(){
 function calculatePower(){
 
     const T =
-        value("powerTorque");
+        parseFloat(
+            document.getElementById(
+                "powerTorque"
+            ).value
+        );
 
     const rpm =
-        value("powerRPM");
+        parseFloat(
+            document.getElementById(
+                "powerRPM"
+            ).value
+        );
 
 
     if(
         !isFinite(T) ||
         !isFinite(rpm)
     ){
-        alert("Please enter valid power values.");
+
+        alert(
+            "Please enter valid torque and speed."
+        );
+
         return;
     }
 
 
     const omega =
-        2 * Math.PI * rpm / 60;
+        2 *
+        Math.PI *
+        rpm /
+        60;
 
 
     const power =
         T * omega;
 
 
-    document.getElementById("angularSpeedResult").textContent =
-        omega.toFixed(2) + " rad/s";
+    document.getElementById(
+        "angularSpeed"
+    ).textContent =
+        omega.toFixed(2) +
+        " rad/s";
 
-    document.getElementById("mechanicalPowerResult").textContent =
-        (power / 1000).toFixed(2) + " kW";
+
+    document.getElementById(
+        "mechanicalPower"
+    ).textContent =
+        (
+            power / 1000
+        ).toFixed(2) +
+        " kW";
+
 }
 
 
@@ -2348,10 +2430,12 @@ function calculatePower(){
    BEAM DRAWING
 ===================================================== */
 
-function drawBeam(deflectionMm){
+function drawBeam(){
 
     const canvas =
-        document.getElementById("beamCanvas");
+        document.getElementById(
+            "beamCanvas"
+        );
 
     const ctx =
         canvas.getContext("2d");
@@ -2359,6 +2443,7 @@ function drawBeam(deflectionMm){
 
     const rect =
         canvas.getBoundingClientRect();
+
 
     const dpr =
         window.devicePixelRatio || 1;
@@ -2397,30 +2482,99 @@ function drawBeam(deflectionMm){
 
 
     /*
-        Beam coordinates
+        Beam dimensions
     */
 
-    const left = 80;
+    const left =
+        70;
 
     const right =
-        width - 80;
+        width - 70;
 
-    const center =
-        (left + right) / 2;
+    const centerY =
+        height * .52;
 
-    const baseY =
-        height / 2;
+    const beamLength =
+        right - left;
 
 
-    /* supports */
+    /*
+        Ground / support line
+    */
 
-    ctx.fillStyle = "#1261d6";
+    ctx.strokeStyle =
+        "#dce8f5";
+
+    ctx.lineWidth = 1;
+
 
     ctx.beginPath();
 
-    ctx.moveTo(left-22,baseY+20);
-    ctx.lineTo(left+22,baseY+20);
-    ctx.lineTo(left,baseY-10);
+    ctx.moveTo(
+        35,
+        centerY + 70
+    );
+
+    ctx.lineTo(
+        width - 35,
+        centerY + 70
+    );
+
+    ctx.stroke();
+
+
+    /*
+        Beam baseline
+    */
+
+    ctx.strokeStyle =
+        "#1261d6";
+
+    ctx.lineWidth = 8;
+
+    ctx.lineCap = "round";
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        left,
+        centerY
+    );
+
+    ctx.lineTo(
+        right,
+        centerY
+    );
+
+    ctx.stroke();
+
+
+    /*
+        Supports
+    */
+
+    ctx.fillStyle =
+        "#0b2d5c";
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        left - 18,
+        centerY
+    );
+
+    ctx.lineTo(
+        left + 18,
+        centerY
+    );
+
+    ctx.lineTo(
+        left,
+        centerY + 45
+    );
+
     ctx.closePath();
 
     ctx.fill();
@@ -2428,29 +2582,57 @@ function drawBeam(deflectionMm){
 
     ctx.beginPath();
 
-    ctx.moveTo(right-22,baseY+20);
-    ctx.lineTo(right+22,baseY+20);
-    ctx.lineTo(right,baseY-10);
+    ctx.moveTo(
+        right - 18,
+        centerY
+    );
+
+    ctx.lineTo(
+        right + 18,
+        centerY
+    );
+
+    ctx.lineTo(
+        right,
+        centerY + 45
+    );
+
     ctx.closePath();
 
     ctx.fill();
 
 
     /*
-        Beam
+        Draw deflection curve
     */
 
-    ctx.strokeStyle = "#0b2d5c";
+    const type =
+        document.getElementById(
+            "beamLoadType"
+        ).value;
 
-    ctx.lineWidth = 8;
+
+    const curveAmplitude =
+        Math.min(
+            75,
+            Math.max(
+                20,
+                parseFloat(
+                    document.getElementById(
+                        "beamLoad"
+                    ).value
+                ) / 20
+            )
+        );
+
+
+    ctx.strokeStyle =
+        "#16bde8";
+
+    ctx.lineWidth = 4;
+
 
     ctx.beginPath();
-
-    const scale =
-        Math.min(
-            Math.max(deflectionMm * 3,5),
-            80
-        );
 
 
     for(
@@ -2459,73 +2641,119 @@ function drawBeam(deflectionMm){
         i++
     ){
 
-        const t = i / 100;
+        const t =
+            i / 100;
+
+
+        let y;
+
+
+        if(type === "point"){
+
+            /*
+                Smooth approximation
+                of center point loading.
+            */
+
+            y =
+                curveAmplitude *
+                Math.sin(
+                    Math.PI * t
+                );
+
+        }else{
+
+            /*
+                Approximate UDL shape
+            */
+
+            y =
+                curveAmplitude *
+                4 *
+                t *
+                (1-t);
+
+        }
+
 
         const x =
             left +
-            (right-left) * t;
+            beamLength * t;
 
 
-        /*
-            Smooth deflection curve.
-        */
+        if(i === 0){
 
-        const y =
-            baseY +
-            scale *
-            Math.sin(Math.PI*t);
+            ctx.moveTo(
+                x,
+                centerY + y
+            );
 
-
-        if(i===0){
-            ctx.moveTo(x,y);
         }else{
-            ctx.lineTo(x,y);
+
+            ctx.lineTo(
+                x,
+                centerY + y
+            );
+
         }
+
     }
+
 
     ctx.stroke();
 
 
     /*
-        Center load arrow
+        Load arrow
     */
 
-    ctx.strokeStyle = "#1261d6";
+    const loadX =
+        type === "point"
+        ?
+        (left + right) / 2
+        :
+        (left + right) / 2;
 
-    ctx.lineWidth = 3;
+
+    ctx.strokeStyle =
+        "#d63c3c";
+
+    ctx.fillStyle =
+        "#d63c3c";
+
+    ctx.lineWidth = 2;
+
 
     ctx.beginPath();
 
     ctx.moveTo(
-        center,
-        baseY-75
+        loadX,
+        centerY - 65
     );
 
     ctx.lineTo(
-        center,
-        baseY-15
+        loadX,
+        centerY - 12
     );
 
     ctx.stroke();
 
 
-    ctx.fillStyle = "#1261d6";
-
     ctx.beginPath();
 
     ctx.moveTo(
-        center-8,
-        baseY-25
+        loadX,
+        centerY - 12
     );
 
     ctx.lineTo(
-        center+8,
-        baseY-25
+        loadX - 7,
+        centerY - 25
     );
 
     ctx.lineTo(
-        center,
-        baseY-10
+        loadX + 7,
+        centerY - 25
     );
 
     ctx.closePath();
@@ -2534,30 +2762,169 @@ function drawBeam(deflectionMm){
 
 
     /*
-        Label
+        Labels
     */
 
-    ctx.fillStyle = "#5879a7";
+    ctx.fillStyle =
+        "#54749c";
 
-    ctx.font = "bold 13px Arial";
+    ctx.font =
+        "bold 12px Arial";
 
-    ctx.textAlign = "center";
 
     ctx.fillText(
         "Simply Supported Beam",
-        center,
+        left,
         35
     );
 
-    ctx.font = "12px Arial";
 
     ctx.fillText(
-        "Maximum deflection: " +
-        deflectionMm.toFixed(3) +
-        " mm",
-        center,
-        height-25
+        "Deflected shape",
+        left,
+        height - 30
     );
+
+
+    ctx.fillStyle =
+        "#d63c3c";
+
+    ctx.fillText(
+        type === "point"
+        ?
+        "P"
+        :
+        "w",
+        loadX + 10,
+        centerY - 45
+    );
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetMechanical(){
+
+    document.getElementById(
+        "stressForce"
+    ).value = 10000;
+
+    document.getElementById(
+        "stressArea"
+    ).value = 200;
+
+    document.getElementById(
+        "originalLength"
+    ).value = 500;
+
+    document.getElementById(
+        "extension"
+    ).value = 0.25;
+
+    document.getElementById(
+        "yieldStrength"
+    ).value = 250;
+
+
+    document.getElementById(
+        "beamLength"
+    ).value = 2;
+
+    document.getElementById(
+        "beamLoad"
+    ).value = 1000;
+
+    document.getElementById(
+        "beamE"
+    ).value = 200;
+
+    document.getElementById(
+        "beamWidth"
+    ).value = 50;
+
+    document.getElementById(
+        "beamHeight"
+    ).value = 100;
+
+
+    document.getElementById(
+        "shaftTorque"
+    ).value = 500;
+
+    document.getElementById(
+        "shaftDiameter"
+    ).value = 30;
+
+    document.getElementById(
+        "shaftLength"
+    ).value = 1;
+
+    document.getElementById(
+        "shaftG"
+    ).value = 80;
+
+
+    document.getElementById(
+        "springWire"
+    ).value = 5;
+
+    document.getElementById(
+        "springDiameter"
+    ).value = 50;
+
+    document.getElementById(
+        "springCoils"
+    ).value = 8;
+
+    document.getElementById(
+        "springG"
+    ).value = 79;
+
+    document.getElementById(
+        "springForce"
+    ).value = 500;
+
+
+    document.getElementById(
+        "driverTeeth"
+    ).value = 20;
+
+    document.getElementById(
+        "drivenTeeth"
+    ).value = 60;
+
+    document.getElementById(
+        "gearSpeed"
+    ).value = 1500;
+
+    document.getElementById(
+        "gearTorque"
+    ).value = 20;
+
+    document.getElementById(
+        "gearEfficiency"
+    ).value = 95;
+
+
+    document.getElementById(
+        "powerTorque"
+    ).value = 50;
+
+    document.getElementById(
+        "powerRPM"
+    ).value = 1500;
+
+
+    calculateStress();
+    calculateBeam();
+    calculateShaft();
+    calculateSpring();
+    calculateGear();
+    calculatePower();
+
 }
 
 
@@ -2581,6 +2948,8 @@ window.addEventListener(
 
         calculatePower();
 
+        drawBeam();
+
     }
 );
 
@@ -2589,7 +2958,7 @@ window.addEventListener(
     "resize",
     function(){
 
-        calculateBeam();
+        drawBeam();
 
     }
 );
