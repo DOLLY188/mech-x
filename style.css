@@ -1,30 +1,29 @@
 /* =========================================================
-   MECH-X SHARED STYLE
-   Professional White + Blue Engineering Interface
+   MECH-X
+   FINAL GLOBAL DESIGN
+   Compact White + Blue Engineering Interface
    ========================================================= */
 
 :root {
-    --blue: #1261d6;
-    --blue-dark: #0b2d5c;
+    --blue: #1769d1;
+    --blue-dark: #123e73;
     --blue-light: #eaf3ff;
-    --blue-soft: #f5f9ff;
-
-    --text: #18324f;
-    --muted: #6d7f95;
-    --border: #d9e5f5;
+    --blue-hover: #dcecff;
 
     --white: #ffffff;
-    --background: #f7fbff;
+    --bg: #f7faff;
 
-    --success: #16834b;
-    --danger: #c43c3c;
+    --text: #23384f;
+    --muted: #708197;
 
-    --shadow: 0 12px 35px rgba(11, 45, 92, 0.08);
+    --border: #d9e5f2;
+
+    --shadow: 0 5px 18px rgba(18, 62, 115, 0.07);
 }
 
 
 /* =========================================================
-   GLOBAL
+   RESET
    ========================================================= */
 
 * {
@@ -37,263 +36,75 @@ html {
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--background);
+    padding: 0;
+
+    background: var(--bg);
     color: var(--text);
-    line-height: 1.55;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 a {
-    color: inherit;
     text-decoration: none;
+    color: inherit;
 }
 
 button,
 input,
 select,
 textarea {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
+    font-family: inherit;
 }
 
 
 /* =========================================================
-   TOP HEADER
+   TOP BAR
    ========================================================= */
 
-.top {
-    height: 68px;
-    border-bottom: 1px solid var(--border);
+.topbar {
+    height: 58px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 28px;
+    padding: 0 22px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid var(--border);
 
     position: sticky;
     top: 0;
 
-    background: rgba(255, 255, 255, 0.97);
-    backdrop-filter: blur(10px);
-
-    z-index: 100;
+    z-index: 1000;
 }
 
-
-/* MECH-X logo */
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.logo {
+    font-size: 19px;
 
     font-weight: 900;
-    font-size: 20px;
 
     color: var(--blue-dark);
+
+    white-space: nowrap;
 }
 
-.brand-mark {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 9px;
-
-    background: var(--blue);
-    color: white;
-
-    display: grid;
-    place-items: center;
-
-    font-weight: 900;
+.logo span {
+    color: var(--blue);
 }
 
-
-/* Top navigation */
-
-.topnav {
+.top-actions {
     display: flex;
     align-items: center;
-    gap: 18px;
 
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.topnav a:hover {
-    color: var(--blue);
-}
-
-
-/* =========================================================
-   MAIN PAGE LAYOUT
-   ========================================================= */
-
-.layout {
-    display: grid;
-    grid-template-columns: 250px minmax(0, 1fr);
-
-    min-height: calc(100vh - 68px);
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-.side {
-    width: 250px;
-
-    border-right: 1px solid var(--border);
-
-    padding: 24px 14px;
-
-    background: #fbfdff;
-
-    position: sticky;
-    top: 68px;
-
-    height: calc(100vh - 68px);
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    z-index: 50;
-}
-
-
-/* Sidebar title */
-
-.side-title {
-    font-size: 11px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1.2px;
-
-    color: #8b9bb0;
-
-    margin: 8px 12px 10px;
-}
-
-
-/* Sidebar links */
-
-.side a {
-    display: block;
-
-    width: 100%;
-
-    padding: 11px 12px;
-
-    border-radius: 9px;
-
-    color: #5d7087;
-
-    font-size: 14px;
-
-    margin: 3px 0;
-
-    transition:
-        background 0.15s ease,
-        color 0.15s ease,
-        transform 0.15s ease;
-}
-
-
-/* Hover */
-
-.side a:hover {
-    background: var(--blue-light);
-    color: var(--blue);
-}
-
-
-/* Active page */
-
-.side a.active {
-    background: var(--blue-light);
-    color: var(--blue);
-
-    font-weight: 800;
-
-    box-shadow: inset 3px 0 0 var(--blue);
-}
-
-
-/* Quick Home link */
-
-.side a[href="index.html"] {
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-   ========================================================= */
-
-.main {
-    padding: 42px;
-
-    max-width: 1400px;
-    width: 100%;
-
-    margin: 0 auto;
-}
-
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-    background: linear-gradient(
-        135deg,
-        #f2f7ff,
-        #e7f1ff
-    );
-
-    border: 1px solid #d7e7fb;
-
-    border-radius: 20px;
-
-    padding: 36px;
-
-    margin-bottom: 26px;
-}
-
-.eyebrow {
-    color: var(--blue);
-
-    font-weight: 800;
-
-    font-size: 12px;
-
-    letter-spacing: 1.4px;
-
-    text-transform: uppercase;
-}
-
-.hero h1 {
-    font-size: clamp(30px, 4vw, 52px);
-
-    line-height: 1.05;
-
-    margin: 10px 0 12px;
-
-    color: var(--blue-dark);
-}
-
-.hero p {
-    max-width: 760px;
-
-    color: #60748b;
-
-    margin: 0;
+    gap: 8px;
 }
 
 
@@ -301,835 +112,102 @@ button {
    BUTTONS
    ========================================================= */
 
-.actions {
-    display: flex;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-
-    margin-top: 22px;
-}
-
 .btn {
-    border: 0;
+    display: inline-flex;
 
-    border-radius: 9px;
+    align-items: center;
+    justify-content: center;
 
-    padding: 11px 16px;
+    min-height: 34px;
 
-    font-weight: 750;
+    padding: 7px 12px;
 
-    background: var(--blue);
+    border-radius: 7px;
 
-    color: #fff;
+    border: 1px solid var(--border);
 
-    box-shadow: 0 6px 18px rgba(18, 97, 214, 0.18);
+    background: #ffffff;
+
+    color: var(--blue-dark);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
 
     transition: 0.15s ease;
 }
 
 .btn:hover {
-    filter: brightness(0.95);
+    background: var(--blue-light);
 
-    transform: translateY(-1px);
+    border-color: #bfd5ef;
 }
 
-.btn.alt {
-    background: #fff;
-
-    color: var(--blue);
-
-    border: 1px solid #bfd4ef;
-
-    box-shadow: none;
-}
-
-.btn.danger {
-    background: #fff;
-
-    color: var(--danger);
-
-    border: 1px solid #efcaca;
-
-    box-shadow: none;
-}
-
-
-/* =========================================================
-   GRIDS
-   ========================================================= */
-
-.grid {
-    display: grid;
-
-    gap: 18px;
-}
-
-.grid2 {
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-}
-
-.grid3 {
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-}
-
-
-/* =========================================================
-   CARDS
-   ========================================================= */
-
-.card {
-    background: #fff;
-
-    border: 1px solid var(--border);
-
-    border-radius: 15px;
-
-    padding: 22px;
-
-    box-shadow: var(--shadow);
-}
-
-.card h2,
-.card h3 {
-    margin: 0 0 8px;
-
-    color: var(--blue-dark);
-}
-
-.muted {
-    color: var(--muted);
-}
-
-
-/* =========================================================
-   FORMS
-   ========================================================= */
-
-label {
-    display: block;
-
-    font-size: 12px;
-
-    font-weight: 800;
-
-    color: #52677f;
-
-    margin: 0 0 6px;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-
-    border: 1px solid #cbd9ea;
-
-    border-radius: 8px;
-
-    padding: 10px 11px;
-
-    background: #fff;
-
-    color: var(--text);
-
-    outline: none;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: var(--blue);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(18, 97, 214, 0.08);
-}
-
-textarea {
-    min-height: 110px;
-
-    resize: vertical;
-}
-
-.formgrid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 14px;
-}
-
-.full {
-    grid-column: 1 / -1;
-}
-
-
-/* =========================================================
-   RESULTS
-   ========================================================= */
-
-.result {
-    background: var(--blue-soft);
-
-    border: 1px solid #d9e8fa;
-
-    border-radius: 12px;
-
-    padding: 15px;
-}
-
-.result strong {
-    display: block;
-
-    font-size: 21px;
-
-    color: var(--blue);
-}
-
-.equation {
-    font-family:
-        ui-monospace,
-        SFMono-Regular,
-        Consolas,
-        monospace;
-
-    background: #f7f9fc;
-
-    border-left: 3px solid var(--blue);
-
-    padding: 12px;
-
-    margin: 10px 0;
-
-    color: #34506d;
-
-    overflow-x: auto;
-}
-
-
-/* =========================================================
-   CANVAS / SIMULATIONS
-   ========================================================= */
-
-canvas {
-    display: block;
-
-    width: 100%;
-
-    height: 300px;
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    background: #fff;
-
-    max-width: 100%;
-}
-
-
-/* =========================================================
-   SECTION TITLES
-   ========================================================= */
-
-.section-title {
-    margin: 34px 0 14px;
-}
-
-.section-title h2 {
-    margin: 0;
-
-    color: var(--blue-dark);
-}
-
-
-/* =========================================================
-   NOTICE
-   ========================================================= */
-
-.notice {
-    padding: 13px 15px;
-
-    border-left: 4px solid var(--blue);
-
-    background: var(--blue-soft);
-
-    color: #5c7188;
-
-    border-radius: 6px;
-}
-
-
-/* =========================================================
-   TABLES
-   ========================================================= */
-
-.tablewrap {
-    overflow-x: auto;
-}
-
-.data {
-    width: 100%;
-
-    border-collapse: collapse;
-}
-
-.data th,
-.data td {
-    padding: 10px;
-
-    border-bottom: 1px solid var(--border);
-
-    text-align: left;
-
-    font-size: 13px;
-}
-
-.data th {
-    color: #5c7087;
-
-    background: #f8fbff;
-}
-
-
-/* =========================================================
-   KPI CARDS
-   ========================================================= */
-
-.kpis {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 12px;
-}
-
-.mini {
-    background: #fff;
-
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    padding: 15px;
-}
-
-.mini b {
-    display: block;
-
-    color: #7a8da4;
-
-    font-size: 11px;
-
-    text-transform: uppercase;
-}
-
-.mini span {
-    display: block;
-
-    color: var(--blue-dark);
-
-    font-weight: 900;
-
-    font-size: 20px;
-
-    margin-top: 3px;
-}
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-.search {
-    position: relative;
-}
-
-.search input {
-    padding-left: 38px;
-}
-
-.search:before {
-    content: "⌕";
-
-    position: absolute;
-
-    left: 13px;
-    top: 8px;
-
-    color: #8295aa;
-
-    font-size: 20px;
-
-    z-index: 2;
-}
-
-
-/* =========================================================
-   FILTERS
-   ========================================================= */
-
-.filters {
-    display: flex;
-
-    gap: 8px;
-
-    flex-wrap: wrap;
-
-    margin: 14px 0;
-}
-
-.filter {
-    border: 1px solid var(--border);
-
-    background: #fff;
-
-    border-radius: 999px;
-
-    padding: 7px 12px;
-
-    font-size: 12px;
-
-    color: #62758b;
-}
-
-.filter.active {
+.btn.primary {
     background: var(--blue);
 
-    color: #fff;
-
     border-color: var(--blue);
+
+    color: white;
+}
+
+.btn.primary:hover {
+    background: #1258b5;
+}
+
+.btn.secondary {
+    background: white;
+
+    color: var(--blue);
+
+    border-color: #bfd5ef;
 }
 
 
 /* =========================================================
-   KNOWLEDGE BASE
+   MAIN LAYOUT
    ========================================================= */
 
-details {
-    border: 1px solid var(--border);
+.layout {
+    display: grid;
 
-    border-radius: 11px;
+    grid-template-columns: 220px minmax(0, 1fr);
 
-    padding: 14px;
-
-    margin: 10px 0;
-
-    background: #fff;
-}
-
-summary {
-    font-weight: 800;
-
-    color: var(--blue-dark);
-
-    cursor: pointer;
+    min-height: calc(100vh - 58px);
 }
 
 
 /* =========================================================
-   REPORTS
+   SIDEBAR
    ========================================================= */
 
-.report-preview {
-    background: #fff;
+.sidebar,
+aside {
+    width: 220px;
 
-    border: 1px solid #ccd8e8;
+    background: #ffffff;
 
-    box-shadow:
-        0 10px 30px
-        rgba(11, 45, 92, 0.08);
+    border-right: 1px solid var(--border);
 
-    padding: 42px;
+    padding: 16px 10px;
 
-    min-height: 700px;
-}
+    position: sticky;
 
-.report-head {
-    display: flex;
+    top: 58px;
 
-    justify-content: space-between;
+    height: calc(100vh - 58px);
 
-    gap: 20px;
+    overflow-y: auto;
 
-    border-bottom: 2px solid var(--blue);
+    overflow-x: hidden;
 
-    padding-bottom: 18px;
-
-    margin-bottom: 25px;
-}
-
-.report-logo {
-    font-size: 25px;
-
-    font-weight: 900;
-
-    color: var(--blue-dark);
-}
-
-.report-meta {
-    text-align: right;
-
-    font-size: 12px;
-
-    color: var(--muted);
-}
-
-.report-preview h2 {
-    color: var(--blue-dark);
-
-    border-bottom: 1px solid var(--border);
-
-    padding-bottom: 7px;
-}
-
-.report-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    margin: 12px 0 25px;
-}
-
-.report-table th,
-.report-table td {
-    border: 1px solid #d6e0ed;
-
-    padding: 8px;
-
-    font-size: 12px;
-}
-
-.report-table th {
-    background: #f1f6fc;
-}
-
-.report-foot {
-    margin-top: 45px;
-
-    border-top: 1px solid var(--border);
-
-    padding-top: 10px;
-
-    font-size: 11px;
-
-    color: #8292a4;
+    z-index: 500;
 }
 
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* Sidebar heading */
 
-.footer {
-    border-top: 1px solid var(--border);
-
-    padding: 24px 0;
-
-    margin-top: 50px;
-
-    color: #7b8ca0;
-
-    font-size: 13px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 20px;
-}
-
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
-    .layout {
-        grid-template-columns: 220px minmax(0, 1fr);
-    }
-
-    .side {
-        width: 220px;
-    }
-
-    .main {
-        padding: 30px;
-    }
-
-    .grid3 {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-   IMPORTANT:
-   SIDEBAR IS NOT HIDDEN.
-   It becomes a horizontal navigation bar.
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-    .top {
-        height: 64px;
-
-        padding: 0 15px;
-    }
-
-    .brand {
-        font-size: 18px;
-    }
-
-    .topnav {
-        display: flex;
-
-        gap: 10px;
-
-        font-size: 13px;
-    }
-
-    .layout {
-        display: block;
-
-        min-height: auto;
-    }
-
-    /*
-       THIS IS THE IMPORTANT FIX.
-       The navigation remains visible on phones.
-    */
-
-    .side {
-        display: block;
-
-        width: 100%;
-
-        height: auto;
-
-        min-height: 0;
-
-        position: sticky;
-
-        top: 64px;
-
-        padding: 8px 10px;
-
-        border-right: 0;
-
-        border-bottom: 1px solid var(--border);
-
-        background: #fff;
-
-        overflow-x: auto;
-
-        overflow-y: hidden;
-
-        white-space: nowrap;
-
-        z-index: 90;
-
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .side-title {
-        display: none;
-    }
-
-    .side a {
-        display: inline-flex;
-
-        align-items: center;
-
-        width: auto;
-
-        min-width: max-content;
-
-        margin: 0 4px 0 0;
-
-        padding: 10px 12px;
-
-        border-radius: 9px;
-
-        white-space: nowrap;
-
-        font-size: 13px;
-    }
-
-    .side a.active {
-        box-shadow: none;
-    }
-
-    .main {
-        padding: 22px 16px;
-    }
-
-    .grid2,
-    .grid3,
-    .formgrid {
-        grid-template-columns: 1fr;
-    }
-
-    .kpis {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-    }
-
-    .hero {
-        padding: 25px;
-    }
-
-    .hero h1 {
-        font-size: 34px;
-    }
-
-    .report-preview {
-        padding: 24px;
-    }
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 600px) {
-
-    .top {
-        padding: 0 10px;
-    }
-
-    .topnav {
-        gap: 8px;
-    }
-
-    .topnav a {
-        font-size: 12px;
-    }
-
-    .topnav a:nth-child(n + 3) {
-        display: none;
-    }
-
-    .main {
-        padding: 16px 12px;
-    }
-
-    .hero {
-        padding: 20px;
-    }
-
-    .hero h1 {
-        font-size: 29px;
-    }
-
-    .hero p {
-        font-size: 14px;
-    }
-
-    .card {
-        padding: 18px;
-    }
-
-    .kpis {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .footer {
-        flex-direction: column;
-
-        text-align: center;
-    }
-
-    canvas {
-        height: 250px;
-    }
-
-    .report-preview {
-        padding: 18px;
-    }
-
-    .report-head {
-        flex-direction: column;
-    }
-
-    .report-meta {
-        text-align: left;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-   ========================================================= */
-
-@media (max-width: 400px) {
-
-    .brand-mark {
-        width: 30px;
-        height: 30px;
-    }
-
-    .brand {
-        font-size: 16px;
-    }
-
-    .topnav a {
-        font-size: 11px;
-    }
-
-    .side a {
-        font-size: 12px;
-
-        padding: 9px 10px;
-    }
-
-    .kpis {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* =========================================================
-   PRINT
-   ========================================================= */
-
-@media print {
-
-    .top,
-    .side,
-    .no-print {
-        display: none !important;
-    }
-
-    .layout {
-        display: block;
-    }
-
-    .main {
-        padding: 0;
-
-        max-width: none;
-    }
-
-    .report-preview {
-        box-shadow: none;
-
-        border: 0;
-
-        padding: 10mm;
-    }
-
-    .report-preview * {
-        break-inside: avoid;
-    }
-}
+.side-title {
+    padding: 5px 9px
