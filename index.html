@@ -4,343 +4,873 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>MECH-X | Engineering Laboratory</title>
+    <title>MECH-X | Interactive Mechatronics Engineering Laboratory</title>
 
-    <meta
-        name="description"
-        content="MECH-X is a free engineering laboratory for calculations, simulations, robotics, control systems, automotive engineering, mechanical engineering and electrical engineering."
-    >
+    <meta name="description"
+          content="MECH-X is an interactive engineering laboratory for mechatronics, mechanical, electrical, robotics, control systems and automotive engineering.">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #1261d6;
+            --blue-dark: #0b2d5c;
+            --blue-light: #eaf3ff;
+            --blue-soft: #f3f8ff;
+            --cyan: #16a9e8;
+
+            --white: #ffffff;
+            --background: #f7faff;
+
+            --text: #172033;
+            --muted: #61708a;
+
+            --border: #d9e5f3;
+
+            --shadow:
+                0 10px 30px rgba(18, 97, 214, 0.10);
+
+            --shadow-hover:
+                0 18px 40px rgba(18, 97, 214, 0.16);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 18px 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 650px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    #d9edff 0%,
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 10% 80%,
+                    #e9f4ff 0%,
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #eef6ff
+                );
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            width: 100%;
+
+            margin: auto;
+            padding: 80px 25px;
+
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-label {
+            display: inline-block;
+
+            padding: 8px 14px;
+            margin-bottom: 20px;
+
+            background: var(--blue-light);
+            color: var(--blue);
+
+            border: 1px solid #c8def8;
+            border-radius: 30px;
+
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 0.95;
+
+            color: var(--blue-dark);
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: var(--blue);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: #29466d;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            font-size: 1.08rem;
+            color: var(--muted);
+
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 13px 22px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+            font-weight: 700;
+
+            transition: 0.25s;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: white;
+
+            box-shadow: 0 8px 20px rgba(18, 97, 214, 0.22);
+        }
+
+        .btn-primary:hover {
+            background: #0b4eae;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--blue-dark);
+
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           HERO ENGINEERING PANEL
+        ========================== */
+
+        .engineering-panel {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow: var(--shadow);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .engineering-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: #e5f2ff;
+
+            top: -80px;
+            right: -60px;
+        }
+
+        .panel-title {
+            font-weight: 800;
+            color: var(--blue-dark);
+
+            margin-bottom: 25px;
+        }
+
+        .system-line {
+            height: 2px;
+            background: var(--border);
+
+            margin: 20px 0;
+
+            position: relative;
+        }
+
+        .system-line::after {
+            content: "";
+
+            position: absolute;
+
+            width: 45%;
+            height: 100%;
+
+            background: var(--blue);
+
+            left: 0;
+            top: 0;
+        }
+
+        .system-boxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .system-box {
+            padding: 18px 10px;
+
+            background: var(--blue-soft);
+
+            border: 1px solid var(--border);
+            border-radius: 12px;
+
+            text-align: center;
+
+            font-weight: 700;
+            color: var(--blue-dark);
+        }
+
+        .system-box small {
+            display: block;
+
+            margin-top: 5px;
+
+            color: var(--muted);
+            font-weight: normal;
+        }
+
+        /* =========================
+           STATS
+        ========================== */
+
+        .stats {
+            max-width: 1100px;
+            margin: -45px auto 70px;
+
+            padding: 0 25px;
+
+            position: relative;
+            z-index: 5;
+        }
+
+        .stats-grid {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            box-shadow: var(--shadow);
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .stat {
+            padding: 25px;
+            text-align: center;
+
+            border-right: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat strong {
+            display: block;
+
+            font-size: 1.8rem;
+
+            color: var(--blue);
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* =========================
+           GENERAL SECTION
+        ========================== */
+
+        section {
+            padding: 80px 25px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 750px;
+
+            margin: 0 auto 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.4rem;
+
+            color: var(--blue-dark);
+
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+        }
+
+        /* =========================
+           LABORATORIES
+        ========================== */
+
+        .labs {
+            background: white;
+        }
+
+        .lab-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .lab-card {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 16px;
+
+            padding: 28px;
+
+            box-shadow: var(--shadow);
+
+            transition: 0.25s;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+
+            border-color: #b8d3f5;
+        }
+
+        .lab-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: var(--blue-light);
+
+            color: var(--blue);
+
+            font-size: 1.4rem;
+
+            margin-bottom: 20px;
+        }
+
+        .lab-card h3 {
+            color: var(--blue-dark);
+            margin-bottom: 10px;
+        }
+
+        .lab-card p {
+            color: var(--muted);
+
+            font-size: 0.95rem;
+
+            margin-bottom: 20px;
+        }
+
+        .lab-link {
+            color: var(--blue);
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+        .lab-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           ROADMAP
+        ========================== */
+
+        .roadmap {
+            background: var(--blue-soft);
+        }
+
+        .roadmap-list {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .roadmap-item {
+            display: grid;
+
+            grid-template-columns: 60px 1fr;
+
+            gap: 20px;
+
+            padding: 25px;
+
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 14px;
+
+            margin-bottom: 15px;
+
+            box-shadow: 0 5px 18px rgba(18, 97, 214, 0.06);
+        }
+
+        .roadmap-number {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: var(--blue);
+
+            color: white;
+
+            font-weight: 800;
+        }
+
+        .roadmap-item h3 {
+            color: var(--blue-dark);
+            margin-bottom: 5px;
+        }
+
+        .roadmap-item p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        /* =========================
+           ABOUT
+        ========================== */
+
+        .about {
+            background: white;
+        }
+
+        .about-box {
+            max-width: 900px;
+            margin: auto;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #eef6ff
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 45px;
+
+            box-shadow: var(--shadow);
+        }
+
+        .about-box h2 {
+            color: var(--blue-dark);
+            margin-bottom: 15px;
+        }
+
+        .about-box p {
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            background: var(--blue-dark);
+
+            color: white;
+
+            padding: 45px 25px;
+
+            text-align: center;
+        }
+
+        footer h3 {
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #b9c9df;
+
+            font-size: 0.9rem;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .hero-container {
+                grid-template-columns: 1fr;
+            }
+
+            .lab-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .stat:nth-child(2) {
+                border-right: none;
+            }
+
+            .stat {
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-container {
+                padding: 65px 20px;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .lab-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .system-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .about-box {
+                padding: 28px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     TOP BAR
-     ===================================================== -->
+<!-- =========================
+     NAVIGATION
+========================== -->
 
-<header class="topbar">
+<nav>
+    <div class="nav-container">
 
-    <a href="index.html" class="logo">
-        MECH<span>-X</span>
-    </a>
+        <div class="logo">
+            MECH<span>-X</span>
+        </div>
 
-    <div class="top-actions">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="calculators.html">Calculators</a></li>
+            <li><a href="motor.html">Motor Lab</a></li>
+            <li><a href="#laboratories">Laboratories</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
 
-        <a href="index.html" class="btn secondary">
-            Home
-        </a>
+    </div>
+</nav>
 
-        <a href="calculators.html" class="btn primary">
-            Open Calculator
-        </a>
+
+<!-- =========================
+     HERO
+========================== -->
+
+<header class="hero">
+
+    <div class="hero-container">
+
+        <div>
+
+            <span class="hero-label">
+                INTERACTIVE MECHATRONICS PLATFORM
+            </span>
+
+            <h1>
+                Engineering.<br>
+                <span>Simulated.</span>
+            </h1>
+
+            <h2>
+                MECH-X Interactive Engineering Laboratory
+            </h2>
+
+            <p>
+                Explore engineering concepts through interactive
+                simulations, calculators, virtual experiments and
+                engineering tools designed for students, engineers
+                and technology enthusiasts.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#laboratories"
+                    class="btn btn-primary">
+                    Explore Laboratories
+                </a>
+
+                <a
+                    href="#roadmap"
+                    class="btn btn-secondary">
+                    View Development Roadmap
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ENGINEERING PANEL -->
+
+        <div class="engineering-panel">
+
+            <div class="panel-title">
+                MECH-X ENGINEERING SYSTEM
+            </div>
+
+            <div class="system-boxes">
+
+                <div class="system-box">
+                    ⚙
+                    <small>Mechanical</small>
+                </div>
+
+                <div class="system-box">
+                    ⚡
+                    <small>Electrical</small>
+                </div>
+
+                <div class="system-box">
+                    🤖
+                    <small>Robotics</small>
+                </div>
+
+            </div>
+
+            <div class="system-line"></div>
+
+            <div class="system-boxes">
+
+                <div class="system-box">
+                    📈
+                    <small>Control</small>
+                </div>
+
+                <div class="system-box">
+                    🚗
+                    <small>Automotive</small>
+                </div>
+
+                <div class="system-box">
+                    🧮
+                    <small>Calculators</small>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </header>
 
 
-<!-- =====================================================
-     MAIN LAYOUT
-     ===================================================== -->
+<!-- =========================
+     STATS
+========================== -->
 
-<div class="layout">
+<div class="stats">
 
+    <div class="stats-grid">
 
-    <!-- =================================================
-         SIDEBAR
-         ================================================= -->
-
-    <aside class="sidebar">
-
-        <div class="side-title">
-            MECH-X Laboratory
+        <div class="stat">
+            <strong>6+</strong>
+            <span>Engineering Fields</span>
         </div>
 
-        <nav class="nav">
+        <div class="stat">
+            <strong>∞</strong>
+            <span>Simulation Possibilities</span>
+        </div>
 
-            <a href="index.html" class="active">
-                ⌂ Home
-            </a>
+        <div class="stat">
+            <strong>100%</strong>
+            <span>Browser Based</span>
+        </div>
 
-            <a href="calculators.html">
-                ▦ Calculators
-            </a>
+        <div class="stat">
+            <strong>FREE</strong>
+            <span>Open Engineering Platform</span>
+        </div>
 
-            <a href="motor.html">
-                ⚙ Motor Lab
-            </a>
+    </div>
 
-            <a href="control.html">
-                ◉ Control Lab
-            </a>
-
-            <a href="robotics.html">
-                ▦ Robotics Lab
-            </a>
-
-            <a href="automotive.html">
-                ▤ Automotive Lab
-            </a>
-
-            <a href="mechanical.html">
-                ◆ Mechanical Lab
-            </a>
-
-            <a href="electrical.html">
-                ⚡ Electrical & Electronics
-            </a>
-
-            <a href="knowledge.html">
-                📘 Knowledge Base
-            </a>
-
-            <a href="reports.html">
-                ▤ Reports & Export
-            </a>
-
-        </nav>
-
-    </aside>
+</div>
 
 
-    <!-- =================================================
-         MAIN CONTENT
-         ================================================= -->
+<!-- =========================
+     LABORATORIES
+========================== -->
 
-    <main class="main">
+<section
+    class="labs"
+    id="laboratories">
 
+    <div class="section-container">
 
-        <!-- HERO -->
-
-        <section class="hero">
-
-            <div class="eyebrow">
-                FREE ENGINEERING PLATFORM
-            </div>
-
-            <h1>
-                MECH-X Engineering Laboratory
-            </h1>
-
-            <p>
-                A practical engineering workspace for calculations,
-                simulations, design tools, laboratory analysis and
-                engineering reports.
-            </p>
-
-            <div class="hero-actions">
-
-                <a
-                    href="calculators.html"
-                    class="btn primary"
-                >
-                    Open Engineering Calculators
-                </a>
-
-                <a
-                    href="reports.html"
-                    class="btn secondary"
-                >
-                    Create Engineering Report
-                </a>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             QUICK STATS
-             ================================================= -->
-
-        <section class="stats">
-
-            <div class="stat">
-                <strong>10+</strong>
-                <span>Engineering Modules</span>
-            </div>
-
-            <div class="stat">
-                <strong>100%</strong>
-                <span>Browser Based</span>
-            </div>
-
-            <div class="stat">
-                <strong>Free</strong>
-                <span>To Use</span>
-            </div>
-
-            <div class="stat">
-                <strong>24/7</strong>
-                <span>Available Online</span>
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             ENGINEERING LABORATORIES
-             ================================================= -->
-
-        <div class="section-title">
+        <div class="section-header">
 
             <h2>
                 Engineering Laboratories
             </h2>
 
             <p>
-                Select a laboratory to open its tools and resources.
+                Interactive tools covering the major
+                disciplines of mechatronics engineering.
             </p>
 
         </div>
 
 
-        <section class="grid">
-
-
-            <!-- CALCULATORS -->
-
-            <article class="card">
-
-                <div class="icon">
-                    CALC
-                </div>
-
-                <h3>
-                    Engineering Calculators
-                </h3>
-
-                <p>
-                    General engineering calculations for
-                    students, engineers and technical projects.
-                </p>
-
-                <a
-                    href="calculators.html"
-                    class="open"
-                >
-                    Open Calculators →
-                </a>
-
-            </article>
-
-
-            <!-- MOTOR -->
-
-            <article class="card">
-
-                <div class="icon">
-                    MOT
-                </div>
-
-                <h3>
-                    Motor Laboratory
-                </h3>
-
-                <p>
-                    DC motor calculations, electrical
-                    parameters and motor analysis tools.
-                </p>
-
-                <a
-                    href="motor.html"
-                    class="open"
-                >
-                    Open Motor Lab →
-                </a>
-
-            </article>
-
-
-            <!-- CONTROL -->
-
-            <article class="card">
-
-                <div class="icon">
-                    CTRL
-                </div>
-
-                <h3>
-                    Control Systems
-                </h3>
-
-                <p>
-                    Explore control-system calculations,
-                    response analysis and engineering concepts.
-                </p>
-
-                <a
-                    href="control.html"
-                    class="open"
-                >
-                    Open Control Lab →
-                </a>
-
-            </article>
-
-
-            <!-- ROBOTICS -->
-
-            <article class="card">
-
-                <div class="icon">
-                    ROB
-                </div>
-
-                <h3>
-                    Robotics Laboratory
-                </h3>
-
-                <p>
-                    Robotics calculations, mechanisms,
-                    kinematics and practical engineering tools.
-                </p>
-
-                <a
-                    href="robotics.html"
-                    class="open"
-                >
-                    Open Robotics Lab →
-                </a>
-
-            </article>
-
-
-            <!-- AUTOMOTIVE -->
-
-            <article class="card">
-
-                <div class="icon">
-                    AUTO
-                </div>
-
-                <h3>
-                    Automotive Engineering
-                </h3>
-
-                <p>
-                    Vehicle engineering tools covering
-                    automotive systems and calculations.
-                </p>
-
-                <a
-                    href="automotive.html"
-                    class="open"
-                >
-                    Open Automotive Lab →
-                </a>
-
-            </article>
-
+        <div class="lab-grid">
 
             <!-- MECHANICAL -->
 
-            <article class="card">
+            <div class="lab-card">
 
-                <div class="icon">
-                    MECH
+                <div class="lab-icon">
+                    ⚙
                 </div>
 
                 <h3>
@@ -348,26 +878,393 @@
                 </h3>
 
                 <p>
-                    Mechanical engineering calculations,
-                    materials, mechanics and design analysis.
+                    Explore torque, power, gears,
+                    shafts, stress, strain, beams,
+                    springs and mechanical systems.
                 </p>
 
                 <a
-                    href="mechanical.html"
-                    class="open"
-                >
-                    Open Mechanical Lab →
+                    href="#"
+                    class="lab-link">
+                    Coming Soon →
                 </a>
 
-            </article>
+            </div>
 
 
             <!-- ELECTRICAL -->
 
-            <article class="card">
+            <div class="lab-card">
 
-                <div class="icon">
-                    ELEC
+                <div class="lab-icon">
+                    ⚡
                 </div>
 
-                <h3
+                <h3>
+                    Electrical & Electronics
+                </h3>
+
+                <p>
+                    Experiment with circuits, sensors,
+                    Ohm's law, RC/RL systems, digital
+                    logic and electronic components.
+                </p>
+
+                <a
+                    href="calculators.html"
+                    class="lab-link">
+                    Open Tools →
+                </a>
+
+            </div>
+
+
+            <!-- ROBOTICS -->
+
+            <div class="lab-card">
+
+                <div class="lab-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    Robotics Laboratory
+                </h3>
+
+                <p>
+                    Control a virtual robotic arm and
+                    explore forward kinematics,
+                    inverse kinematics and workspace.
+                </p>
+
+                <a
+                    href="#"
+                    class="lab-link">
+                    Coming Soon →
+                </a>
+
+            </div>
+
+
+            <!-- CONTROL -->
+
+            <div class="lab-card">
+
+                <div class="lab-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Control Systems
+                </h3>
+
+                <p>
+                    Study feedback systems, PID control,
+                    step responses, stability and
+                    controller performance.
+                </p>
+
+                <a
+                    href="control.html"
+                    class="lab-link">
+                    Control Lab →
+                </a>
+
+            </div>
+
+
+            <!-- AUTOMOTIVE -->
+
+            <div class="lab-card">
+
+                <div class="lab-icon">
+                    🚗
+                </div>
+
+                <h3>
+                    Automotive Engineering
+                </h3>
+
+                <p>
+                    Simulate vehicle performance,
+                    power, torque, gearing, acceleration,
+                    efficiency and vehicle dynamics.
+                </p>
+
+                <a
+                    href="#"
+                    class="lab-link">
+                    Coming Soon →
+                </a>
+
+            </div>
+
+
+            <!-- CALCULATORS -->
+
+            <div class="lab-card">
+
+                <div class="lab-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Engineering Calculators
+                </h3>
+
+                <p>
+                    Quickly calculate engineering
+                    quantities using practical formulas
+                    and interactive tools.
+                </p>
+
+                <a
+                    href="calculators.html"
+                    class="lab-link">
+                    Open Calculators →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ROADMAP
+========================== -->
+
+<section
+    class="roadmap"
+    id="roadmap">
+
+    <div class="section-container">
+
+        <div class="section-header">
+
+            <h2>
+                Development Roadmap
+            </h2>
+
+            <p>
+                MECH-X is being developed as a growing
+                browser-based engineering laboratory.
+            </p>
+
+        </div>
+
+
+        <div class="roadmap-list">
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        Engineering Calculator Engine
+                    </h3>
+
+                    <p>
+                        Practical engineering calculators
+                        for mechanical, electrical and
+                        automotive applications.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        Interactive Graphing
+                    </h3>
+
+                    <p>
+                        Dynamic graphs for engineering
+                        equations, motor response and
+                        system behavior.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        Control Systems Laboratory
+                    </h3>
+
+                    <p>
+                        PID controller simulation with
+                        step response analysis and
+                        performance measurements.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    04
+                </div>
+
+                <div>
+
+                    <h3>
+                        Robotics Simulator
+                    </h3>
+
+                    <p>
+                        Interactive robotic arm with
+                        forward and inverse kinematics.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    05
+                </div>
+
+                <div>
+
+                    <h3>
+                        Automotive Simulator
+                    </h3>
+
+                    <p>
+                        Vehicle performance simulation
+                        including power, gearing,
+                        acceleration and efficiency.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="roadmap-item">
+
+                <div class="roadmap-number">
+                    06
+                </div>
+
+                <div>
+
+                    <h3>
+                        Engineering Knowledge Base
+                    </h3>
+
+                    <p>
+                        A structured collection of formulas,
+                        engineering concepts, examples
+                        and technical explanations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================== -->
+
+<section class="about">
+
+    <div class="section-container">
+
+        <div class="about-box">
+
+            <h2>
+                About MECH-X
+            </h2>
+
+            <p>
+                MECH-X is an experimental engineering
+                platform designed to bring engineering
+                theory into an interactive digital
+                environment.
+            </p>
+
+            <p>
+                Instead of only reading formulas,
+                users can manipulate engineering
+                parameters and observe how systems
+                respond.
+            </p>
+
+            <p>
+                The long-term goal is to combine
+                mechanical engineering, electrical
+                engineering, robotics, control systems
+                and automotive engineering into one
+                accessible engineering laboratory.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+    <h3>
+        MECH-X
+    </h3>
+
+    <p>
+        Interactive Mechatronics Engineering Laboratory
+    </p>
+
+    <p style="margin-top: 10px;">
+        Built for engineering education, experimentation
+        and innovation.
+    </p>
+
+</footer>
+
+</body>
+</html>
