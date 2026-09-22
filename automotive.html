@@ -1,309 +1,1072 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automotive Lab | MECH-X</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Automotive Engineering Lab | MECH-X</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --blue: #1261d6;
+    --blue-dark: #0b2d5c;
+    --blue-light: #eaf3ff;
+    --blue-soft: #f5f9ff;
+    --text: #17324d;
+    --muted: #60758a;
+    --border: #d9e5f2;
+    --white: #ffffff;
+    --green: #138a52;
+    --red: #d63b3b;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7faff;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* NAVIGATION */
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: var(--blue);
+}
+
+/* HEADER */
+
+header {
+    background:
+        radial-gradient(circle at top right, #dcecff 0%, transparent 35%),
+        linear-gradient(135deg, #ffffff, #edf5ff);
+    padding: 70px 6% 55px;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--blue-light);
+    color: var(--blue);
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+header h1 {
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.05;
+    color: var(--blue-dark);
+    margin-bottom: 18px;
+}
+
+header h1 span {
+    color: var(--blue);
+}
+
+header p {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 18px;
+}
+
+/* MAIN */
+
+.container {
+    width: min(1200px, 92%);
+    margin: 45px auto;
+}
+
+.section-title {
+    margin-bottom: 22px;
+}
+
+.section-title h2 {
+    color: var(--blue-dark);
+    font-size: 30px;
+}
+
+.section-title p {
+    color: var(--muted);
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* CARD */
+
+.card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(18, 97, 214, 0.07);
+}
+
+.card h3 {
+    color: var(--blue-dark);
+    margin-bottom: 17px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* INPUTS */
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    font-size: 15px;
+    background: #fbfdff;
+    color: var(--text);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(18,97,214,0.1);
+}
+
+/* GEARS */
+
+.gear-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.gear-grid input {
+    width: 100%;
+}
+
+/* BUTTON */
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    background: var(--blue);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+button:hover {
+    background: #0e50b5;
+}
+
+/* RESULTS */
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.result-box {
+    background: var(--blue-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+
+.result-box .label {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.result-box .value {
+    color: var(--blue-dark);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+/* GRAPH */
+
+.graph-container {
+    margin-top: 25px;
+}
+
+canvas {
+    width: 100%;
+    height: 350px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: white;
+}
+
+/* FORMULAS */
+
+.formula {
+    background: #f4f8fd;
+    border-left: 4px solid var(--blue);
+    padding: 12px 15px;
+    margin: 12px 0;
+    font-family: "Courier New", monospace;
+    color: var(--blue-dark);
+    overflow-x: auto;
+}
+
+/* STATUS */
+
+.status {
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 9px;
+    background: var(--blue-light);
+    color: var(--blue-dark);
+    font-weight: 600;
+}
+
+/* FOOTER */
+
+footer {
+    margin-top: 70px;
+    background: var(--blue-dark);
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+footer p {
+    opacity: 0.8;
+    font-size: 14px;
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    nav {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 500px) {
+    .gear-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding-top: 45px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<header class="topbar">
-    <a href="index.html" class="logo">MECH-X</a>
+<nav>
+    <a href="index.html" class="logo">MECH<span>-X</span></a>
 
-    <div class="top-actions">
-        <a href="calculators.html" class="btn secondary">Calculators</a>
-        <a href="reports.html" class="btn primary">Reports</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="calculators.html">Calculators</a>
+        <a href="motor.html">Motor Lab</a>
+        <a href="control.html">Control Lab</a>
+        <a href="robotics.html">Robotics Lab</a>
+    </div>
+</nav>
+
+<header>
+    <div class="header-content">
+
+        <div class="badge">
+            AUTOMOTIVE ENGINEERING LABORATORY
+        </div>
+
+        <h1>
+            Vehicle Performance<br>
+            <span>Simulator</span>
+        </h1>
+
+        <p>
+            Explore how engine power, torque, gearing, vehicle mass,
+            aerodynamics and rolling resistance affect vehicle performance.
+        </p>
+
     </div>
 </header>
 
-<div class="layout">
+<main class="container">
 
-<aside class="sidebar">
-    <div class="sidebar-title">ENGINEERING LAB</div>
+    <!-- VEHICLE INPUTS -->
 
-    <nav>
-        <a href="index.html">⌂ Home</a>
-        <a href="calculators.html">▣ Calculators</a>
-        <a href="motor.html">⚙ Motor Lab</a>
-        <a href="control.html">◉ Control Lab</a>
-        <a href="robotics.html">🦾 Robotics Lab</a>
-        <a href="automotive.html" class="active">🚗 Automotive Lab</a>
-        <a href="mechanical.html">⚒ Mechanical Lab</a>
-        <a href="electrical.html">⚡ Electrical & Electronics</a>
-        <a href="knowledge.html">📘 Knowledge Base</a>
-        <a href="reports.html">📄 Reports & Export</a>
-    </nav>
-</aside>
+    <section>
 
-<main class="main-content">
+        <div class="section-title">
+            <h2>Vehicle Configuration</h2>
+            <p>Enter the specifications of the vehicle you want to simulate.</p>
+        </div>
 
-<section class="page-hero">
-    <span class="eyebrow">AUTOMOTIVE ENGINEERING</span>
-    <h1>Vehicle Dynamics Simulator</h1>
-    <p>Study acceleration, aerodynamic drag, rolling resistance and road grade.</p>
-</section>
+        <div class="grid">
 
-<section class="section">
+            <div class="card">
 
-<div class="form-grid">
+                <h3>Engine & Vehicle</h3>
 
-<div class="card">
+                <div class="input-group">
+                    <label>Engine Power (kW)</label>
+                    <input id="power" type="number" value="110" min="1">
+                </div>
 
-<h2>Vehicle Parameters</h2>
+                <div class="input-group">
+                    <label>Engine Torque (N·m)</label>
+                    <input id="torque" type="number" value="200" min="1">
+                </div>
 
-<label>Vehicle Mass (kg)</label>
-<input id="mass" type="number" value="1500" min="1">
+                <div class="input-group">
+                    <label>Vehicle Mass (kg)</label>
+                    <input id="mass" type="number" value="1400" min="100">
+                </div>
 
-<label>Engine Power (kW)</label>
-<input id="enginePower" type="number" value="100" min="1">
+                <div class="input-group">
+                    <label>Wheel Radius (m)</label>
+                    <input id="wheelRadius" type="number" value="0.31" step="0.01" min="0.1">
+                </div>
 
-<label>Wheel Radius (m)</label>
-<input id="wheelRadius" type="number" value="0.32" min="0.05">
+                <div class="input-group">
+                    <label>Drivetrain Efficiency (%)</label>
+                    <input id="efficiency" type="number" value="85" min="1" max="100">
+                </div>
 
-<label>Drag Coefficient Cd</label>
-<input id="cd" type="number" value="0.30" min="0">
+            </div>
 
-<label>Frontal Area (m²)</label>
-<input id="area" type="number" value="2.2" min="0.1">
+            <div class="card">
 
-<label>Rolling Resistance Coefficient</label>
-<input id="cr" type="number" value="0.015" min="0">
+                <h3>Gearbox</h3>
 
-<label>Road Grade (%)</label>
-<input id="grade" type="number" value="0">
+                <div class="gear-grid">
 
-<label>Drivetrain Efficiency (%)</label>
-<input id="efficiency" type="number" value="90" min="1" max="100">
+                    <div class="input-group">
+                        <label>1st Gear</label>
+                        <input id="gear1" type="number" value="3.50" step="0.01">
+                    </div>
 
-<button class="btn primary" onclick="runVehicle()">
-    Run Vehicle Simulation
-</button>
+                    <div class="input-group">
+                        <label>2nd Gear</label>
+                        <input id="gear2" type="number" value="2.10" step="0.01">
+                    </div>
 
-</div>
+                    <div class="input-group">
+                        <label>3rd Gear</label>
+                        <input id="gear3" type="number" value="1.40" step="0.01">
+                    </div>
 
-<div class="card">
+                    <div class="input-group">
+                        <label>4th Gear</label>
+                        <input id="gear4" type="number" value="1.00" step="0.01">
+                    </div>
 
-<h2>Results</h2>
+                    <div class="input-group">
+                        <label>5th Gear</label>
+                        <input id="gear5" type="number" value="0.80" step="0.01">
+                    </div>
 
-<div class="stats">
+                    <div class="input-group">
+                        <label>Final Drive</label>
+                        <input id="finalDrive" type="number" value="3.90" step="0.01">
+                    </div>
 
-<div class="stat-card">
-    <strong id="vehicleSpeed">—</strong>
-    <span>Final Speed</span>
-</div>
+                </div>
 
-<div class="stat-card">
-    <strong id="vehicleAccel">—</strong>
-    <span>Acceleration</span>
-</div>
+            </div>
 
-<div class="stat-card">
-    <strong id="dragForce">—</strong>
-    <span>Drag Force</span>
-</div>
+        </div>
 
-<div class="stat-card">
-    <strong id="tractiveForce">—</strong>
-    <span>Tractive Force</span>
-</div>
+    </section>
 
-</div>
 
-<p id="vehicleStatus">
-    Run the simulation to calculate vehicle performance.
-</p>
+    <!-- AERODYNAMICS -->
 
-</div>
+    <section style="margin-top:45px;">
 
-</div>
+        <div class="section-title">
+            <h2>Road & Aerodynamics</h2>
+            <p>These parameters determine how the vehicle interacts with the road and air.</p>
+        </div>
 
-</section>
+        <div class="grid">
 
-<section class="section">
+            <div class="card">
 
-<div class="card">
-    <h2>Speed vs Time</h2>
-    <canvas id="vehicleCanvas" height="320"></canvas>
-</div>
+                <h3>Aerodynamic Parameters</h3>
 
-</section>
+                <div class="input-group">
+                    <label>Drag Coefficient Cd</label>
+                    <input id="cd" type="number" value="0.30" step="0.01" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label>Frontal Area A (m²)</label>
+                    <input id="area" type="number" value="2.2" step="0.1" min="0.1">
+                </div>
+
+                <div class="input-group">
+                    <label>Air Density ρ (kg/m³)</label>
+                    <input id="rho" type="number" value="1.225" step="0.001" min="0.5">
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Road Parameters</h3>
+
+                <div class="input-group">
+                    <label>Rolling Resistance Coefficient Crr</label>
+                    <input id="crr" type="number" value="0.012" step="0.001" min="0">
+                </div>
+
+                <div class="input-group">
+                    <label>Road Slope (%)</label>
+                    <input id="slope" type="number" value="0" step="0.1">
+                </div>
+
+                <button onclick="runSimulation()">
+                    RUN VEHICLE SIMULATION
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section style="margin-top:45px;">
+
+        <div class="section-title">
+            <h2>Simulation Results</h2>
+            <p>Calculated vehicle performance based on the parameters above.</p>
+        </div>
+
+        <div class="results">
+
+            <div class="result-box">
+                <div class="label">Power-to-Weight</div>
+                <div class="value" id="powerWeight">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="label">1st Gear Wheel Torque</div>
+                <div class="value" id="wheelTorque">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="label">Estimated 0–100 km/h</div>
+                <div class="value" id="zeroToHundred">—</div>
+            </div>
+
+            <div class="result-box">
+                <div class="label">Estimated Top Speed</div>
+                <div class="value" id="topSpeed">—</div>
+            </div>
+
+        </div>
+
+        <div class="status" id="status">
+            Enter your vehicle parameters and run the simulation.
+        </div>
+
+    </section>
+
+
+    <!-- GRAPH -->
+
+    <section class="card graph-container">
+
+        <h3>Acceleration Performance</h3>
+
+        <p>
+            This graph shows simulated vehicle speed against time.
+        </p>
+
+        <br>
+
+        <canvas id="graph" width="1100" height="350"></canvas>
+
+    </section>
+
+
+    <!-- ENGINEERING THEORY -->
+
+    <section style="margin-top:45px;">
+
+        <div class="section-title">
+            <h2>Engineering Model</h2>
+            <p>The simulator uses simplified vehicle-dynamics equations.</p>
+        </div>
+
+        <div class="grid">
+
+            <div class="card">
+
+                <h3>Wheel Torque</h3>
+
+                <div class="formula">
+                    T<sub>wheel</sub> =
+                    T<sub>engine</sub> × Gear Ratio × Final Drive × η
+                </div>
+
+                <p>
+                    The transmission multiplies engine torque before it
+                    reaches the wheels.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Tractive Force</h3>
+
+                <div class="formula">
+                    F<sub>tractive</sub> =
+                    T<sub>wheel</sub> / r
+                </div>
+
+                <p>
+                    Wheel torque is converted into a forward force at the
+                    tyre contact patch.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Aerodynamic Drag</h3>
+
+                <div class="formula">
+                    F<sub>drag</sub> =
+                    ½ρC<sub>d</sub>Av²
+                </div>
+
+                <p>
+                    Air resistance increases rapidly as vehicle speed rises.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Rolling Resistance</h3>
+
+                <div class="formula">
+                    F<sub>rr</sub> =
+                    C<sub>rr</sub>mg
+                </div>
+
+                <p>
+                    Rolling resistance represents energy lost through the
+                    tyres and road interaction.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Vehicle Acceleration</h3>
+
+                <div class="formula">
+                    a =
+                    (F<sub>tractive</sub>
+                    − F<sub>drag</sub>
+                    − F<sub>rr</sub>
+                    − F<sub>slope</sub>) / m
+                </div>
+
+                <p>
+                    The net force acting on the vehicle determines its
+                    acceleration.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Power-to-Weight Ratio</h3>
+
+                <div class="formula">
+                    P/W = Power / Mass
+                </div>
+
+                <p>
+                    Power-to-weight provides a useful first-level comparison
+                    of vehicle performance.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </main>
-</div>
 
-<footer class="footer">
-    <p>MECH-X — Interactive Mechatronics Engineering Laboratory</p>
+<footer>
+
+    <h3>MECH-X</h3>
+
+    <p>
+        Interactive Mechatronics Engineering Laboratory
+    </p>
+
+    <p style="margin-top:8px;">
+        Automotive Engineering Simulation Module
+    </p>
+
 </footer>
 
+
 <script>
-function getVal(id) {
+
+function getValue(id) {
     return parseFloat(document.getElementById(id).value);
 }
 
-function runVehicle() {
 
-    const mass = getVal("mass");
-    const powerKW = getVal("enginePower");
-    const radius = getVal("wheelRadius");
-    const Cd = getVal("cd");
-    const area = getVal("area");
-    const Cr = getVal("cr");
-    const gradePercent = getVal("grade");
-    const efficiency = getVal("efficiency") / 100;
+function runSimulation() {
 
-    if (
-        mass <= 0 ||
-        powerKW <= 0 ||
-        radius <= 0 ||
-        Cd < 0 ||
-        area <= 0 ||
-        Cr < 0 ||
-        efficiency <= 0 ||
-        efficiency > 1
-    ) {
-        document.getElementById("vehicleStatus").textContent =
-            "Please enter valid vehicle parameters.";
-        return;
-    }
+    // -----------------------------
+    // INPUTS
+    // -----------------------------
 
-    const rho = 1.225;
+    const powerKW = getValue("power");
+    const engineTorque = getValue("torque");
+    const mass = getValue("mass");
+    const wheelRadius = getValue("wheelRadius");
+    const efficiency = getValue("efficiency") / 100;
+
+    const gear1 = getValue("gear1");
+    const gear2 = getValue("gear2");
+    const gear3 = getValue("gear3");
+    const gear4 = getValue("gear4");
+    const gear5 = getValue("gear5");
+
+    const finalDrive = getValue("finalDrive");
+
+    const cd = getValue("cd");
+    const area = getValue("area");
+    const rho = getValue("rho");
+    const crr = getValue("crr");
+    const slopePercent = getValue("slope");
+
     const g = 9.81;
-    const grade = gradePercent / 100;
 
-    const enginePower =
-        powerKW * 1000 * efficiency;
+    // -----------------------------
+    // BASIC CALCULATIONS
+    // -----------------------------
+
+    const powerWeight = powerKW / (mass / 1000);
+
+    const wheelTorque =
+        engineTorque *
+        gear1 *
+        finalDrive *
+        efficiency;
+
+    // -----------------------------
+    // SIMULATION
+    // -----------------------------
+
+    let speed = 0;
+    let time = 0;
 
     const dt = 0.05;
-    const totalTime = 20;
-    const steps = Math.floor(totalTime / dt);
 
-    let velocity = 0;
+    const maxTime = 30;
 
     const times = [];
     const speeds = [];
 
-    let finalDrag = 0;
-    let finalTraction = 0;
-    let finalAcceleration = 0;
+    let zeroTo100 = null;
 
-    for (let i = 0; i <= steps; i++) {
+    let topSpeed = 0;
 
-        const t = i * dt;
+    while (time <= maxTime) {
 
-        const safeVelocity = Math.max(velocity, 0.5);
+        const speedMS = speed / 3.6;
 
-        let traction =
-            enginePower / safeVelocity;
+        // Determine approximate gear
+        let gearRatio;
 
-        const maxTraction = 7000;
+        if (speed < 25) {
+            gearRatio = gear1;
+        }
+        else if (speed < 45) {
+            gearRatio = gear2;
+        }
+        else if (speed < 70) {
+            gearRatio = gear3;
+        }
+        else if (speed < 100) {
+            gearRatio = gear4;
+        }
+        else {
+            gearRatio = gear5;
+        }
 
-        traction =
-            Math.min(traction, maxTraction);
+        // Wheel torque
+        const currentWheelTorque =
+            engineTorque *
+            gearRatio *
+            finalDrive *
+            efficiency;
 
-        const drag =
+        // Tractive force
+        const tractiveForce =
+            currentWheelTorque / wheelRadius;
+
+        // Aerodynamic drag
+        const dragForce =
             0.5 *
             rho *
-            Cd *
+            cd *
             area *
-            velocity *
-            velocity;
+            speedMS *
+            speedMS;
 
-        const rolling =
-            Cr *
+        // Rolling resistance
+        const rollingForce =
+            crr *
             mass *
             g;
 
-        const gradeForce =
+        // Road slope
+        const slopeAngle =
+            Math.atan(slopePercent / 100);
+
+        const slopeForce =
             mass *
             g *
-            Math.sin(Math.atan(grade));
+            Math.sin(slopeAngle);
 
-        const resistance =
-            drag +
-            rolling +
-            gradeForce;
+        // Net force
+        let netForce =
+            tractiveForce -
+            dragForce -
+            rollingForce -
+            slopeForce;
 
-        const netForce =
-            traction -
-            resistance;
-
-        const acceleration =
+        // Acceleration
+        let acceleration =
             netForce / mass;
 
-        velocity += acceleration * dt;
-
-        if (velocity < 0) {
-            velocity = 0;
+        // Prevent unrealistic reverse acceleration
+        if (speed <= 0 && acceleration < 0) {
+            acceleration = 0;
         }
 
-        times.push(t);
-        speeds.push(velocity * 3.6);
+        // Update speed
+        speed += acceleration * dt * 3.6;
 
-        finalDrag = drag;
-        finalTraction = traction;
-        finalAcceleration = acceleration;
+        if (speed < 0) {
+            speed = 0;
+        }
+
+        // Store values
+        times.push(time);
+        speeds.push(speed);
+
+        // Detect 0-100
+        if (zeroTo100 === null && speed >= 100) {
+            zeroTo100 = time;
+        }
+
+        if (speed > topSpeed) {
+            topSpeed = speed;
+        }
+
+        // Stop if vehicle reaches near equilibrium
+        if (
+            time > 5 &&
+            Math.abs(acceleration) < 0.005 &&
+            speed > 20
+        ) {
+            break;
+        }
+
+        time += dt;
     }
 
-    const last = speeds.length - 1;
 
-    document.getElementById("vehicleSpeed").textContent =
-        speeds[last].toFixed(1) + " km/h";
+    // -----------------------------
+    // OUTPUTS
+    // -----------------------------
 
-    document.getElementById("vehicleAccel").textContent =
-        finalAcceleration.toFixed(2) + " m/s²";
+    document.getElementById("powerWeight").textContent =
+        powerWeight.toFixed(1) + " kW/t";
 
-    document.getElementById("dragForce").textContent =
-        finalDrag.toFixed(1) + " N";
+    document.getElementById("wheelTorque").textContent =
+        wheelTorque.toFixed(0) + " N·m";
 
-    document.getElementById("tractiveForce").textContent =
-        finalTraction.toFixed(1) + " N";
+    document.getElementById("zeroToHundred").textContent =
+        zeroTo100 !== null
+            ? zeroTo100.toFixed(2) + " s"
+            : "> 30 s";
 
-    document.getElementById("vehicleStatus").textContent =
-        "Vehicle simulation completed successfully.";
+    document.getElementById("topSpeed").textContent =
+        topSpeed.toFixed(0) + " km/h";
 
-    drawVehicleGraph(times, speeds);
+
+    document.getElementById("status").textContent =
+        "Simulation complete. The vehicle reached an estimated " +
+        topSpeed.toFixed(0) +
+        " km/h under the selected conditions.";
+
+
+    drawGraph(times, speeds);
+
 }
 
-function drawVehicleGraph(times, speeds) {
 
-    const canvas = document.getElementById("vehicleCanvas");
-    const ctx = canvas.getContext("2d");
+// -----------------------------
+// GRAPH
+// -----------------------------
 
-    const width = canvas.width = canvas.clientWidth;
+function drawGraph(times, speeds) {
+
+    const canvas =
+        document.getElementById("graph");
+
+    const ctx =
+        canvas.getContext("2d");
+
+    const width = canvas.width;
     const height = canvas.height;
 
     ctx.clearRect(0, 0, width, height);
 
-    const padding = 45;
-
-    let maxSpeed = Math.max.apply(null, speeds);
-
-    if (maxSpeed <= 0) {
-        maxSpeed = 1;
+    if (times.length === 0) {
+        return;
     }
 
-    maxSpeed *= 1.1;
+    const padding = 55;
 
-    const maxTime = times[times.length - 1];
+    const graphWidth =
+        width - padding * 2;
 
-    ctx.strokeStyle = "#dbe8f7";
+    const graphHeight =
+        height - padding * 2;
+
+    const maxTime =
+        Math.max(...times);
+
+    const maxSpeed =
+        Math.max(...speeds, 100);
+
+
+    // Background
+
+    ctx.fillStyle = "#ffffff";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    // Grid
+
+    ctx.strokeStyle = "#dbe7f4";
+
     ctx.lineWidth = 1;
 
     for (let i = 0; i <= 5; i++) {
 
         const y =
             padding +
-            (height - 2 * padding) * i / 5;
+            graphHeight -
+            (i / 5) * graphHeight;
 
         ctx.beginPath();
-        ctx.moveTo(padding, y);
-        ctx.lineTo(width - padding, y);
+
+        ctx.moveTo(
+            padding,
+            y
+        );
+
+        ctx.lineTo(
+            width - padding,
+            y
+        );
+
         ctx.stroke();
+
+
+        const value =
+            (i / 5) * maxSpeed;
+
+        ctx.fillStyle = "#60758a";
+
+        ctx.font = "12px Arial";
+
+        ctx.fillText(
+            value.toFixed(0),
+            10,
+            y + 4
+        );
     }
 
+
+    for (let i = 0; i <= 5; i++) {
+
+        const x =
+            padding +
+            (i / 5) * graphWidth;
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x,
+            padding
+        );
+
+        ctx.lineTo(
+            x,
+            height - padding
+        );
+
+        ctx.stroke();
+
+
+        const value =
+            (i / 5) * maxTime;
+
+        ctx.fillStyle = "#60758a";
+
+        ctx.fillText(
+            value.toFixed(0) + "s",
+            x - 10,
+            height - 25
+        );
+    }
+
+
+    // Axis
+
+    ctx.strokeStyle = "#17324d";
+
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        padding,
+        padding
+    );
+
+    ctx.lineTo(
+        padding,
+        height - padding
+    );
+
+    ctx.lineTo(
+        width - padding,
+        height - padding
+    );
+
+    ctx.stroke();
+
+
+    // Speed curve
+
     ctx.strokeStyle = "#1261d6";
+
     ctx.lineWidth = 3;
 
     ctx.beginPath();
@@ -312,29 +1075,49 @@ function drawVehicleGraph(times, speeds) {
 
         const x =
             padding +
-            (width - 2 * padding) *
-            times[i] / maxTime;
+            (times[i] / maxTime) *
+            graphWidth;
 
         const y =
-            height - padding -
-            (height - 2 * padding) *
-            speeds[i] / maxSpeed;
+            height -
+            padding -
+            (speeds[i] / maxSpeed) *
+            graphHeight;
 
         if (i === 0) {
             ctx.moveTo(x, y);
-        } else {
+        }
+        else {
             ctx.lineTo(x, y);
         }
     }
 
     ctx.stroke();
 
-    ctx.fillStyle = "#16345f";
-    ctx.font = "14px Arial";
 
-    ctx.fillText("Speed (km/h)", 10, 20);
-    ctx.fillText("Time (s)", width - 75, height - 10);
+    // Labels
+
+    ctx.fillStyle = "#17324d";
+
+    ctx.font = "bold 13px Arial";
+
+    ctx.fillText(
+        "Vehicle Speed (km/h)",
+        padding,
+        25
+    );
+
+    ctx.fillText(
+        "Time (seconds)",
+        width - 145,
+        height - 10
+    );
 }
+
+
+// Run once using default values
+runSimulation();
+
 </script>
 
 </body>
