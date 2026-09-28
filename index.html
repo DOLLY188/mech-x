@@ -3,55 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <a href="index.html" class="btn btn-secondary">
-    ← Back to Home
-</a>
 
     <title>MECH-X | Interactive Mechatronics Engineering Laboratory</title>
     <link rel="stylesheet" href="style.css">
-    <header class="topbar">
-    <div class="container nav">
-
-        <a href="index.html" class="logo">
-            <span class="logo-mark">M</span>
-            MECH-X
-        </a>
-
-        <nav class="nav-links">
-
-         <!-- Mechanical -->
-<a href="mechanical.html">
-    Open Mechanical Lab →
-</a>
-
-<!-- Electrical -->
-<a href="electrical.html">
-    Open Electrical Lab →
-</a>
-
-<!-- Robotics -->
-<a href="robotics.html">
-    Open Robotics Lab →
-</a>
-
-<!-- Control -->
-<a href="control.html">
-    Open Control Lab →
-</a>
-
-<!-- Automotive -->
-<a href="automotive.html">
-    Open Automotive Lab →
-</a>
-
-<!-- Engineering Calculators -->
-<a href="calculators.html">
-    Open Engineering Calculators →
-</a>
-        </nav>
-
-    </div>
-</header>
 
     <meta name="description"
         content="MECH-X is an interactive engineering laboratory for mechatronics, mechanical, electrical, robotics, control systems and automotive engineering.">
@@ -85,50 +39,41 @@
             line-height: 1.6;
         }
 
-        /* NAVIGATION */
+        /* MECH-X NAVIGATION */
 
-        nav {
+        .mechx-nav {
             position: sticky;
             top: 0;
             z-index: 1000;
-
+            width: 100%;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-
-            padding: 18px 7%;
-
-            background: rgba(7,17,31,0.92);
-            backdrop-filter: blur(12px);
-
-            border-bottom: 1px solid var(--border);
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            padding: 16px 20px;
+            background: #07111f;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+            box-sizing: border-box;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--muted);
+        .mechx-nav a {
+            color: #d7e3f3;
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.3s;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 7px 4px;
+            transition: 0.2s ease;
         }
 
-        nav a:hover {
-            color: var(--accent);
+        .mechx-nav a:hover {
+            color: #00d4ff;
+        }
+
+        .mechx-nav a.active {
+            color: #ffffff;
+            background: rgba(18, 97, 214, 0.45);
+            border-radius: 8px;
         }
 
         /* HERO */
@@ -369,11 +314,19 @@
 
         /* MOBILE */
 
-        @media (max-width: 800px) {
+        @media (max-width: 900px) {
 
-            nav ul {
-                display: none;
+            .mechx-nav {
+                gap: 6px 14px;
+                padding: 14px 12px;
             }
+
+            .mechx-nav a {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 800px) {
 
             .stats {
                 grid-template-columns: repeat(2, 1fr);
@@ -390,6 +343,22 @@
 
             section {
                 padding: 65px 6%;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .mechx-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                white-space: nowrap;
+                padding: 12px;
+            }
+
+            .mechx-nav a {
+                flex-shrink: 0;
+                font-size: 13px;
             }
         }
 
@@ -416,19 +385,47 @@
 
 <body>
 
-    <!-- NAVIGATION -->
+    <!-- UNIVERSAL NAVIGATION -->
 
-    <nav>
+    <nav class="mechx-nav">
 
-        <div class="logo">
-            MECH<span>-X</span>
-        </div>
+        <a href="index.html" class="active">Home</a>
 
-        <ul>
-            <li><a href="#labs">Laboratories</a></li>
-            <li><a href="#roadmap">Roadmap</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
+        <a href="calculators.html">
+            Calculator
+        </a>
+
+        <a href="motor.html">
+            Motor Lab
+        </a>
+
+        <a href="control.html">
+            Control Lab
+        </a>
+
+        <a href="robotics.html">
+            Robotics
+        </a>
+
+        <a href="automotive.html">
+            Automotive Lab
+        </a>
+
+        <a href="mechanical.html">
+            Mechanical Lab
+        </a>
+
+        <a href="electrical.html">
+            Electrical Lab
+        </a>
+
+        <a href="knowledge.html">
+            Knowledge Base
+        </a>
+
+        <a href="reports.html">
+            Reports
+        </a>
 
     </nav>
 
@@ -532,8 +529,8 @@
                     strain, beams and mechanical systems.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="mechanical.html">
+                    Open Mechanical Lab →
                 </a>
 
             </div>
@@ -550,8 +547,8 @@
                     electronics and electrical analysis.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="electrical.html">
+                    Open Electrical Lab →
                 </a>
 
             </div>
@@ -568,8 +565,8 @@
                     inverse kinematics and workspace analysis.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="robotics.html">
+                    Open Robotics Lab →
                 </a>
 
             </div>
@@ -586,8 +583,8 @@
                     stability and control simulations.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="control.html">
+                    Open Control Lab →
                 </a>
 
             </div>
@@ -604,8 +601,8 @@
                     power, torque and acceleration.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="automotive.html">
+                    Open Automotive Lab →
                 </a>
 
             </div>
@@ -622,8 +619,8 @@
                     engineering calculation tools.
                 </p>
 
-                <a href="#">
-                    Coming Soon →
+                <a href="calculators.html">
+                    Open Engineering Calculators →
                 </a>
 
             </div>
