@@ -3,1583 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <a href="index.html" class="btn btn-secondary">
-    ← Back to Home
-</a>
 
-    <title>Robotics Laboratory | MECH-X</title>
+    <title>Reports | MECH-X Engineering Platform</title>
 
-    <meta name="description"
-          content="Interactive robotic arm simulator with forward and inverse kinematics.">
+    <link rel="stylesheet" href="style.css">
 
     <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        .reports-section {
+            padding: 70px 0;
         }
 
-        :root {
-            --blue: #1261d6;
-            --blue-dark: #0b2d5c;
-            --blue-light: #eaf3ff;
-            --blue-soft: #f5f9ff;
-            --text: #17324d;
-            --muted: #64748b;
-            --border: #d9e6f5;
-            --white: #ffffff;
-            --green: #16803c;
-            --red: #d93434;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f7faff;
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(10px);
-
-            border-bottom: 1px solid var(--border);
-
-            padding: 16px 6%;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--blue-dark);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .logo span {
-            color: var(--blue);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            color: var(--blue);
-        }
-
-        .page-header {
-            padding: 65px 6% 50px;
-
-            background:
-                radial-gradient(circle at top right, #dcecff 0%, transparent 35%),
-                linear-gradient(135deg, #ffffff, #eef6ff);
-
-            border-bottom: 1px solid var(--border);
-        }
-
-        .header-content {
-            max-width: 1150px;
-            margin: auto;
-        }
-
-        .tag {
-            display: inline-block;
-
-            background: var(--blue-light);
-            color: var(--blue);
-
-            padding: 7px 13px;
-            border-radius: 20px;
-
-            font-size: 12px;
-            font-weight: 800;
-
-            margin-bottom: 18px;
-        }
-
-        h1 {
-            font-size: clamp(36px, 6vw, 62px);
-            line-height: 1.05;
-
-            color: var(--blue-dark);
-
-            margin-bottom: 18px;
-        }
-
-        .header-content p {
-            max-width: 750px;
-            color: var(--muted);
-            font-size: 18px;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: 45px auto;
-            padding: 0 20px;
-        }
-
-        .main-grid {
+        .reports-grid {
             display: grid;
-            grid-template-columns: 330px 1fr;
-            gap: 25px;
-            align-items: start;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
 
-        .panel,
-        .simulator,
-        .theory {
-            background: white;
-
-            border: 1px solid var(--border);
-            border-radius: 18px;
-
-            box-shadow: 0 10px 30px rgba(20,60,110,0.06);
-        }
-
-        .panel {
-            padding: 25px;
-        }
-
-        .panel h2,
-        .simulator h2,
-        .theory h2 {
-            color: var(--blue-dark);
-        }
-
-        .panel-description {
-            color: var(--muted);
-            font-size: 14px;
-            margin: 7px 0 25px;
-        }
-
-        .section-label {
-            color: var(--blue);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 0.7px;
-
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .control-group {
-            margin-bottom: 23px;
-        }
-
-        .control-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 8px;
-        }
-
-        .control-title label {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .value {
-            background: var(--blue-light);
-            color: var(--blue);
-
-            padding: 4px 8px;
-            border-radius: 7px;
-
-            font-size: 13px;
-            font-weight: 800;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--blue);
-            cursor: pointer;
-        }
-
-        input[type="number"] {
-            width: 100%;
-
-            padding: 11px;
-
-            border: 1px solid var(--border);
-            border-radius: 9px;
-
-            font-size: 15px;
-            outline: none;
-        }
-
-        input[type="number"]:focus {
-            border-color: var(--blue);
-        }
-
-        .target-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .button {
-            width: 100%;
-
-            border: none;
-            border-radius: 9px;
-
-            padding: 12px 15px;
-
-            font-weight: 700;
-            cursor: pointer;
-
-            margin-top: 5px;
-        }
-
-        .primary {
-            background: var(--blue);
-            color: white;
-        }
-
-        .primary:hover {
-            background: #0d4fae;
-        }
-
-        .secondary {
-            background: var(--blue-light);
-            color: var(--blue);
-        }
-
-        .secondary:hover {
-            background: #d9eaff;
-        }
-
-        .simulator {
-            padding: 20px;
-        }
-
-        .simulator-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 15px;
-        }
-
-        .status {
-            background: #eaf8ef;
-            color: var(--green);
-
-            padding: 6px 10px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        canvas {
-            width: 100%;
-            height: 520px;
-
-            display: block;
-
+        .report-card {
             background: #ffffff;
-
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            transition: 0.25s ease;
         }
 
-        .results {
+        .report-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--blue);
+            box-shadow: 0 14px 35px rgba(20, 65, 120, 0.12);
+        }
+
+        .report-icon {
+            width: 48px;
+            height: 48px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-
-            margin-top: 18px;
-        }
-
-        .result {
-            background: var(--blue-soft);
-
-            border: 1px solid var(--border);
-            border-radius: 12px;
-
-            padding: 15px;
-        }
-
-        .result span {
-            display: block;
-
-            color: var(--muted);
-
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        .result strong {
-            color: var(--blue-dark);
-            font-size: 19px;
-        }
-
-        .message {
-            margin-top: 15px;
-
-            padding: 12px 15px;
-
-            border-radius: 9px;
-
+            place-items: center;
             background: var(--blue-light);
-
-            color: var(--blue-dark);
-
-            font-size: 13px;
-            font-weight: 600;
+            color: var(--blue);
+            border-radius: 12px;
+            font-size: 22px;
+            margin-bottom: 18px;
         }
 
-        .theory {
-            margin-top: 30px;
+        .report-card h3 {
+            color: var(--blue-dark);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .report-card p {
+            color: var(--muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .report-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: var(--blue-soft);
+            color: var(--blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .report-builder {
+            margin-top: 55px;
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
             padding: 30px;
         }
 
-        .theory p {
+        .report-builder h2 {
+            color: var(--blue-dark);
+            margin-bottom: 10px;
+        }
+
+        .report-builder > p {
             color: var(--muted);
-            margin: 12px 0;
+            margin-bottom: 25px;
         }
 
-        .formula {
-            background: var(--blue-dark);
-            color: white;
-
-            padding: 18px;
-
-            border-radius: 10px;
-
-            margin: 18px 0;
-
-            font-family: "Courier New", monospace;
-
-            overflow-x: auto;
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
-        .note {
-            background: var(--blue-light);
-
-            border-left: 4px solid var(--blue);
-
-            padding: 15px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
+        .form-group {
+            margin-bottom: 5px;
         }
 
-        footer {
-            margin-top: 70px;
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
 
-            background: var(--blue-dark);
-            color: white;
+        .report-output {
+            display: none;
+            margin-top: 25px;
+            padding: 22px;
+            background: var(--blue-soft);
+            border: 1px solid #cfe1fa;
+            border-radius: 12px;
+        }
 
+        .report-output h3 {
+            color: var(--blue-dark);
+            margin-bottom: 12px;
+        }
+
+        .report-output p {
+            color: var(--text);
+            white-space: pre-wrap;
+        }
+
+        .empty-state {
+            margin-top: 50px;
             text-align: center;
-
-            padding: 35px 20px;
+            padding: 45px 20px;
+            background: #ffffff;
+            border: 1px dashed var(--border);
+            border-radius: 16px;
         }
 
-        footer p {
-            opacity: 0.8;
-            font-size: 14px;
+        .empty-state h3 {
+            color: var(--blue-dark);
+            margin-bottom: 8px;
         }
 
-        @media(max-width:850px) {
+        .empty-state p {
+            color: var(--muted);
+        }
 
-            .nav-links {
-                display: none;
+        @media (max-width: 900px) {
+            .reports-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
+        }
 
-            .main-grid {
+        @media (max-width: 600px) {
+            .reports-grid {
                 grid-template-columns: 1fr;
             }
 
-            canvas {
-                height: 430px;
+            .form-grid {
+                grid-template-columns: 1fr;
             }
 
-            .results {
-                grid-template-columns: repeat(2,1fr);
-            }
-        }
-
-        @media(max-width:550px) {
-
-            .page-header {
-                padding: 50px 5%;
+            .form-group.full {
+                grid-column: auto;
             }
 
-            main {
-                padding: 0 12px;
-            }
-
-            .results {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            canvas {
-                height: 360px;
+            .report-builder {
+                padding: 22px;
             }
         }
-
     </style>
 </head>
 
 <body>
 
-
-<nav>
-
-    <a href="index.html" class="logo">
-        MECH<span>-X</span>
-    </a>
-
-    <ul class="nav-links">
-
-        <li>
-            <a href="index.html">Home</a>
-        </li>
-
-        <li>
-            <a href="calculators.html">Calculators</a>
-        </li>
-
-        <li>
-            <a href="motor.html">Motor Lab</a>
-        </li>
-
-        <li>
-            <a href="control.html">Control Lab</a>
-        </li>
-
-        <li>
-            <a href="robotics.html">Robotics Lab</a>
-        </li>
-
-    </ul>
-
-</nav>
+    <!-- UNIVERSAL MECH-X NAVIGATION -->
+    <nav class="mechx-nav">
+        <a href="index.html">Home</a>
+        <a href="calculators.html">Calculator</a>
+        <a href="motor.html">Motor Lab</a>
+        <a href="control.html">Control Lab</a>
+        <a href="robotics.html">Robotics</a>
+        <a href="automotive.html">Automotive Lab</a>
+        <a href="mechanical.html">Mechanical Lab</a>
+        <a href="electrical.html">Electrical Lab</a>
+        <a href="knowledge.html">Knowledge Base</a>
+        <a href="reports.html" class="active">Reports</a>
+    </nav>
 
 
-<header class="page-header">
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div class="container">
+            <div class="eyebrow">MECH-X ENGINEERING PLATFORM</div>
 
-    <div class="header-content">
+            <h1>Engineering Reports</h1>
 
-        <span class="tag">
-            ROBOTICS ENGINEERING LABORATORY
-        </span>
-
-        <h1>
-            Robotic Arm<br>
-            Kinematics Simulator
-        </h1>
-
-        <p>
-            Control a two-link robotic manipulator using
-            forward and inverse kinematics. Specify joint
-            angles manually or give the robot a target position.
-        </p>
-
-    </div>
-
-</header>
-
-
-<main>
-
-
-    <div class="main-grid">
-
-
-        <!-- CONTROL PANEL -->
-
-        <section class="panel">
-
-            <h2>Robot Controls</h2>
-
-            <p class="panel-description">
-                Configure the robotic arm and control its position.
+            <p>
+                Create, organize, and document engineering calculations,
+                laboratory work, simulations, experiments, and technical
+                observations using the MECH-X platform.
             </p>
+        </div>
+    </header>
 
 
-            <span class="section-label">
-                JOINT CONTROL
-            </span>
+    <!-- REPORTS -->
+    <main>
+
+        <section class="reports-section">
+            <div class="container">
+
+                <div class="section-head">
+                    <h2>Report Center</h2>
+                    <p>
+                        Select an engineering report category or create a
+                        new technical report.
+                    </p>
+                </div>
 
 
-            <div class="control-group">
+                <div class="reports-grid">
 
-                <div class="control-title">
+                    <!-- CALCULATOR REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">📐</div>
 
-                    <label>
-                        Joint 1
-                    </label>
+                        <h3>Calculator Reports</h3>
 
-                    <span
-                        class="value"
-                        id="theta1Value"
-                    >
-                        45°
-                    </span>
+                        <p>
+                            Document engineering calculations, equations,
+                            input values, results, and design assumptions.
+                        </p>
+
+                        <span class="report-status">
+                            Engineering
+                        </span>
+                    </div>
+
+
+                    <!-- MOTOR REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">⚙️</div>
+
+                        <h3>Motor Lab Reports</h3>
+
+                        <p>
+                            Record motor parameters, simulations,
+                            observations, calculations, and performance
+                            results.
+                        </p>
+
+                        <span class="report-status">
+                            Motor Lab
+                        </span>
+                    </div>
+
+
+                    <!-- CONTROL REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">🎛️</div>
+
+                        <h3>Control Lab Reports</h3>
+
+                        <p>
+                            Document control-system experiments, transfer
+                            functions, responses, and simulation results.
+                        </p>
+
+                        <span class="report-status">
+                            Control
+                        </span>
+                    </div>
+
+
+                    <!-- ROBOTICS REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">🤖</div>
+
+                        <h3>Robotics Reports</h3>
+
+                        <p>
+                            Record robotic-arm configurations, kinematics,
+                            calculations, simulations, and observations.
+                        </p>
+
+                        <span class="report-status">
+                            Robotics
+                        </span>
+                    </div>
+
+
+                    <!-- AUTOMOTIVE REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">🚗</div>
+
+                        <h3>Automotive Reports</h3>
+
+                        <p>
+                            Document automotive systems, diagnostics,
+                            maintenance procedures, and technical findings.
+                        </p>
+
+                        <span class="report-status">
+                            Automotive
+                        </span>
+                    </div>
+
+
+                    <!-- MECHANICAL REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">🔩</div>
+
+                        <h3>Mechanical Reports</h3>
+
+                        <p>
+                            Record mechanical calculations, machine
+                            analysis, materials, and engineering observations.
+                        </p>
+
+                        <span class="report-status">
+                            Mechanical
+                        </span>
+                    </div>
+
+
+                    <!-- ELECTRICAL REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">⚡</div>
+
+                        <h3>Electrical Reports</h3>
+
+                        <p>
+                            Document electrical calculations, circuits,
+                            measurements, simulations, and test results.
+                        </p>
+
+                        <span class="report-status">
+                            Electrical
+                        </span>
+                    </div>
+
+
+                    <!-- GENERAL REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">📄</div>
+
+                        <h3>General Engineering</h3>
+
+                        <p>
+                            Create a general technical report for engineering
+                            projects, experiments, assignments, or research.
+                        </p>
+
+                        <span class="report-status">
+                            General
+                        </span>
+                    </div>
+
+
+                    <!-- PROJECT REPORT -->
+                    <div class="report-card">
+                        <div class="report-icon">📊</div>
+
+                        <h3>Project Reports</h3>
+
+                        <p>
+                            Organize project objectives, methodology,
+                            calculations, results, challenges, and conclusions.
+                        </p>
+
+                        <span class="report-status">
+                            Projects
+                        </span>
+                    </div>
 
                 </div>
 
-                <input
-                    type="range"
-                    id="theta1"
-                    min="-180"
-                    max="180"
-                    value="45"
-                >
 
-            </div>
+                <!-- REPORT BUILDER -->
+                <div class="report-builder">
+
+                    <h2>Quick Report Builder</h2>
+
+                    <p>
+                        Enter the basic information below to generate a
+                        structured engineering report draft.
+                    </p>
+
+                    <form id="reportForm">
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <label for="reportTitle">
+                                    Report Title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="reportTitle"
+                                    placeholder="e.g. DC Motor Performance Test"
+                                    required
+                                >
+                            </div>
 
 
-            <div class="control-group">
+                            <div class="form-group">
+                                <label for="reportType">
+                                    Report Type
+                                </label>
 
-                <div class="control-title">
+                                <select id="reportType" required>
+                                    <option value="">
+                                        Select report type
+                                    </option>
 
-                    <label>
-                        Joint 2
-                    </label>
+                                    <option value="Engineering Calculation">
+                                        Engineering Calculation
+                                    </option>
 
-                    <span
-                        class="value"
-                        id="theta2Value"
+                                    <option value="Laboratory Report">
+                                        Laboratory Report
+                                    </option>
+
+                                    <option value="Simulation Report">
+                                        Simulation Report
+                                    </option>
+
+                                    <option value="Project Report">
+                                        Project Report
+                                    </option>
+
+                                    <option value="Technical Report">
+                                        Technical Report
+                                    </option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="objective">
+                                    Objective
+                                </label>
+
+                                <textarea
+                                    id="objective"
+                                    placeholder="Enter the objective of the work..."
+                                ></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="methodology">
+                                    Methodology
+                                </label>
+
+                                <textarea
+                                    id="methodology"
+                                    placeholder="Describe the procedure, method, or approach..."
+                                ></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="results">
+                                    Results
+                                </label>
+
+                                <textarea
+                                    id="results"
+                                    placeholder="Enter your results and observations..."
+                                ></textarea>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="conclusion">
+                                    Conclusion
+                                </label>
+
+                                <textarea
+                                    id="conclusion"
+                                    placeholder="Enter your conclusion..."
+                                ></textarea>
+                            </div>
+
+
+                            <div class="form-group full">
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary"
+                                >
+                                    Generate Report
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- GENERATED REPORT -->
+                    <div
+                        class="report-output"
+                        id="reportOutput"
                     >
-                        45°
-                    </span>
+                        <h3 id="outputTitle"></h3>
+
+                        <p id="outputText"></p>
+                    </div>
 
                 </div>
 
-                <input
-                    type="range"
-                    id="theta2"
-                    min="-180"
-                    max="180"
-                    value="45"
-                >
+
+                <!-- EMPTY STATE -->
+                <div class="empty-state">
+
+                    <h3>More Report Tools Coming</h3>
+
+                    <p>
+                        Additional report export, storage, printing,
+                        and engineering documentation tools can be added
+                        to MECH-X as the platform grows.
+                    </p>
+
+                </div>
 
             </div>
-
-
-            <span class="section-label">
-                LINK DIMENSIONS
-            </span>
-
-
-            <div class="control-group">
-
-                <label>
-                    Link 1 Length
-                </label>
-
-                <input
-                    type="number"
-                    id="link1"
-                    value="150"
-                    min="50"
-                    max="300"
-                >
-
-            </div>
-
-
-            <div class="control-group">
-
-                <label>
-                    Link 2 Length
-                </label>
-
-                <input
-                    type="number"
-                    id="link2"
-                    value="120"
-                    min="50"
-                    max="300"
-                >
-
-            </div>
-
-
-            <span class="section-label">
-                INVERSE KINEMATICS
-            </span>
-
-
-            <p
-                class="panel-description"
-                style="margin-bottom:12px;"
-            >
-                Enter a desired end-effector position.
-            </p>
-
-
-            <div class="target-grid">
-
-                <input
-                    type="number"
-                    id="targetX"
-                    placeholder="X"
-                    value="150"
-                >
-
-                <input
-                    type="number"
-                    id="targetY"
-                    placeholder="Y"
-                    value="150"
-                >
-
-            </div>
-
-
-            <button
-                class="button primary"
-                onclick="solveIK()"
-            >
-                Solve Inverse Kinematics
-            </button>
-
-
-            <button
-                class="button secondary"
-                onclick="resetRobot()"
-            >
-                Reset Robot
-            </button>
-
-
-            <div
-                class="message"
-                id="message"
-            >
-                Robot ready.
-            </div>
-
         </section>
 
-
-        <!-- SIMULATOR -->
-
-        <section class="simulator">
-
-            <div class="simulator-header">
-
-                <h2>
-                    Robot Workspace
-                </h2>
-
-                <span class="status">
-                    LIVE
-                </span>
-
-            </div>
+    </main>
 
 
-            <canvas id="robotCanvas"></canvas>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
 
+            <h3>MECH-X</h3>
 
-            <div class="results">
-
-                <div class="result">
-
-                    <span>
-                        End Effector X
-                    </span>
-
-                    <strong id="xResult">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        End Effector Y
-                    </span>
-
-                    <strong id="yResult">
-                        0
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        Joint 1
-                    </span>
-
-                    <strong id="theta1Result">
-                        0°
-                    </strong>
-
-                </div>
-
-
-                <div class="result">
-
-                    <span>
-                        Joint 2
-                    </span>
-
-                    <strong id="theta2Result">
-                        0°
-                    </strong>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </div>
-
-
-    <!-- THEORY -->
-
-    <section class="theory">
-
-        <h2>
-            Robotics Kinematics
-        </h2>
-
-        <p>
-            Forward kinematics calculates the end-effector
-            position from known joint angles.
-        </p>
-
-
-        <div class="formula">
-
-            x = L₁ cos(θ₁) + L₂ cos(θ₁ + θ₂)
-
-            <br><br>
-
-            y = L₁ sin(θ₁) + L₂ sin(θ₁ + θ₂)
+            <p>
+                Engineering tools, simulations, calculations,
+                laboratories, knowledge, and technical documentation
+                in one platform.
+            </p>
 
         </div>
+    </footer>
 
 
-        <p>
-            Inverse kinematics performs the opposite task:
-            given a desired X/Y position, it calculates
-            the joint angles required to reach that position.
-        </p>
+    <!-- JAVASCRIPT -->
+    <script>
+        document
+            .getElementById("reportForm")
+            .addEventListener("submit", function (event) {
 
+                event.preventDefault();
 
-        <div class="formula">
+                const title =
+                    document.getElementById("reportTitle").value.trim();
 
-            cos(θ₂) =
-            (x² + y² - L₁² - L₂²)
-            /
-            (2L₁L₂)
+                const type =
+                    document.getElementById("reportType").value;
 
-            <br><br>
+                const objective =
+                    document.getElementById("objective").value.trim();
 
-            θ₂ = acos(cos(θ₂))
+                const methodology =
+                    document.getElementById("methodology").value.trim();
 
-        </div>
+                const results =
+                    document.getElementById("results").value.trim();
 
+                const conclusion =
+                    document.getElementById("conclusion").value.trim();
 
-        <div class="note">
 
-            <strong>Engineering note:</strong>
+                const reportText =
+`Report Type: ${type}
 
-            Not every target position is reachable.
-            The target must fall within the robot's
-            reachable workspace. This simulator uses
-            a simplified planar two-degree-of-freedom model.
+OBJECTIVE
+${objective || "Not provided."}
 
-        </div>
+METHODOLOGY
+${methodology || "Not provided."}
 
-    </section>
+RESULTS
+${results || "Not provided."}
 
-</main>
+CONCLUSION
+${conclusion || "Not provided."}`;
 
 
-<footer>
+                document.getElementById("outputTitle").textContent =
+                    title;
 
-    <p>
-        MECH-X — Interactive Mechatronics Engineering Laboratory
-    </p>
+                document.getElementById("outputText").textContent =
+                    reportText;
 
-    <p>
-        Robotics Kinematics Module
-    </p>
+                document.getElementById("reportOutput").style.display =
+                    "block";
 
-</footer>
+                document.getElementById("reportOutput").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
-
-<script>
-
-    const canvas =
-        document.getElementById("robotCanvas");
-
-    const ctx =
-        canvas.getContext("2d");
-
-
-    const theta1Slider =
-        document.getElementById("theta1");
-
-    const theta2Slider =
-        document.getElementById("theta2");
-
-
-    const theta1Value =
-        document.getElementById("theta1Value");
-
-    const theta2Value =
-        document.getElementById("theta2Value");
-
-
-    const link1Input =
-        document.getElementById("link1");
-
-    const link2Input =
-        document.getElementById("link2");
-
-
-    const xResult =
-        document.getElementById("xResult");
-
-    const yResult =
-        document.getElementById("yResult");
-
-
-    const theta1Result =
-        document.getElementById("theta1Result");
-
-    const theta2Result =
-        document.getElementById("theta2Result");
-
-
-    const message =
-        document.getElementById("message");
-
-
-    function rad(degrees) {
-
-        return degrees * Math.PI / 180;
-
-    }
-
-
-    function deg(radians) {
-
-        return radians * 180 / Math.PI;
-
-    }
-
-
-    function calculateFK() {
-
-        const t1 =
-            rad(Number(theta1Slider.value));
-
-        const t2 =
-            rad(Number(theta2Slider.value));
-
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const x1 =
-            L1 * Math.cos(t1);
-
-        const y1 =
-            L1 * Math.sin(t1);
-
-
-        const x2 =
-            x1 +
-            L2 * Math.cos(t1 + t2);
-
-        const y2 =
-            y1 +
-            L2 * Math.sin(t1 + t2);
-
-
-        return {
-            x1,
-            y1,
-            x2,
-            y2
-        };
-
-    }
-
-
-    function updateRobot() {
-
-        theta1Value.textContent =
-            theta1Slider.value + "°";
-
-        theta2Value.textContent =
-            theta2Slider.value + "°";
-
-
-        drawRobot();
-
-    }
-
-
-    function drawGrid() {
-
-        ctx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-
-
-        const grid = 25;
-
-        ctx.strokeStyle = "#e8eff7";
-        ctx.lineWidth = 1;
-
-
-        for (
-            let x = 0;
-            x <= canvas.width;
-            x += grid
-        ) {
-
-            ctx.beginPath();
-
-            ctx.moveTo(x,0);
-            ctx.lineTo(x,canvas.height);
-
-            ctx.stroke();
-
-        }
-
-
-        for (
-            let y = 0;
-            y <= canvas.height;
-            y += grid
-        ) {
-
-            ctx.beginPath();
-
-            ctx.moveTo(0,y);
-            ctx.lineTo(canvas.width,y);
-
-            ctx.stroke();
-
-        }
-
-    }
-
-
-    function drawAxes(
-        originX,
-        originY
-    ) {
-
-        ctx.strokeStyle = "#9db4cc";
-        ctx.lineWidth = 2;
-
-
-        // X axis
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            0,
-            originY
-        );
-
-        ctx.lineTo(
-            canvas.width,
-            originY
-        );
-
-        ctx.stroke();
-
-
-        // Y axis
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            originX,
-            0
-        );
-
-        ctx.lineTo(
-            originX,
-            canvas.height
-        );
-
-        ctx.stroke();
-
-
-        // origin
-
-        ctx.fillStyle = "#0b2d5c";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            originX,
-            originY,
-            7,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-    }
-
-
-    function drawTarget(
-        originX,
-        originY,
-        scale
-    ) {
-
-        const targetX =
-            Number(
-                document.getElementById("targetX").value
-            );
-
-        const targetY =
-            Number(
-                document.getElementById("targetY").value
-            );
-
-
-        if (
-            Number.isNaN(targetX) ||
-            Number.isNaN(targetY)
-        ) {
-            return;
-        }
-
-
-        const screenX =
-            originX + targetX * scale;
-
-        const screenY =
-            originY - targetY * scale;
-
-
-        ctx.strokeStyle = "#d93434";
-        ctx.lineWidth = 3;
-
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            screenX - 9,
-            screenY - 9
-        );
-
-        ctx.lineTo(
-            screenX + 9,
-            screenY + 9
-        );
-
-        ctx.moveTo(
-            screenX + 9,
-            screenY - 9
-        );
-
-        ctx.lineTo(
-            screenX - 9,
-            screenY + 9
-        );
-
-        ctx.stroke();
-
-    }
-
-
-    function drawRobot() {
-
-        drawGrid();
-
-
-        const robot =
-            calculateFK();
-
-
-        const originX =
-            canvas.width / 2;
-
-        const originY =
-            canvas.height / 2;
-
-
-        /*
-            Use a scale that keeps the complete
-            robot visible on smaller screens.
-        */
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const maxReach =
-            L1 + L2;
-
-
-        const scale =
-            Math.min(
-                1,
-                (Math.min(
-                    canvas.width,
-                    canvas.height
-                ) * 0.42) / maxReach
-            );
-
-
-        drawAxes(
-            originX,
-            originY
-        );
-
-
-        drawTarget(
-            originX,
-            originY,
-            scale
-        );
-
-
-        const jointX =
-            originX +
-            robot.x1 * scale;
-
-        const jointY =
-            originY -
-            robot.y1 * scale;
-
-
-        const endX =
-            originX +
-            robot.x2 * scale;
-
-        const endY =
-            originY -
-            robot.y2 * scale;
-
-
-        // Base
-
-        ctx.fillStyle = "#0b2d5c";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            originX,
-            originY,
-            12,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-
-        // Link 1
-
-        ctx.strokeStyle = "#1261d6";
-        ctx.lineWidth = 18;
-        ctx.lineCap = "round";
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            originX,
-            originY
-        );
-
-        ctx.lineTo(
-            jointX,
-            jointY
-        );
-
-        ctx.stroke();
-
-
-        // Joint 1
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            jointX,
-            jointY,
-            11,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.strokeStyle = "#0b2d5c";
-        ctx.lineWidth = 4;
-
-        ctx.stroke();
-
-
-        // Link 2
-
-        ctx.strokeStyle = "#4c8de8";
-        ctx.lineWidth = 18;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            jointX,
-            jointY
-        );
-
-        ctx.lineTo(
-            endX,
-            endY
-        );
-
-        ctx.stroke();
-
-
-        // End joint
-
-        ctx.fillStyle = "#ffffff";
-
-        ctx.beginPath();
-
-        ctx.arc(
-            endX,
-            endY,
-            11,
-            0,
-            Math.PI * 2
-        );
-
-        ctx.fill();
-
-        ctx.strokeStyle = "#0b2d5c";
-        ctx.lineWidth = 4;
-
-        ctx.stroke();
-
-
-        // End effector
-
-        ctx.strokeStyle = "#d93434";
-        ctx.lineWidth = 5;
-
-        ctx.beginPath();
-
-        ctx.moveTo(
-            endX - 12,
-            endY - 12
-        );
-
-        ctx.lineTo(
-            endX + 12,
-            endY + 12
-        );
-
-        ctx.moveTo(
-            endX + 12,
-            endY - 12
-        );
-
-        ctx.lineTo(
-            endX - 12,
-            endY + 12
-        );
-
-        ctx.stroke();
-
-
-        // Results
-
-        xResult.textContent =
-            robot.x2.toFixed(2) + " mm";
-
-        yResult.textContent =
-            robot.y2.toFixed(2) + " mm";
-
-        theta1Result.textContent =
-            theta1Slider.value + "°";
-
-        theta2Result.textContent =
-            theta2Slider.value + "°";
-
-    }
-
-
-    function solveIK() {
-
-        const x =
-            Number(
-                document.getElementById("targetX").value
-            );
-
-        const y =
-            Number(
-                document.getElementById("targetY").value
-            );
-
-
-        const L1 =
-            Number(link1Input.value);
-
-        const L2 =
-            Number(link2Input.value);
-
-
-        const distance =
-            Math.sqrt(
-                x * x +
-                y * y
-            );
-
-
-        /*
-            Workspace condition:
-
-            |L1 - L2| <= distance <= L1 + L2
-        */
-
-
-        if (
-            distance > L1 + L2 ||
-            distance < Math.abs(L1 - L2)
-        ) {
-
-            message.textContent =
-                "Target is outside the reachable workspace.";
-
-            message.style.background =
-                "#fff0f0";
-
-            message.style.color =
-                "#b42323";
-
-            return;
-
-        }
-
-
-        let cosTheta2 =
-            (
-                x * x +
-                y * y -
-                L1 * L1 -
-                L2 * L2
-            )
-            /
-            (
-                2 * L1 * L2
-            );
-
-
-        /*
-            Protect against floating-point
-            values slightly outside [-1,1].
-        */
-
-        cosTheta2 =
-            Math.max(
-                -1,
-                Math.min(
-                    1,
-                    cosTheta2
-                )
-            );
-
-
-        const theta2 =
-            Math.acos(cosTheta2);
-
-
-        const theta1 =
-            Math.atan2(y,x)
-            -
-            Math.atan2(
-                L2 * Math.sin(theta2),
-                L1 + L2 * Math.cos(theta2)
-            );
-
-
-        const theta1Degrees =
-            deg(theta1);
-
-        const theta2Degrees =
-            deg(theta2);
-
-
-        theta1Slider.value =
-            Math.max(
-                -180,
-                Math.min(
-                    180,
-                    theta1Degrees
-                )
-            );
-
-
-        theta2Slider.value =
-            Math.max(
-                -180,
-                Math.min(
-                    180,
-                    theta2Degrees
-                )
-            );
-
-
-        message.textContent =
-            "Target reached. Joint angles calculated successfully.";
-
-        message.style.background =
-            "#eaf8ef";
-
-        message.style.color =
-            "#16803c";
-
-
-        updateRobot();
-
-    }
-
-
-    function resetRobot() {
-
-        theta1Slider.value = 45;
-        theta2Slider.value = 45;
-
-        link1Input.value = 150;
-        link2Input.value = 120;
-
-        document.getElementById("targetX").value = 150;
-        document.getElementById("targetY").value = 150;
-
-
-        message.textContent =
-            "Robot reset.";
-
-        message.style.background =
-            "#eaf3ff";
-
-        message.style.color =
-            "#0b2d5c";
-
-
-        updateRobot();
-
-    }
-
-
-    function resizeCanvas() {
-
-        const rect =
-            canvas.getBoundingClientRect();
-
-
-        canvas.width =
-            rect.width;
-
-        canvas.height =
-            rect.height;
-
-
-        drawRobot();
-
-    }
-
-
-    theta1Slider.addEventListener(
-        "input",
-        updateRobot
-    );
-
-
-    theta2Slider.addEventListener(
-        "input",
-        updateRobot
-    );
-
-
-    link1Input.addEventListener(
-        "input",
-        updateRobot
-    );
-
-
-    link2Input.addEventListener(
-        "input",
-        updateRobot
-    );
-
-
-    document
-        .getElementById("targetX")
-        .addEventListener(
-            "input",
-            drawRobot
-        );
-
-
-    document
-        .getElementById("targetY")
-        .addEventListener(
-            "input",
-            drawRobot
-        );
-
-
-    window.addEventListener(
-        "resize",
-        resizeCanvas
-    );
-
-
-    resizeCanvas();
-
-</script>
+            });
+    </script>
 
 </body>
 </html>
