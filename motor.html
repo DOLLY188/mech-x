@@ -4,54 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DC Motor Laboratory | MECH-X</title>
-    <a href="index.html" class="btn btn-secondary">
-    ← Back to Home
-</a>
-    <aside class="sidebar">
-
-    <div class="sidebar-title">
-        MECH-X LABS
-    </div>
-
-    <a href="index.html">⌂ Home</a>
-
-    <a href="calculators.html">
-        Engineering Calculators
-    </a>
-
-    <a href="motor.html">
-        DC Motor Lab
-    </a>
-
-    <a href="control.html">
-        Control Systems Lab
-    </a>
-
-    <a href="robotics.html">
-        Robotics Lab
-    </a>
-
-    <a href="automotive.html">
-        Automotive Lab
-    </a>
-
-    <a href="mechanical.html">
-        Mechanical Lab
-    </a>
-
-    <a href="electrical.html">
-        Electrical & Electronics
-    </a>
-
-    <a href="knowledge.html">
-        Knowledge Base
-    </a>
-
-    <a href="reports.html">
-        Reports & Export
-    </a>
-
-</aside>
 
 <style>
 :root{
@@ -91,62 +43,41 @@ a{
     text-decoration:none;
 }
 
-/* ================= NAVIGATION ================= */
+/* ================= UNIVERSAL MECH-X NAVIGATION ================= */
 
-.navbar{
-    background:#ffffff;
-    border-bottom:1px solid var(--border);
+.mechx-nav{
     position:sticky;
     top:0;
-    z-index:100;
-}
-
-.nav-container{
-    max-width:1200px;
-    margin:auto;
-    padding:18px 24px;
+    z-index:1000;
+    width:100%;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    gap:25px;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px 22px;
+    padding:16px 20px;
+    background:#07111f;
+    border-bottom:1px solid rgba(255,255,255,0.09);
+    box-sizing:border-box;
 }
 
-.logo{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:2px;
-    color:var(--blue);
-    line-height:1;
+.mechx-nav a{
+    color:#d7e3f3;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
+    padding:7px 4px;
+    transition:0.2s ease;
 }
 
-.logo span{
-    color:var(--blue-dark);
+.mechx-nav a:hover{
+    color:#00d4ff;
 }
 
-.nav-links{
-    display:flex;
-    gap:26px;
-    align-items:center;
-    overflow-x:auto;
-    white-space:nowrap;
-    scrollbar-width:none;
-}
-
-.nav-links::-webkit-scrollbar{
-    display:none;
-}
-
-.nav-links a{
-    color:#40516a;
-    font-weight:600;
-    font-size:15px;
-    padding:8px 2px;
-    transition:.2s;
-}
-
-.nav-links a:hover,
-.nav-links a.active{
-    color:var(--blue);
+.mechx-nav a.active{
+    color:#ffffff;
+    background:rgba(18,97,214,.45);
+    border-radius:8px;
 }
 
 /* ================= HERO ================= */
@@ -459,21 +390,6 @@ footer strong{
 
 @media(max-width:800px){
 
-    .nav-container{
-        padding:16px 18px;
-        align-items:flex-start;
-    }
-
-    .logo{
-        font-size:22px;
-        min-width:70px;
-    }
-
-    .nav-links{
-        gap:20px;
-        max-width:calc(100vw - 100px);
-    }
-
     .hero{
         padding:55px 20px 35px;
     }
@@ -505,6 +421,31 @@ footer strong{
 
     .canvas-wrapper{
         height:280px;
+    }
+
+    .mechx-nav{
+        gap:6px 14px;
+        padding:14px 12px;
+    }
+
+    .mechx-nav a{
+        font-size:13px;
+    }
+}
+
+@media(max-width:600px){
+
+    .mechx-nav{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        white-space:nowrap;
+        padding:12px;
+    }
+
+    .mechx-nav a{
+        flex-shrink:0;
+        font-size:13px;
     }
 }
 
@@ -550,24 +491,18 @@ footer strong{
 
 <body>
 
-<!-- NAVIGATION -->
-<nav class="navbar">
-    <div class="nav-container">
-
-        <a href="index.html" class="logo">
-            MECH-<span>X</span>
-        </a>
-
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="calculators.html">Calculators</a>
-            <a href="motor.html" class="active">Motor Lab</a>
-            <a href="control.html">Control Lab</a>
-            <a href="robotics.html">Robotics</a>
-            <a href="automotive.html">Automotive</a>
-        </div>
-
-    </div>
+<!-- UNIVERSAL MECH-X NAVIGATION -->
+<nav class="mechx-nav">
+    <a href="index.html">Home</a>
+    <a href="calculators.html">Calculator</a>
+    <a href="motor.html" class="active">Motor Lab</a>
+    <a href="control.html">Control Lab</a>
+    <a href="robotics.html">Robotics</a>
+    <a href="automotive.html">Automotive Lab</a>
+    <a href="mechanical.html">Mechanical Lab</a>
+    <a href="electrical.html">Electrical Lab</a>
+    <a href="knowledge.html">Knowledge Base</a>
+    <a href="reports.html">Reports</a>
 </nav>
 
 
