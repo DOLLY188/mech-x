@@ -3,99 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <aside class="sidebar">
-        <aside class="sidebar">
-            <a href="index.html" class="btn btn-secondary">
-    ← Back to Home
-</a>
-
-    <div class="sidebar-title">
-        MECH-X LABS
-    </div>
-
-    <a href="index.html">⌂ Home</a>
-
-    <a href="calculators.html">
-        Engineering Calculators
-    </a>
-
-    <a href="motor.html">
-        DC Motor Lab
-    </a>
-
-    <a href="control.html">
-        Control Systems Lab
-    </a>
-
-    <a href="robotics.html">
-        Robotics Lab
-    </a>
-
-    <a href="automotive.html">
-        Automotive Lab
-    </a>
-
-    <a href="mechanical.html">
-        Mechanical Lab
-    </a>
-
-    <a href="electrical.html">
-        Electrical & Electronics
-    </a>
-
-    <a href="knowledge.html">
-        Knowledge Base
-    </a>
-
-    <a href="reports.html">
-        Reports & Export
-    </a>
-
-</aside>
-
-    <div class="sidebar-title">
-        MECH-X LABS
-    </div>
-
-    <a href="index.html">⌂ Home</a>
-
-    <a href="calculators.html">
-        Engineering Calculators
-    </a>
-
-    <a href="motor.html">
-        DC Motor Lab
-    </a>
-
-    <a href="control.html">
-        Control Systems Lab
-    </a>
-
-    <a href="robotics.html">
-        Robotics Lab
-    </a>
-
-    <a href="automotive.html">
-        Automotive Lab
-    </a>
-
-    <a href="mechanical.html">
-        Mechanical Lab
-    </a>
-
-    <a href="electrical.html">
-        Electrical & Electronics
-    </a>
-
-    <a href="knowledge.html">
-        Knowledge Base
-    </a>
-
-    <a href="reports.html">
-        Reports & Export
-    </a>
-
-</aside>
 
 <title>Automotive Engineering Lab | MECH-X</title>
 
@@ -126,46 +33,93 @@ body {
     line-height: 1.6;
 }
 
-nav {
+
+/* =========================================
+   MECH-X UNIVERSAL HORIZONTAL NAVIGATION
+   ========================================= */
+
+.mechx-nav {
     position: sticky;
     top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,.97);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 6%;
+    z-index: 1000;
+
+    width: 100%;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--blue-dark);
-    text-decoration: none;
-}
-
-.logo span {
-    color: var(--blue);
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
+    justify-content: center;
     flex-wrap: wrap;
+
+    gap: 8px 22px;
+
+    padding: 15px 20px;
+
+    background: #0b2d5c;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+    box-sizing: border-box;
 }
 
-.nav-links a {
-    color: var(--text);
+.mechx-nav a {
+    color: #ffffff;
+
     text-decoration: none;
+
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
+
+    padding: 7px 5px;
+
+    border-radius: 6px;
+
+    transition: 0.2s ease;
 }
 
-.nav-links a:hover {
-    color: var(--blue);
+.mechx-nav a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.10);
 }
+
+.mechx-nav a.active {
+    background: #1261d6;
+    color: #ffffff;
+}
+
+@media (max-width: 1000px) {
+
+    .mechx-nav {
+        gap: 6px 14px;
+        padding: 13px 12px;
+    }
+
+    .mechx-nav a {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .mechx-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+
+        white-space: nowrap;
+
+        padding: 12px;
+    }
+
+    .mechx-nav a {
+        flex-shrink: 0;
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================
+   AUTOMOTIVE LAB
+   ========================================= */
 
 header {
     padding: 70px 6% 55px;
@@ -415,12 +369,6 @@ footer p {
     .info-grid {
         grid-template-columns: 1fr;
     }
-
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
 }
 
 @media(max-width:550px) {
@@ -438,19 +386,32 @@ footer p {
 
 <body>
 
-<nav>
 
-<a href="index.html" class="logo">
-MECH<span>-X</span>
-</a>
+<!-- =========================================
+     MECH-X UNIVERSAL NAVIGATION
+     ========================================= -->
 
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="calculators.html">Calculators</a>
-<a href="motor.html">Motor Lab</a>
-<a href="control.html">Control Lab</a>
-<a href="robotics.html">Robotics Lab</a>
-</div>
+<nav class="mechx-nav">
+
+    <a href="index.html">Home</a>
+
+    <a href="calculators.html">Calculator</a>
+
+    <a href="motor.html">Motor Lab</a>
+
+    <a href="control.html">Control Lab</a>
+
+    <a href="robotics.html">Robotics</a>
+
+    <a href="automotive.html" class="active">Automotive Lab</a>
+
+    <a href="mechanical.html">Mechanical Lab</a>
+
+    <a href="electrical.html">Electrical Lab</a>
+
+    <a href="knowledge.html">Knowledge Base</a>
+
+    <a href="reports.html">Reports</a>
 
 </nav>
 
